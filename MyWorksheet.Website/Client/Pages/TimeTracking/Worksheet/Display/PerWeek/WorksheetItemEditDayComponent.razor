@@ -1,0 +1,277 @@
+﻿@inherits NavigationPageBase;
+
+@using System.Globalization
+@using MyWorksheet.Website.Shared.ViewModels.ApiResultModels.Worksheet
+@using Microsoft.AspNetCore.Components
+@using MyWorksheet.Website.Client.Components.TimeTracking
+
+@{
+	var dayInWeek = WorksheetDay;
+	var dayWorktime = dayInWeek.GetDayWorktime();
+	var meanWorkTime = Model.WorktimeMode.GetDayWorktime(Model.Workload, dayInWeek.Day.DayOfWeek);
+	var allowSave = CanSaveEditorItem(dayInWeek.Editor);
+}
+@functions
+{
+	public RenderFragment StateAwareChargeRate(ProjectItemRateViewModel chargeRate)
+	{
+		return __builder =>
+		{
+			<PresentationStateAwareComponent>
+				<Enabled>
+					@chargeRate.Name
+				</Enabled>
+				<Disabled>
+					<span>@chargeRate.Name</span>
+					<span>@chargeRate.Rate</span>
+					<span><Translatable Key="@chargeRate.ProjectChargeRate?.DisplayKey" /></span>
+					<span>(@chargeRate.TaxRate %)</span>
+				</Disabled>
+			</PresentationStateAwareComponent>
+		};
+	}
+}
+
+<div class="list-group-item no-fx text-justify" @key="@("dayView_" + dayInWeek.Day)">
+	<div class="d-flex flex-row no-fx">
+		<div class="list-group-item-badge no-fx
+							 @When(dayInWeek.Today, "list-group-item-info")
+					 @When(dayInWeek.IsPast && dayInWeek.IsWorkingDay && dayWorktime >= meanWorkTime, "list-group-item-success")
+					 @When(dayInWeek.Today && dayInWeek.IsWorkingDay && dayWorktime < meanWorkTime, "list-group-item-warning")
+					 @When(dayInWeek.IsPast && dayInWeek.IsWorkingDay && dayWorktime < meanWorkTime, "list-group-item-danger")">
+		</div>
+		<span class="time-display-column">
+			@dayInWeek.Day.ToString("d")
+		</span>
+		<span class="time-display-column">@TextService.CurrentSystemUiCulture.DateTimeFormat.GetDayName(dayInWeek.Day.DayOfWeek)</span>
+		<span class="time-weekday-display-column"><TimeDisplay Value="dayInWeek.GetDayWorktime()" /></span>
+		<span class="timespan-display-column">
+			@{
+				var items = dayInWeek.GetWorksheetItems().ToArray();
+
+				int minWorktime = 0;
+				int maxWorktime = 0;
+				if (items.Any())
+				{
+					minWorktime = items.Select(f => f.FromTime).Min();
+					maxWorktime = items.Select(f => f.ToTime).Max();
+				}
+			}
+			<TimeDisplay Value="minWorktime" /> - <TimeDisplay Value="maxWorktime" />
+		</span>
+		<div class="flex-fill">
+			@{
+				var formName = "editForm_" + dayInWeek.Day.Day;
+			}
+			<EditForm Model="dayInWeek.Editor"
+					  id="@formName"
+					  name="@formName"
+					  class="form-inline"
+					  OnValidSubmit="(() => CreateNewWorksheetItem(dayInWeek.Editor))">
+				<fieldset class="d-flex flex-row w-100 transperent-fieldset p-0"
+						  disabled="@(Tracker != null && dayInWeek.Day >= Tracker.StartTime.Date)">
+					<div class="time-input-column">
+						<TimeValueEditor @bind-Value="dayInWeek.Editor.FromTime"
+										 Converter="IntTimespanMinutesConverter.Converter"
+										 DisplayMode="@DisplayModeTypes.TimeOfDay" />
+					</div>
+					<div class="time-input-column">
+						<TimeValueEditor @bind-Value="dayInWeek.Editor.ToTime"
+										 Converter="IntTimespanMinutesConverter.Converter"
+										 DisplayMode="@DisplayModeTypes.TimeOfDay" />
+					</div>
+					<div class="comment-column">
+						<div class="input-group d-flex flex-row">
+							<InputControl @bind-Value="dayInWeek.Editor.Comment"
+										  BindingMode="BindingMode.PropertyChanged">
+								<DataListSource>
+									<DataListInputControl TValue="string"
+														  Options="HttpService.WorksheetItemApiAccess.CommentSuggestion" />
+								</DataListSource>
+							</InputControl>
+							<div class="input-group-addon">
+								@if (dayInWeek.GetWorksheetItems().Any())
+								{
+									<CollapsedTrigger Key="@("day." + dayInWeek.Day.Day)"
+												  ElementType="button"
+												  type="button"
+												  class="btn btn-outline-primary">
+										<CollapsedIndicator Key="@("day." + dayInWeek.Day.Day)" />
+									</CollapsedTrigger>
+								}
+								<button class="btn btn-outline-primary @When(allowSave, "btn-outline-success")"
+										disabled="@(!allowSave)"
+										type="submit">
+									<i class="fas fa-save"></i>
+								</button>
+								@if (Model.ChargeRates.Count > 1)
+								{
+									<CollapsedTrigger Key="@("day_chargeRate." + dayInWeek.Day.Day)"
+												  ElementType="button"
+												  type="button"
+												  class="btn btn-outline-success">
+										<i class="fa fa-save"></i>
+										<CollapsedIndicator Key="@("day_chargeRate." + dayInWeek.Day.Day)" />
+									</CollapsedTrigger>
+								}
+							</div>
+						</div>
+					</div>
+				</fieldset>
+			</EditForm>
+		</div>
+	</div>
+
+	<div class="">
+		<TimeProgressComponent CollapseState="@("day." + dayInWeek.Day.Day)"
+							   WorksheetItems="dayInWeek.GetWorksheetItemsWithPause(true, false)" />
+	</div>
+
+	<div class="d-flex flex-row">
+		<Collapsed Key="@("day." + dayInWeek.Day.Day)" class="flex-fill">
+			<div class="d-flex flex-row">
+				<div class="flex-fill">
+					<table class="table w-100">
+						<thead>
+							<tr>
+								<th class="command-column"></th>
+								<th class="time-input-column"><Translatable Key="WorksheetItem/From" /></th>
+								<th class="time-input-column"><Translatable Key="WorksheetItem/To" /></th>
+								<th class="time-input-column"><Translatable Key="WorksheetItem/Timespan" /></th>
+								<th class="chargerate-input-column"><Translatable Key="Entity/ChargeRate" /></th>
+								<th><Translatable Key="WorksheetItem/Comment" /></th>
+								<th class="command-column"></th>
+							</tr>
+						</thead>
+						<tbody>
+							@foreach (var dayEntry in dayInWeek.GetWorksheetItemsWithPause())
+							{
+								@if (dayEntry is PauseWorksheetItemModel)
+								{
+									<tr class="bg-info">
+										<td>
+											<Translatable Key="WorksheetItem/Pause"></Translatable>
+										</td>
+										<td><TimeDisplay Value="dayEntry.FromTime" /></td>
+										<td><TimeDisplay Value="dayEntry.ToTime" /></td>
+										<td><TimeDisplay Value="dayEntry.ToTime - dayEntry.FromTime" /></td>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+								}
+								else
+								{
+
+									<tr @key="@("DayEditorView_" + dayEntry.WorksheetItemId)">
+										@if (Editors.TryGetValue(dayEntry.WorksheetItemId, out var editorState))
+										{
+											var editor = editorState.Value.Entity;
+											<td colspan="6">
+												<EditForm Model="editor" class="form-inline "
+											  disabled="@(Tracker != null && dayInWeek.Day >= Tracker.StartTime)"
+											  OnValidSubmit="(() => SaveMultiple(dayInWeek.Day.Date))">
+													<fieldset class="free-fieldset d-flex flex-row">
+														@if (editor.Overlaps)
+														{
+															<i class="fa fa-exclamation-triangle">
+
+															</i>
+														}
+														<TimeValueEditor @bind-Value="editor.FromTime"
+															 DisplayMode="@DisplayModeTypes.TimeOfDay"
+															 Converter="IntTimespanMinutesConverter.Converter"
+															 class="time-input-column" />
+														<TimeValueEditor @bind-Value="editor.ToTime"
+															 DisplayMode="@DisplayModeTypes.TimeOfDay"
+															 Converter="IntTimespanMinutesConverter.Converter"
+															 class="time-input-column" />
+														<SelectionFieldControl ItemsSource="ItemRates"
+																   @bind-SelectedKey="editor.IdProjectItemRate"
+																   DisplayMemberExpression="FormatChargeRateDisplay"
+																   ValueMemberExpression="e => e.ProjectItemRateId"
+																   class="chargerate-input-column" />
+														<InputControl @bind-Value="editor.Comment">
+															<DataListSource>
+																<DataListInputControl TValue="string"
+																		  Options="HttpService.WorksheetItemApiAccess.CommentSuggestion">
+
+																</DataListInputControl>
+															</DataListSource>
+														</InputControl>
+													</fieldset>
+												</EditForm>
+											</td>
+										}
+										else
+										{
+											<td>
+												<button class="btn btn-outline-secondary"
+											@onclick="@(() => StartEditing(dayEntry))">
+													<i class="fa fa-edit"></i>
+												</button>
+											</td>
+											<td><TimeDisplay Value="dayEntry.FromTime" /></td>
+											<td><TimeDisplay Value="dayEntry.ToTime" /></td>
+											<td><TimeDisplay Value="dayEntry.ToTime - dayEntry.FromTime" /></td>
+											<td>
+												<span>
+													@StateAwareChargeRate(ItemRates.FirstOrDefault(e => e.ProjectItemRateId == dayEntry.IdProjectItemRate))
+												</span>
+											</td>
+											<td><span>@dayEntry.Comment</span></td>
+											<td>
+												<button class="btn btn-outline-danger"
+											@onclick="(() => DeleteWorksheetItem(dayEntry.WorksheetItemId))">
+													<i class="fa fa-trash"></i>
+												</button>
+											</td>
+										}
+									</tr>
+									//<tr>
+									//	<td colspan="7" style="height: 4rem">
+									//		<DaySpanComponent WorksheetItemModels="Model.WorksheetItems" Date="dayInWeek.Day"/>
+									//	</td>
+									//</tr>
+								}
+							}
+						</tbody>
+						@if (Editors.Any(f => f.Value.Value.Entity.DateOfAction.Date == dayInWeek.Day.Date))
+						{
+							<tfoot>
+								<tr>
+									<td colspan="6">
+										<button class="btn btn-outline-primary"
+											@onclick="(() => SaveMultiple(dayInWeek.Day.Date))">
+											<i class="fa fa-save"></i>
+										</button>
+										<button class="btn btn-outline-warning"
+											@onclick="(() => RevertDay(dayInWeek.Day.Date))">
+											<i class="fa fa-ban"></i>
+										</button>
+									</td>
+								</tr>
+							</tfoot>
+						}
+					</table>
+				</div>
+
+			</div>
+		</Collapsed>
+		<Collapsed Key="@("day_chargeRate." + dayInWeek.Day.Day)" class="ms-auto">
+			<div class="d-flex flex-column">
+				@foreach (var chargeRate in Model.ChargeRates)
+				{
+					<button form="editForm_@(dayInWeek.Day.Day)"
+						type="submit"
+						disabled="@(!allowSave)"
+						class="btn btn-outline-success"
+						@onclick="(() => dayInWeek.Editor.IdProjectItemRate = chargeRate.ProjectItemRateId)">
+						<i class="fa fa-save"></i>
+						@StateAwareChargeRate(chargeRate)
+					</button>
+				}
+			</div>
+		</Collapsed>
+	</div>
+</div>

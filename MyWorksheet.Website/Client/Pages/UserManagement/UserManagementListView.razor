@@ -1,0 +1,44 @@
+﻿@inherits NavigationPageBase
+
+
+@functions
+{
+	public override void OnSetPlugins()
+	{
+		AddPlugin("Buttons", Buttons(), PluginLocation.Header);
+		base.OnSetPlugins();
+	}
+
+	public RenderFragment Buttons()
+	{
+		return __builder =>
+		{
+		<div class="footer-button-area">
+			<a class="btn btn-outline-primary" href="/User/new">
+				<i class="fas fa-plus-circle"></i>
+			</a>
+		</div>
+		};
+	}
+}
+
+<NotLoadedGuardComponent @bind-ViewState="ViewState">
+	<table class="table">
+		<thead>
+			<tr>
+				<th><Translatable Key="Users/Id" /></th>
+				<th><Translatable Key="Users/Username" /></th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var user in Users.Cache)
+			{
+				<tr class="selectable selectable-primary" 
+					@onclick="@(() => ModuleService.NavigateTo("/User/" + user.UserID))">
+					<td><span>@user.UserID</span></td>
+					<td><span>@user.Username</span></td>
+				</tr>
+			}
+		</tbody>
+	</table>
+</NotLoadedGuardComponent>

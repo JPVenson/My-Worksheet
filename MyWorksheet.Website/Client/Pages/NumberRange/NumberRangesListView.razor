@@ -1,0 +1,24 @@
+﻿@attribute [Route("/NumberRanges")]
+@attribute [Page("Links/NumberRanges", IsNavbarView = true, PageIconCss = "fas fa-object-group", Group = "Links/Settings")]
+@attribute [Authorize()]
+@inherits MyWorksheet.Website.Client.Pages.Base.NavigationPageBase
+
+<table class="table">
+	<thead>
+	<tr>
+		<th><Translatable Key="NumberRange/Code"/></th>
+		<th><Translatable Key="NumberRange/Counter"/></th>
+		<th><Translatable Key="NumberRange/Template"/></th>
+	</tr>
+	</thead>
+	<tbody>
+	@foreach (var nr in NumberRanges)
+	{
+		<tr class="selectable selectable-primary" @onclick="@(() => ModuleService.NavigateTo("/NumberRange/" + nr.AppNumberRangeId))">
+			<td><span>@nr.Code</span></td>
+			<td><span>@nr.Counter</span></td>
+			<td><span>@nr.Template</span></td>
+		</tr>
+	}
+	</tbody>
+</table>

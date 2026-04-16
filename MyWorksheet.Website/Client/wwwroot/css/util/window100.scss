@@ -1,0 +1,44 @@
+﻿@mixin wh-100 {
+    height: 100vh !important;
+}
+
+@mixin ww-100 {
+    width: 100vw !important;
+}
+
+@mixin wwh-100 {
+    @include wh-100;
+    @include ww-100;
+}
+
+@each $breakpoint in map-keys($grid-breakpoints) {
+    @include media-breakpoint-up($breakpoint) {
+        $size: breakpoint-infix($breakpoint, $grid-breakpoints);
+
+        .wh-100#{$size} {
+            @include wh-100;
+        }
+
+        .ww-100#{$size} {
+            @include ww-100;
+        }
+
+        .wwh-100#{$size} {
+            @include wwh-100;
+        }
+    }
+}
+
+@each $breakpoint in map-keys($grid-breakpoints) {
+    @include media-breakpoint-up($breakpoint) {
+        $size: breakpoint-infix($breakpoint, $grid-breakpoints);
+
+        .hidden#{$size} {
+            display: none !important;
+        }
+
+        .visible#{$size} {
+            display: block !important;
+        }
+    }
+}

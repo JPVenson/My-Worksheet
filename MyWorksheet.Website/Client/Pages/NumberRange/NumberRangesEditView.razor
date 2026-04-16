@@ -1,0 +1,81 @@
+﻿@attribute [Route("/NumberRange/{id:guid}")]
+@attribute [Page("Links/NumberRange.Title", IsNavbarView = false, PageIconCss = "fas fa-object-group", Group = "Links/Settings")]
+@attribute [Authorize()]
+@inherits NavigationPageBase
+@using BlazorMonaco.Editor;
+
+@functions
+{
+	public override void OnSetPlugins()
+	{
+		base.OnSetPlugins();
+		AddPlugin("Buttons", Buttons(), PluginLocation.Header);
+	}
+
+	public RenderFragment Buttons()
+	{
+		return __builder =>
+		{
+		<div class="footer-button-area">
+			<button form="number_range_edit" type="submit" class="btn btn-outline-primary">
+				<Translatable Key="Common/Save" />
+			</button>
+			<button form="number_range_test" type="submit" class="btn btn-outline-secondary">
+				<Translatable Key="NumberRanges/Test" />
+			</button>
+		</div>
+		};
+	}
+}
+
+<NotLoadedGuardComponent @bind-ViewState="ViewState">
+	<div class="d-flex flex-row">
+		<EditForm Model="NumberRange.Entity"
+				  OnValidSubmit="Save"
+				  id="number_range_edit">
+			<fieldset>
+				<legend>
+					<Translatable Key="Common/Data" />
+				</legend>
+				<FieldControl Label="NumberRange/Code"
+							  ReadOnly="true"
+							  @bind-Value="NumberRange.Entity.Code" />
+				<FieldControl Label="NumberRange/Counter"
+							  @bind-Value="NumberRange.Entity.Counter" />
+			</fieldset>
+		</EditForm>
+		<EditForm Model="CounterTestValue"
+				  OnValidSubmit="Test"
+				  id="number_range_test">
+			<fieldset>
+				<legend>
+					<Translatable Key="Common/Test" />
+				</legend>
+				<FieldControl Label="NumberRange/Counter"
+							  @bind-Value="CounterTestValue" />
+				<FieldLayout>
+					<LabelContent>
+						<Translatable Key="NumberRange/TestResult" />
+					</LabelContent>
+					<EditorContent>
+						<span class="badge bg-primary">@TestResult</span>
+					</EditorContent>
+				</FieldLayout>
+			</fieldset>
+		</EditForm>
+	</div>
+	<div class="d-flex flex-row">
+		<fieldset class="free-fieldset flex-fill">
+			<div class="monacco-edtior-container">
+				<StandaloneCodeEditor Id="@("morestachioEditor_nrRange")"
+							  OnDidInit="() => OnContinuesRender(EditorCreated)"
+							  ConstructionOptions="EditorConstructionOptions"
+							  CssClass="monacco-edtior h-100 w-100"
+							  @ref="MonacoEditor" />
+			</div>
+		</fieldset>
+		<fieldset>
+			<SchemaDisplayControl SchemaInfo="Schema" />
+		</fieldset>
+	</div>
+</NotLoadedGuardComponent>

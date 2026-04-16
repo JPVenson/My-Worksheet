@@ -1,0 +1,51 @@
+@inherits WidgetViewBase
+@using MyWorksheet.Website.Shared.ViewModels.ApiResultModels.Dashboard
+@attribute [DashboardWidget("Earnings", "Dashboard/Widget.Earnings.Name", "Dashboard/Widget.Earnings.Description", "fas fa-chart-pie", true)]
+
+@if (Invoices == null)
+{
+	<div class="d-flex justify-content-center p-4">
+		<div class="spinner-border spinner-border-sm text-primary" role="status"></div>
+	</div>
+	return;
+}
+
+@if (!Invoices.Any())
+{
+	<div class="p-4 text-center text-muted">
+		<i class="fas fa-file-invoice fa-2x mb-2 d-block opacity-50"></i>
+		<Translatable Key="Dashboard/Widget.Earnings.Empty" />
+	</div>
+	return;
+}
+
+<div class="px-3 pt-3 pb-1">
+	<div class="d-flex align-items-baseline gap-2">
+		<span class="fs-5 fw-bold">
+			<TimeDisplay Value="@((double)Invoices.Sum(i => i.TimesWorked))" />
+		</span>
+		<small class="text-muted"><Translatable Key="Dashboard/Widget.Earnings.TotalLabel" /></small>
+	</div>
+</div>
+
+<ul class="list-group list-group-flush">
+	@foreach (var invoice in Invoices)
+	{
+		<li class="list-group-item px-3 py-2">
+			<div class="d-flex justify-content-between align-items-center">
+				<div>
+					<span class="fw-semibold d-block">@invoice.Project?.Name</span>
+					<small class="text-muted">@invoice.Worksheet?.NumberRangeEntry</small>
+				</div>
+				<div class="text-end">
+					<span class="badge bg-primary">
+						<TimeDisplay Value="@((double)invoice.TimesWorked)" />
+					</span>
+					<small class="d-block text-muted mt-1">
+						<i class="fas fa-calendar-alt me-1"></i>@invoice.DateOfSubmit.ToString("d")
+					</small>
+				</div>
+			</div>
+		</li>
+	}
+</ul>

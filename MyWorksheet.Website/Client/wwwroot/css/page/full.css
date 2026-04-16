@@ -1,0 +1,17 @@
+.full-height, .full {
+  min-height: 100%;
+  height: 100%;
+}
+
+.full-width, .full {
+  min-width: 100%;
+  width: 100%;
+}
+
+.h-100vh {
+  height: 100vh;
+}
+
+.w-100vw {
+  width: 100vw;
+}/*# sourceMappingURL=full.css.map */

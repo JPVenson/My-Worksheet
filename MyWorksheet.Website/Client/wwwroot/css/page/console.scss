@@ -1,0 +1,41 @@
+﻿.console-lookalike {
+    @extend .scrollable;
+    @extend .scrollable-x;
+    background-color: black;
+    color: white;
+    font-family: Consolas;
+
+    .log-level {
+        width: 8rem;
+
+        .badge {
+            &.log-level-verbose {
+                @extend .bg-secondary;
+            }
+
+            &.log-level-information {
+                @extend .bg-info;
+            }
+
+            &.log-level-warning {
+                @extend .bg-warning;
+            }
+
+            &.log-level-error, &.log-level-critical {
+                @extend .bg-danger;
+            }
+        }
+    }
+
+    .log-category {
+        width: 8rem;
+    }
+
+    .log-date {
+        width: 17rem;
+    }
+
+    .log-message {
+        width: 100%;
+    }
+}

@@ -1,0 +1,21 @@
+﻿<DialogComponent Key="MessageBox"
+				 THeader="MessageBoxDialogViewModel"
+				 TBody="MessageBoxDialogViewModel"
+				 TFooter="MessageBoxDialogViewModel">
+	<HeaderTemplate Context="_context">
+		<Translatable Loc="_context.Header" />
+	</HeaderTemplate>
+	<BodyTemplate Context="_context">
+		<Translatable Loc="_context.Message" />
+	</BodyTemplate>
+	<FooterTemplate Context="_context">
+		<div class="footer-button-area">
+			@foreach (var btn in _context.Commands)
+			{
+				<button class="@btn.Style" @onclick="(() => _context.SetStatus(btn))">
+					<Translatable Loc="btn.Title" />
+				</button>
+			}
+		</div>
+	</FooterTemplate>
+</DialogComponent>

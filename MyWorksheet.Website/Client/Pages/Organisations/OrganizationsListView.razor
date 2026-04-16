@@ -1,0 +1,71 @@
+﻿@attribute [Route("/Organizations")]
+@attribute [Page("OrgOverview/Title", IsNavbarView = true, PageIconCss = "fas fa-file-invoice", Group = "Links/Settings")]
+@attribute [Authorize()]
+@inherits MyWorksheet.Website.Client.Pages.Base.NavigationPageBase
+
+@code
+{
+	public override void OnSetPlugins()
+	{
+		base.OnSetPlugins();
+		AddPlugin("Buttons", ButtonsPlugin(), PluginLocation.Header);
+		AddPlugin("Buttons", InactivePlugin(), PluginLocation.Header);
+	}
+
+	public RenderFragment ButtonsPlugin()
+	{
+		return __builder =>
+		{
+			<div class="footer-button-area">
+				<a class="btn btn-outline-primary" href="/Organization/new">
+					<i class="fa fa-plus-circle"></i>
+				</a>
+			</div>
+		};
+	}
+
+	public RenderFragment InactivePlugin()
+	{
+		return __builder =>
+		{
+			<div class="ms-1">
+				<ToggleEditorControl @bind-Value="IncludeInactive"
+				ContentText="@("Common/ShowHidden".AsLocString())" />
+			</div>
+		};
+	}
+}
+
+<div>
+	<table class="table">
+		<thead>
+		<tr>
+			<td><Translatable Key="Common/Name"/></td>
+			<td><Translatable Key="Org/SharedId"/></td>
+			<td><Translatable Key="OrgOverview/YourRole"/></td>
+		</tr>
+		</thead>
+		<tbody>
+		@foreach (var org in OrganizationService.Organizations
+		                                        .Cache
+		                                        .Where(e => e.IdRelations != null)
+		                                        .Where(e => e.IsActive == !IncludeInactive))
+		{
+			<tr class="@When(CanOpenOrganization(org), "selectable selectable-primary", "disabled")"
+			    @onclick="@(() => NavigateToOrg(org))">
+				<td><span>@org.Name</span></td>
+				<td><span>@org.SharedId</span></td>
+				<td>
+					@foreach (var memberState in org.IdRelations.OrderBy(e => e))
+					{
+						var role = OrganizationService.Roles.FirstOrDefault(e => e.Id == memberState);
+						<span class="badge bg-secondary">
+							@(role?.Name)
+						</span>
+					}
+				</td>
+			</tr>
+		}
+		</tbody>
+	</table>
+</div>

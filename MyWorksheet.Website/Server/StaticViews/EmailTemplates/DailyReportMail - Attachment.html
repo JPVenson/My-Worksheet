@@ -1,0 +1,101 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>My-Worksheet Daily Report</title>
+	<meta charset="utf-8" />
+	<style>{{& css}}</style>
+</head>
+<body class="container">
+	<h1>
+		Your Daily Report.
+		<small>Server Id: {{ServerId}}</small>
+	</h1>
+
+	<p>
+		Test Accounts Created: {{Statistics.NewUsersTest.Length}}
+	</p>
+
+	<div class="card">
+		<div class="card-header">
+			<h2>New Orders (Total: {{Statistics.Earned}}€)</h2>
+		</div>
+		<div class="card-body">
+			<div class="list-group">
+				{{#each Statistics.NewOrders}}<div class="list-group-item row">
+					<div class="col-4">
+						Done: {{IsOrderDone}}
+					</div>
+					<div class="col-4">
+						Success: {{IsOrderSuccess}}
+					</div>
+					<div class="col-4">
+						Error: {{OrderError}}
+					</div>
+					<div class="col-12">
+						Comment: {{Comment}}
+					</div>
+				</div>{{/each}}
+			</div>
+		</div>
+	</div>
+
+	<div class="card">
+		<div class="card-header">
+			<h2>New Perm Users</h2>
+		</div>
+		<div class="card-body">
+			<div class="list-group">
+				{{#each Statistics.NewUsers}}<div class="list-group-item row">
+					<div class="col-4">
+						Username: {{Username}}
+					</div>
+					<div class="col-4">
+						Email: {{Email}}
+					</div>
+					<div class="col-4">
+						IdCountry: {{IdCountry}}
+					</div>
+				</div>{{/each}}
+			</div>
+		</div>
+	</div>
+
+	<div class="card">
+		<div class="card-header">
+			<h2>Failed tasks</h2>
+		</div>
+		<div class="card-body">
+			<div class="list-group">
+				{{#each LoggerExceptions}}<div class="list-group-item row">
+					<div class="col-4">
+						Level: {{Level}}
+					</div>
+					<div class="col-4">
+						Category: {{Category}}
+					</div>
+					<div class="col-4">
+						Created: {{DateCreated}}
+					</div>
+					<div class="col-12">
+						Message: {{Message}}
+					</div>
+					<div class="col-12">
+						<div class="list-group">
+							{{#each OptionalData}}{{#Value}}
+							<div class="list-group-item row">
+								<span class="col-6">
+									{{../Key}}
+								</span>
+								<span class="col-6">
+									{{.}}
+								</span>
+							</div>{{/Value}}{{/each}}
+						</div>
+					</div>
+				</div>{{/each}}
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

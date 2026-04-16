@@ -1,0 +1,39 @@
+﻿<DialogComponent Key="DisplayGenericWorkflowStep"
+				 THeader="UiWorkflowStepDialogModel"
+				 TBody="UiWorkflowStepDialogModel"
+				 TFooter="UiWorkflowStepDialogModel">
+	<HeaderTemplate Context="header">
+		<h5 class="row">
+			<Translatable Key="Workflow/ConfirmStatus.Title.Html"
+			              _0="@header.NextStatus.Display.AsLocString()"
+			              _1="@header.Worksheet.StartTime.ToString("M")"
+			              _2="@header.Worksheet.EndTime?.ToString("M")"
+			              _3="@header.Project.Name"/>
+		</h5>
+	</HeaderTemplate>
+	<BodyTemplate Context="body">
+		<EditForm EditContext="body.FieldContext"
+				  OnValidSubmit="body.UpdateStatus"
+		          id="workflow_step_form">
+			<fieldset>
+				<FieldControl Label="WorksheetItem/Comment"
+				              @bind-Value="body.SubmitReason"/>
+				<SchemaEditControl @bind-Values="body.Values" @bind-SchemaInfo="body.Schema" />
+			</fieldset>
+		</EditForm>
+	</BodyTemplate>
+	<FooterTemplate Context="footer">
+		<div class="footer-button-area">
+			<button class="btn btn-outline-primary"
+			        disabled="@footer.FieldContext.GetValidationMessages().Any()"
+			        type="submit"
+			        form="workflow_step_form">
+				<Translatable Key="Workflow/ConfirmStatus.ChangeToText"
+				              _0="@footer.NextStatus.Display.AsLocString()"/>
+			</button>
+			<button class="btn btn-outline-secondary" @onclick="footer.Close" data-dismiss="modal">
+				<Translatable Key="Common/Cancel"/>
+			</button>
+		</div>
+	</FooterTemplate>
+</DialogComponent>

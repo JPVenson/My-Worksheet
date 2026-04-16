@@ -1,0 +1,11 @@
+﻿<div class="timespan-progress @When(CollapseService.GetState(CollapseState), "expanded")">
+	@foreach (var timeUnits in WorksheetItems)
+	{
+		var pcOfDay = (timeUnits.ToTime - timeUnits.FromTime) / ((60 * 24) / 100D);
+		<div class="progress-bar @When(timeUnits is PauseWorksheetItemModel, "bg-info", "bg-success")" role="progressbar" style="width: @pcOfDay%" aria-valuenow="@pcOfDay" aria-valuemin="0" aria-valuemax="100">
+			<span class="text">
+				<TimeDisplay Value="timeUnits.ToTime - timeUnits.FromTime" Format="TimeFormatTypes.Default" />
+			</span>
+		</div>
+	}
+</div>

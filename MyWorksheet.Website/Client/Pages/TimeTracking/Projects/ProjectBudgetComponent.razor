@@ -1,0 +1,384 @@
+@inherits MyWorksheet.Website.Client.Pages.Base.NavigationPageBase
+@using MyWorksheet.Website.Shared.ViewModels.ApiResultModels.Worksheet.Buget
+@using MyWorksheet.Website.Shared.ViewModels.ApiResultModels.Accounting
+@using Blazored.Typeahead
+
+@if (Budgets == null)
+{
+	return;
+}
+
+<div class="budget-component">
+
+@* ============================================================
+   PERSONAL BUDGET MODE (project view: single budget for current user)
+   ============================================================ *@
+@if (!ShowAllBudgets)
+{
+	<fieldset>
+		<legend>
+			<Translatable Key="Budget/MyBudget" />
+		</legend>
+
+		@if (PersonalBudget == null && !ShowAddForm)
+		{
+			<div class="alert alert-info d-flex align-items-center gap-2">
+				<Translatable Key="Budget/NoBudgets" />
+				<button class="btn btn-outline-primary btn-sm ms-2" @onclick="(() => ShowAddForm = true)">
+					<i class="fa fa-plus-circle me-1"></i><Translatable Key="Budget/AddBudget" />
+				</button>
+			</div>
+		}
+
+		@if (ShowAddForm)
+		{
+			<EditForm Model="NewBudget" OnValidSubmit="CreateBudget" id="budget-create-form">
+				<DataAnnotationsValidator />
+				<ValidationSummary />
+				<div class="d-flex flex-row flex-wrap gap-3">
+					<FieldControl Label="Budget/TimeBudget"
+								  HelpText="Budget/TimeBudget.Hint"
+								  TValue="object">
+						<EditorTemplate Context="_ctx">
+							<TimeValueEditor @bind-Value="NewBudget.TotalTimeBudget"
+											 TValue="int?"
+											 Converter="NIntTimespanMinutesConverter.Converter" />
+						</EditorTemplate>
+					</FieldControl>
+					<FieldControl Label="Budget/TotalBudget" @bind-Value="NewBudget.TotalBudget" />
+					<FieldControl Label="Budget/ValidFrom"
+								  HelpText="Budget/ValidFrom.Hint"
+								  @bind-Value="NewBudget.ValidFrom" />
+					<FieldControl Label="Budget/Deadline"
+								  HelpText="Budget/Deadline.Hint"
+								  @bind-Value="NewBudget.Deadline" />
+					<FieldControl Label="Budget/AllowOverbooking"
+								  HelpText="Budget/AllowOverbooking.Hint"
+								  @bind-Value="NewBudget.AllowOverbooking" />
+				</div>
+				<ServerErrorsComponent ServerErrorManager="ServerErrorManager" />
+				<div class="mt-2 d-flex gap-2">
+					<button type="submit" class="btn btn-outline-primary btn-sm">
+						<Translatable Key="Common/Save" />
+					</button>
+					<button type="button" class="btn btn-outline-secondary btn-sm"
+							@onclick="(() => ShowAddForm = false)">
+						<Translatable Key="Common/Cancel" />
+					</button>
+				</div>
+			</EditForm>
+		}
+		else if (PersonalBudget != null)
+		{
+			@if (EditingBudget != null)
+			{
+				<EditForm Model="EditingBudget" OnValidSubmit="SaveEditBudget" id="budget-edit-form">
+					<DataAnnotationsValidator />
+					<ValidationSummary />
+					<div class="d-flex flex-row flex-wrap gap-3">
+						<FieldControl Label="Budget/TimeBudget"
+									  HelpText="Budget/TimeBudget.Hint"
+									  TValue="object">
+							<EditorTemplate Context="_ctx">
+								<TimeValueEditor @bind-Value="EditingBudget.TotalTimeBudget"
+												 TValue="int?"
+												 Converter="NIntTimespanMinutesConverter.Converter" />
+							</EditorTemplate>
+						</FieldControl>
+						<FieldControl Label="Budget/TotalBudget" @bind-Value="EditingBudget.TotalBudget" />
+						<FieldControl Label="Budget/ValidFrom"
+									  HelpText="Budget/ValidFrom.Hint"
+									  @bind-Value="EditingBudget.ValidFrom" />
+						<FieldControl Label="Budget/Deadline"
+									  HelpText="Budget/Deadline.Hint"
+									  @bind-Value="EditingBudget.Deadline" />
+						<FieldControl Label="Budget/AllowOverbooking"
+									  HelpText="Budget/AllowOverbooking.Hint"
+									  @bind-Value="EditingBudget.AllowOverbooking" />
+					</div>
+					<ServerErrorsComponent ServerErrorManager="ServerErrorManager" />
+					<div class="mt-2 d-flex gap-2">
+						<button type="submit" class="btn btn-outline-primary btn-sm">
+							<Translatable Key="Common/Save" />
+						</button>
+						<button type="button" class="btn btn-outline-secondary btn-sm" @onclick="CancelEdit">
+							<Translatable Key="Common/Cancel" />
+						</button>
+						<button type="button" class="btn btn-outline-danger btn-sm"
+								@onclick="(() => DeleteBudget(PersonalBudget))">
+							<Translatable Key="Common/Delete" />
+						</button>
+					</div>
+				</EditForm>
+			}
+			else
+			{
+				<dl class="row">
+					<dt class="col-sm-3"><Translatable Key="Budget/TimeBudget" /></dt>
+					<dd class="col-sm-9">
+						@if (PersonalBudget.TotalTimeBudget.HasValue)
+						{
+							<TimeDisplay Value="PersonalBudget.TotalTimeBudget.Value" />
+						}
+						else
+						{
+							<span class="text-muted">—</span>
+						}
+					</dd>
+					<dt class="col-sm-3"><Translatable Key="Budget/TotalBudget" /></dt>
+					<dd class="col-sm-9">@(PersonalBudget.TotalBudget?.ToString() ?? "—")</dd>
+					<dt class="col-sm-3"><Translatable Key="Budget/TimeConsumed" /></dt>
+					<dd class="col-sm-9">
+						@if (PersonalBudget.TimeConsumed > 0)
+						{
+							<TimeDisplay Value="(int)PersonalBudget.TimeConsumed" />
+						}
+						else
+						{
+							<span class="text-muted">—</span>
+						}
+					</dd>
+					<dt class="col-sm-3"><Translatable Key="Budget/TimeOpen" /></dt>
+					<dd class="col-sm-9">
+						@if (PersonalBudget.TimeConsumed > 0)
+						{
+							var timeOpen = PersonalBudget.TotalTimeBudget - PersonalBudget.TimeConsumed;
+							<TimeDisplay Value="timeOpen" />
+						}
+						else
+						{
+							<span class="text-muted">—</span>
+						}
+					</dd>
+					<dt class="col-sm-3"><Translatable Key="Budget/ValidFrom" /></dt>
+					<dd class="col-sm-9">@(PersonalBudget.ValidFrom?.ToString("d") ?? "—")</dd>
+					<dt class="col-sm-3"><Translatable Key="Budget/Deadline" /></dt>
+					<dd class="col-sm-9">@(PersonalBudget.Deadline?.ToString("d") ?? "—")</dd>
+					<dt class="col-sm-3"><Translatable Key="Budget/AllowOverbooking" /></dt>
+					<dd class="col-sm-9">
+						@if (PersonalBudget.AllowOverbooking)
+						{
+							<i class="fa fa-check text-success"></i>
+						}
+						else
+						{
+							<i class="fa fa-times text-danger"></i>
+						}
+					</dd>
+				</dl>
+				<div class="mt-2">
+					<button class="btn btn-outline-secondary btn-sm" @onclick="(() => BeginEdit(PersonalBudget))">
+						<i class="fa fa-pencil-alt me-1"></i><Translatable Key="Common/Edit" />
+					</button>
+				</div>
+			}
+		}
+	</fieldset>
+}
+else
+{
+	<table class="table table-sm">
+		<thead>
+			<tr>
+				<th class="col-1">
+					<button class="btn btn-outline-secondary btn-sm"
+							@onclick="(() => ShowAddForm = !ShowAddForm)">
+						<i class="fa fa-plus-circle"></i>
+					</button>
+				</th>
+				<th><Translatable Key="Common/Username" /></th>
+				<th><Translatable Key="Budget/TimeBudget" /></th>
+				<th><Translatable Key="Budget/TotalBudget" /></th>
+				<th><Translatable Key="Budget/TimeConsumed" /></th>
+				<th><Translatable Key="Budget/ValidFrom" /></th>
+				<th><Translatable Key="Budget/Deadline" /></th>
+				<th><Translatable Key="Budget/AllowOverbooking" /></th>
+			</tr>
+		</thead>
+		<tbody>
+			@if (ShowAddForm)
+			{
+				<tr>
+					<td colspan="8">
+						<EditForm Model="NewBudget" OnValidSubmit="CreateBudget" id="budget-create-form">
+							<DataAnnotationsValidator />
+							<fieldset>
+								<legend><Translatable Key="Budget/AddBudget" /></legend>
+								<div class="d-flex flex-row flex-wrap gap-2">
+									<FieldControl Label="Common/Username" TValue="object">
+										<EditorTemplate Context="_ctx">
+											<BlazoredTypeahead TItem="AccountApiUserGetInfo"
+															   TValue="AccountApiUserGetInfo"
+															   EnableDropDown="true"
+															   SearchMethod="SearchUsers"
+															   @bind-Value="NewBudgetUser">
+												<SelectedTemplate Context="_u">
+													@_u.Username (@_u.ContactName)
+												</SelectedTemplate>
+												<ResultTemplate Context="_u">
+													@_u.Username
+												</ResultTemplate>
+											</BlazoredTypeahead>
+										</EditorTemplate>
+									</FieldControl>
+									<FieldControl Label="Budget/TimeBudget"
+												  HelpText="Budget/TimeBudget.Hint"
+												  TValue="object">
+										<EditorTemplate Context="_ctx">
+											<TimeValueEditor @bind-Value="NewBudget.TotalTimeBudget"
+															 TValue="int?"
+															 Converter="NIntTimespanMinutesConverter.Converter" />
+										</EditorTemplate>
+									</FieldControl>
+									<FieldControl Label="Budget/TotalBudget" @bind-Value="NewBudget.TotalBudget" />
+									<FieldControl Label="Budget/ValidFrom"
+												  HelpText="Budget/ValidFrom.Hint"
+												  @bind-Value="NewBudget.ValidFrom" />
+									<FieldControl Label="Budget/Deadline"
+												  HelpText="Budget/Deadline.Hint"
+												  @bind-Value="NewBudget.Deadline" />
+									<FieldControl Label="Budget/AllowOverbooking"
+												  HelpText="Budget/AllowOverbooking.Hint"
+												  @bind-Value="NewBudget.AllowOverbooking" />
+								</div>
+								<ValidationSummary />
+								<ServerErrorsComponent ServerErrorManager="ServerErrorManager" />
+								<div class="mt-2 d-flex gap-2">
+									<button type="submit" class="btn btn-outline-primary btn-sm">
+										<Translatable Key="Common/Save" />
+									</button>
+									<button type="button" class="btn btn-outline-secondary btn-sm"
+											@onclick="(() => ShowAddForm = false)">
+										<Translatable Key="Common/Cancel" />
+									</button>
+								</div>
+							</fieldset>
+						</EditForm>
+					</td>
+				</tr>
+			}
+			@if (!Budgets.Any() && !ShowAddForm)
+			{
+				<tr>
+					<td colspan="8" class="text-muted fst-italic">
+						<Translatable Key="Budget/NoBudgets" />
+					</td>
+				</tr>
+			}
+			@foreach (var budget in Budgets)
+			{
+				@if (EditingBudget?.ProjectBudgetId == budget.ProjectBudgetId)
+				{
+					<tr>
+						<td colspan="8">
+							<EditForm Model="EditingBudget" OnValidSubmit="SaveEditBudget" id="budget-edit-form">
+								<DataAnnotationsValidator />
+								<div class="d-flex flex-row flex-wrap gap-2">
+									<FieldControl Label="Common/Username" TValue="object">
+										<EditorTemplate Context="_ctx">
+											<BlazoredTypeahead TItem="AccountApiUserGetInfo"
+															   TValue="AccountApiUserGetInfo"
+															   EnableDropDown="true"
+															   SearchMethod="SearchUsers"
+															   @bind-Value="EditingBudgetUser">
+												<SelectedTemplate Context="_u">
+													@_u.Username (@_u.ContactName)
+												</SelectedTemplate>
+												<ResultTemplate Context="_u">
+													@_u.Username
+												</ResultTemplate>
+											</BlazoredTypeahead>
+										</EditorTemplate>
+									</FieldControl>
+									<FieldControl Label="Budget/TimeBudget"
+												  HelpText="Budget/TimeBudget.Hint"
+												  TValue="object">
+										<EditorTemplate Context="_ctx">
+											<TimeValueEditor @bind-Value="EditingBudget.TotalTimeBudget"
+															 TValue="int?"
+															 Converter="NIntTimespanMinutesConverter.Converter" />
+										</EditorTemplate>
+									</FieldControl>
+									<FieldControl Label="Budget/TotalBudget" @bind-Value="EditingBudget.TotalBudget" />
+									<FieldControl Label="Budget/ValidFrom"
+												  HelpText="Budget/ValidFrom.Hint"
+												  @bind-Value="EditingBudget.ValidFrom" />
+									<FieldControl Label="Budget/Deadline"
+												  HelpText="Budget/Deadline.Hint"
+												  @bind-Value="EditingBudget.Deadline" />
+									<FieldControl Label="Budget/AllowOverbooking"
+												  HelpText="Budget/AllowOverbooking.Hint"
+												  @bind-Value="EditingBudget.AllowOverbooking" />
+								</div>
+								<ValidationSummary />
+								<ServerErrorsComponent ServerErrorManager="ServerErrorManager" />
+								<div class="mt-2 d-flex gap-2">
+									<button type="submit" class="btn btn-outline-primary btn-sm">
+										<Translatable Key="Common/Save" />
+									</button>
+									<button type="button" class="btn btn-outline-secondary btn-sm" @onclick="CancelEdit">
+										<Translatable Key="Common/Cancel" />
+									</button>
+								</div>
+							</EditForm>
+						</td>
+					</tr>
+				}
+				else
+				{
+					<tr>
+						<td>
+							<div class="btn-group btn-group-sm">
+								<button class="btn btn-outline-secondary"
+										@onclick="(() => BeginEdit(budget))">
+									<i class="fa fa-pencil-alt"></i>
+								</button>
+								<button class="btn btn-outline-danger"
+										@onclick="(() => DeleteBudget(budget))">
+									<i class="fa fa-trash"></i>
+								</button>
+							</div>
+						</td>
+						<td>
+							@if (budget.IdAppUser.HasValue)
+							{
+								<span>@GetUserDisplay(budget)</span>
+							}
+							else
+							{
+								<span class="badge bg-secondary"><Translatable Key="Budget/EveryoneElse" /></span>
+							}
+						</td>
+						<td>
+							@if (budget.TotalTimeBudget.HasValue)
+							{
+								<TimeDisplay Value="budget.TotalTimeBudget.Value" />
+							}
+						</td>
+						<td>@budget.TotalBudget</td>
+						<td>
+							@if (budget.TimeConsumed > 0)
+							{
+								<TimeDisplay Value="(int)budget.TimeConsumed" />
+							}
+						</td>
+						<td>@budget.ValidFrom?.ToString("d")</td>
+						<td>@budget.Deadline?.ToString("d")</td>
+						<td>
+							@if (budget.AllowOverbooking)
+							{
+								<i class="fa fa-check text-success"></i>
+							}
+							else
+							{
+								<i class="fa fa-times text-danger"></i>
+							}
+						</td>
+					</tr>
+				}
+			}
+		</tbody>
+	</table>
+}
+
+</div>

@@ -1,0 +1,7 @@
+﻿@import "../bootstrap/functions";
+@import "../themes/light/bootstrap-variables";
+
+@media(prefers-color-scheme: light) {
+    @import "theme-specific-app";
+}
+

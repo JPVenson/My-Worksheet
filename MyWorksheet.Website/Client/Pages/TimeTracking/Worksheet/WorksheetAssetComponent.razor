@@ -1,0 +1,169 @@
+﻿@using Morestachio.Formatter.Predefined.Accounting
+@inherits NavigationPageBase
+
+<div class="">
+	<table class="table">
+		<thead>
+			<tr>
+				<td>
+					@if (!Model.Worksheet.Submitted)
+					{
+						<button class="btn btn-outline-primary" @onclick="(() => DisplayAddNew = !DisplayAddNew)">
+							<i class="fas fa-plus-circle"></i>
+						</button>
+					}
+				</td>
+				<td><Translatable Key="Common/Name" /></td>
+				<td><Translatable Key="Common/Value" /></td>
+				<td><Translatable Key="Payment/TaxRate" /></td>
+				<td></td>
+			</tr>
+		</thead>
+
+		<tbody>
+			@if (DisplayAddNew)
+			{
+				<tr>
+					<td colspan="5">
+						<div class="d-flex flex-row">
+							<EditForm Model="EditAssert">
+								<fieldset>
+									<FieldControl Label="Common/Name" @bind-Value="EditAssert.Assert.Entity.Name" />
+									<FieldControl Label="Common/Value" @bind-Value="EditAssert.Assert.Entity.Value" />
+									<FieldControl Label="Payment/TaxRate" @bind-Value="EditAssert.Assert.Entity.Tax" />
+									<FieldControl Label="Common/Description"
+												  @bind-Value="EditAssert.Assert.Entity.Description"
+												  FieldType="FieldTypes.MultiLineText" />
+									<button class="btn btn-outline-primary"
+											@onclick="(() => SaveAssert(EditAssert))">
+										<Translatable Key="Common/Create" />
+									</button>
+								</fieldset>
+							</EditForm>
+
+							<div>
+								<FileListAdd Files="EditAssert.AssertFiles"
+											 FilesToAdd="EditAssert.FilesToAdd"
+											 @bind-SelectedProvider="SelectedProvider" />
+							</div>
+						</div>
+					</td>
+				</tr>
+			}
+
+			@foreach (var assert in Asserts)
+			{
+				var fileCollapseKey = "file_assert_" + assert.Assert.Entity.GetId();
+
+				<CollapsedTrigger ElementType="tr" Key="@fileCollapseKey" class="selectable selectable-primary">
+					<td><DirtyMarkerControl EntityState="assert.Assert" /></td>
+					<td>
+						<span>
+							@assert.Assert.Entity.Name
+						</span>
+					</td>
+					<td>
+						<PresentationStateAwareComponent>
+							<Disabled>
+								<span>
+									@(new Money((double)assert.Assert.Entity.Value, WellKnownCurrencies.EUR).CommercialRound().Value)
+								</span>
+							</Disabled>
+						</PresentationStateAwareComponent>
+					</td>
+					<td>
+						<PresentationStateAwareComponent>
+							<Disabled>
+								<span>
+									@(new Money((double)assert.Assert.Entity.Tax, WellKnownCurrencies.EUR).CommercialRound().Value) %
+								</span>
+							</Disabled>
+						</PresentationStateAwareComponent>
+					</td>
+					<td>
+						@if (!Model.Worksheet.Submitted)
+						{
+							<button class="btn btn-outline-danger" @onclick="() => DeleteAssert(assert)">
+								<i class="fas fa-ban"></i>
+							</button>
+						}
+
+					</td>
+				</CollapsedTrigger>
+				<tr>
+					<td colspan="5">
+						<span>@assert.Assert.Entity.Description</span>
+					</td>
+				</tr>
+				<Collapsed ElementType="tr" Key="@fileCollapseKey">
+					<td colspan="5">
+						<div class="d-flex flex-row">
+							<EditForm Model="assert">
+								<fieldset>
+									<FieldControl Label="Common/Name"
+												  ReadOnly="@Model.Worksheet.Submitted"
+												  @bind-Value="assert.Assert.Entity.Name" />
+
+									<PresentationStateAwareComponent>
+										<Disabled>
+											<FieldControl Label="Common/Value"
+														  ReadOnly="@Model.Worksheet.Submitted"
+														  @bind-Value="assert.Assert.Entity.Value" />
+											<FieldControl Label="Payment/TaxRate"
+														  ReadOnly="@Model.Worksheet.Submitted"
+														  @bind-Value="assert.Assert.Entity.Tax" />
+										</Disabled>
+									</PresentationStateAwareComponent>
+
+									<FieldControl Label="Common/Description"
+												  ReadOnly="@Model.Worksheet.Submitted"
+												  @bind-Value="assert.Assert.Entity.Description"
+												  FieldType="FieldTypes.MultiLineText" />
+									@if (!Model.Worksheet.Submitted)
+									{
+										<button class="btn btn-outline-primary"
+												@onclick="(() => SaveAssert(assert))">
+											<Translatable Key="Common/Save" />
+										</button>
+									}
+								</fieldset>
+							</EditForm>
+
+							<div>
+								<FileListDisplay Files="assert.AssertFiles" />
+							</div>
+						</div>
+					</td>
+				</Collapsed>
+			}
+		</tbody>
+		@if (Asserts.Any())
+		{
+			<tfoot>
+				<tr>
+					<td></td>
+					<td></td>
+					<td>
+						<PresentationStateAwareComponent>
+							<Disabled>
+								<span>
+									@(new Money((double)Asserts.Sum(f => f.Assert.Entity.Value), WellKnownCurrencies.EUR).CommercialRound().Value)
+								</span>
+							</Disabled>
+						</PresentationStateAwareComponent>
+					</td>
+					<td>
+						<PresentationStateAwareComponent>
+							<Disabled>
+								<span>
+									@(new Money((double)Asserts.Sum(f => f.Assert.Entity.Value / 100 * f.Assert.Entity.Tax), WellKnownCurrencies.EUR).CommercialRound().Value)
+								</span>
+							</Disabled>
+						</PresentationStateAwareComponent>
+					</td>
+					<td></td>
+				</tr>
+			</tfoot>
+		}
+	</table>
+</div>

@@ -1,0 +1,16 @@
+﻿@if (PresentationModeService.PresentationState?.Enabled == true)
+{
+	if (Enabled != null)
+	{
+		@Enabled
+	}
+	else
+	{
+		<Translatable Key="Presentation/HiddenEnabled" />		
+	}
+}
+else if (Disabled != null)
+{
+	@Disabled
+}
+@ChildContent

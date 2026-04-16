@@ -1,0 +1,88 @@
+﻿@attribute [Route("/PaymentInfo/{id:guid?}")]
+@attribute [Route("/PaymentInfo/new")]
+@attribute [Page("Links/PaymentInfo", IsNavbarView = false, PageIconCss = "fas fa-credit-card", Group = "Links/Settings")]
+@attribute [Authorize()]
+@using MyWorksheet.Website.Shared.ViewModels.ApiResultModels.Payment
+@using Morestachio.Formatter.Predefined.Accounting
+@inherits MyWorksheet.Website.Client.Pages.Base.NavigationPageBase
+
+@functions
+{
+	public override void OnSetPlugins()
+	{
+		base.OnSetPlugins();
+		AddPlugin("Buttons", ButtonsPlugin(), PluginLocation.Footer);
+	}
+
+	public RenderFragment ButtonsPlugin()
+	{
+		return __builder =>
+		{
+		<div class="footer-button-area">
+			<button form="paymentInfo_form" class="btn btn-outline-success">
+				<Translatable Key="Common/Save" />
+			</button>
+		</div>
+		};
+	}
+}
+
+<NotLoadedGuardComponent @bind-ViewState="ViewState">
+	<div>
+		<EditForm Model="PaymentInfo.Entity"
+				  OnValidSubmit="Save"
+				  id="paymentInfo_form">
+			<fieldset>
+				<FieldControl Label="PaymentInfo/PaymentType"
+							  @bind-Value="PaymentInfo.Entity.PaymentType" />
+				<FieldControl Label="PaymentInfo/Detail.Disclaimer"
+				              @bind-Value="PaymentInfo.Entity.PaymentDisclaimer" />
+				<FieldControl Label="PaymentInfo/Detail.PaymentTarget"
+				              @bind-Value="PaymentInfo.Entity.PaymentTarget" />
+				<FieldLayout>
+					<LabelContent>
+						<Translatable Key="PaymentInfo/Detail.Fields" />
+					</LabelContent>
+					<EditorContent>
+						@foreach (var field in PaymentFields)
+						{
+							<div class="d-flex flex-row">
+								<div class="input-group">
+									<div class="input-group-addon">
+										<button class="btn btn-outline-secondary"
+												@onclick="@(() => PaymentFields.Remove(field))"
+												type="button">
+											<i class="fa fa-ban"></i>
+										</button>
+									</div>
+									<InputControl @bind-Value="field.FieldName" />
+								</div>
+								<div class="input-group">
+									<InputControl @bind-Value="field.FieldValue" />
+								</div>
+							</div>
+						}
+					</EditorContent>
+				</FieldLayout>
+
+				<FieldLayout>
+					<LabelContent>
+
+					</LabelContent>
+					<EditorContent>
+						<button class="btn btn-outline-secondary"
+								type="button"
+								@onclick="@(() => PaymentFields.Add(new PaymentInfoContentModel()))">
+							<i class="fa fa-plus-square-o"></i> <Translatable Key="PaymentInfo/AddNewField" />
+						</button>
+					</EditorContent>
+				</FieldLayout>
+
+
+				<button class="btn btn-outline-success">
+					<Translatable Key="Common/Save" />
+				</button>
+			</fieldset>
+		</EditForm>
+	</div>
+</NotLoadedGuardComponent>

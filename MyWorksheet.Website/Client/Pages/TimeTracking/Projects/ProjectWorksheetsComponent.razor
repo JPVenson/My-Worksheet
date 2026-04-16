@@ -1,0 +1,226 @@
+﻿@using MyWorksheet.Website.Shared.ViewModels.ApiResultModels.Worksheet
+@using MyWorksheet.Website.Client.Util
+@inherits MyWorksheet.Website.Client.Pages.Base.NavigationPageBase
+
+@functions
+{
+	public override void OnSetPlugins()
+	{
+		AddPlugin("Buttons", HeaderButtonsPlugin(), PluginLocation.Header);
+		base.OnSetPlugins();
+	}
+
+	public RenderFragment HeaderButtonsPlugin()
+	{
+		return __builder =>
+		{
+			<div class="footer-button-area">
+				<ToggleEditorControl @bind-Value="Project.ShowHidden"
+						 ContentText="@("Common/ShowHidden".AsLocString())" />
+			</div>
+		};
+	}
+
+
+	public RenderFragment<WorksheetModel> GetListDisplay()
+	{
+		return worksheet =>
+		{
+			return __builder =>
+			{
+				<td><span>@worksheet.StartTime.ToString("d")</span></td>
+				<td>
+					@if (worksheet.EndTime.HasValue)
+					{
+						<span>
+							@worksheet.EndTime.Value.ToString("d")
+						</span>
+					}
+					else
+					{
+						<span class="badge bg-primary">
+							<Translatable Key="Worksheet/Ongoing" />
+						</span>
+					}
+
+				</td>
+				<td>
+					<span class="badge rounded-pill bg-primary">
+						@WorkflowService.GetWorkflow(worksheet.IdWorksheetWorkflow)?.DisplayKey
+					</span>
+				</td>
+				<td>
+					@{
+						var status = WorkflowService.GetWorkflowStatus(worksheet.IdWorksheetWorkflow, worksheet.IdCurrentStatus.Value);
+					}
+					@if (status != null)
+					{
+						<span class="badge rounded-pill bg-@WorkflowService.GetWorkflowStatusColor("", status.WorksheetStatusLookupId)">
+							<Translatable Key="@status.DisplayKey" />
+						</span>
+					}
+				</td>
+				<td>
+					@(worksheet.InvoiceDueDate?.ToString("D"))
+				</td>
+				<td>
+					<span>@worksheet.NumberRangeEntry</span>
+				</td>
+				<td>
+					<span>@worksheet.No</span>
+				</td>
+			};
+		};
+	}
+}
+<table class="table">
+	<thead>
+		<tr>
+			<th class="col-1">
+				<button @onclick="(() => DisplayAddNew = !DisplayAddNew)" class="btn btn-outline-secondary"><i class="fa fa-plus-circle"></i></button>
+			</th>
+			<th class="col-1"><Translatable Key="Common/StartTime" /></th>
+			<th class="col-1"><Translatable Key="Common/EndTime" /></th>
+			<th class="col-1"><Translatable Key="Links/Timeboard.Workflow" /></th>
+			<th><Translatable Key="RunTemplate/Status" /></th>
+			<th><Translatable Key="Worksheet/DueDate" /></th>
+			<th><Translatable Key="Entity/NumberRange" /></th>
+			<th><Translatable Key="Reporting/ProjectSpec.Form.Comment.InvoiceNo" /></th>
+		</tr>
+	</thead>
+	@if (DisplayAddNew)
+	{
+		<tbody>
+			<tr>
+				<td colspan="7">
+					<div class="d-flex flex-row">
+						<EditForm Model="AddNewWorksheet"
+							  OnValidSubmit="CreateNewWorksheet"
+							  class="">
+							<fieldset>
+								<legend>
+									<Translatable Key="Project/NewWorksheet" />
+								</legend>
+
+								<FieldControl Label="Common/StartTime"
+										  @bind-Value="AddNewWorksheet.StartTime" />
+								<FieldLayout>
+									<LabelContent>
+										<Translatable Key="Common/EndTime" />
+									</LabelContent>
+									<EditorContent>
+										<div class="input-group">
+											@if (AddNewWorksheet.EndTime.HasValue)
+											{
+												<InputControl @bind-Value="AddNewWorksheet.EndTime" />
+											}
+											else
+											{
+												<span class="badge bg-primary flex-fill">
+													<Translatable Key="Worksheet/OpenEndedWorksheet" class="h-100 m-2 text-center" />
+												</span>
+											}
+											<div class="input-group-addon">
+												<button class="btn btn-outline-secondary"
+													type="button"
+													@onclick="ToggleOpenEndedWorksheet">
+													<i class="fa fa-ban"></i>
+												</button>
+											</div>
+										</div>
+									</EditorContent>
+								</FieldLayout>
+
+
+
+								<div class="button-bar">
+									<button type="submit" class="btn btn-outline-primary">
+										<Translatable Key="Common/Create" />
+									</button>
+									<button type="button" class="btn btn-outline-secondary"
+										@onclick="(() => DisplayAddNew = false)">
+										<Translatable Key="Common/Close" />
+									</button>
+								</div>
+							</fieldset>
+						</EditForm>
+						<div class="d-flex flex-column">
+							<button type="button" class="btn btn-outline-secondary"
+								@onclick="CurrentMonthToEditor">
+								<Translatable Key="Worksheet/QuickSet.ThisMonth" />
+							</button>
+							<button type="button" class="btn btn-outline-secondary"
+								@onclick="AddMonthToEditor">
+								<Translatable Key="Worksheet/QuickSet.NextMonth" />
+							</button>
+							<button type="button" class="btn btn-outline-secondary"
+								@onclick="StartsAtCurrentWeek">
+								<Translatable Key="Worksheet/QuickSet.CurrentWeek" />
+							</button>
+							<button type="button" class="btn btn-outline-secondary"
+								@onclick="EndsInOneWeek">
+								<Translatable Key="Worksheet/QuickSet.ForOneWeek" />
+							</button>
+						</div>
+					</div>
+
+				</td>
+			</tr>
+		</tbody>
+	}
+
+	<tbody class="scrollable scrollable-x">
+		@{
+			var orderedWorksheets = Project.Worksheets
+			.OrderBy(e => e.StartTime).ThenBy(e => e.WorksheetId)
+			.ToArray();
+			var worksheetsToday = orderedWorksheets
+			.Where(e => DateInfo.IsDateInRangeOf(DateTimeOffset.UtcNow, e.StartTime, e.EndTime))
+			.ToArray();
+			var inactiveWorksheets = orderedWorksheets.Except(worksheetsToday)
+			.OrderBy(e => e.StartTime).ThenBy(e => e.WorksheetId)
+			.ToArray();
+		}
+		@foreach (var worksheet in worksheetsToday)
+		{
+			<tr class="selectable selectable-primary active"
+			@onclick="@(() => NavigationService.NavigateTo("/Project/Worksheet/" + worksheet.WorksheetId))">
+				<td>
+					<span class="badge bg-success">Active</span>
+				</td>
+				@GetListDisplay()(worksheet)
+			</tr>
+		}
+		@if(inactiveWorksheets.Any())
+		{
+		<tr>
+			<td colspan="8">
+				<hr />
+			</td>
+		</tr>
+		}
+		
+		@foreach (var worksheet in inactiveWorksheets.OrderByDescending(e => e.StartTime))
+		{
+			<tr class="selectable selectable-primary"
+			@onclick="@(() => NavigationService.NavigateTo("/Project/Worksheet/" + worksheet.WorksheetId))">
+				<td>
+					@{
+						var isFuture = worksheet.StartTime > DateTimeOffset.UtcNow;
+					}
+					<span class="badge @When(isFuture, "bg-primary", "bg-warning")">
+						@if (worksheet.StartTime > DateTimeOffset.UtcNow)
+						{
+							<span>Future</span>
+						}
+						else
+						{
+							<span>Past</span>
+						}
+					</span>
+				</td>
+				@GetListDisplay()(worksheet)
+			</tr>
+		}
+	</tbody>
+</table>

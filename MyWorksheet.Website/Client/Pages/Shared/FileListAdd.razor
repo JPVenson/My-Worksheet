@@ -1,0 +1,108 @@
+﻿@inherits FileListDisplay;
+
+@using System.IO
+<div class="row">
+	<EditForm Model="this" OnValidSubmit="BeginUploadFiles">
+		<FieldControl Label="FileUpload/Store"
+		              TValue="object">
+			<EditorTemplate Context="_context">
+				<SelectionFieldControl DisplayMemberExpression="e => e.Name"
+				                       ValueMemberExpression="e => e.StorageProviderId"
+				                       ItemsSource="@StorageProviderService.StorageProviders"
+				                       @bind-SelectedItem="SelectedProvider" />
+				@if (!IsUploadingFiles && OnFileAddRequest != null)
+				{
+					<div class="input-group-addon">
+						<button type="submit" class="btn btn-outline-primary" disabled="@(!FilesToAdd.Any() || IsUploadingFiles)">
+							<Translatable Key="FileUpload/UploadFiles" />
+						</button>
+					</div>
+				}
+			</EditorTemplate>
+		</FieldControl>
+		
+		<div class="dropArea @DropClass">
+			<InputFile OnChange="FilesAdded"
+			           multiple=""
+			           @attributes="Attributes"
+			           @ondragenter="HandleDragEnter"
+			           @ondragleave="HandleDragLeave"/>
+			
+			<Translatable Key="FileUpload/Hint"/>
+		</div>
+		
+		<ServerErrorsComponent ServerErrorManager="ServerErrorManager" />
+	</EditForm>
+
+	<div class="d-flex flex-row">
+		@foreach (var file in Files)
+		{
+			@FileDisplay(file)
+		}
+
+		@foreach (var file in FilesToAdd)
+		{
+			<div class="p-1 storage-entry">
+				<div class="card full p-0">
+					<div class="card-header p-0">
+						<div class="d-flex flex-row">
+							<div class="me-auto">
+								@if (!IsUploadingFiles)
+								{
+									<i class="fas fa-ban" @onclick="(() => FilesToAdd.Remove(file))">
+									</i>
+								}
+							</div>
+							<div class="">
+								@Path.GetExtension(file.File.Name)
+							</div>
+						</div>
+					</div>
+					<div class="card-body p-0">
+						@if (IsUploadingFiles)
+						{
+							<div class="file-progress-block row justify-content-center">
+								<div class="text-center align-self-center">
+									@if (file.CurrentProgress == 0)
+									{
+										<span>Queued</span>
+									}
+									else if (file.CurrentProgress == file.MaxProgress)
+									{
+										<Translatable Key="FileUpload/Processing" />
+									}
+								</div>
+								<div class="w-100 align-self-center">
+									@if (file.CurrentProgress > 0 && file.CurrentProgress < file.MaxProgress)
+									{
+										<div class="w-100 progress position-relative">
+											<uib-progressbar animate="false"
+															 value="storage.CurrentProgress"
+															 max="storage.MaxProgress"
+															 class="w-100"
+															 type="success">
+											</uib-progressbar>
+											<b class="justify-content-center d-flex position-absolute w-100">
+												@Math.Round(file.CurrentProgress * 100D / file.MaxProgress)%
+											</b>
+										</div>
+									}
+								</div>
+							</div>
+						}
+
+						<div class="no-fx-horizontal file-image-upload-container text-center">
+							<img class="img-fluid center-block storage-entry-container" src="@file.FileThumbnail">
+						</div>
+					</div>
+					<div class="card-footer p-0">
+						<div class="text-truncate text-entry" title="@file.File.Name">
+							@Path.GetFileNameWithoutExtension(file.File.Name)
+						</div>
+					</div>
+				</div>
+			</div>
+		}
+
+	</div>
+</div>

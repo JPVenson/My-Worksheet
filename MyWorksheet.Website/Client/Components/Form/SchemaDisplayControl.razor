@@ -1,0 +1,100 @@
+﻿@inherits ComponentViewBase
+
+@functions
+{
+	private RenderFragment CommentDisplay(string comment)
+	{
+		return __builder =>
+		{
+		@if (comment == null)
+			{
+				return;
+			}
+
+		@foreach (var commentPart in comment.Split('\n'))
+			{
+			<span class="comment">//@commentPart</span>
+			<br />
+			}
+		};
+	}
+
+	public RenderFragment GetSchemaListDisplay(IList<SchemaInfoValue> schemaValues, int depth)
+	{
+		return __builder =>
+		{
+		<div>
+			@foreach (var item in schemaValues)
+				{
+				<div style="margin-left: @(depth * 10)px">
+					@if (!string.IsNullOrWhiteSpace(item.Comment))
+						{
+						<Translatable Key="@item.Comment" DisplayTemplate="CommentDisplay" />
+						}
+					@if (item.DefaultValue != null)
+						{
+						<span class="comment">
+							// @@default: @item.DefaultValue
+						</span>
+						<br />
+						}
+					@if (item.Optional)
+						{
+						<span class="comment">
+							// @@optional
+						</span>
+						<br />
+						}
+					<a>
+						<span class="property">"@item.DisplayName"</span>:
+					</a>
+					<span>
+						@if (item.DisplayType == SchemaEditDisplayType.Value)
+							{
+							<span class="type">
+								@if (item.AllowedValues?.Any() == true)
+								{
+									@item.AllowedValues.Select(f => f.Value.ToString()).Aggregate((e, f) => e + " | " + f)
+								}
+								else
+								{
+									@item.SchemaType
+									if (item.Optional)
+									{
+									<span> | null</span>
+									}
+								}
+							</span>
+							}
+							else if (item.DisplayType == SchemaEditDisplayType.List)
+							{
+							<span>[{</span>
+							@GetSchemaListDisplay(item.Children, depth + 1)
+							<span>}]</span>
+							}
+							else if (item.DisplayType == SchemaEditDisplayType.Object)
+							{
+							<span>{</span>
+							<br />
+							@GetSchemaListDisplay(item.Children, depth + 1)
+							<span>}</span>
+							},
+					</span>
+				</div>
+				@if (!string.IsNullOrWhiteSpace(item.Comment))
+					{
+					<br />
+					}
+				}
+		</div>
+
+		};
+	}
+}
+
+<div class="@When(!EmbeddedDisplay, "pre")" style="position: relative">
+	<span>{</span>
+	<br />
+	@GetSchemaListDisplay(SchemaItems, 1)
+	<span>}</span>
+</div>

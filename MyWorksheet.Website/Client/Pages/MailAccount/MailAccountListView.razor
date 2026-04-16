@@ -1,0 +1,48 @@
+﻿@attribute [Route("/EmailAccounts")]
+@attribute [Page("Links/MailAccounts", IsNavbarView = true, PageIconCss = "fas fa-object-group", Group = "Links/Settings")]
+@attribute [Authorize()]
+@inherits NavigationPageBase
+
+@code
+{
+	public override void OnSetPlugins()
+	{
+		base.OnSetPlugins();
+		AddPlugin("Buttons", ButtonsPlugin(), PluginLocation.Header);
+	}
+
+	public RenderFragment ButtonsPlugin()
+	{
+		return __builder =>
+		{
+		<div class="footer-button-area">
+			<a class="btn btn-outline-primary" href="/EmailAccount/new">
+				<i class="fa fa-plus-circle"></i>
+			</a>
+		</div>
+		};
+	}
+}
+
+<NotLoadedGuardComponent @bind-ViewState="ViewState">
+
+	<table class="table">
+		<thead>
+			<tr>
+				<th><Translatable Key="Common/Name" /></th>
+				<th><Translatable Key="Common/EMail" /></th>
+				<th><Translatable Key="Common/Username" /></th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var nr in MailAccounts.Cache)
+			{
+				<tr class="selectable selectable-primary" @onclick="@(() => ModuleService.NavigateTo("/EmailAccount/" + nr.MailAccountId))">
+					<td><span>@nr.Name</span></td>
+					<td><span>@nr.EMailAddress</span></td>
+					<td><span>@nr.Username</span></td>
+				</tr>
+			}
+		</tbody>
+	</table>
+</NotLoadedGuardComponent>

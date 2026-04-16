@@ -1,0 +1,317 @@
+﻿@inherits MyWorksheet.Website.Client.Pages.Base.NavigationPageBase
+@using MyWorksheet.Website.Client.Util.Promise
+@using MyWorksheet.Website.Shared.ViewModels.ApiResultModels.Worksheet
+@using MyWorksheet.Website.Shared.ViewModels.ApiResultModels.Worksheet.Workflow
+@using MyWorksheet.Website.Shared.ViewModels.ApiResultModels.Accounting.Organisation
+@using MyWorksheet.Website.Client.Services.Organisation
+@using MyWorksheet.Website.Client.Components.Dialog
+@using Blazored.Typeahead
+@using MyWorksheet.Website.Client.Services.Plugins
+@using MyWorksheet.Website.Shared.ViewModels
+@using Microsoft.AspNetCore.Components
+@using Morestachio.Formatter.Predefined.Accounting
+
+@functions
+{
+	public override void OnSetPlugins()
+	{
+		AddPlugin("SaveButtonInfo", BuildFooterSave(), PluginLocation.Footer | PluginLocation.Header);
+
+		base.OnSetPlugins();
+	}
+
+	private RenderFragment BuildFooterSave()
+	{
+		return __builder =>
+		{
+			<div class="button-bar">
+				<button type="submit" form="project-edit-form" class="btn btn-outline-success"
+				        disabled="@EditProjectsInvalid">
+					<Translatable Key="Common/Update"/>
+				</button>
+				@if (Project.Project.ProjectId != Guid.Empty)
+				{
+					<button class="btn btn-outline-danger" @onclick="PromptDeleteProject">
+						<Translatable Key="Common/Delete"/>
+					</button>
+				}
+			</div>
+		};
+	}
+}
+
+<DialogComponent Key="ConfirmProjectDelete"
+                 THeader="LocalizableString"
+                 TBody="ProjectDeleteDialogViewModel"
+                 TFooter="ProjectDeleteDialogViewModel"
+                 HeaderContent="@("Project/ConfirmDelete.Title".AsLocString())">
+	<BodyTemplate Context="body">
+		<div>
+			<p>
+				<Translatable Key="Project/ConfirmDelete.Text_1"/>
+				<b>
+					<span unselectable="on" class="unselectable">@body.ProjectName</span>
+				</b>
+				<Translatable Key="Project/ConfirmDelete.Text_2"/>
+			</p>
+
+			<p>
+				<Translatable Key="Project/ConfirmDelete.Text_3.Html"/>
+			</p>
+			<EditForm Model="body">
+				<fieldset>
+					<FieldControl Label="Common/Name" @bind-Value="body.ConfirmProjectName"
+					              Placeholder="@body.ProjectName"/>
+				</fieldset>
+			</EditForm>
+		</div>
+	</BodyTemplate>
+	<FooterTemplate Context="footer">
+		<div class="button-bar">
+			@if (footer.ProjectName.Equals(footer.ConfirmProjectName, StringComparison.OrdinalIgnoreCase))
+			{
+				<button class="btn btn-danger" @onclick="() => footer.ExecuteAndClose(DeleteProject)">
+					<Translatable Key="Common/Delete"/>
+				</button>
+			}
+			<button class="btn btn-warning" @onclick="footer.Close">
+				<Translatable Key="Common/Cancel"/>
+			</button>
+		</div>
+	</FooterTemplate>
+</DialogComponent>
+
+<NotLoadedGuardComponent @bind-ViewState="ViewState">
+<EditForm EditContext="EditContext"
+          name="project-edit-form"
+          id="project-edit-form"
+          OnValidSubmit="SaveProject"
+          OnInvalidSubmit="UnsaveProject">
+<div class="d-flex flex-row">
+<fieldset>
+	<legend>
+		<Translatable Key="Common/Info"/>
+		<DirtyMarkerControl EntityState="Project.ProjectState"/>
+	</legend>
+
+	<FieldControl Label="Common/Code"
+	              @bind-Value="Project.Project.UserOrderNo"/>
+
+	<FieldControl Label="Common/Name"
+	              HelpText="Project/Code.Hint"
+	              ReadOnly="Project.NoModifications"
+	              @bind-Value="Project.Project.Name"/>
+
+	<FieldControl Label="Common/NumberRange"
+	              ReadOnly="true"
+	              @bind-Value="Project.Project.NumberRangeEntry"/>
+
+	<FieldControl Label="Common/Hidden"
+	              @bind-Value="Project.Project.Hidden"/>
+
+	<FieldControl Label="Project/ProjectReference"
+	              @bind-Value="Project.Project.ProjectReference"/>
+
+	<FieldControl Label="PaymentInfo/Title"
+	              TValue="object">
+		<EditorTemplate Context="_context">
+			<SelectionFieldControl DisplayMemberExpression="e => e.PaymentType"
+			                       ValueMemberExpression="e => e.PaymentInfoId"
+			                       ItemsSource="PaymentInfoRepository.Cache"
+			                       @bind-SelectedItem="Project.PaymentCondition"
+			                       @bind-SelectedKey="Project.Project.IdPaymentCondition"/>
+		</EditorTemplate>
+	</FieldControl>
+
+	<FieldControl Label="Project/DefaultWorkflow"
+	              TValue="object"
+	              ReadOnly="Project.NoModifications">
+		<EditorTemplate Context="_context">
+			<SelectionFieldControl DisplayMemberExpression="e => e.DisplayKey"
+			                       ValueMemberExpression="e => e.WorksheetWorkflowId"
+			                       ItemsSource="@WorkflowService.GetWorkflows()"
+			                       AllowNullValue="true"
+			                       ReadOnly="Project.NoModifications"
+			                       @bind-SelectedItem="Project.Workflow"
+			                       @bind-SelectedKey="Project.Project.IdWorksheetWorkflow"/>
+		</EditorTemplate>
+	</FieldControl>
+
+	@if (Project.Workflow != null)
+	{
+		<FieldControl Label="WorkflowData/Title"
+		              TValue="object"
+		              ReadOnly="Project.NoModifications">
+			<EditorTemplate Context="_context">
+				<SelectionFieldControl TValue="WorksheetWorkflowDataMapViewModel"
+				                       TKey="Guid?"
+				                       DisplayMemberExpression="e => e.GroupKey"
+				                       ValueMemberExpression="e => e.WorksheetWorkflowDataMapId"
+				                       ItemsSource="@WorkflowService.GetWorkflowData(Project.Workflow.WorksheetWorkflowId)"
+				                       AllowNullValue="true"
+				                       ReadOnly="Project.NoModifications"
+				                       @bind-SelectedItem="Project.WorksheetWorkflowDataMap"
+				                       @bind-SelectedKey="Project.Project.IdWorksheetWorkflowDataMap"/>
+			</EditorTemplate>
+		</FieldControl>
+	}
+
+
+	<FieldControl Label="Entity/Organization"
+	              TValue="object"
+	              ReadOnly="Project.NoModifications"
+	              FieldType="FieldTypes.ServerText"
+	              Value="Project.Organization?.Name">
+		<EditorTemplate Context="_context">
+			<BlazoredTypeahead TItem="OrganizationViewModel"
+			                   TValue="OrganizationViewModel"
+			                   EnableDropDown="true"
+			                   Disabled="Project.NoModifications"
+			                   SearchMethod="HttpService.OrganizationApiAccess.Search"
+			                   @bind-Value="Project.Organization">
+				<SelectedTemplate Context="_lookupContext">
+					@_lookupContext.Name
+				</SelectedTemplate>
+				<ResultTemplate Context="_lookupContext">
+					@_lookupContext.Name
+				</ResultTemplate>
+			</BlazoredTypeahead>
+		</EditorTemplate>
+	</FieldControl>
+
+	<FieldControl Label="Project/DefaultChargeRate"
+	              TValue="object">
+		<EditorTemplate Context="_context">
+			<SelectionFieldControl TValue="ProjectItemRateViewModel"
+			                       TKey="Guid?"
+			                       DisplayMemberExpression="e => e.Name"
+			                       ValueMemberExpression="e => e.ProjectItemRateId"
+			                       ItemsSource="@Project.Rates"
+			                       @bind-SelectedKey="Project.Project.IdDefaultRate"
+			                       @bind-SelectedItem="Project.DefaultRate"/>
+		</EditorTemplate>
+	</FieldControl>
+
+	<ValidationSummary/>
+	<ServerErrorsComponent ServerErrorManager="ServerErrorManager"/>
+	<DataAnnotationsValidator/>
+</fieldset>
+<fieldset class="free-fieldset flex-fill">
+	<legend>
+		<Translatable Key="ProjectRate/Title"/>
+	</legend>
+	<table class="table w-100">
+		<thead>
+		<tr>
+			<th scope="col" class="d-flex justify-content-center">
+				<button class="btn btn-outline-primary"
+				        type="button"
+				        @onclick="Project.AddNewRate">
+					<i class="fa fa-plus-circle"></i>
+				</button>
+			</th>
+			<th scope="col"></th>
+			<th scope="col">
+				<Translatable Key="Common/Name"/>
+			</th>
+			<th scope="col">
+				<Translatable Key="Payment/Honorar"/>
+			</th>
+			<th scope="col">
+				<Translatable Key="CountryManage/CurrencyCode"/>
+			</th>
+			<th scope="col">
+				<Translatable Key="Payment/TaxRate"/>
+			</th>
+			<th scope="col">
+				<Translatable Key="ChargeRate/Title"/>
+			</th>
+			<th scope="col">
+				<Translatable Key="Common/Hidden"/>
+			</th>
+		</tr>
+		</thead>
+		<tbody>
+		@foreach (var rateEntity in Project.Rates.GetStates().Where(e => e.ListState != EntityListState.Deleted))
+		{
+			var readOnly = Project.NoModifications && rateEntity.ListState != EntityListState.Added;
+			var rate = rateEntity.Entity;
+			<tr class="form-group">
+				<td class="d-flex justify-content-center">
+					@if (rate != Project.DefaultRate)
+					{
+						if (!readOnly)
+						{
+							<button class="btn btn-outline-primary"
+							        type="button"
+							        @onclick="@(() => Project.RemoveRate(rate))">
+								<i class="fa fa-close"></i>
+							</button>
+						}
+						<span class="btn-alike">X</span>
+					}
+					else
+					{
+						<span class="btn-alike">
+							<i class="fa fa-check bg-success"></i>
+						</span>
+					}
+				</td>
+				<td>
+					<DirtyMarkerControl EntityState="rateEntity"/>
+				</td>
+				<td>
+					<InputControl @bind-Value="rate.Name"/>
+				</td>
+				<td>
+					<PresentationStateAwareComponent>
+						<Disabled>
+							<InputControl @bind-Value="rate.Rate"
+							              ReadOnly="readOnly"/>
+						</Disabled>
+					</PresentationStateAwareComponent>
+
+				</td>
+				<td>
+					<SelectionFieldControl TKey="string"
+					                       TValue="Currency"
+					                       ItemsSource="Currencies"
+					                       @bind-SelectedKey="rate.CurrencyType"
+					                       ValueMemberExpression="currency => currency.IsoName">
+						<DisplayMemberTemplate Context="item">
+							@item.IsoName (@item.DisplayValue)
+						</DisplayMemberTemplate>
+					</SelectionFieldControl>
+				</td>
+				<td>
+					<PresentationStateAwareComponent>
+						<Disabled>
+							<InputControl @bind-Value="rate.TaxRate"
+							              ReadOnly="readOnly"/>
+						</Disabled>
+					</PresentationStateAwareComponent>
+				</td>
+				<td>
+
+					<PresentationStateAwareComponent>
+						<Disabled>
+							<SelectionFieldControl DisplayMemberExpression="e => e.DisplayKey.AsLocString()"
+							                       ValueMemberExpression="e => e.ProjectChargeRateId"
+							                       ItemsSource="ChargeRateService.ChargeRates"
+							                       @bind-SelectedItem="rate.ProjectChargeRate"
+							                       @bind-SelectedKey="rate.IdProjectChargeRate"
+							                       ReadOnly="readOnly"/>
+						</Disabled>
+					</PresentationStateAwareComponent>
+				</td>
+				<td>
+					<InputControl @bind-Value="rate.Hidden"/>
+				</td>
+			</tr>
+		}
+		</tbody>
+	</table>
+</fieldset>
+</div>
+</EditForm>
+</NotLoadedGuardComponent>

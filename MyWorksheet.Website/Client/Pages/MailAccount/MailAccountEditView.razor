@@ -1,0 +1,85 @@
+﻿@attribute [Route("/EmailAccount/{id:guid?}")]
+@attribute [Route("/EmailAccount/new")]
+@attribute [Page("MailAccount/Title", IsNavbarView = false, PageIconCss = "fas fa-object-group", Group = "Links/Settings")]
+@attribute [Authorize()]
+@inherits NavigationPageBase
+
+@code
+{
+	public override void OnSetPlugins()
+	{
+		base.OnSetPlugins();
+		AddPlugin("Buttons", SaveButtonPlugin(), PluginLocation.Footer);
+	}
+
+	private RenderFragment SaveButtonPlugin()
+	{
+		return __builder =>
+		{
+			<div class="footer-button-area">
+				<button form="mailAccount_form" 
+				        type="submit"
+				        class="btn btn-outline-primary">
+					<Translatable Key="Common/Save" />
+				</button>
+				@if (Id != Guid.Empty)
+				{
+					<button class="btn btn-outline-danger"
+					        @onclick="Delete">
+						<Translatable Key="Common/Delete" />
+					</button>
+				}
+			</div>
+		};
+	}
+}
+
+<NotLoadedGuardComponent @bind-ViewState="ViewState">
+	<EditForm Model="MailAccount.Entity"
+	          OnValidSubmit="Save"
+	          id="mailAccount_form"
+	          name="mailAccount_form">
+		<fieldset>
+			<legend>
+				<Translatable Key="MailAccount/Title"/>
+				<DirtyMarkerControl EntityState="MailAccount" />
+			</legend>
+			
+			<FieldControl Label="Common/Name"
+			              @bind-Value="MailAccount.Entity.Name"/>
+			
+			<FieldControl Label="Common/EMail"
+						  FieldType="FieldTypes.EMail"
+			              @bind-Value="MailAccount.Entity.EMailAddress"/>
+			
+			<FieldControl Label="Common/Username"
+			              @bind-Value="MailAccount.Entity.Username"/>
+
+			<FieldControl Label="Common/Password"
+						  FieldType="FieldTypes.Password"
+						  @bind-Value="MailAccount.Entity.Password"/>
+			
+			<FieldControl Label="MailAccount/ServerAddress"
+			              @bind-Value="MailAccount.Entity.ServerAddress"/>
+			
+			<FieldControl Label="MailAccount/ServerPort"
+			              @bind-Value="MailAccount.Entity.ServerPort"/>
+			
+			<FieldLayout>
+				<LabelContent>
+					<Translatable Key="MailAccount/Protocol"/>
+				</LabelContent>
+				<EditorContent>
+					<SelectionFieldControl @bind-SelectedKey="MailAccount.Entity.Protocol"
+					                       ItemsSource="EMailProtcols"
+					                       DisplayMemberExpression="e => e.Name"
+					                       ValueMemberExpression="e => e.Id"/>
+				</EditorContent>
+			</FieldLayout>
+
+			<ValidationSummary />
+			<DataAnnotationsValidator />
+			<ServerErrorsComponent ServerErrorManager="ServerErrorManager" />
+		</fieldset>
+	</EditForm>
+</NotLoadedGuardComponent>

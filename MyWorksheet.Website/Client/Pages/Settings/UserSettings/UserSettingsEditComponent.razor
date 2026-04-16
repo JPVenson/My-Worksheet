@@ -1,0 +1,28 @@
+﻿@inherits NavigationPageBase
+
+<NotLoadedGuardComponent @bind-ViewState="ViewState">
+	<EditForm Model="UserData.Entity" OnValidSubmit="Save">
+		<fieldset>
+			<legend>
+				<Translatable Key="UserSettings/Title" />
+				<DirtyMarkerControl EntityState="UserData" />
+			</legend>
+			<FieldControl Label="Common/Username"
+						  ReadOnly="true"
+						  @bind-Value="UserData.Entity.Username" />
+			<FieldControl Label="Common/EMail"
+						  type="email"
+						  @bind-Value="UserData.Entity.Email" />
+			<FieldControl Label="UserSettings/Settings.ContactName"
+						  @bind-Value="UserData.Entity.ContactName" />
+			<button disabled="@(!UserData.IsObjectDirty)"
+					class="btn btn-outline-primary">
+				<Translatable Key="Common/Save" />
+			</button>
+
+			<ServerErrorsComponent ServerErrorManager="ServerErrorManager" />
+			<DataAnnotationsValidator />
+			<ValidationSummary />
+		</fieldset>
+	</EditForm>
+</NotLoadedGuardComponent>

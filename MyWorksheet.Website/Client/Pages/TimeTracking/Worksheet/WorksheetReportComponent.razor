@@ -1,0 +1,60 @@
+﻿@using MyWorksheet.Website.Shared.ViewModels.ApiResultModels.Reporting;
+@inherits NavigationPageBase;
+
+<div class="d-flex flex-row h-100">
+	<div>
+		<EditForm Model="this" class="form"
+				  OnValidSubmit="LoadReport">
+			<fieldset>
+				<FieldControl Label="Entity/Report" TValue="object">
+					<EditorTemplate Context="_context">
+						<SelectionFieldControl @bind-SelectedItem="SelectedTemplate"
+											   OnSelectedItemChanged="TemplateChanged"
+											   ItemsSource="Reports"
+											   DisplayMemberExpression="e => e.Name"
+											   ValueMemberExpression="e => e.NEngineTemplateId"
+											   TKey="Guid"
+											   TValue="NEngineTemplateLookup" />
+					</EditorTemplate>
+				</FieldControl>
+
+				<SchemaEditControl @bind-SchemaInfo="TemplateSchema" @bind-Values="TemplateValues" />
+
+				<div class="button-bar">
+					<button class="btn btn-outline-primary">
+						<i class="fa fa-refresh"></i>
+						<Translatable Key="Template/Refresh" />
+					</button>
+					@if (TemplateUrl != null)
+					{
+						<a class="btn btn-outline-secondary" download="" href="@TemplateUrl" target="_blank">
+							<i class="fa fa-download"></i>
+							<Translatable Key="Common/Download" />
+						</a>
+					}
+					
+				</div>
+				
+			</fieldset>
+		</EditForm>
+	</div>
+	<div class="flex-fill h-100">
+		@if (ServerErrorManager.ServerErrors.Count != 0)
+		{
+			<ServerErrorsComponent @bind-ServerErrorManager="ServerErrorManager"/>
+		}
+		else if(TemplateUrl == null)
+		{
+			<div class="mx-auto ">
+				<i class="fa fa-refresh fa-spin fa-10x"></i>
+			</div>
+		}
+		else
+		{
+			<div class="flex-fill bg-light d-flex h-100">
+				<object data="@(TemplateUrl)" class="flex-fill">
+				</object>
+			</div>
+		}
+	</div>
+</div>

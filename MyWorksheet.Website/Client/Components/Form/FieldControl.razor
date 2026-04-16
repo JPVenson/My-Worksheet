@@ -1,0 +1,43 @@
+﻿@typeparam TValue
+@inherits InputControl<TValue>
+
+@code
+{
+	protected RenderFragment<string> GetDefaultLabelTemplate()
+	{
+		return label =>
+		{
+			return __builder =>
+			{
+			<span title="@Title"><Translatable Key="@label" /></span>
+			};
+		};
+	}
+
+	private RenderFragment GetEditor()
+	{
+		return base.GetDefaultEditorTemplate();
+	}
+}
+
+<FieldLayout @key="FieldId" EditorId="@EditorId" HelpText="@HelpText" FormGroupCss="@FormGroupCss" Attributes="@Arguments">
+	<LabelContent>
+		@LabelTemplate(Label)
+	</LabelContent>
+	<EditorContent>
+		<div class="input-group @When(FieldType == FieldTypes.Checkbox, "d-block")">
+
+			@if (ReadOnly)
+			{
+				<span class="input-group-text"><i class="fa fa-lock"></i></span>
+			}
+			<CascadingValue Value="this" IsFixed="true">
+				@EditorTemplateContent
+			</CascadingValue>
+		</div>
+		@if (ValueExpression != null)
+		{
+			<ValidationMessage For="ValueExpression" />
+		}
+	</EditorContent>
+</FieldLayout>

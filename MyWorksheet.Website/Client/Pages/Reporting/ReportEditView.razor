@@ -1,0 +1,126 @@
+﻿@attribute [Route("/Report/{Id:guid?}")]
+@attribute [Route("/Report/new")]
+@attribute [Page("Links/Reporting.Title", Group = "Links/Settings")]
+@attribute [Authorize()]
+@inherits MyWorksheet.Website.Client.Pages.Base.NavigationPageBase
+@using MyWorksheet.Website.Client.Pages.Reporting.Editors;
+@using MyWorksheet.Website.Shared.ViewModels.ApiResultModels.Reporting;
+
+@functions
+{
+	public override void OnSetPlugins()
+	{
+		AddPlugin("Buttons", GetButtonsPlugin(), PluginLocation.Header);
+		ChangeLayout(e =>
+		{
+			e.FullHeightContent = true;
+		});
+		base.OnSetPlugins();
+	}
+
+	private RenderFragment GetButtonsPlugin()
+	{
+		return __builder =>
+		{
+		<div class="footer-button-area">
+			<button form="report_edit"
+					type="submit"
+					class="btn btn-outline-primary">
+				<Translatable Key="Common/Save" />
+			</button>
+			@if (ReportModel?.ListState != EntityListState.Added)
+				{
+				<button class="btn btn-outline-danger"
+						@onclick="Delete">
+					<Translatable Key="Common/Delete" />
+				</button>
+				<a class="btn btn-outline-secondary" href="/Report/Preview/@Id">
+					<Translatable Key="Report/Preview" />
+				</a>
+				}
+		</div>
+		};
+	}
+}
+
+
+<NotLoadedGuardComponent @bind-ViewState="ViewState">
+	<div class="d-flex flex-column flex-fill h-100">
+		<EditForm Model="ReportModel.Entity"
+		          OnValidSubmit="Save"
+		          class="d-flex flex-row"
+		          id="report_edit">
+			<fieldset style="height: 266px">
+				<FieldControl Label="Common/Name"
+				              @bind-Value="ReportModel.Entity.Name"/>
+				<FieldControl Label="Template/DataSource"
+				              TValue="object">
+					<EditorTemplate Context="_">
+						<SelectionFieldControl ItemsSource="ReportingService.ReportDataSources"
+						                       @bind-SelectedKey="ReportModel.Entity.UsedDataSource"
+						                       @bind-SelectedItem="SelectedDataSource"
+						                       TValue="ReportingDataSourceViewModel"
+						                       TKey="string"
+						                       OnSelectedItemChanged="(async (d) => await ReloadSchema())"
+						                       DisplayMemberExpression="e => e.Name"
+						                       ValueMemberExpression="e => e.Key"
+						                       ReadOnly="ReportModel.ListState != EntityListState.Added"/>
+					</EditorTemplate>
+				</FieldControl>
+				<FieldControl Label="Template/Engines"
+				              TValue="object">
+					<EditorTemplate Context="_">
+						<SelectionFieldControl ItemsSource="ReportingService.Formatters"
+						                       @bind-SelectedKey="ReportModel.Entity.UsedFormattingEngine"
+						                       DisplayMemberExpression="e => e.Value"
+						                       ValueMemberExpression="e => e.Key"
+						                       ReadOnly="true"/>
+					</EditorTemplate>
+				</FieldControl>
+				<FieldControl Label="Common/Description"
+				              @bind-Value="ReportModel.Entity.Comment"
+				              FieldType="FieldTypes.MultiLineText"/>
+				<FieldLayout>
+					<LabelContent>
+						<Translatable Key="Template/FileType"/>
+					</LabelContent>
+					<EditorContent>
+						<div class="input-group">
+							<InputControl @bind-Value="ReportModel.Entity.FileExtention"/>
+							@if (ReportModel.Entity.FileExtention?.ToLower() == "pdf")
+							{
+								<div class="input-group-addon">
+									<span class="input-group-text">
+										<Translatable Key="Template/PdfFromHtml"/>
+									</span>
+								</div>
+							}
+						</div>
+					</EditorContent>
+				</FieldLayout>
+			</fieldset>
+			<fieldset class="free-fieldset w-100">
+				<FieldLayout>
+					<LabelContent>
+						<Translatable Key="Template/FileName"/>
+					</LabelContent>
+					<EditorContent>
+						<MorestachioReportEditor @bind-ReportModel="ReportModel"
+						                         @bind-TemplateContent="ReportFileNameTemplate"
+						                         DataSourceSchema="DataSourceSchema"
+						                         ContainerClass="flex-fill small-editor-container"
+						                         SaveRequest="Save"/>
+					</EditorContent>
+				</FieldLayout>
+			</fieldset>
+		</EditForm>
+		@if (ReportModel.Entity.UsedFormattingEngine == "Morestachio")
+		{
+			<MorestachioReportEditor @bind-ReportModel="ReportModel"
+			                         @bind-TemplateContent="TemplateContent"
+			                         DataSourceSchema="DataSourceSchema"
+			                         ContainerClass=""
+			                         SaveRequest="Save"/>
+		}
+	</div>
+</NotLoadedGuardComponent>

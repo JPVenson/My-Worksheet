@@ -1,0 +1,80 @@
+﻿@attribute [Route("/Project/{ProjectId:guid?}")]
+@attribute [Route("/Project/new")]
+@attribute [Page("Links/Timeboard.Project.Title", IsNavbarView = false, Group = "Links/Timeboard")]
+@attribute [Authorize()]
+@inherits NavigationPageBase
+
+@functions
+{
+	public override void OnSetPlugins()
+	{
+		AddPlugin("Tabs", BuildHeaderTabs(), PluginLocation.Header);
+
+		base.OnSetPlugins();
+	}
+
+	private RenderFragment BuildHeaderTabs()
+	{
+		return __builder =>
+		{
+			@if (Project == null)
+			{
+				return;
+			}
+
+			<div>
+				<TabHeader TabKey="Project_Tab">
+					<TabHeaderModel Key="Info">
+						<HeaderTemplate>
+							<Translatable Key="Common/Info" />
+							<DirtyMarkerControlGroup>
+								<DirtyMarkerControl EntityState="Project?.ProjectState" />
+								@if (Project != null)
+								{
+									foreach (var rate in Project.Rates.GetStates())
+									{
+										<DirtyMarkerControl EntityState="rate" />
+									}
+								}
+							</DirtyMarkerControlGroup>
+						</HeaderTemplate>
+					</TabHeaderModel>
+					@if (Project.ProjectState.ListState != EntityListState.Added)
+					{
+						<TabHeaderModel Key="Worksheets" HeaderContent="Links/Timeboard.Worksheets" />
+						<TabHeaderModel Key="WorkingTime">
+							<HeaderTemplate>
+								<Translatable Key="Common/Worktime" />
+								<DirtyMarkerControl EntityState="Project?.ProjectWorkloadState" />
+							</HeaderTemplate>
+						</TabHeaderModel>
+						<TabHeaderModel Key="Budget" HeaderContent="Budget/Title" />
+					}
+				</TabHeader>
+			</div>
+		};
+	}
+}
+
+<NotLoadedGuardComponent @bind-ViewState="ViewState">
+	<div class="full-size-content">
+		<TabContent TabKey="Project_Tab">
+
+			<TabContentItem Key="Info">
+				<ProjectDetailEditComponent Project="Project" />
+			</TabContentItem>
+			@if (Project.ProjectState.ListState != EntityListState.Added)
+			{
+				<TabContentItem Key="WorkingTime">
+					<ProjectWorktimeComponent Project="Project" />
+				</TabContentItem>
+				<TabContentItem Key="Worksheets" IsDefault="true">
+					<ProjectWorksheetsComponent Project="Project" />
+				</TabContentItem>
+				<TabContentItem Key="Budget">
+					<ProjectBudgetComponent ProjectId="Project.Project.ProjectId" ShowAllBudgets="false" />
+				</TabContentItem>
+			}
+		</TabContent>
+	</div>
+</NotLoadedGuardComponent>

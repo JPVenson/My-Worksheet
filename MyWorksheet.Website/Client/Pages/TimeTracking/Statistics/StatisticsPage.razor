@@ -1,0 +1,131 @@
+﻿@inherits MyWorksheet.Website.Client.Pages.Base.NavigationPageBase
+@attribute [Route("/Project/Statistics")]
+@attribute [Page("Links/Timeboard.Statistics", IsNavbarView = true, Group = "Links/Timeboard")]
+@attribute [Authorize()]
+@using ChartJs.Blazor
+
+<div class="stats-page">
+
+	<!-- ── Chart type tab bar ──────────────────────────────────────── -->
+	<div class="stats-type-bar" role="tablist">
+		@foreach (var chart in StatisticViewModels)
+		{
+			<button role="tab"
+			        @onclick="() => LoadChart(chart)"
+			        class="stats-type-tab @When(SelectedStatistics == chart, "is-active")">
+				@chart.DataPresenterViewModel.Name
+			</button>
+		}
+	</div>
+
+	<!-- ── Project filter chips ────────────────────────────────────── -->
+	@if (ProjectsSwitch.Any())
+	{
+		var activeCount = ProjectsSwitch.Count(e => e.Value.State);
+		<div class="stats-filter-bar">
+			<span class="stats-filter-label">
+				Projects
+				@if (activeCount > 0)
+				{
+					<span class="stats-filter-badge">@activeCount</span>
+				}
+			</span>
+			<div class="stats-chips">
+				@foreach (var proj in ProjectsSwitch)
+				{
+					<button @onclick="() => ToggleProject(proj.Key)"
+					        class="chip @When(proj.Value.State, "chip-on")">
+						@proj.Value.Name
+					</button>
+				}
+			</div>
+		</div>
+	}
+
+	@if (SelectedStatistics == null)
+	{
+		<div class="stats-empty">
+			<div class="stats-empty-icon">📊</div>
+			<p>Select a chart type above to get started.</p>
+		</div>
+	}
+	else
+	{
+
+	<!-- ── Main content: chart + config panel ──────────────────────── -->
+	<div class="stats-content">
+
+		<!-- ── Chart panel ────────────────────────────────────────────── -->
+		<div class="stats-chart-panel">
+			<div class="stats-chart-header">
+				<h2 class="stats-chart-title">@SelectedStatistics.DataPresenterViewModel.Name</h2>
+				@if (SelectedStatistics.DataExport?.DataDimensions?.Count > 1)
+				{
+					<div class="stats-dimensions" role="tablist">
+						@foreach (var dim in SelectedStatistics.DataExport.DataDimensions)
+						{
+							<button role="tab"
+							        @onclick="() => SetChart(dim)"
+							        class="stats-dim-tab @When(SelectedStatistics.SelectedDimension == dim, "is-active")">
+								@dim.Label?.Name
+							</button>
+						}
+					</div>
+				}
+			</div>
+
+			<div class="stats-chart-body">
+				@if (ChartConfig != null)
+				{
+					@if (SelectedStatistics.DataExport?.DataMaybeTruncated == true)
+					{
+						<div class="stats-truncation-warn">
+							<span class="stats-truncation-icon">&#9888;</span>
+							Data may be truncated — narrow your project filter or parameters.
+						</div>
+					}
+					<Chart Config="ChartConfig" />
+				}
+				else if (SelectedStatistics.DataExport != null)
+				{
+					<div class="stats-no-data">
+						<span style="font-size:1.8rem;opacity:.4">&#x1F4C9;</span>
+						<p>No data returned for the selected filters.</p>
+					</div>
+				}
+				else
+				{
+					<div class="stats-awaiting">
+						<span style="font-size:1.8rem;opacity:.4">&#x1F4C8;</span>
+						<p>Select projects above, then press <strong>Load Data</strong>.</p>
+					</div>
+				}
+			</div>
+		</div>
+
+		<!-- ── Config sidebar ──────────────────────────────────────────── -->
+		<aside class="stats-config-panel">
+			<div class="stats-config-header">Parameters</div>
+			<div class="stats-config-body">
+				@if (SelectedStatistics.ArgumentSchema != null)
+				{
+					<SchemaEditControl SchemaInfo="SelectedStatistics.ArgumentSchema"
+					                   Values="SelectedStatistics.ArgumentValues" />
+				}
+				else
+				{
+					<div class="stats-no-params">No parameters for this chart.</div>
+				}
+			</div>
+			<div class="stats-config-footer">
+				<button @onclick="() => LoadData(SelectedStatistics)"
+				        class="btn btn-primary w-100">
+					Load Data
+				</button>
+			</div>
+		</aside>
+
+	</div>
+	} @* end else (SelectedStatistics != null) *@
+
+</div>

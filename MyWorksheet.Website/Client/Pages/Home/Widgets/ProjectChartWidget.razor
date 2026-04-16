@@ -1,0 +1,66 @@
+@inherits WidgetViewBase
+@using MyWorksheet.Website.Shared.ViewModels.ApiResultModels.Worksheet
+@attribute [DashboardWidget("Project Chart", "Dashboard/Widget.ProjectChart.Name", "Dashboard/Widget.ProjectChart.Description", "fas fa-calendar-alt", false)]
+
+@if (Projects == null)
+{
+	<div class="d-flex justify-content-center p-4">
+		<div class="spinner-border spinner-border-sm text-secondary" role="status"></div>
+	</div>
+}
+else
+{
+	<div class="p-3">
+		<div class="mb-3">
+			<label class="form-label small text-muted">
+				<Translatable Key="Dashboard/Widget.ProjectChart.SelectProject" />
+			</label>
+			<select class="form-select form-select-sm" value="@(SelectedProject?.ProjectId.ToString() ?? "")" @onchange="OnProjectSelected">
+				<option value="">— <Translatable Key="Common/Select" /> —</option>
+				@foreach (var p in Projects)
+				{
+					<option value="@p.ProjectId">@p.Name</option>
+				}
+			</select>
+		</div>
+
+		@if (SelectedProject != null)
+		{
+			@if (Worksheets == null)
+			{
+				<div class="d-flex justify-content-center py-2">
+					<div class="spinner-border spinner-border-sm text-secondary" role="status"></div>
+				</div>
+			}
+			else
+			{
+				var today = DateTimeOffset.Now.Date;
+				var from = today.AddDays(-7);
+				var window = Enumerable.Range(0, 15)
+					.Select(i => from.AddDays(i))
+					.ToList();
+
+				<div class="project-chart-grid">
+					@foreach (var day in window)
+					{
+						var dayWs = Worksheets
+							.Where(w => w.StartTime.Date <= day && (w.EndTime == null || w.EndTime.Value.Date >= day))
+							.ToList();
+						var isToday = day.Date == today;
+						<div class="project-chart-day @When(isToday, "project-chart-day--today") @When(!dayWs.Any(), "project-chart-day--empty")">
+							<span class="project-chart-day-label">@day.ToString("ddd")<br /><small>@day.ToString("d")</small></span>
+							@foreach (var ws in dayWs)
+							{
+								<a href="/Project/Worksheet/@ws.WorksheetId"
+								   class="project-chart-ws-block @When(ws.Submitted, "project-chart-ws--submitted")"
+								   title="@ws.NumberRangeEntry">
+									<small>@ws.NumberRangeEntry</small>
+								</a>
+							}
+						</div>
+					}
+				</div>
+			}
+		}
+	</div>
+}

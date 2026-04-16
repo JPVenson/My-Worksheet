@@ -1,0 +1,29 @@
+﻿@inherits ComponentViewBase
+
+@if (ViewState is ViewInitState.Unknown or ViewInitState.Uninitialized)
+{
+	return;
+}
+@if (ViewState == ViewInitState.Initializing && !WaiterService.IsWaiting)
+{
+	<div class="text-center">
+		<h2>
+			<Translatable Key="Common/ViewOrComponentIsLoading" />
+		</h2>
+	</div>
+}
+else if (ViewState == ViewInitState.Initialized)
+{
+	@ChildContent
+}
+else if (ViewState == ViewInitState.Error)
+{
+	<div class="text-center">
+		<h2>
+			<Translatable Key="Common.Error/DoesNotExist.Header" />
+		</h2>
+		<p>
+			<Translatable Key="Common.Error/DoesNotExist.Body" />
+		</p>
+	</div>
+}

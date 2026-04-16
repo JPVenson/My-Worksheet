@@ -1,0 +1,282 @@
+﻿@attribute [Route("/Organization/{Id:guid?}")]
+@attribute [Route("/Organization/new")]
+@attribute [Page("Organization/Title", IsNavbarView = false, PageIconCss = "fas fa-file-invoice", Group = "Links/Settings")]
+@attribute [Authorize()]
+@inherits MyWorksheet.Website.Client.Pages.Base.NavigationPageBase
+@using Blazored.Typeahead
+@using MyWorksheet.Website.Client.Pages.Settings.UserSettings;
+@using MyWorksheet.Website.Shared.ViewModels.ApiResultModels.Accounting
+@using MyWorksheet.Website.Client.Pages.TimeTracking.Projects
+@using MyWorksheet.Website.Shared.ViewModels.ApiResultModels.Worksheet
+@using MyWorksheet.Website.Shared.ViewModels.ApiResultModels.Accounting.Organisation
+
+@code
+{
+	public override void OnSetPlugins()
+	{
+		base.OnSetPlugins();
+		AddPlugin("Buttons", SaveButtonPlugin(), PluginLocation.Header);
+	}
+
+	private RenderFragment DisplayMembershipFragment(OrganizationMapViewModel userMap, bool staticInfo = false)
+	{
+		return __builder =>
+		{
+			<tr>
+				<td>
+					@if (staticInfo)
+					{
+					<button class="btn" @onclick="(() => MarkUserAssosiationAsDeleted(userMap))">
+						<i class="fa fa-ban"></i>
+					</button>
+					}
+				
+				</td>
+				<td>
+					<span>@userMap.AppUser.Username</span>
+				</td>
+				<td>
+					<span>@(OrganizationService.Roles.FirstOrDefault(e => e.Id == userMap.IdRelation)?.Name)</span>
+				</td>
+			</tr>
+		};
+	}
+
+	private RenderFragment SaveButtonPlugin()
+	{
+		return __builder =>
+		{
+			<div class="footer-button-area">
+				<button form="organization_edit" type="submit"
+				class="btn btn-outline-primary">
+					<Translatable Key="Common/Save" />
+				</button>
+				@if (Id.HasValue)
+				{
+					<button class="btn btn-outline-danger"
+				@onclick="Delete">
+						<Translatable Key="Common/Delete" />
+					</button>
+				}
+			</div>
+		};
+	}
+}
+
+<NotLoadedGuardComponent @bind-ViewState="ViewState">
+
+	<div class="d-flex flex-row">
+
+		<div class="d-flex flex-row">
+			<EditForm EditContext="EditOrganization.OrganizationContext"
+					  OnValidSubmit="Save"
+					  id="organization_edit">
+				<fieldset>
+					<legend>
+						<Translatable Key="AlterOrg/GeneralData" />
+						<DirtyMarkerControl EntityState="EditOrganization.OrgModel" />
+					</legend>
+					<FieldControl ReadOnly="Id.HasValue"
+								  Label="Common/Name"
+								  HelpText="Org/Name.Hint"
+								  @bind-Value="EditOrganization.OrgModel.Entity.Name" />
+					<FieldControl Label="Org/SharedId"
+								  HelpText="Org/SharedId.Hint"
+								  @bind-Value="EditOrganization.OrgModel.Entity.SharedId" />
+					<FieldControl Label="Org/ParentOrg"
+								  HelpText="Org/ParentOrg.Hint"
+								  TValue="object">
+						<EditorTemplate Context="_context">
+							<BlazoredTypeahead TItem="OrganizationViewModel"
+											   TValue="OrganizationViewModel"
+											   EnableDropDown="true"
+											   @bind-Value="EditOrganization.ParentOrganization"
+											   SearchMethod="HttpService.OrganizationApiAccess.Search">
+								<SelectedTemplate Context="_lookupContext">
+									@_lookupContext.Name
+								</SelectedTemplate>
+								<ResultTemplate Context="_lookupContext">
+									@_lookupContext.Name
+								</ResultTemplate>
+							</BlazoredTypeahead>
+						</EditorTemplate>
+					</FieldControl>
+					<FieldControl Label="Common/Active"
+								  HelpText="Org/Active.Hint"
+								  @bind-Value="EditOrganization.OrgModel.Entity.IsActive" />
+					<ValidationSummary />
+					<DataAnnotationsValidator />
+					<ServerErrorsComponent ServerErrorManager="ServerErrorManager" />
+				</fieldset>
+			</EditForm>
+			<EditForm EditContext="EditOrganization.AddressContext"
+					  OnValidSubmit="Save">
+				<fieldset>
+					<legend>
+						<Translatable Key="Address/Title" />
+						<DirtyMarkerControl EntityState="EditOrganization.AddressModel" />
+					</legend>
+					<AddressEditComponent @bind-Address="EditOrganization.AddressModel" AllowChangeOfCountry="true" />
+					<ValidationSummary />
+					<DataAnnotationsValidator />
+				</fieldset>
+			</EditForm>
+		</div>
+		<div>
+			<fieldset>
+				<legend>
+					<Translatable Key="AlterOrg/ManageUsers.Title" />
+					@{
+						var toDelete = EditOrganization.ModifiedEntries.Values.Count(e => e.ListState == EntityListState.Deleted);
+						var toAdd = EditOrganization.ModifiedEntries.Values.Count(e => e.ListState == EntityListState.Added);
+					}
+					@if (toDelete > 0)
+					{
+						<button class="btn btn-danger" @onclick="(() => DisplayRemoved = !DisplayRemoved)">
+							<Translatable Key="AlterOrg/ManageUsers.ToRemove" _0="@toDelete" />
+						</button>
+					}
+					@if (toAdd > 0)
+					{
+						<span class="btn btn-success" @onclick="(() => DisplayAdded = !DisplayAdded)">
+							<Translatable Key="AlterOrg/ManageUsers.ToAdd" _0="@toAdd" />
+						</span>
+					}
+				</legend>
+			</fieldset>
+			<table class="table">
+				<thead>
+					<tr>
+						<th class="col-1">
+							<button class="btn btn-outline-secondary"
+									@onclick="(() => DisplayNewRelation = !DisplayNewRelation)">
+								<i class="fa fa-plus-square"></i>
+							</button>
+						</th>
+						<th class="col-1"><Translatable Key="Common/Username" /></th>
+						<th><Translatable Key="Common/Role" /></th>
+					</tr>
+				</thead>
+				<tbody>
+					@if (DisplayNewRelation)
+					{
+						<tr>
+							<td colspan="3">
+								<EditForm Model="EditNewOrganization"
+									  OnValidSubmit="AddUserAssosiationFromEdit">
+									<fieldset>
+										<legend>
+											<Translatable Key="AlterOrg/ManageUsers.AddUser.Title" />
+										</legend>
+										<FieldControl Label="AlterOrg/ManageUsers.AddUser.Title"
+												  TValue="object">
+											<EditorTemplate Context="_context">
+												<BlazoredTypeahead TItem="AccountApiUserGetInfo"
+															   TValue="AccountApiUserGetInfo"
+															   EnableDropDown="true"
+															   SearchMethod="SearchAssosiatedUsers"
+															   @bind-Value="EditNewOrganization.SelectedUser">
+													<SelectedTemplate Context="_lookupContext">
+														@_lookupContext.Username (@_lookupContext.ContactName)
+													</SelectedTemplate>
+													<ResultTemplate Context="_lookupContext">
+														@_lookupContext.Username
+													</ResultTemplate>
+												</BlazoredTypeahead>
+											</EditorTemplate>
+										</FieldControl>
+										<FieldControl Label="AlterOrg/ManageUsers.AddUser.RoleInOrg"
+												  TValue="object">
+											<EditorTemplate Context="_context">
+												<SelectionFieldControl ItemsSource="OrganizationService.Roles"
+																   @bind-SelectedKey="EditNewOrganization.OrganizationMapViewModel.IdRelation"
+																   DisplayMemberExpression="e => e.Name"
+																   ValueMemberExpression="e => e.Id" />
+											</EditorTemplate>
+										</FieldControl>
+
+										<div>
+											Selected: @EditNewOrganization.OrganizationMapViewModel.IdRelation
+										</div>
+										<div>
+											<button class="btn btn-outline-primary">
+												<i class="fa fa-plus-square"></i>
+											</button>
+										</div>
+									</fieldset>
+								</EditForm>
+							</td>
+						</tr>
+					}
+					@if (!Id.HasValue)
+					{
+						@DisplayMembershipFragment(new OrganizationMapViewModel()
+						{
+							AppUser = CurrentUserStore.CurrentToken.UserData.UserInfo,
+							IdAppUser = CurrentUserStore.CurrentToken.UserData.UserInfo.UserID,
+							IdRelation = OrganizationService.AdministratorRole.Id
+						}, true)
+						@DisplayMembershipFragment(new OrganizationMapViewModel()
+						{
+							AppUser = CurrentUserStore.CurrentToken.UserData.UserInfo,
+							IdAppUser = CurrentUserStore.CurrentToken.UserData.UserInfo.UserID,
+							IdRelation = OrganizationService.CreatorRole.Id
+					}, true)
+					}
+					else if (!DisplayRemoved && !DisplayAdded && EditOrganization.UsersInOrg != null)
+					{
+						@foreach (var userMap in EditOrganization.UsersInOrg)
+						{
+							@DisplayMembershipFragment(userMap)
+						}
+					}
+					else if (DisplayRemoved)
+					{
+						foreach (var keyValuePair in EditOrganization.ModifiedEntries.Where(e => e.Value.ListState == EntityListState.Deleted))
+						{
+							@DisplayMembershipFragment(keyValuePair.Value.Entity)
+						}
+					}
+					else if (DisplayAdded)
+					{
+						foreach (var keyValuePair in EditOrganization.ModifiedEntries.Where(e => e.Value.ListState == EntityListState.Added))
+						{
+							@DisplayMembershipFragment(keyValuePair.Value.Entity)
+						}
+					}
+				</tbody>
+				<tfoot>
+					@if (!DisplayRemoved && !DisplayAdded && EditOrganization.UsersInOrg != null)
+					{
+						<tr>
+							<td colspan="3">
+								<ListPager ItemsSource="EditOrganization.UsersInOrg"
+									   T="OrganizationMapViewModel" />
+							</td>
+						</tr>
+					}
+				</tfoot>
+			</table>
+		</div>
+	</div>
+
+	@if (Id.HasValue && OrgProjects != null && OrgProjects.Any())
+	{
+		<div class="mt-4">
+			<fieldset>
+				<legend>
+					<Translatable Key="Budget/Title" />
+				</legend>
+				@foreach (var project in OrgProjects)
+				{
+					<details class="mb-3">
+						<summary class="fw-semibold">@project.Name</summary>
+						<div class="mt-2">
+							<ProjectBudgetComponent ProjectId="project.ProjectId" ShowAllBudgets="true" />
+						</div>
+					</details>
+				}
+			</fieldset>
+		</div>
+	}
+</NotLoadedGuardComponent>

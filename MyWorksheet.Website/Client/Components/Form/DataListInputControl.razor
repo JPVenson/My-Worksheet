@@ -1,0 +1,16 @@
+﻿@typeparam TValue
+
+@if (GeneratedOptions != null && GeneratedOptions.Any())
+{
+	<datalist id="datalist_@FieldControl.EditorId">
+		@foreach (var option in GeneratedOptions)
+		{
+			<option value="@EditorValue(option)">
+				@if (DisplayValue != null)
+				{
+					@DisplayValue(option)
+				}
+			</option>
+		}
+	</datalist>
+}

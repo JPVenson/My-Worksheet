@@ -1,0 +1,8 @@
+﻿@inherits MyWorksheet.Website.Client.Pages.Base.ComponentViewBase;
+
+<ul>
+	@foreach (var error in ServerErrors)
+	{
+		<li><Translatable Loc="new LocalizableString(error.ServerErrorText.Key, error.ServerErrorText.Arguments)" /></li>
+	}
+</ul>

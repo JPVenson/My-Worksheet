@@ -1,0 +1,21 @@
+﻿@inherits InputTextArea
+
+@code {
+	[Parameter]
+	public BindingMode ChangeTrigger { get; set; }
+}
+
+@if (ChangeTrigger is BindingMode.LostFocus or BindingMode.Default)
+{
+	<textarea @attributes="AdditionalAttributes"
+		   class="@CssClass"
+		   @bind="CurrentValueAsString"
+		   @bind:event="onchange"></textarea>
+}
+else
+{
+	<textarea @attributes="AdditionalAttributes"
+		   class="@CssClass"
+		   @bind="CurrentValueAsString"
+		   @bind:event="oninput"></textarea>
+}

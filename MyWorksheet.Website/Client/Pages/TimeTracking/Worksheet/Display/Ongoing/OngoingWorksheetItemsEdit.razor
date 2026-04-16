@@ -1,0 +1,75 @@
+﻿@inherits NavigationPageBase;
+
+<NotLoadedGuardComponent @bind-ViewState="ViewState">
+	<div class="d-flex flex-row h-100">
+		<div>
+			<EditForm Model="SelectedDate">
+				<fieldset>
+					<legend>
+						<Translatable Key="Worksheet/Ongoing.DateSelection" />
+					</legend>
+					<FieldLayout>
+						<LabelContent>
+							<Translatable Key="Worksheet/Ongoing.Date" />
+						</LabelContent>
+						<EditorContent>
+							<BindableDateInputX @bind-Value="SelectedDate"
+												Type="InputDateType.Date" />
+						</EditorContent>
+					</FieldLayout>
+				</fieldset>
+			</EditForm>
+			<EditForm Model="Editor"
+					  OnValidSubmit="(() => CreateNewWorksheetItem(Editor))">
+				<fieldset>
+					<legend>
+						<Translatable Key="Worksheet/Ongoing.NewWsItem" />
+					</legend>
+					<FieldLayout>
+						<LabelContent>
+							<Translatable Key="WorksheetItem/From" />
+						</LabelContent>
+						<EditorContent>
+							<TimeValueEditor @bind-Value="Editor.FromTime"
+										Converter="IntTimespanMinutesConverter.Converter"
+										DisplayMode="@DisplayModeTypes.TimeOfDay" />
+						</EditorContent>
+					</FieldLayout>
+					<FieldLayout>
+						<LabelContent>
+							<Translatable Key="WorksheetItem/To" />
+						</LabelContent>
+						<EditorContent>
+							<TimeValueEditor @bind-Value="Editor.ToTime"
+										Converter="IntTimespanMinutesConverter.Converter"
+										DisplayMode="@DisplayModeTypes.TimeOfDay" />
+						</EditorContent>
+					</FieldLayout>
+					<FieldControl Label="ChargeRate/Title"
+								  TValue="object">
+						<EditorTemplate Context="_c">
+							<SelectionFieldControl ItemsSource="Model.ChargeRates"
+												   @bind-SelectedKey="Editor.IdProjectItemRate"
+												   DisplayMemberExpression="e => e.Name"
+												   ValueMemberExpression="e => e.ProjectItemRateId" />
+						</EditorTemplate>
+					</FieldControl>
+					<FieldControl Label="WorksheetItem/Comment"
+								  FieldType="FieldTypes.MultiLineText"
+								  @bind-Value="Editor.Comment" />
+					<button class="btn btn-outline-primary"
+							type="submit"
+							disabled="@(!CanSaveEditorItem(Editor))">
+						<i class="fa fa-plus-square"></i>
+					</button>
+				</fieldset>
+			</EditForm>
+		</div>
+		<div class="flex-fill scrollable scrollable-x">
+			@foreach (var week in Model.Weeks)
+			{
+				<OngoingWeekEdit Model="Model" SelectedDate="SelectedDate" Week="week"/>
+			}
+		</div>
+	</div>
+</NotLoadedGuardComponent>

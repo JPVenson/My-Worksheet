@@ -1,0 +1,22 @@
+[
+  {
+    "outputFile": "wwwroot/css/themes/light/site-theme.css",
+    "inputFile": "wwwroot/css/themes/light/site-theme.scss",
+    "sourceMap": false
+  },
+  {
+    "outputFile": "wwwroot/css/themes/dark/site-theme.css",
+    "inputFile": "wwwroot/css/themes/dark/site-theme.scss",
+    "sourceMap": false
+  },
+  {
+    "outputFile": "Pages/TimeTracking/Worksheet/Display/WorksheetItemsEdit.razor.css",
+    "inputFile": "Pages/TimeTracking/Worksheet/Display/WorksheetItemsEdit.razor.scss",
+    "sourceMap": false
+  },
+  {
+    "outputFile": "wwwroot/css/preApp/pre-app.css",
+    "inputFile": "wwwroot/css/preApp/pre-app.scss",
+    "sourceMap": false
+  }
+]

@@ -1,0 +1,171 @@
+﻿@inherits NavigationPageBase
+@using MyWorksheet.Website.Shared.ViewModels.ApiResultModels.Worksheet.UserWorkload;
+@using MyWorksheet.Website.Client.Services.UserWorkload
+
+@if (Workload == null || WorktimeMode == null)
+{
+	return;
+}
+
+<div class="d-flex flex-row">
+	<div>
+		<FieldControl Label="Worktime/Mode"
+					  TValue="object">
+			<EditorTemplate Context="control">
+				<SelectionFieldControl TValue="IWorktimeMode"
+									   TKey="int"
+									   DisplayMemberExpression="e => e.Name"
+									   ValueMemberExpression="e => e.Key"
+									   ItemsSource="UserWorkloadService.Modes"
+									   @bind-SelectedItem="WorktimeMode" />
+			</EditorTemplate>
+		</FieldControl>
+		@if (WorktimeMode.Key == 2)
+		{
+			<FieldControl Label="Worktime/WeeklyWorktime.Title"
+						  TValue="object">
+				<EditorTemplate Context="control">
+					<TimeValueEditor @bind-Value="WeekWorktime"
+								TValue="int"
+								Converter="IntTimespanMinutesConverter.Converter" />
+				</EditorTemplate>
+			</FieldControl>
+		}
+	</div>
+	<div>
+		<ValidationSummary />
+		<ServerErrorsComponent ServerErrorManager="ServerErrorManager" />
+	</div>
+</div>
+
+
+@if (WorktimeMode.Key == 1)
+{
+	<table class="table">
+		<thead>
+			<tr>
+				<th class="col-1"><Translatable Key="Common/DayOfWeek" /></th>
+				<th class="col-1"><Translatable Key="Worktime/WorkingDay" /></th>
+				<th><Translatable Key="Common/Worktime" /></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td><Translatable Key="Time/Weekday.Monday" /></td>
+				<td><InputControl @bind-Value="IsDayWorkTimeMonday" /></td>
+				<td> 
+					<TimeValueEditor ReadOnly="!IsDayWorkTimeMonday"
+								Converter="NIntTimespanMinutesConverter.Converter"
+								@bind-Value="Workload.DayWorkTimeMonday" />
+				</td>
+			</tr>
+			<tr>
+				<td><Translatable Key="Time/Weekday.Tuesday" /></td>
+				<td><InputControl @bind-Value="IsDayWorkTimeTuesday" /></td>
+				<td>
+					<TimeValueEditor ReadOnly="!IsDayWorkTimeTuesday"
+								Converter="NIntTimespanMinutesConverter.Converter"
+								@bind-Value="Workload.DayWorkTimeTuesday" />
+				</td>
+			</tr>
+			<tr>
+				<td><Translatable Key="Time/Weekday.Wednesday" /></td>
+				<td><InputControl @bind-Value="IsDayWorkTimeWednesday" /></td>
+				<td>
+					<TimeValueEditor ReadOnly="!IsDayWorkTimeWednesday"
+								Converter="NIntTimespanMinutesConverter.Converter"
+								@bind-Value="Workload.DayWorkTimeWednesday" />
+				</td>
+			</tr>
+			<tr>
+				<td><Translatable Key="Time/Weekday.Thursday" /></td>
+				<td><InputControl @bind-Value="IsDayWorkTimeThursday" /></td>
+				<td>
+					<TimeValueEditor ReadOnly="!IsDayWorkTimeThursday"
+								Converter="NIntTimespanMinutesConverter.Converter"
+								@bind-Value="Workload.DayWorkTimeThursday" />
+				</td>
+			</tr>
+			<tr>
+				<td><Translatable Key="Time/Weekday.Friday" /></td>
+				<td><InputControl @bind-Value="IsDayWorkTimeFriday" /></td>
+				<td>
+					<TimeValueEditor ReadOnly="!IsDayWorkTimeFriday"
+								Converter="NIntTimespanMinutesConverter.Converter"
+								@bind-Value="Workload.DayWorkTimeFriday" />
+				</td>
+			</tr>
+			<tr>
+				<td><Translatable Key="Time/Weekday.Saturday" /></td>
+				<td><InputControl @bind-Value="IsDayWorkTimeSaturday" /></td>
+				<td>
+					<TimeValueEditor ReadOnly="!IsDayWorkTimeSaturday"
+								Converter="NIntTimespanMinutesConverter.Converter"
+								@bind-Value="Workload.DayWorkTimeSaturday" />
+				</td>
+			</tr>
+			<tr>
+				<td><Translatable Key="Time/Weekday.Sunday" /></td>
+				<td><InputControl @bind-Value="IsDayWorkTimeSunday" /></td>
+				<td>
+					<TimeValueEditor ReadOnly="!IsDayWorkTimeSunday"
+								Converter="NIntTimespanMinutesConverter.Converter"
+								@bind-Value="Workload.DayWorkTimeSunday" />
+				</td>
+			</tr>
+		</tbody>
+		<tfoot>
+			<Translatable Key="Worktime/WeeklyWorktime.Title" />
+			<TimeDisplay Value="WeekWorktime" />
+		</tfoot>
+	</table>
+}
+else
+{
+	<table class="table">
+		<thead>
+			<tr>
+				<th scope="col" class="col-1"><Translatable Key="Worktime/WorkingDay" /></th>
+				<th scope="col" class="col-1"><Translatable Key="Common/DayOfWeek" /></th>
+				<th><Translatable Key="Common/Worktime" /></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td><InputControl @bind-Value="IsDayWorkTimeMonday" /></td>
+				<td><Translatable Key="Time/Weekday.Monday" /></td>
+				<td><TimeDisplay Value="WorktimeMode.GetDayWorktime(Workload, DayOfWeek.Monday)" /></td>
+			</tr>
+			<tr>
+				<td><InputControl @bind-Value="IsDayWorkTimeTuesday" /></td>
+				<td><Translatable Key="Time/Weekday.Tuesday" /></td>
+				<td><TimeDisplay Value="WorktimeMode.GetDayWorktime(Workload, DayOfWeek.Tuesday)" /></td>
+			</tr>
+			<tr>
+				<td><InputControl @bind-Value="IsDayWorkTimeWednesday" /></td>
+				<td><Translatable Key="Time/Weekday.Wednesday" /></td>
+				<td><TimeDisplay Value="WorktimeMode.GetDayWorktime(Workload, DayOfWeek.Wednesday)" /></td>
+			</tr>
+			<tr>
+				<td><InputControl @bind-Value="IsDayWorkTimeThursday" /></td>
+				<td><Translatable Key="Time/Weekday.Thursday" /></td>
+				<td><TimeDisplay Value="WorktimeMode.GetDayWorktime(Workload, DayOfWeek.Thursday)" /></td>
+			</tr>
+			<tr>
+				<td><InputControl @bind-Value="IsDayWorkTimeFriday" /></td>
+				<td><Translatable Key="Time/Weekday.Friday" /></td>
+				<td><TimeDisplay Value="WorktimeMode.GetDayWorktime(Workload, DayOfWeek.Friday)" /></td>
+			</tr>
+			<tr>
+				<td><InputControl @bind-Value="IsDayWorkTimeSaturday" /></td>
+				<td><Translatable Key="Time/Weekday.Saturday" /></td>
+				<td><TimeDisplay Value="WorktimeMode.GetDayWorktime(Workload, DayOfWeek.Saturday)" /></td>
+			</tr>
+			<tr>
+				<td><InputControl @bind-Value="IsDayWorkTimeSunday" /></td>
+				<td><Translatable Key="Time/Weekday.Sunday" /></td>
+				<td><TimeDisplay Value="WorktimeMode.GetDayWorktime(Workload, DayOfWeek.Sunday)" /></td>
+			</tr>
+		</tbody>
+	</table>
+}

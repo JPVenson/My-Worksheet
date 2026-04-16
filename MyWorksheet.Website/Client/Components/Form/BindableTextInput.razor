@@ -1,0 +1,24 @@
+﻿@inherits InputText
+
+@code {
+	[Parameter]
+	public BindingMode ChangeTrigger { get; set; }
+}
+
+@if (ChangeTrigger is BindingMode.LostFocus or BindingMode.Default)
+{
+	<input @attributes="AdditionalAttributes"
+	       class="@CssClass"
+	       @bind="CurrentValueAsString"
+	       @bind:event="onchange" />
+}
+else
+{
+	<input @attributes="AdditionalAttributes"
+	       class="@CssClass"
+	       @bind="CurrentValueAsString"
+	       @bind:event="oninput" />
+}
+
+
+@*@bind:event="oninput"*@

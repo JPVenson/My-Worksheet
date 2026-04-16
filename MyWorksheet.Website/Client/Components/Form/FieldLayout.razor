@@ -1,0 +1,24 @@
+﻿<div class="form-group d-flex @When(LabelContent != null, "flex-row") @FormGroupCss" @attributes="Attributes">
+	@if (LabelContent != null)
+	{
+		<label for="@EditorId" class="@When(LabelCss == null, "col-form-label", LabelCss)">
+			@LabelContent
+		</label>
+	}
+
+	<div class="@When(EditorCss == null, "flex-fill", EditorCss)">
+		@EditorContent
+		@if (HelpText != null)
+		{
+			<span class="form-text text-muted">
+				<Translatable Loc="HelpText"/>
+			</span>
+		}
+		else if (HelpTextContent != null)
+		{
+			<span class="form-text text-muted">
+				@HelpTextContent
+			</span>
+		}
+	</div>
+</div>

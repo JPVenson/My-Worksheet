@@ -1,0 +1,44 @@
+﻿@attribute [Route("/Workflows/{WorkflowId:guid}/{WorkflowDataId:guid?}")]
+@attribute [Route("/Workflows/{WorkflowId:guid}/new")]
+@attribute [Page("Links/Timeboard.EditWorkflow", IsNavbarView = false, PageIconCss = "fas fa-object-group", Group = "Links/Settings")]
+@attribute [Authorize()]
+@inherits NavigationPageBase
+
+@functions
+{
+	public override void OnSetPlugins()
+	{
+		AddPlugin("Tabs", BuildHeaderTabs(), PluginLocation.Header);
+		base.OnSetPlugins();
+	}
+
+	public RenderFragment BuildHeaderTabs()
+	{
+		return __builder =>
+		{
+		<div class="footer-button-area">
+			<button form="workflow_data" type="submit" class="btn btn-outline-primary">
+				<Translatable Key="Common/Save" />
+			</button>
+		</div>
+		};
+	}
+}
+
+<NotLoadedGuardComponent @bind-ViewState="ViewState">
+	<EditForm Model="ValueBag"
+	          OnValidSubmit="SaveDataAsync"
+	          name="workflow_data"
+	          id="workflow_data">
+		<fieldset class="free-fieldset">
+			<FieldControl Label="Common/Name"
+			              @bind-Value="WorkflowDataViewModel.Entity.GroupKey" />
+
+			<SchemaEditControl SchemaInfo="DataSchema.ObjectSchema"
+			                   Values="ValueBag">
+
+			</SchemaEditControl>
+		</fieldset>
+	</EditForm>
+
+</NotLoadedGuardComponent>

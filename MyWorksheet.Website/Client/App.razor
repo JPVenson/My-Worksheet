@@ -1,0 +1,26 @@
+@using Microsoft.AspNetCore.Components.Authorization
+@using MyWorksheet.Website.Client.Pages.Auth
+<HeadContent>
+	<ResourcesListComponent />
+</HeadContent>
+<CascadingAuthenticationState>
+	<Router AppAssembly="@typeof(Program).Assembly">
+		<Found Context="routeData">
+			<AuthorizeRouteView RouteData="@routeData"
+								DefaultLayout="@typeof(MainLayout)">
+				<NotAuthorized>
+					<RedirectToLogin />
+				</NotAuthorized>
+				<Authorizing>
+					<h1>Authentication in progress</h1>
+					<p>Please wait while My-Worksheet is processing your Authentication</p>
+				</Authorizing>
+			</AuthorizeRouteView>
+		</Found>
+		<NotFound>
+			<LayoutView Layout="@typeof(MainLayout)">
+				<p>Sorry, there's nothing at this address.</p>
+			</LayoutView>
+		</NotFound>
+	</Router>
+</CascadingAuthenticationState>

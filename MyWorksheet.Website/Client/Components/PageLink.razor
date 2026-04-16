@@ -1,0 +1,15 @@
+﻿@code {
+
+	public RenderFragment GetDefaultLinkContent(NavItem module)
+	{
+		return __builder =>
+		{
+			<Translatable Key="@module.LocName"/>
+		};
+	}
+
+}
+
+<a href="@Link">
+	@ChildContent
+</a>

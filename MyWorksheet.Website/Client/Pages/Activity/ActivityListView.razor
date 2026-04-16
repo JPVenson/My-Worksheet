@@ -1,0 +1,45 @@
+﻿@attribute [Route("/Activities/{*FromRoute}")]
+@attribute [Route("/Activities")]
+@attribute [Page("Activities/Title", IsNavbarView = false, PageIconCss = "fas fa-object-group")]
+@attribute [Authorize()]
+@inherits MyWorksheet.Website.Client.Pages.Base.NavigationPageBase
+
+@if (CurrentUserActivity == null)
+{
+	<div class="alert alert-primary">
+		<Translatable Key="Activities/NoNewEntries" />
+	</div>
+	return;
+}
+
+<div class="card">
+	<div class="card-header">
+		<div class="d-flex flex-row justify-content-between">
+			@((ActivityService.Transform(CurrentUserActivity.HeaderHtml)))
+
+			<span>
+				@(ActivityIndex + 1) / @(ActivityService.ActivitiesCache.Cache.Count)
+				<button @onclick="CloseActivity" class="btn btn-outline-primary">
+					<i class="fa fa-ban"></i>
+				</button>
+			</span>
+		</div>
+	</div>
+	<div class="card-body">
+		@((ActivityService.Transform(CurrentUserActivity.BodyHtml)))
+	</div>
+	<div class="card-footer">
+
+		<div class="d-flex flex-row justify-content-between">
+			<button @onclick="GoPrevious" disabled="@(!CanGoPrevious())" class="btn btn-outline-primary">
+				<i class="fa fa-arrow-left"></i>
+			</button>
+			<div>
+				@((ActivityService.Transform(CurrentUserActivity.FooterHtml)))
+			</div>
+			<button @onclick="GoNext" disabled="@(!CanGoNext())" class="btn btn-outline-primary">
+				<i class="fa fa-arrow-right"></i>
+			</button>
+		</div>
+	</div>
+</div>

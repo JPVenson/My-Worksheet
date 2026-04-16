@@ -1,0 +1,87 @@
+﻿@inherits ComponentViewBase
+
+@functions
+{
+	public RenderFragment<IList<SchemaInfoValue>> GetSchemaListEditor()
+	{
+		return schemaValues =>
+		{
+			return __builder =>
+			{
+			@foreach (var item in schemaValues)
+			{
+				var editorId = _values.Id + "_" + item.DisplayName;
+				@if (item.Children.Any())
+				{
+					<fieldset @key="editorId">
+						<legend>
+							<span class="schema-group-icon" aria-hidden="true">&#9656;</span>
+							<Translatable Key="@item.DisplayName" />
+						</legend>
+						@GetSchemaListEditor()(item.Children)
+					</fieldset>
+				}
+				else
+				{
+					<FieldLayout EditorId="@editorId" @key="editorId" FormGroupCss="schema-field">
+						<LabelContent>
+							<span class="schema-label">
+								<Translatable Key="@item.DisplayName" />
+								@if (!item.Optional)
+								{
+									<span class="schema-required" aria-label="Required">*</span>
+								}
+							</span>
+						</LabelContent>
+						<EditorContent>
+							@if (item.AllowedValues != null)
+							{
+								<SelectionFieldControl DisplayMemberExpression="d => d.Key"
+								                       ValueMemberExpression="d => d.Value"
+								                       TValue="KeyValuePair<string, object>"
+								                       TKey="object"
+								                       @bind-SelectedKey="item.Value"
+								                       ItemsSource="item.AllowedValues"
+								                       id="@editorId" />
+							}
+							else
+							{
+								var inputType = item.GetHtmlInputType();
+								if (inputType == "checkbox")
+								{
+									<div class="form-check form-switch schema-switch">
+										<input type="checkbox"
+										       role="switch"
+										       id="@editorId"
+										       class="form-check-input"
+										       required="@(!item.Optional)"
+										       @bind="item.BooleanValue" />
+									</div>
+								}
+								else
+								{
+									<input type="@inputType"
+									       id="@editorId"
+									       class="form-control"
+									       required="@(!item.Optional)"
+									       @bind="item.ValueAsString" />
+								}
+							}
+							@if (!string.IsNullOrWhiteSpace(item.Comment))
+							{
+								<div class="schema-help">
+									<Translatable Loc="@item.Comment" />
+								</div>
+							}
+						</EditorContent>
+					</FieldLayout>
+				}
+			}
+			};
+		};
+	}
+}
+
+<div class="schema-editor">
+	@GetSchemaListEditor()(SchemaItems)
+</div>

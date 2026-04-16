@@ -1,0 +1,6 @@
+﻿@import "../bootstrap/functions";
+@import "../themes/dark/bootstrap-variables";
+@media(prefers-color-scheme: dark) {
+    @import "theme-specific-app";
+}
+

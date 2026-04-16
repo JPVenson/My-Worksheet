@@ -1,0 +1,52 @@
+﻿@inherits NavigationPageBase
+@attribute [Route("/Settings/Storage")]
+@attribute [Page("Links/Storage", Group = "Links/Settings", IsNavbarView = true, PageIconCss = "fas fa-hdd")]
+@attribute [Authorize()]
+
+
+@functions
+{
+	public override void OnSetPlugins()
+	{
+		base.OnSetPlugins();
+		AddPlugin("Buttons", GetButtonsPlugin(), PluginLocation.Header);
+	}
+
+	private RenderFragment GetButtonsPlugin()
+	{
+		return __builder =>
+		{
+			<div class="footer-button-area">
+				<a href="/Settings/Storage/new">
+					<i class="fa fa-plus-square"></i>
+				</a>
+			</div>
+		};
+	}
+}
+
+<div>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>
+					<Translatable Key="Common/Name" />
+				</th>
+				<th>
+					<Translatable Key="Storage/Storage" />
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var provider in StorageProviders)
+			{
+				<tr class="@When(provider.IdAppUser.HasValue, "selectable selectable-primary")"
+					@onclick="(() => TryNavigate(provider))">
+					<td><span>@provider.Name</span></td>
+					<td><span>@provider.StorageKey</span></td>
+				</tr>
+			}
+		</tbody>
+	</table>
+</div>
+

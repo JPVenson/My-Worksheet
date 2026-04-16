@@ -1,0 +1,299 @@
+﻿/*fieldset {
+    max-width: 33rem;
+
+    &.large {
+        max-width: 45rem;
+    }
+}
+*/
+
+@mixin form-style {
+    input.form-control, select.form-control {
+        margin-right: .2rem;
+        padding-left: .3rem;
+        padding-right: .3rem;
+        padding-top: .3rem;
+        padding-bottom: .3rem;
+        /*height: 100%;*/
+        &[type=checkbox] {
+            @extend .my-auto;
+            height: 100%;
+            width: 1.6rem;
+            height: 1.6rem;
+        }
+
+        &[disabled], &[readonly] {
+            cursor: not-allowed;
+        }
+    }
+
+    .blazored-typeahead {
+        .blazored-typeahead__input {
+            /*@extend .form-control;*/
+            margin-right: -33px;
+            height: 33px;
+        }
+
+        .blazored-typeahead__results {
+            background-color: $input-color;
+        }
+
+        .blazored-typeahead__input-icon{
+            width: unset;
+            padding: .3rem;
+        }
+    }
+
+    .blazored-typeahead__inline {
+        @extend .flex-fill;
+
+        .blazored-typeahead {
+            width: unset;
+        }
+    }
+
+    span.form-input {
+        width: $form-group-input-width;
+    }
+}
+
+@include form-style;
+
+form {
+    .dxbs-gridview,
+    table.form-table {
+        width: $form-group-width;
+    }
+
+    &.form-inline, .form-inline {
+        .form-group {
+            //max-width: $form-group-width / 2;
+            margin-bottom: .3rem;
+            margin-left: 0rem;
+            margin-top: 0rem;
+            margin-right: 0rem;
+            @include form-style;
+        }
+    }
+}
+
+fieldset:not(.transperent-fieldset) {
+    background-color: $card-bg;
+    background-clip: border-box;
+    border: $card-border-width solid $card-border-color;
+    //margin: .3rem;
+    min-width: $form-group-width;
+    width: $form-group-width;
+    padding: 0;
+
+    > *:not(legend) {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    > :last-child {
+        padding-bottom: 1rem;
+    }
+
+    &.free-fieldset {
+        width: unset;
+
+        &.fixed-input {
+            .form-group {
+                width: $form-group-width;
+            }
+        }
+    }
+
+    &.size-to-width {
+        width: min-content;
+        min-width: unset;
+
+        .col-form-label {
+            width: fit-content;
+            flex-grow: 0;
+            flex-shrink: 0;
+            flex-basis: auto;
+        }
+
+        .form-control {
+            width: fit-content;
+        }
+    }
+
+    legend {
+        padding: $card-cap-padding-y $card-cap-padding-x;
+        margin-bottom: 0; // Removes the default margin-bottom of <hN>
+        color: $card-cap-color;
+        background-color: $card-cap-bg;
+        border: $card-border-width solid $card-border-color;
+        font-size: initial;
+    }
+
+    .form-group {
+        margin-bottom: .3rem;
+        margin-left: 0rem;
+        margin-top: 0rem;
+        margin-right: 0rem;
+        @include form-style;
+
+        &.big-form {
+            width: $form-group-width * 1.4;
+        }
+
+        time {
+            margin-bottom: .3rem;
+            margin-left: 0rem;
+            margin-top: 0rem;
+            margin-right: 0rem;
+        }
+    }
+
+    table {
+        td.command-column,
+        th.command-column {
+            width: 3rem;
+        }
+
+        &.scrollable {
+            &.scrollable-y {
+                tbody {
+                    overflow-y: auto;
+                }
+            }
+
+            &.scrollable-x {
+                tbody {
+                    overflow-x: auto;
+                }
+            }
+
+            tbody {
+                display: block;
+                overflow: auto;
+            }
+
+            thead,
+            tbody tr {
+                display: table;
+                width: 100%;
+                table-layout: fixed;
+                /* even columns width , fix width of table too*/
+            }
+        }
+
+        tbody.command-body {
+            overflow-x: visible !important; //this is important for dropdowns
+            overflow-y: visible !important; //this is important for dropdowns
+        }
+
+        .form-group {
+            width: 100%;
+            margin-bottom: .3rem;
+            margin-left: 0rem;
+            margin-top: 0rem;
+            margin-right: 0rem;
+            @include form-style;
+        }
+    }
+}
+
+.col-form-label {
+    @include no-padding-horizontal;
+    padding-top: .3rem;
+    padding-bottom: 0;
+    text-align: right;
+    flex: 0 0 8rem;
+    margin-right: 0.4rem;
+
+    @include when-mobile {
+        text-align: left;
+    }
+}
+
+.form-inline {
+    label.col-form-label {
+        flex: 0 0 auto;
+    }
+}
+
+form-group {
+    .col-form-label {
+        text-align: left;
+    }
+
+    .form-group {
+        @include no-fx;
+        width: unset;
+
+        .col-form-label {
+            flex: 0 0 auto;
+        }
+    }
+}
+
+div.button-bar {
+    @extend .d-flex;
+    @extend .flex-row;
+    @extend .flex-wrap;
+
+    > button,
+    a {
+        margin-right: .4rem;
+    }
+}
+
+.unselectable {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.list-group-item-badge {
+    width: $form-list-item-badge-width;
+    /*height: 40px;*/
+    //margin: -10px -15px;
+    @each $state, $value in $theme-colors {
+        $list-group-variant-bg: shift-color($value, $list-group-item-bg-scale);
+        $list-group-variant-color: shift-color($value, $list-group-item-color-scale);
+
+        @if (contrast-ratio($list-group-variant-bg, $list-group-variant-color) < $min-contrast-ratio) {
+            $list-group-variant-color: mix($value, color-contrast($list-group-variant-bg), abs($list-group-item-color-scale));
+        }
+
+        @include list-group-item-variant($state, $list-group-variant-bg, $list-group-variant-color);
+    }
+
+    &.no-fx-aware {
+        margin-left: 0;
+        margin-right: 0;
+    }
+}
+
+img.thumbnail-img {
+    height: 2rem;
+    width: 2rem;
+
+    &.thumbnail-sm {
+        height: .5rem;
+        width: .5rem;
+    }
+
+    &.thumbnail-xl {
+        height: 5rem;
+        width: 5rem;
+    }
+}
+
+.scrollable {
+    &.scrollable-y {
+        overflow-y: auto;
+    }
+
+    &.scrollable-x {
+        overflow-x: auto;
+    }
+}

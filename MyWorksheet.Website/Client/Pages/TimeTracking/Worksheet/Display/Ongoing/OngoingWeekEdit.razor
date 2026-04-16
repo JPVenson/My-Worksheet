@@ -1,0 +1,89 @@
+﻿@inherits NavigationPageBase;
+
+<div class="d-flex flex-row border border-1" @key="Week.WeekNo">
+	<span class="my-auto">
+		<Translatable Key="Time/Week"/> @Week.WeekNo
+	</span>
+	<div class="d-flex flex-column flex-fill">
+		@foreach (var day in Week.WorksheetDays.Where(e => e.GetWorksheetItems().Any()))
+		{
+			<div class="list-group" @key="@("worksheet_display_" + day.Day.Ticks)">
+				<CollapsedTrigger class="@("list-group-item selectable selectable-primary " + (day.Day == SelectedDate.Date ? "list-group-item-primary" : ""))"
+							  Key="@("weekDisplay.worksheet_display_" + day.Day.Ticks)">
+					@day.Day.ToString("d") : <TimeDisplay Value="day.GetDayWorktime()" />
+				</CollapsedTrigger>
+			</div>
+			<Collapsed Key="@("weekDisplay.worksheet_display_" + day.Day.Ticks)"
+			           @key="@("worksheet_display_list_" + day.Day.Ticks)"
+			           class="list-group list-group-flush">
+				@foreach (var wsItem in day.GetWorksheetItems())
+				{
+					<div class="list-group-item">
+						<EditForm Model="wsItem"
+						          OnValidSubmit="(() => UpdateWorksheetItem(wsItem))"
+						          class="form form-inline">
+							<fieldset class="free-fieldset d-flex flex-row">
+								<button class="btn btn-outline-danger"
+								        type="button"
+								        @onclick="@(() => DeleteWorksheetItem(wsItem.WorksheetItemId))">
+									<i class="fa fa-ban"></i>
+								</button>
+								<FieldLayout>
+									<LabelContent>
+										<Translatable Key="WorksheetItem/From"/>
+									</LabelContent>
+									<EditorContent>
+										<TimeValueEditor @bind-Value="wsItem.FromTime"
+										                 Converter="IntTimespanMinutesConverter.Converter"
+										                 DisplayMode="@DisplayModeTypes.TimeOfDay"/>
+									</EditorContent>
+								</FieldLayout>
+								<FieldLayout>
+									<LabelContent>
+										<Translatable Key="WorksheetItem/To"/>
+									</LabelContent>
+									<EditorContent>
+										<TimeValueEditor @bind-Value="wsItem.ToTime"
+										                 Converter="IntTimespanMinutesConverter.Converter"
+										                 DisplayMode="@DisplayModeTypes.TimeOfDay"/>
+									</EditorContent>
+								</FieldLayout>
+								<FieldControl Label="WorksheetItem/Comment"
+								              @bind-Value="wsItem.Comment"/>
+
+								<FieldControl Label="ChargeRate/Title"
+								              TValue="object">
+									<EditorTemplate Context="_c">
+										<SelectionFieldControl ItemsSource="Model.ChargeRates"
+										                       @bind-SelectedKey="wsItem.IdProjectItemRate"
+										                       DisplayMemberExpression="e => e.Name"
+										                       ValueMemberExpression="e => e.ProjectItemRateId"/>
+									</EditorTemplate>
+								</FieldControl>
+
+								<button class="btn btn-outline-success">
+									<i class="fa fa-save"></i>
+								</button>
+
+								<FieldLayout>
+									<LabelContent>
+										<Translatable Key="WorksheetItem/Timespan"/>
+									</LabelContent>
+									<EditorContent>
+										<TimeDisplay Value="wsItem.ToTime - wsItem.FromTime"/>
+									</EditorContent>
+								</FieldLayout>
+							</fieldset>
+						</EditForm>
+					</div>
+				}
+			</Collapsed>
+		}
+		@*<Virtualize Items="_week.WorksheetDays.Where(e => e.GetWorksheetItems().Any()).ToArray()"
+			TItem="WorksheetDayDisplay">
+			<ItemContent Context="_day">
+
+			</ItemContent>
+			</Virtualize>*@
+	</div>
+</div>

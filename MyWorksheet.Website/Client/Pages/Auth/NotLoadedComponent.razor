@@ -1,0 +1,13 @@
+﻿@if (WaiterService.IsWaiting)
+{
+	return;
+}
+
+<div class="text-center">
+	<h2>
+		<Translatable Key="Common.Error/DoesNotExist.Header" />
+	</h2>
+	<p>
+		<Translatable Key="Common.Error/DoesNotExist.Body" />
+	</p>
+</div>

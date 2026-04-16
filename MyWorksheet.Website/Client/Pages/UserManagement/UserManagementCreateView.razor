@@ -1,0 +1,193 @@
+﻿@inherits NavigationPageBase
+@using MyWorksheet.Website.Shared.ViewModels.ApiResultModels.Accounting
+@using MyWorksheet.Website.Shared.ViewModels.ApiResultModels.Accounting.Organisation
+
+
+@functions
+{	public override void OnSetPlugins()
+	{
+		base.OnSetPlugins();
+		AddPlugin("Buttons", ButtonsPlugin(), PluginLocation.Footer);
+	}
+
+	public RenderFragment ButtonsPlugin()
+	{
+		return __builder =>
+		{
+		<div class="footer-button-area">
+			<button form="useredit_form" class="btn btn-outline-success">
+				<Translatable Key="Common/Save" />
+			</button>
+		</div>
+		};
+	}
+}
+
+
+<NotLoadedGuardComponent @bind-ViewState="ViewState">
+	@if (Id.HasValue)
+	{
+		<div class="d-flex flex-row">
+			<div class="d-flex flex-row flex-wrap">
+				<div class="flex-fill">
+					<EditForm Model="EditUser.Entity"
+							OnValidSubmit="Save"
+							id="useredit_form">
+						<fieldset>
+							<FieldControl Label="User/Username"
+										@bind-Value="EditUser.Entity.Username" />
+							<FieldControl Label="User/Email"
+										@bind-Value="EditUser.Entity.Email" />
+							<FieldControl Label="User/ContactName"
+										@bind-Value="EditUser.Entity.ContactName" />
+							<FieldControl Label="User/IsActive"
+										@bind-Value="EditUser.Entity.IsActive" />
+							<FieldControl Label="User/NeedPasswordReset"
+										@bind-Value="EditUser.Entity.NeedPasswordReset" />
+						</fieldset>
+					</EditForm>
+
+					<fieldset>
+						<legend><Translatable Key="User/Quotas" /></legend>
+						<table class="table">
+							<thead>
+								<tr>
+									<th><Translatable Key="Quota/Name" /></th>
+									<th><Translatable Key="Quota/Value" /></th>
+									<th><Translatable Key="Quota/MaxValue" /></th>
+								</tr>
+							</thead>
+							<tbody>
+								@foreach (var quota in UserQuotas ?? Array.Empty<UserQuotaViewModel>())
+								{
+									<tr>
+										<td>@quota.Name</td>
+										<td>@quota.Value</td>
+										<td>@quota.MaxValue</td>
+									</tr>
+								}
+							</tbody>
+						</table>
+					</fieldset>
+				</div>
+			</div>
+
+			<div class="d-flex flex-row flex-wrap">
+				<div class="flex-fill">
+					<fieldset>
+						<legend><Translatable Key="User/Organizations" /></legend>
+						<table class="table">
+							<thead>
+								<tr>
+									<th><Translatable Key="Organization/Name" /></th>
+									<th><Translatable Key="Common/IsActive" /></th>
+								</tr>
+							</thead>
+							<tbody>
+								@foreach (var org in (IEnumerable<OrganizationSelectionViewModel>?)Organizations ?? Array.Empty<OrganizationSelectionViewModel>())
+								{
+									<tr>
+										<td>@org.Name</td>
+										<td>
+											@if (org.IsActive)
+											{
+												<i class="fas fa-check text-success"></i>
+											}
+											else
+											{
+												<i class="fas fa-times text-danger"></i>
+											}
+										</td>
+									</tr>
+								}
+							</tbody>
+							<tfoot>
+								<tr>
+									<td colspan="2">
+										<ListPager ItemsSource="Organizations" T="OrganizationSelectionViewModel" />
+									</td>
+								</tr>
+							</tfoot>
+						</table>
+					</fieldset>
+				</div>
+
+				<div class="flex-fill">
+					<fieldset>
+						<legend><Translatable Key="User/RecentActivity" /></legend>
+						<table class="table">
+							<thead>
+								<tr>
+									<th><Translatable Key="UserAction/Date" /></th>
+									<th><Translatable Key="UserAction/Type" /></th>
+									<th><Translatable Key="UserAction/IP" /></th>
+									<th><Translatable Key="UserAction/PcName" /></th>
+								</tr>
+							</thead>
+							<tbody>
+								@foreach (var action in PagedActions)
+								{
+									<tr>
+										<td>@action.Date?.ToString("g")</td>
+										<td>@action.UserActionType</td>
+										<td>@action.ActionIP</td>
+										<td>@action.PcName</td>
+									</tr>
+								}
+							</tbody>
+							<tfoot>
+								<tr>
+									<td colspan="4">
+										<nav class="d-flex flex-row">
+											<ul class="pagination">
+												<li class="page-item @(ActionsPage <= 1 ? "disabled" : "")">
+													<a class="page-link" @onclick="() => ActionsPage--">Previous</a>
+												</li>
+												<li class="page-item disabled">
+													<a class="page-link active">@ActionsPage</a>
+												</li>
+												<li class="page-item @(ActionsPage >= ActionsTotalPages ? "disabled" : "")">
+													<a class="page-link" @onclick="() => ActionsPage++">Next</a>
+												</li>
+											</ul>
+											<span class="btn-alike">Total: @(UserActions?.Length ?? 0)</span>
+										</nav>
+									</td>
+								</tr>
+							</tfoot>
+						</table>
+					</fieldset>
+				</div>
+			</div>
+		</div>
+	}
+	else
+	{
+		<div>
+			<EditForm Model="User.Entity"
+					  OnValidSubmit="Save"
+					  id="useredit_form">
+				<fieldset>
+					<FieldControl Label="User/Username"
+								  @bind-Value="User.Entity.Username" />
+					<FieldControl Label="User/UserPlainTextPassword"
+								  @bind-Value="User.Entity.UserPlainTextPassword" />
+					<FieldControl Label="User/NeedPasswordReset"
+								  @bind-Value="User.Entity.NeedPasswordReset" />
+					<FieldLayout>
+						<LabelContent>
+							<Translatable Key="User/Region"/>
+						</LabelContent>
+						<EditorContent>
+							<SelectionFieldControl 
+								@bind-SelectedKey="User.Entity.RegionId"
+								ItemsSource="Regions.Cache"
+								DisplayMemberExpression="e => e.RegionName"
+								ValueMemberExpression="e => e.PromisedFeatureRegionId"/>
+						</EditorContent>
+					</FieldLayout>
+				</fieldset>
+			</EditForm>
+		</div>
+	}
+</NotLoadedGuardComponent>

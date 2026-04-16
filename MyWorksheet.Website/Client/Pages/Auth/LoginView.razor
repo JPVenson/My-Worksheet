@@ -1,0 +1,58 @@
+﻿@attribute [Route("/login/{*ReturnUrl}")]
+@attribute [Route("/login")]
+@attribute [Page("Links/Login", IsNavbarView = false)]
+@attribute [AllowAnonymous()]
+@using MyWorksheet.Website.Client.Services.Plugins
+@inherits MyWorksheet.Website.Client.Pages.Base.NavigationPageBase
+
+@code
+{
+	public override void OnSetPlugins()
+	{
+		AddPlugin("LoginButton", GetSubmitButtonsPlugin(), PluginLocation.Footer);
+	}
+
+	private RenderFragment GetSubmitButtonsPlugin()
+	{
+		return __builder =>
+		{
+			<button type="submit" class="btn btn-success btn-lg px-4" form="login-form">
+				<i class="fa fa-check me-2"></i>Login @LoginViewModel.Username
+			</button>
+		};
+	}
+}
+
+<div class="login-wrapper">
+	<div class="login-panel card">
+		<div class="login-header">
+			<div class="login-icon-wrap">
+				<i class="fa fa-table"></i>
+			</div>
+			<h2 class="login-title">My Worksheet</h2>
+			<p class="login-subtitle">Sign in to continue</p>
+		</div>
+		<EditForm EditContext="LoginContext"
+		          id="login-form"
+		          OnValidSubmit="Login">
+			<fieldset class="transperent-fieldset login-fieldset">
+				<FieldControl Label="Common/Username"
+				              Validate="() => LoginViewModel.Username"
+				              @bind-Value="LoginViewModel.Username"/>
+
+				<FieldControl Label="Common/Password"
+				              FieldType="FieldTypes.Password"
+				              Validate="() => LoginViewModel.Password"
+				              @bind-Value="LoginViewModel.Password"/>
+
+
+				<button type="submit" class="btn btn-success btn-lg px-4" form="login-form">
+					<i class="fa fa-check me-2"></i>Login @LoginViewModel.Username
+				</button>
+
+				<ValidationSummary/>
+				<ServerErrorsComponent ServerErrorManager="ServerErrorManager"/>
+			</fieldset>
+		</EditForm>
+	</div>
+</div>

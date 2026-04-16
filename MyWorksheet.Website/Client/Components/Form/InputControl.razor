@@ -1,0 +1,295 @@
+﻿@typeparam TValue
+@using Morestachio.Formatter.Predefined.Accounting
+@inherits ComponentViewBase;
+
+@functions
+{
+	protected RenderFragment GetReadOnlyTextEditor()
+	{
+		return __builder =>
+		{
+			<input id="@EditorId"
+	   class="form-control readonly flex-fill"
+	   readonly="readonly"
+	   	@attributes="Arguments"
+	   placeholder="@Placeholder"
+	   value="@Value"
+	   title="@Title" />
+		};
+	}
+
+	protected RenderFragment GetReadOnlyBooleanEditor()
+	{
+		return __builder =>
+		{
+			<span id="@EditorId"
+	  	@attributes="Arguments"
+	  class="form-control form-control-plaintext"
+	  title="@Title">
+				@Value
+			</span>
+		};
+	}
+
+	private RenderFragment GetTextEditor()
+	{
+		if (ReadOnly)
+		{
+			return GetReadOnlyTextEditor();
+		}
+
+		var type = "text";
+		if (FieldType == FieldTypes.Password)
+		{
+			type = "password";
+		}
+		if (FieldType == FieldTypes.EMail)
+		{
+			type = "email";
+		}
+
+		var control = this as InputControl<string>;
+
+		return __builder =>
+		{
+			<BindableTextInput id="@EditorId"
+				   name="@EditorId"
+				   type="@type"
+				   readonly="@ReadOnly"
+				   class="form-control flex-fill"
+				   placeholder="@Placeholder"
+				   Validate=""
+				   Value="@control.Value"
+				   ValueChanged="control.ValueChanged"
+				   ValueExpression="control.ValueExpression"
+				   ChangeTrigger="BindingMode"
+				   	@attributes="Arguments"
+				   list="@When(DataListSource != null, "datalist_" + EditorId)"
+				   title="@Title" />
+		};
+	}
+
+	private RenderFragment GetSpinEditor()
+	{
+		if (ReadOnly)
+		{
+			return GetReadOnlyTextEditor();
+		}
+
+		return __builder =>
+		{
+			<BindableNumberInput id="@EditorId"
+					 name="@EditorId"
+					 class="form-control flex-fill"
+					 placeholder="@Placeholder"
+					 Validate=""
+					 readonly="@ReadOnly"
+					 list="@When(DataListSource != null, "datalist_" + EditorId)"
+					 TValue="TValue"
+					 Value="Value"
+					 ValueChanged="ValueChanged"
+					 ValueExpression="ValueExpression"
+					 	@attributes="Arguments"
+					 title="@Title" />
+		};
+	}
+
+	private RenderFragment GetTimeEditor()
+	{
+		if (ReadOnly)
+		{
+			return GetReadOnlyTextEditor();
+		}
+
+		var editor = this as InputControl<int>;
+
+		return __builder =>
+		{
+			<MyWorksheet.Website.Client.Components.TimeValueEditor Value="editor.Value"
+													  ValueChanged="editor.ValueChanged"
+													  ValueExpression="editor.ValueExpression"
+													  ReadOnly="ReadOnly"
+													  TValue="int"
+													  	@attributes="Arguments"
+													  list="@When(DataListSource != null, "datalist_" + EditorId)"
+													  id="@EditorId"
+													  name="@EditorId"
+													  class="form-control"
+													  placeholder="@Placeholder"
+													  title="@Title" />
+		};
+	}
+
+	private RenderFragment GetDateEditor()
+	{
+		if (ReadOnly)
+		{
+			return GetReadOnlyTextEditor();
+		}
+
+		return __builder =>
+		{
+			<InputDate id="@EditorId"
+		   name="@EditorId"
+		   class="form-control"
+		   placeholder="@Placeholder"
+		   Validate=""
+		   readonly="@ReadOnly"
+		   list="@When(DataListSource != null, "datalist_" + EditorId)"
+		   Value="Value"
+		   ValueChanged="ValueChanged"
+		   ValueExpression="ValueExpression"
+		   	@attributes="Arguments"
+		   title="@Title" />
+		};
+	}
+
+	private RenderFragment GetTextMultiLineEditor()
+	{
+		if (ReadOnly)
+		{
+			return GetReadOnlyTextEditor();
+		}
+
+		var control = this as InputControl<string>
+			;
+
+		return __builder =>
+		{
+			<BindableTextAreaInput id="@EditorId"
+					   name="@EditorId"
+					   class="form-control"
+					   placeholder="@Placeholder"
+					   Validate=""
+					   type=""
+					   readonly="@ReadOnly"
+					   list="@When(DataListSource != null, "datalist_" + EditorId)"
+					   Value="@control.Value"
+					   ValueChanged="control.ValueChanged"
+					   ValueExpression="control.ValueExpression"
+					   	@attributes="Arguments"
+					   title="@Title" />
+		};
+	}
+
+	private RenderFragment GetBooleanEditor()
+	{
+		if (ReadOnly)
+		{
+			return GetReadOnlyBooleanEditor();
+		}
+		return __builder =>
+		{
+			var control = this as InputControl<bool>
+				;
+			<InputCheckbox id="@EditorId"
+			   name="@EditorId"
+			   class="form-control form-check-input"
+			   placeholder="@Placeholder"
+			   Validate=""
+			   readonly="@ReadOnly"
+			   Value="@control.Value"
+			   ValueChanged="control.ValueChanged"
+			   ValueExpression="control.ValueExpression"
+			   	@attributes="Arguments"
+			   title="@Title" />
+		};
+	}
+
+	private RenderFragment GetBooleanRadioEditor()
+	{
+		if (ReadOnly)
+		{
+			return GetReadOnlyBooleanEditor();
+		}
+		return __builder =>
+		{
+
+			<input id="@EditorId"
+	   name="@(Arguments.GetOrDefault("Name", EditorId))"
+	   type="radio"
+	   	@attributes="Arguments"
+	   class="form-control form-check-input"
+	   placeholder="@Placeholder"
+	   checked="@Value"
+	   readonly="@ReadOnly"
+	   title="@Title" />
+		};
+	}
+
+}
+
+@functions {
+
+	private RenderFragment GetReadOnlyMoneyEditor()
+	{
+		return __builder =>
+		{
+			var control = this as InputControl<Money>;
+			<div>
+				<span>@control.Value.Currency</span>
+				<span>@control.Value</span>
+			</div>
+		};
+	}
+	}
+@functions {
+
+	private RenderFragment GetMoneyEditor()
+	{
+		if (ReadOnly)
+		{
+			return GetReadOnlyMoneyEditor();
+		}
+		return __builder =>
+		{
+			
+		};
+	}
+	public RenderFragment GetDefaultEditorTemplate()
+	{
+		if (FieldType == FieldTypes.Auto)
+		{
+			FieldType = GetFieldTypeFromCsType(typeof(TValue));
+		}
+
+		switch (FieldType)
+		{
+			case FieldTypes.Text:
+			case FieldTypes.ServerText:
+			case FieldTypes.Password:
+			case FieldTypes.EMail:
+				return GetTextEditor();
+			case FieldTypes.MultiLineText:
+				return GetTextMultiLineEditor();
+			case FieldTypes.Time:
+				return GetTimeEditor();
+			case FieldTypes.Money:
+				return GetMoneyEditor();
+			case FieldTypes.Date:
+				return GetDateEditor();
+			case FieldTypes.Number:
+				return GetSpinEditor();
+			case FieldTypes.Checkbox:
+				return GetBooleanEditor();
+			case FieldTypes.RadioBox:
+				return GetBooleanRadioEditor();
+		}
+
+		return __builder =>
+		{
+			<span class="form-control form-control-plaintext"
+	  	@attributes="Arguments">
+				@Value
+			</span>
+		};
+	}
+}
+
+@GetDefaultEditorTemplate()
+@if (DataListSource != null)
+{
+	<CascadingValue Value="this">
+		@DataListSource
+	</CascadingValue>
+}

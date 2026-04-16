@@ -1,0 +1,119 @@
+﻿
+@inherits MyWorksheet.Website.Client.Pages.Base.NavigationPageBase
+@attribute [Route("/Project/Worksheet/{WorksheetId:guid}")]
+@attribute [Page("Links/Timeboard.Worksheet", IsNavbarView = false, Group = "Links/Timeboard")]
+@attribute [Authorize()]
+@using MyWorksheet.Website.Client.Pages.TimeTracking.Worksheet.WorkflowSteps
+@using MyWorksheet.Website.Client.Pages.TimeTracking.Worksheet.Tracker
+
+@functions
+{
+	public override void OnSetPlugins()
+	{
+		AddPlugin("Secondary.Tabs", BuildHeaderTabs(), PluginLocation.Header);
+		AddPlugin("Secondary.DueDateTracker", BuildDueDateTrackerPlugin(), PluginLocation.Header, PluginOrientation.Right);
+		AddPlugin("Secondary.Tracker", BuildTrackerPlugin(), PluginLocation.Header, PluginOrientation.Right);
+		AddPlugin("Workflow", BuildHeaderWorkflow(), PluginLocation.Header);
+
+		base.OnSetPlugins();
+	}
+
+	private RenderFragment BuildHeaderWorkflow()
+	{
+		return __builder =>
+		{
+		<div class="d-flex flex-row">
+			@if (Model?.Workflow != null)
+				{
+				<Translatable Key="WorksheetItem/History.SetStatus" class="btn-alike" />
+				<div class="footer-button-area">
+					@if (Model?.Worksheet != null && Model.Worksheet.IdWorksheetWorkflow.HasValue && Model.Worksheet.IdCurrentStatus.HasValue)
+						{
+						<div class="badge btn-alike bg-@WorkflowService.GetWorkflowStatusColor(Model.Workflow?.DisplayKey, Model.Worksheet.IdCurrentStatus.Value)">
+							<Translatable Key="@WorkflowService.GetWorkflowStatus(Model.Workflow?.WorksheetWorkflowId, Model.Worksheet.IdCurrentStatus.Value)?.DisplayKey" />
+						</div>
+						}
+					@if (Model.WorkflowActions.Any())
+						{
+						<Translatable Key="UserAssosiations/To" class="btn-alike" />
+						@foreach (var action in Model.WorkflowActions)
+							{
+							<button class="btn btn-outline-@WorkflowService.GetWorkflowStatusColor(Model.Workflow.DisplayKey, action.Value)"
+									@onclick="() => InvokeWorkflowChangeTo(action)">
+								<Translatable Key="@action.Display" />
+							</button>
+							}
+						}
+				</div>
+				}
+
+		</div>
+		};
+	}
+
+	private RenderFragment BuildHeaderTabs()
+	{
+		return __builder =>
+		{
+		<div>
+			<TabHeader TabKey="Worksheet_Tab">
+				<TabHeaderModel Key="Info" HeaderContent="Links/Timeboard.Worksheet" />
+				<TabHeaderModel Key="Overview" HeaderContent="Worksheet/Overview" />
+				<TabHeaderModel Key="History" HeaderContent="WorksheetItem/History.Title" />
+				<TabHeaderModel Key="Asserts" HeaderContent="WorksheetItem/Asserts.Title" />
+				<TabHeaderModel Key="Reports" HeaderContent="Entity/Reports" />
+			</TabHeader>
+		</div>
+		};
+	}
+
+	private RenderFragment BuildTrackerPlugin()
+	{
+		return __builder =>
+		{
+			if (Model == null)
+			{
+				return;
+			}
+			<WorksheetTrackerPluginComponent WorksheetId="WorksheetId"/>
+		};
+	}
+
+	private RenderFragment BuildDueDateTrackerPlugin()
+	{
+		return __builder =>
+		{
+			if (Model == null || !Model.Worksheet.InvoiceDueDate.HasValue)
+			{
+				return;
+			}
+			<Translatable Key="Worksheet/DueDate"/>
+			<span class="@When(DateTimeOffset.Now > Model.Worksheet.InvoiceDueDate.Value, "bg-danger")">@Model.Worksheet.InvoiceDueDate.Value.ToString("D")</span>
+		};
+	}
+}
+
+@if (Model == null)
+{
+	return;
+}
+
+<UiWorkflowStepDialog />
+
+<TabContent TabKey="Worksheet_Tab">
+	<TabContentItem Key="Info" IsDefault="true">
+		<WorksheetEntryComponent Model="Model"/>
+	</TabContentItem>
+	<TabContentItem Key="History">
+		<WorksheetHistoryComponent Model="Model"/>
+	</TabContentItem>
+	<TabContentItem Key="Asserts">
+		<WorksheetAssetComponent Model="Model"/>
+	</TabContentItem>
+	<TabContentItem Key="Overview">
+		<WorksheetOverviewComponent Model="Model"/>
+	</TabContentItem>
+	<TabContentItem Key="Reports">
+		<WorksheetReportComponent Model="Model"/>
+	</TabContentItem>
+</TabContent>

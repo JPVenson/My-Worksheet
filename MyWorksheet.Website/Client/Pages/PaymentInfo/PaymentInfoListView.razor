@@ -1,0 +1,46 @@
+﻿@attribute [Route("/PaymentInfo")]
+@attribute [Page("Links/PaymentInfos", IsNavbarView = true, PageIconCss = "fas fa-credit-card", Group = "Links/Settings")]
+@attribute [Authorize()]
+@inherits MyWorksheet.Website.Client.Pages.Base.NavigationPageBase
+
+@functions
+{
+	public override void OnSetPlugins()
+	{
+		AddPlugin("Buttons", Buttons(), PluginLocation.Header);
+		base.OnSetPlugins();
+	}
+
+	public RenderFragment Buttons()
+	{
+		return __builder =>
+		{
+		<div class="footer-button-area">
+			<a class="btn btn-outline-primary" href="/PaymentInfo/new">
+				<i class="fas fa-plus-circle"></i>
+			</a>
+		</div>
+		};
+	}
+}
+
+<NotLoadedGuardComponent @bind-ViewState="ViewState">
+	<table class="table">
+		<thead>
+			<tr>
+				<th><Translatable Key="PaymentInfo/PaymentType" /></th>
+				<th><Translatable Key="PaymentInfo/Detail.Disclaimer" /></th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var paymentInfo in PaymentInfos)
+			{
+				<tr class="selectable selectable-primary" @onclick="@(() => ModuleService.NavigateTo("/PaymentInfo/" + paymentInfo.PaymentInfoId))">
+					<td><span>@paymentInfo.PaymentType</span></td>
+					<td><span>@paymentInfo.PaymentTarget <Translatable Key="Common/Days" /></span></td>
+					<td><span>@paymentInfo.PaymentDisclaimer</span></td>
+				</tr>
+			}
+		</tbody>
+	</table>
+</NotLoadedGuardComponent>

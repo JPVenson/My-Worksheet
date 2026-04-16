@@ -1,0 +1,21 @@
+﻿@using Microsoft.AspNetCore.Components.Authorization
+@using System.Web
+@using MyWorksheet.Website.Client.Services.Navigation
+@inject NavigationService Navigation
+
+@code {
+
+	[CascadingParameter]
+	private Task<AuthenticationState> AuthenticationStateTask { get; set; }
+
+	protected override async Task OnInitializedAsync()
+	{
+		var authenticationState = await AuthenticationStateTask;
+		if (authenticationState?.User?.Identity is null || !authenticationState.User.Identity.IsAuthenticated)
+		{
+			var returnUrl = Navigation.NavigationManager.ToBaseRelativePath(Navigation.Uri);
+
+			Navigation.NavigateTo("/Login/" + HttpUtility.UrlPathEncode(returnUrl));
+		}
+	}
+}

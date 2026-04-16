@@ -1,0 +1,88 @@
+﻿@inherits NavigationPageBase
+@attribute [Authorize]
+@attribute [Route("/Settings/Webhook/{Id:guid?}")]
+@attribute [Route("/Settings/Webhook/new")]
+@attribute [Page("Links/Webhook", Group = "Links/Settings", IsNavbarView = false, PageIconCss = "fas fa-globe")]
+@using MyWorksheet.Website.Shared.ViewModels.ApiResultModels.Webhooks.Out;
+
+@functions
+{
+	public override void OnSetPlugins()
+	{
+		AddPlugin("Buttons", ButtonArea(), PluginLocation.Footer);
+		base.OnSetPlugins();
+	}
+
+	private RenderFragment ButtonArea()
+	{
+		return __builder =>
+		{
+			<div class="footer-button-area">
+				<button form="webhook_edit" type="submit" class="btn btn-outline-primary">
+					<Translatable Key="Common/Save" />
+				</button>
+				@* <button class="btn btn-outline-secondary" @onclick="ShowSchema">
+					<Translatable Key="Common/Schema" />
+				</button> *@
+				@if (Webhook?.ListState == EntityListState.Pristine)
+				{
+					<button class="btn btn-outline-danger" @onclick="Delete">
+						<Translatable Key="Common/Delete" />
+					</button>
+				}
+			</div>
+		};
+	}
+}
+
+
+<NotLoadedGuardComponent @bind-ViewState="ViewState">
+	<div class="d-flex flex-row flex-wrap">
+		<div>
+			<EditForm Model="Webhook.Entity" id="webhook_edit" OnValidSubmit="Save">
+				<fieldset>
+					<FieldControl Label="Common/Name" @bind-Value="Webhook.Entity.Name" />
+					<FieldControl Label="Common/NumberRange" ReadOnly="true"
+								  @bind-Value="Webhook.Entity.NumberRangeEntry" />
+					<FieldControl Label="Webhook/Url" type="url" @bind-Value="Webhook.Entity.CallingUrl" />
+					<FieldControl Label="ServerHealth/Plugin.DriveStatus.Type" TValue="object">
+						<EditorTemplate Context="_context">
+							<SelectionFieldControl ItemsSource="WebhookService.WebhookTypes"
+												   ReadOnly="Webhook.ListState != EntityListState.Added"
+												   @bind-SelectedKey="Webhook.Entity.IdOutgoingWebhookCase"
+												   ValueMemberExpression="e => e.OutgoingWebhookCaseId"
+												   DisplayMemberExpression="e => e.Name"
+												   OnSelectedItemChanged="(async (d) => await LoadSchema())"
+												   TValue="OutgoingWebhookCaseModel" TKey="Guid" />
+						</EditorTemplate>
+					</FieldControl>
+					<FieldControl Label="Common/Active" @bind-Value="Webhook.Entity.IsActive" />
+					<FieldControl Label="Webhook/Secret" ReadOnly="true" @bind-Value="Webhook.Entity.Secret" />
+
+					<ValidationSummary />
+					<ServerErrorsComponent ServerErrorManager="ServerErrorManager" />
+					<DataAnnotationsValidator />
+				</fieldset>
+			</EditForm>
+		</div>
+		<div>
+			<span class="pre" id="schema">
+				POST <code>@Webhook.Entity.CallingUrl</code> HTTP/1.0 <br />
+				Host: www.my-worksheet.com <br />
+				Referrer: www.my-worksheet.com<br />
+				Cache-Control: no-cache<br />
+				From: abuse@my-worksheet.com<br />
+				Date: <code>Send Date</code><br />
+				X-My-Worksheet-Secret: <code>@(Webhook.Entity.Secret ?? "- - - - -")</code><br />
+				Content-Type: application/json<br /><br />
+				Content-Length: <code>Size of Message</code><br />
+				Max-Forwards: 10<br />
+				<div style="overflow: scroll;
+					max-height: 24rem;">
+					<SchemaDisplayControl @bind-SchemaInfo="TypeSchema" EmbeddedDisplay="true" />
+				</div>
+				
+			</span>
+		</div>
+	</div>
+</NotLoadedGuardComponent>

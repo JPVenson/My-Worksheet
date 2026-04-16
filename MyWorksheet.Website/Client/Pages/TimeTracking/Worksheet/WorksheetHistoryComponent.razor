@@ -1,0 +1,154 @@
+﻿@using Microsoft.AspNetCore.Components.Rendering
+@using MyWorksheet.Website.Client.Pages.Shared
+@inherits NavigationPageBase;
+
+@code{
+
+	public override void OnSetPlugins()
+	{
+		AddPlugin("Buttons", BuildSaveButtons(), PluginLocation.Footer);
+		base.OnSetPlugins();
+	}
+
+	private RenderFragment BuildSaveButtons()
+	{
+		return __builder =>
+		{
+		<div class="footer-button-area">
+			@if (Model.WorkflowHistory.Count <= 1)
+				{
+				<button class="btn btn-outline-primary"
+						form="workflow_form"
+						type="submit">
+					<Translatable Key="Common/Save" />
+				</button>
+				}
+		</div>
+		};
+	}
+
+}
+
+<div class="d-flex flex-row">
+	<div>
+		<EditForm Model="Model" 
+		          id="workflow_form"
+				  OnValidSubmit="SaveWorkflow">
+			<fieldset>
+				<legend>
+					<Translatable Key="Workflow/Title"/>
+				</legend>
+				<FieldControl Label="Links/Timeboard.Workflow"
+				              TValue="object"
+				              ReadOnly="Model.WorkflowHistory.Count > 1">
+					<EditorTemplate Context="_context">
+						<SelectionFieldControl DisplayMemberExpression="e => e.DisplayKey"
+						                       ValueMemberExpression="e => e.WorksheetWorkflowId"
+						                       ItemsSource="@WorkflowService.GetWorkflows()"
+						                       AllowNullValue="true"
+						                       ReadOnly="Model.WorkflowHistory.Count > 1"
+						                       @bind-SelectedItem="Model.Workflow"
+						                       @bind-SelectedKey="Model.Worksheet.IdWorksheetWorkflow"/>
+						<span class="form-text text-muted">@Model.Workflow?.Comment</span>
+					</EditorTemplate>
+				</FieldControl>
+				@if (Model.Worksheet.IdWorksheetWorkflow.HasValue)
+				{
+					<FieldControl Label="WorkflowData/Title"
+					              TValue="object"
+					              ReadOnly="Model.WorkflowHistory.Count > 1">
+						<EditorTemplate Context="_context">
+							<SelectionFieldControl DisplayMemberExpression="e => e.GroupKey"
+							                       ValueMemberExpression="e => e.WorksheetWorkflowDataMapId"
+							                       ItemsSource="@WorkflowService.GetWorkflowData(Model.Worksheet.IdWorksheetWorkflow.Value)"
+							                       AllowNullValue="true"
+							                       ReadOnly="Model.WorkflowHistory.Count > 1"
+							                       @bind-SelectedItem="Model.WorkflowDataSet"
+							                       @bind-SelectedKey="Model.Worksheet.IdWorksheetWorkflowDataMap"/>
+						</EditorTemplate>
+					</FieldControl>
+				}
+				<ServerErrorsComponent ServerErrorManager="ServerErrorManager"/>
+			</fieldset>
+		</EditForm>
+
+		@if (Model.Workflow != null && Model.WorkflowHistory.Any())
+		{
+			var lastHistory = Model.WorkflowHistory.First();
+			if (lastHistory != null)
+			{
+				var files = GetFilesForHistory(lastHistory.WorksheetStatusHistoryId);
+
+				<fieldset>
+					<FieldControl Label="WorksheetItem/History.UploadFiles"
+					              TValue="object">
+						<EditorTemplate>
+							<small class="badge bg-@WorkflowService.GetWorkflowStatusColor(Model.Workflow.DisplayKey, lastHistory.IdPostState)">
+								<Translatable Key="@WorkflowService.GetWorkflowStatus(Model.Workflow.WorksheetWorkflowId, lastHistory.IdPostState)?.DisplayKey"/>
+							</small>
+						</EditorTemplate>
+					</FieldControl>
+					
+					<FileListAdd Files="files"
+								 accept="image/*,application/pdf"
+					             OnFileAddRequest="async (model, storageProviderId) => await UploadFileToHistory(model, storageProviderId, null)"
+					             OnFileDeleteRequest="async (model) => await DeleteFileFromHistory(model, lastHistory.WorksheetStatusHistoryId)"/>
+				</fieldset>
+			}
+		}
+	</div>
+	<div class="flex-fill">
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th scope="col" class="col-1"></th>
+					<th scope="col" class="col-2"><Translatable Key="WorksheetItem/History.ActivationTime" /></th>
+					<th scope="col" class="col-1"><Translatable Key="Common/Code" /></th>
+					<th scope="col" class="col"><Translatable Key="WorksheetItem/Comment" /></th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var history in Model.WorkflowHistory)
+				{
+					<tr>
+						<td>
+							<CollapsedTrigger Key="@("history_" + history.WorksheetStatusHistoryId)">
+								<CollapsedIndicator Key="@("history_" + history.WorksheetStatusHistoryId)" />
+							</CollapsedTrigger>
+						</td>
+						<td><time>@history.DateOfAction.ToString("g")</time></td>
+						<td>
+							@{
+								var status = WorkflowService.GetWorkflowStatus(Model.Workflow?.WorksheetWorkflowId, history.IdPostState);
+							}
+							@if (status != null)
+							{
+								<div class="badge bg-@WorkflowService.GetWorkflowStatusColor(Model.Workflow?.DisplayKey, history.IdPostState)">
+									<Translatable Key="@status.DisplayKey" />
+								</div>
+							}
+						</td>
+						<td><span>@history.Reason</span></td>
+					</tr>
+					<tr>
+						<Collapsed Key="@("history_" + history.WorksheetStatusHistoryId)" ElementType="td" colspan="4">
+							@{
+								var files = GetFilesForHistory(history.WorksheetStatusHistoryId);
+							}
+
+							@if (!files.Any())
+							{
+								<Translatable Key="UserStorageDetail/NoFiles" />
+							}
+							else
+							{
+								<FileListDisplay Files="files"
+												 OnFileDeleteRequest="async (model) => await DeleteFileFromHistory(model, history.WorksheetStatusHistoryId)" />
+							}
+						</Collapsed>
+					</tr>
+				}
+			</tbody>
+		</table>
+	</div>
+</div>

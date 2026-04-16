@@ -1,0 +1,67 @@
+﻿@attribute [Route("/Reports")]
+@attribute [Page("Links/Reporting", IsNavbarView = true, PageIconCss = "fas fa-file-invoice", Group = "Links/Settings")]
+@attribute [Authorize()]
+@inherits MyWorksheet.Website.Client.Pages.Base.NavigationPageBase
+
+@functions
+{
+	public override void OnSetPlugins()
+	{
+		AddPlugin("Buttons", GetButtons(), PluginLocation.Header);
+		base.OnSetPlugins();
+	}
+
+	private RenderFragment GetButtons()
+	{
+		return __builder =>
+		{
+			<div class="footer-button-area">
+				<a class="btn btn-outline-primary" href="/Report/new">
+					<i class="fa fa-plus-square"></i>
+				</a>
+			</div>
+		};
+	}
+}
+
+<NotLoadedGuardComponent @bind-ViewState="ViewState">
+	<div>
+		<table class="table">
+			<thead>
+				<tr>
+					<th><Translatable Key="Common/Name" /></th>
+					<th><Translatable Key="Template/FileType" /></th>
+					<th><Translatable Key="Template/Engines" /></th>
+					<th><Translatable Key="Common/Public" /> / <Translatable Key="Common/Private" /></th>
+				</tr>
+				@foreach (var report in Reports.OrderBy(e => e.IdCreator))
+				{
+					<tr class="selectable selectable-primary"
+					@onclick="@(() => NavigationService.NavigateTo($"/Report/{report.NEngineTemplateId}"))">
+						<td>
+							<span>@report.Name</span>
+						</td>
+						<td>
+							<span>@report.FileExtention</span>
+						</td>
+						<td>
+							<span>@report.UsedFormattingEngine</span>
+						</td>
+						<td>
+							<span class="badge @When(report.IdCreator.HasValue, "bg-success", "bg-info")">
+								@if (report.IdCreator.HasValue)
+								{
+									<Translatable Key="Common/Public" />
+								}
+								else
+								{
+									<Translatable Key="Common/Private" />
+								}
+							</span>
+						</td>
+					</tr>
+				}
+			</thead>
+		</table>
+	</div>
+</NotLoadedGuardComponent>

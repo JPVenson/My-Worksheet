@@ -1,0 +1,52 @@
+﻿@using Newtonsoft.Json
+@inherits NavigationPageBase
+
+<div>
+	@if (!Tracker.Any())
+	{
+		<div class="alert alert-primary">
+			<Translatable Key="WorksheetItem/NoTrackerRunning" />
+		</div>
+	}
+	else
+	{
+		@foreach (var tracker in Tracker)
+		{
+			<CollapsedTrigger class="d-flex flex-row alert alert-success justify-content-between m-0 p-1 selectable"
+							  Key="@($"trackerplugin.details_" + tracker.Tracker.WorksheetTrackId)">
+				<i class="fa fa-play-circle-o my-auto"></i>
+				<span class="ms-1">@tracker.Project.Name</span>
+				<TimeDisplay Value="@((DateTimeOffset.UtcNow - tracker.Tracker.StartTime).TotalMinutes)" class="ms-1" />
+			</CollapsedTrigger>
+			<Collapsed Key="@($"trackerplugin.details_" + tracker.Tracker.WorksheetTrackId)">
+				<div class="d-flex flex-column">
+					<EditForm OnValidSubmit="() => UpdateTrackerComment(tracker)" Model="tracker">
+						<div class="input-group">
+							<InputControl TValue="string"
+							              @bind-Value="tracker.Comment"
+							              OnValueChanged="(args) => UpdateTrackerComment(tracker)"
+							              ReadOnly="tracker.IsUpdating"/>
+							@if (tracker.IsUpdating)
+							{
+								<div class="input-group-addon">
+									<i class="fa fa-refresh fa-spin my-auto"></i>
+								</div>
+							}
+						</div>
+					</EditForm>
+					<div class="d-flex flex-row justify-content-between">
+						<button type="button" class="btn btn-outline-secondary" @onclick="() => CancelTracker(tracker)">
+							<i class="fa fa-ban"></i>
+						</button>
+						<a href="/Project/Worksheet/@tracker.Tracker.IdWorksheet" class="btn btn-link">
+							@tracker.Worksheet?.NumberRangeEntry
+						</a>
+						<button type="button" class="btn btn-outline-primary" @onclick="() => SaveTracker(tracker)">
+							<i class="fa fa-check"></i>
+						</button>
+					</div>
+				</div>
+			</Collapsed>
+		}
+	}
+</div>

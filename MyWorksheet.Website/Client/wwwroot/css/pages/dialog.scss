@@ -1,0 +1,58 @@
+﻿.dialog-container {
+    position: absolute;
+    z-index: $z-dialog;
+    width: calc(100% - #{$width-desktop-sidebar-expanded});
+    height: 100%;
+    background-color: rgba($gray-600, .33);
+}
+
+.dialog-layout-container {
+    @extend .d-flex;
+    @extend .justify-content-center;
+    position: absolute;
+    z-index: $z-dialog + 1;
+   /* left: 50%;
+    right: 50%;*/
+    width: calc(100% - 15.5rem);
+    height: 100%;
+    max-height: 100vh;
+    background-color: transparent;
+    @include DefaultAnimation(flow-in-from-top 0.4s ease-in-out 0s 1 normal);
+
+    &.hide {
+        @include DefaultAnimation(flow-out-to-top 0.4s ease-in-out 0s 1 normal);
+    }
+
+    > .dialog {
+        @extend .d-flex;
+        @extend .flex-column;
+        background-color: $body-bg;
+        color: $body-color;
+        height: auto;
+    }
+
+    .modal-body {
+        max-height: 100%;
+    }
+}
+
+
+@-webkit-keyframes flow-in-from-top {
+    0% {
+        -webkit-transform: translateY(-100%);
+    }
+
+    100% {
+        -webkit-transform: translateY(0%);
+    }
+}
+
+@-webkit-keyframes flow-out-to-top {
+    0% {
+        -webkit-transform: translateY(0%);
+    }
+
+    100% {
+        -webkit-transform: translateY(-100%);
+    }
+}

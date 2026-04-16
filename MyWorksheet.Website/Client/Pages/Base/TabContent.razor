@@ -1,0 +1,8 @@
+﻿@inherits ComponentViewBase
+<ErrorContainer>
+	<CascadingValue Name="TabParent" Value="this">
+		@ChildContent
+	</CascadingValue>
+
+	@CurrentTab?.ChildContent
+</ErrorContainer>

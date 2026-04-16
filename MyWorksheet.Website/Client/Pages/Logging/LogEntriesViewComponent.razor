@@ -1,0 +1,26 @@
+﻿<div class="h-100 console-lookalike">
+	<ol>
+		@foreach (var logEntry in LoggerEntries.Reverse())
+		{
+			<li class="d-flex flex-column" @key="logEntry">
+				<div class="d-flex flex-row">
+					<span class="log-level"><span class="badge log-level-@logEntry.Level.ToLower()">@logEntry.Level</span></span>
+					<span class="log-category ml-1">@logEntry.Category</span>
+					<span class="log-date">@logEntry.DateCreated</span>
+					<span class="log-message">@logEntry.Message</span>
+				</div>
+				@if (logEntry.OptionalData?.Count > 0)
+				{
+					@foreach (var data in logEntry.OptionalData)
+					{
+						<div class="d-flex flex-row">
+							<span class="ms-5">@data.Key</span>
+							<span class="mx-2"> - </span>
+							<span>@data.Value</span>
+						</div>
+					}
+				}
+			</li>
+		}
+	</ol>
+</div>

@@ -1,0 +1,55 @@
+﻿@inherits NavigationPageBase;
+@using System.Globalization
+
+<div class="list-group">
+	@foreach (var week in Model.Weeks)
+	{
+		var collapseWeekKey = "week." + week.WeekNo;
+		<CollapsedTrigger class="list-group-item selectable selectable-primary "
+						  Key="@collapseWeekKey">
+			<h4>
+				<CollapsedIndicator Key="@collapseWeekKey" />
+				<span class="@When(week.CurrentWeek, "text-info")">
+					<Translatable Key="Time/Week" />: @week.WeekNo
+				</span>
+
+				<small class="">
+					<Translatable Key="Common/Worktime" />
+					@{
+						var weekWorktime = week.GetWeekWorktime();
+						var weekMeanWorktime = week.GetWeekMeanWorktime();
+					}
+					<span class="ml-2"></span>
+					<span class="@When(weekWorktime < weekMeanWorktime, "text-danger", "text-success")">
+						<TimeDisplay Value="weekWorktime" />
+					</span>
+					/
+
+					<TimeDisplay Value="weekMeanWorktime" />
+				</small>
+			</h4>
+			@if (week.CurrentWeek)
+			{
+				<Translatable Key="WorksheetItem/CurrentWeek" />
+			}
+		</CollapsedTrigger>
+		<Collapsed Key="@collapseWeekKey" IsCollapsed="week.IsCollapsed">
+			<div class="list-group-item no-fx text-justify">
+				<div class="d-flex flex-row no-fx">
+					<div class="item-badge-offset"></div>
+					<div class="time-display-column"><Translatable Key="Time/Day" /></div>
+					<div class="time-display-column"><Translatable Key="Time/Weekday" /></div>
+					<div class="time-weekday-display-column"><Translatable Key="WorksheetItem/Time" /></div>
+					<div class="timespan-display-column"><Translatable Key="WorksheetItem/Timespan" /></div>
+					<div class="time-input-column"><Translatable Key="WorksheetItem/From" /></div>
+					<div class="time-input-column"><Translatable Key="WorksheetItem/To" /></div>
+					<div class="comment-column"><Translatable Key="WorksheetItem/Comment" /></div>
+				</div>
+			</div>
+			@foreach (var dayInWeek in week.WorksheetDays)
+			{
+				<WorksheetItemEditDayComponent Model="Model" Tracker="Tracker" WorksheetDay="dayInWeek" ItemRates="ItemRates" />
+			}
+		</Collapsed>
+	}
+</div>

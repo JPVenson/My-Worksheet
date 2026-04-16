@@ -1,0 +1,106 @@
+﻿@inherits NavigationPageBase;
+
+@using MyWorksheet.Website.Client.Util
+@using System.Globalization
+<div class="list-group">
+	@foreach (var week in Model.Weeks.Where(e => e.GetItemsInWeek().Any()))
+	{
+		<div class="list-group-item">
+			<h4>
+				<span class="@When(week.CurrentWeek, "text-info")">
+					<Translatable Key="Time/Week" />: @week.WeekNo
+				</span>
+
+				<small class="">
+					<Translatable Key="Common/Worktime" />
+					@{
+						var weekWorktime = week.GetWeekWorktime();
+						var weekMeanWorktime = week.GetWeekMeanWorktime();
+					}
+					<span class="ml-2"></span>
+					<span class="@When(weekWorktime < weekMeanWorktime, "text-danger", "text-success")">
+						<TimeDisplay Value="weekWorktime" />
+					</span>
+					/
+
+					<TimeDisplay Value="weekMeanWorktime" />
+				</small>
+			</h4>
+			@if (week.CurrentWeek)
+			{
+				<Translatable Key="WorksheetItem/CurrentWeek" />
+			}
+		</div>
+		<div>
+			<div class="list-group-item no-fx text-justify">
+				<div class="row no-fx">
+					<div></div>
+					<div class="col-1"><Translatable Key="Time/Day" /></div>
+					<div class="col-1"><Translatable Key="Time/Weekday" /></div>
+					<div class="col-1"><Translatable Key="WorksheetItem/Time" /></div>
+					<div class="col-1"><Translatable Key="WorksheetItem/Timespan" /></div>
+					<div class="col-1"><Translatable Key="WorksheetItem/From" /></div>
+					<div class="col-1"><Translatable Key="WorksheetItem/To" /></div>
+					<div class="col"><Translatable Key="WorksheetItem/Comment" /></div>
+				</div>
+			</div>
+			@foreach (var dayInWeek in week.WorksheetDays.Where(e => e.GetWorksheetItems().Any()))
+			{
+				var dayWorktime = dayInWeek.GetDayWorktime();
+				var meanWorkTime = Model.WorktimeMode.GetDayWorktime(Model.Workload, dayInWeek.Day.DayOfWeek);
+				<div class="list-group-item no-fx text-justify">
+					<div class="row no-fx">
+						<div class="list-group-item-badge no-fx
+							 @When(dayInWeek.Today, "list-group-item-info")
+					 @When(dayInWeek.IsPast && dayInWeek.IsWorkingDay && dayWorktime >= meanWorkTime, "list-group-item-success")
+					 @When(dayInWeek.Today && dayInWeek.IsWorkingDay && dayWorktime < meanWorkTime, "list-group-item-warning")
+					 @When(dayInWeek.IsPast && dayInWeek.IsWorkingDay && dayWorktime < meanWorkTime, "list-group-item-danger")">
+
+						</div>
+						<span class="col-1">
+							@dayInWeek.Day.ToString("d")
+						</span>
+						<span class="col-1">@TextService.CurrentSystemUiCulture.DateTimeFormat.GetDayName(dayInWeek.Day.DayOfWeek)</span>
+						<span class="col-1"><TimeDisplay Value="dayInWeek.GetDayWorktime()" /></span>
+						<span class="col-1">
+							@{
+								var items = dayInWeek.GetWorksheetItems().ToArray();
+
+								int minWorktime = 0;
+								int maxWorktime = 0;
+								if (items.Any())
+								{
+									minWorktime = items.Select(f => f.FromTime).Min();
+									maxWorktime = items.Select(f => f.ToTime).Max();
+								}
+							}
+							<TimeDisplay Value="minWorktime" /> - <TimeDisplay Value="maxWorktime" />
+						</span>
+					</div>
+					<table class="table ms-5">
+						<thead>
+						<tr>
+							<th class="col-1"><Translatable Key="WorksheetItem/From" /></th>
+							<th class="col-1"><Translatable Key="WorksheetItem/To" /></th>
+							<th class="col-1"><Translatable Key="WorksheetItem/Timespan" /></th>
+							<th class="col-1"><Translatable Key="WorksheetItem/Comment" /></th>
+							<th></th>
+						</tr>
+						</thead>
+						<tbody>
+						@foreach (var dayEntry in dayInWeek.GetWorksheetItemsWithPause())
+						{
+							<tr class="@When(dayEntry is PauseWorksheetItemModel, "pause-item")">
+								<td><TimeDisplay Value="dayEntry.FromTime" /></td>
+								<td><TimeDisplay Value="dayEntry.ToTime" /></td>
+								<td><TimeDisplay Value="dayEntry.ToTime - dayEntry.FromTime" /></td>
+								<td><span>@dayEntry.Comment</span></td>
+							</tr>
+						}
+						</tbody>
+					</table>
+				</div>
+			}
+		</div>
+	}
+</div>

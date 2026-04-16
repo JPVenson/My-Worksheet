@@ -1,0 +1,50 @@
+﻿@using MyWorksheet.Website.Client.Pages.Shared; 
+
+<DialogComponent Key="FileLightbox"
+				 IsFullscreen="true"
+				 THeader="FileDialogViewModel"
+				 TBody="FileDialogViewModel"
+				 TFooter="FileDialogViewModel">
+	<HeaderTemplate Context="header">
+		<h2>
+			@header.CurrentModel.Model.FileName
+		</h2>
+	</HeaderTemplate>
+	<BodyTemplate Context="body">
+		<div class="d-flex flex-column h-100">
+			<div class="d-flex flex-row h-100 justify-content-between">
+				<div>
+					@if (body.CanPreviousFile())
+					{
+						<button class="btn" @onclick="() => body.PreviousFile()">
+							<i class="fa fa-chevron-circle-left"></i>
+						</button>
+					}
+				</div>
+				<div>
+					@{
+						var url = body.ServerStorageService.GetValidResourceThumbnailUrl(body.CurrentModel.Model.StorageEntryId, "xl");
+						if (url != null && body.CurrentModel.ForceRefresh)
+						{
+							url += "&rand=" + DateTimeOffset.Now.Ticks;
+							body.CurrentModel.ForceRefresh = false;
+						}
+					}
+					<img class="h-100" src="@url"/>
+				</div>
+				<div>
+					@if (body.CanNextFile())
+					{
+						<button class="btn" @onclick="() => body.NextFile()">
+							<i class="fa fa-chevron-circle-right"></i>
+						</button>
+					}
+				</div>
+			</div>
+		</div>
+
+	</BodyTemplate>
+	<FooterTemplate Context="footer">
+	
+	</FooterTemplate>
+</DialogComponent>

@@ -1,0 +1,186 @@
+﻿@inherits ComponentViewBase
+@using MyWorksheet.Website.Client.Shared;
+@using MyWorksheet.Website.Client.Services.Plugins
+@using MyWorksheet.Website.Client.Components.Dialog
+@using MyWorksheet.Website.Client.Pages.Shared.Dialog;
+@using MyWorksheet.Website.Client.Shared.Nav;
+@using System.Globalization;
+@using Humanizer
+@using Microsoft.AspNetCore.Components.WebAssembly.Hosting
+@using Newtonsoft.Json
+
+
+@functions
+{
+	public RenderFragment BreadcrumbDisplay()
+	{
+		return __builder =>
+		{
+			<nav>
+				<ol class="breadcrumb no-margin">
+					@foreach (var part in BreadcrumbService.Parts)
+					{
+						<li class="breadcrumb-item">
+							<a href="@part.Url">
+								<Translatable Loc="part.Title" />
+							</a>
+						</li>
+					}
+					<li class="breadcrumb-item active">
+						<Translatable Loc="ModuleService.CurrentTitle" />
+					</li>
+				</ol>
+			</nav>
+		};
+	}
+
+	public RenderFragment DisplayPlugins(PluginLocation location)
+	{
+		return __builder =>
+		{
+			var groups = PluginService.Plugins.Where(e => e.Location.HasFlag(location)).GroupBy(e => e.Row).ToArray();
+			foreach (var plugin in groups)
+			{
+				<div class="d-flex flex-row @When(groups.Length == 1, "h-100") align-items-center">
+					@foreach (var item in plugin.Where(e => e.Orientation == PluginOrientation.Left))
+					{
+						@item.Content
+					}
+					<div class="me-auto"></div>
+					@foreach (var item in plugin.Where(e => e.Orientation == PluginOrientation.Right))
+					{
+						@item.Content
+					}
+				</div>
+			}
+		};
+	}
+
+	public RenderFragment DisplayLogoutPlugin()
+	{
+		return __builder =>
+		{
+			<div class="footer-button-area">
+				@if (CurrentUserStore?.CurrentToken?.UserData?.UserInfo?.Username != null)
+				{
+					<button class="btn btn-link" @onclick="Logoff">
+						@CurrentUserStore.CurrentToken.UserData.UserInfo.Username
+						<Translatable Key="Logout/TimeUntilLogout"
+					  _0="@DateTimeOffset.Parse(CurrentUserStore.CurrentToken.UserData.PageSettings.SessionTimeout).Humanize(DateTimeOffset.UtcNow.AddSeconds(1), SelectedCulture)" />
+					</button>
+				}
+				else
+				{
+					<a href="/login" class="btn btn-link">
+						<Translatable Key="Links/Login" />
+					</a>
+				}
+			</div>
+		};
+	}
+
+	public RenderFragment DisplayNotificationsPlugin()
+	{
+		return __builder =>
+		{
+			<div class="footer-button-area">
+				@if (CurrentUserStore?.CurrentToken?.UserData?.UserInfo?.Username != null)
+				{
+					<a href="/Activities/@NavigationService.NavigationManager.ToBaseRelativePath(NavigationService.Uri)">
+						<i class="fas fa-bell"></i>
+						<span class="badge @When(ActivityService.ActivitiesCache.Cache.Count == 0, "bg-primary", "bg-success")">
+							@(ActivityService.ActivitiesCache.Cache.Count)
+						</span>
+					</a>
+				}
+			</div>
+		};
+	}
+
+	public RenderFragment LanguageSelectionPlugin()
+	{
+		return __builder =>
+		{
+			<fieldset class="size-to-width">
+				<FieldLayout FormGroupCss="no-fx">
+					<LabelContent>
+						<Translatable Key="Common/Language" />
+					</LabelContent>
+					<EditorContent>
+						<SelectionFieldControl ItemsSource="TextService.SupportedCultures"
+								   DisplayMemberExpression="e => GetTitleCaseNativeLanguage(e)"
+								   ValueMemberExpression="e => e.ThreeLetterISOLanguageName"
+								   	@bind-SelectedItem="SelectedCulture"
+								   OnSelectedItemChanged="UpdateCulture"
+								   TKey="string"
+								   TValue="CultureInfo" />
+					</EditorContent>
+				</FieldLayout>
+			</fieldset>
+		};
+	}
+
+	public RenderFragment PresentationSelectionPlugin()
+	{
+		return __builder =>
+		{
+			<div class="button-bar">
+				@if (CurrentUserStore?.CurrentToken?.UserData?.UserInfo?.Username != null)
+				{
+					<ToggleEditorControl @bind-Value="PresentationState.Enabled"
+						 OnValueChanged="UpdatePresentationMode"
+						 ContentText="@("Presentation/Mode".AsLocString())" />
+
+					<ToggleEditorControl @bind-Value="UserSettingsService.UiSettings.UseDecimalTimes"
+						 OnValueChanged="UpdateDecimalTimesMode"
+						 ContentText="@("UserSettings/Misc.DecimalTimes".AsLocString())" />
+				}
+			</div>
+		};
+	}
+}
+
+<WaiterIndicatorComponent />
+
+@if (!HubState.IsConnected)
+{
+	<div class="waiter-container full-sized-block">
+		<div class="alert alert-danger">
+			<Translatable Key="Signal/LostConnection" />
+			<i class="fa fa-refresh fa-spin"></i>
+		</div>
+	</div>
+}
+
+<CascadingValue Value="LayoutController" IsFixed="true">
+	<div class="container-fluid no-fx">
+		<div class="d-flex flex-row">
+			<NavMenu />
+			<div class="content-area d-flex flex-column">
+				<DialogContainerComponent>
+					<header class="content-area-header">
+						@DisplayPlugins(PluginLocation.Header)
+					</header>
+					@{
+						var hasFooter = PluginService.Plugins.Any(e => e.Location == PluginLocation.Footer);
+					}
+
+					<div class="content-area-body @When(LayoutController.Layout.FullHeightContent, "flex-fill")">
+						<ErrorContainer>
+							@Body
+						</ErrorContainer>
+					</div>
+					@if (hasFooter)
+					{
+						<footer class="content-area-footer">
+							@DisplayPlugins(PluginLocation.Footer)
+						</footer>
+					}
+					<FilesDialogView />
+					<LogoffDialog />
+					<MessageBoxDialog />
+				</DialogContainerComponent>
+			</div>
+		</div>
+	</div>
+</CascadingValue>

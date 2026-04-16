@@ -1,0 +1,67 @@
+@inherits WidgetViewBase
+@using MyWorksheet.Website.Shared.ViewModels.ApiResultModels.Worksheet
+@attribute [DashboardWidget("Today", "Dashboard/Widget.TodayWorkload.Name", "Dashboard/Widget.TodayWorkload.Description", "fas fa-clock", true)]
+
+@if (Workload == null)
+{
+	<div class="d-flex justify-content-center p-4">
+		<div class="spinner-border spinner-border-sm text-primary" role="status"></div>
+	</div>
+	return;
+}
+
+@{
+	var percent = ExpectedMinutesToday > 0
+		? (int)Math.Min(100, TrackedMinutesToday / ExpectedMinutesToday * 100)
+		: 0;
+	const double r = 38;
+	const double circ = 2 * Math.PI * r;
+	var offset = circ - circ * percent / 100.0;
+	var isDone = percent >= 100;
+}
+
+<div class="p-3">
+	<div class="d-flex align-items-center gap-3 mb-3">
+		<div class="workload-ring-container">
+			<svg class="workload-ring-svg" viewBox="0 0 96 96">
+				<circle class="workload-ring-bg" cx="48" cy="48" r="@r" />
+				<circle class="workload-ring-bar @(isDone ? "workload-ring-bar--done" : "workload-ring-bar--normal")"
+						cx="48" cy="48" r="@r"
+						stroke-dasharray="@circ.ToString("F2", System.Globalization.CultureInfo.InvariantCulture)"
+						stroke-dashoffset="@offset.ToString("F2", System.Globalization.CultureInfo.InvariantCulture)" />
+			</svg>
+			<div class="workload-ring-label @(isDone ? "text-success" : "")">
+				@percent<small style="font-size:.5em">%</small>
+			</div>
+		</div>
+		<div class="flex-grow-1">
+			<div class="d-flex justify-content-between mb-1">
+				<small class="text-muted"><Translatable Key="Dashboard/Widget.Today.TrackedToday" /></small>
+				<span class="fw-bold small"><TimeDisplay Value="@TrackedMinutesToday" /></span>
+			</div>
+			<div class="d-flex justify-content-between">
+				<small class="text-muted"><Translatable Key="Dashboard/Widget.Today.ExpectedToday" /></small>
+				<span class="text-muted small"><TimeDisplay Value="@ExpectedMinutesToday" /></span>
+			</div>
+		</div>
+	</div>
+
+	@if (RunningTrackers.Any())
+	{
+		<div class="border-top pt-2">
+			<small class="d-flex align-items-center gap-1 text-muted mb-1">
+				<span class="tracker-pulse-dot"></span>
+				<Translatable Key="Dashboard/Widget.Today.ActiveTrackers" />
+			</small>
+			@foreach (var tracker in RunningTrackers)
+			{
+				<div class="d-flex justify-content-between align-items-center py-1">
+					<small class="text-truncate me-2">@tracker.Comment</small>
+					<span class="badge bg-primary">
+						<TimeDisplay Value="@((DateTimeOffset.UtcNow - tracker.StartTime).TotalMinutes)" />
+					</span>
+				</div>
+			}
+		</div>
+	}
+</div>

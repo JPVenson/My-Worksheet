@@ -1,0 +1,143 @@
+﻿@inherits NavigationPageBase
+@attribute [Route("/Settings/Storage/{Id:guid?}")]
+@attribute [Route("/Settings/Storage/new")]
+@attribute [Page("Links/Storage.Title", Group = "Links/Settings", IsNavbarView = false)]
+@attribute [Authorize()]
+
+@using MyWorksheet.Website.Shared.ViewModels.ApiResultModels.Storage;
+
+@if (StorageProvider == null)
+{
+	return;
+}
+
+@code
+{
+	public override void OnSetPlugins()
+	{
+		AddPlugin("Buttons", BuildButtons(), PluginLocation.Footer);
+		base.OnSetPlugins();
+	}
+
+	private RenderFragment BuildButtons()
+	{
+		return __builder =>
+		{
+		<div class="footer-button-area">
+			<button form="storage_edit_form" type="submit" class="btn btn-outline-primary"><Translatable Key="Common/Update" /></button>
+			<button class="btn btn-outline-danger" @onclick="Delete"><Translatable Key="Common/Delete" /></button>
+			<button class="btn btn-outline-warning" @onclick="Test"><Translatable Key="Common/Test" /></button>
+		</div>
+		};
+	}
+}
+
+<div class="d-flex flex-row">
+	<EditForm class="form"
+	          id="storage_edit_form"
+	          OnValidSubmit="Save"
+	          Model="StorageProvider.Entity">
+		<fieldset>
+			<FieldControl Label="Common/Name" @bind-Value="StorageProvider.Entity.Name" />
+			<FieldControl Label="UserStorageDetail/ProviderName"
+			              ReadOnly="Id != Guid.Empty"
+			              TValue="object">
+				<EditorTemplate Context="_context">
+					<SelectionFieldControl AllowNullValue="false"
+					                       ItemsSource="Provider"
+					                       TKey="string"
+					                       TValue="StorageProviderInfo"
+					                       ReadOnly="Id != Guid.Empty"
+					                       ValueMemberExpression="info => info.Key"
+					                       DisplayMemberExpression="info => info.Display"
+					                       @bind-SelectedItem="SelectedProvider"
+					                       OnSelectedItemChanged="(d) => SelectedProviderChanged(d)"
+					                       @bind-SelectedKey="StorageProvider.Entity.StorageKey" />
+				</EditorTemplate>
+			</FieldControl>
+			<FieldControl Label="UserStorageDetail/IsDefaultProvider"
+			              @bind-Value="StorageProvider.Entity.IsDefaultProvider" />
+
+			<SchemaEditControl @bind-SchemaInfo="ProviderDataSchema" Values="ProviderData" />
+
+			<ServerErrorsComponent ServerErrorManager="ServerErrorManager" />
+			@if (TestResult != null)
+			{
+				<div class="card">
+					<div class="card-header"><Translatable Key="Storage/TestResult" /></div>
+					<div class="card-body">
+						<ol>
+							@foreach (var result in TestResult)
+							{
+								<li><span class="test">@result</span></li>
+							}
+						</ol>
+					</div>
+				</div>
+			}
+		</fieldset>
+	</EditForm>
+	@if (StorageEntries != null)
+	{
+		<EditForm Model="new object()">
+			<div class="flex-fill">
+				<table class="table">
+					<thead>
+					<tr>
+						<td>
+							<Translatable Key="UserStorageDetail/Entries.Filename" />
+						</td>
+						<td>
+							<Translatable Key="Common/Deleted" />
+						</td>
+						<td>
+							<Translatable Key="Template/FileType" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<InputControl @bind-Value="SearchText" />
+						</td>
+						<td>
+							<InputControl @bind-Value="SearchDeleted" />
+						</td>
+						<td>
+							<InputControl @bind-Value="SearchFileType" />
+						</td>
+					</tr>
+					</thead>
+					<tbody>
+					@foreach (var storageEntry in StorageEntries)
+					{
+						<tr>
+							<td>
+								<div class="d-flex flex-row">
+									<img class="thumbnail img-thumbnail thumbnail-img"
+									     src="@ServerStorageService.GetValidResourceThumbnailUrl(storageEntry.StorageEntryId, "md")" />
+									<span>@storageEntry.FileName</span>
+								</div>
+							</td>
+							<td>
+								<ToggleEditorControl Value="storageEntry.IsDeleted" />
+							</td>
+							<td>
+								@storageEntry.ContentType
+							</td>
+						</tr>
+					}
+					</tbody>
+					<tfoot>
+					<tr>
+						<td colspan="3">
+							<ListPager ItemsSource="StorageEntries"
+							           T="StorageEntryViewModel" />
+						</td>
+					</tr>
+					</tfoot>
+				</table>
+			</div>
+		</EditForm>
+	}
+	
+
+</div>

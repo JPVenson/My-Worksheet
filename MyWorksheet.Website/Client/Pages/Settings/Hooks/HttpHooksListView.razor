@@ -1,0 +1,66 @@
+﻿@inherits NavigationPageBase
+@attribute [Authorize]
+@attribute [Route("/Settings/Webhooks")]
+@attribute [Page("Links/Webhooks", Group = "Links/Settings", IsNavbarView = true, PageIconCss = "fas fa-globe")]
+
+@functions
+{
+	public override void OnSetPlugins()
+	{
+		base.OnSetPlugins();
+		AddPlugin("Buttons", GetButtonsPlugin(), PluginLocation.Header);
+	}
+
+	private RenderFragment GetButtonsPlugin()
+	{
+		return __builder =>
+		{
+		<div class="footer-button-area">
+			<a class="btn btn-outline-primary"
+		   href="/Settings/Webhook/new">
+				<i class="fa fa-plus-square"></i>
+			</a>
+		</div>
+		};
+	}
+}
+
+<div>
+	<table class="table">
+		<thead>
+			<tr>
+				<th class="col-1"><Translatable Key="Common/NumberRange" /></th>
+				<th class="col-1"><Translatable Key="Common/Name" /></th>
+				<th class="col-1"><Translatable Key="Common/Active" /></th>
+				<th class="col-1"><Translatable Key="Webhook/Url" /></th>
+				<th><Translatable Key="Webhook/Type" /></th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var hook in Webhooks)
+			{
+			<tr class="selectable selectable-primary"
+				@onclick="@(() => ModuleService.NavigateTo($"/Settings/Webhook/{hook.OutgoingWebhookId}"))">
+				<td>
+					<span>@hook.NumberRangeEntry</span>
+				</td>
+				<td>
+					<span>@hook.Name</span>
+				</td>
+				<td>
+					<span>
+						<ToggleEditorControl Value="hook.IsActive"
+						                     ReadOnly="true"/>
+					</span>
+				</td>
+				<td>
+					<span>@hook.CallingUrl</span>
+				</td>
+				<td>
+					<span>@(WebhookService.WebhookTypes.FirstOrDefault(e => e.OutgoingWebhookCaseId == hook.IdOutgoingWebhookCase)?.Name)</span>
+				</td>
+			</tr>
+			}
+		</tbody>
+	</table>
+</div>

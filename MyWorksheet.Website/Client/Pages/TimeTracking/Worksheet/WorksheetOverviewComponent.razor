@@ -1,0 +1,206 @@
+﻿@using System.Globalization
+@using Morestachio.Formatter.Predefined.Accounting
+@inherits NavigationPageBase;
+@{
+	var totalWorktime = 0;
+	var totalMeanWorktime = 0;
+}
+@foreach (var week in Model.Weeks)
+{
+	var weekWorktime = week.GetWeekWorktime();
+	var weekMeanWorktime = week.GetWeekMeanWorktime();
+	totalWorktime += weekWorktime;
+	totalMeanWorktime += weekMeanWorktime;
+}
+
+<div class="card">
+	<div class="card-header">
+		<h3>
+			<Translatable Key="WorksheetItem/Summary.Title" />
+			<small>@TextService.CurrentSystemUiCulture.DateTimeFormat.GetMonthName(Model.Worksheet.StartTime.Month)</small>
+		</h3>
+	</div>
+	<div class="card-body">
+		<div class="d-flex flex-row">
+			<div>
+				<fieldset>
+					<FieldLayout EditorCss="mt-1">
+						<LabelContent>
+							<Translatable Key="WorksheetItem/Summary.WorkedHours"/>
+						</LabelContent>
+						<EditorContent>
+							<TimeDisplay Value="Model.Weeks.Sum(f => f.GetWeekWorktime())"/>
+						</EditorContent>
+					</FieldLayout>
+					
+					<PresentationStateAwareComponent>
+						<Disabled>
+							@{
+								var rates = GetPayedTime();
+
+								var totalMoney = new Money(0, Currency.UnknownCurrency);
+								var totalTax = new Money(0, Currency.UnknownCurrency);
+								var totalPossibleLower = new Money(0, Currency.UnknownCurrency);
+								var totalPossibleUpper = new Money(0, Currency.UnknownCurrency);
+								var minTaxRate = new Money(0, Currency.UnknownCurrency);
+								var maxTaxRate = new Money(0, Currency.UnknownCurrency);
+								if (rates.Any())
+								{
+									totalMoney = rates.Select(f => f.Item1).Aggregate((e, f) => e.Add(f));
+									totalTax = rates.Select(f => f.Item1.GetTax(f.Item2.TaxRate)).Aggregate((e, f) => e.Add(f));
+									var minRate = Model.ChargeRates.First(e => e.Rate == Model.ChargeRates.Min(e => e.Rate));
+									var maxRate = Model.ChargeRates.First(e => e.Rate == Model.ChargeRates.Max(e => e.Rate));;	
+									
+									totalPossibleLower = Money.Get(new Worktime(totalMeanWorktime, WorktimePrecision.Minutes),
+										minRate.Rate,
+										ChargeRateService.GetChargeRate(minRate.IdProjectChargeRate)?.ToMRate() ?? MoneyChargeRate.PerHour,
+										WellKnownCurrencies.EUR
+										);
+									minTaxRate = totalPossibleLower.GetTax(minRate.TaxRate);
+									totalPossibleUpper = Money.Get(new Worktime(totalMeanWorktime, WorktimePrecision.Minutes),
+										maxRate.Rate,
+										ChargeRateService.GetChargeRate(maxRate.IdProjectChargeRate)?.ToMRate() ?? MoneyChargeRate.PerHour,
+										WellKnownCurrencies.EUR
+										);
+									maxTaxRate = totalPossibleUpper.GetTax(minRate.TaxRate);
+								}
+							}
+
+							<FieldLayout EditorCss="mt-1">
+								<LabelContent>
+									<Translatable Key="WorksheetItem/Summary.HonorarAggreated"/>
+								</LabelContent>
+								<EditorContent>
+									<span>
+										<span>@totalMoney.Currency.DisplayValue</span>
+										<span><MoneyDisplay Value="totalMoney.CommercialRound()"/></span>
+									</span>
+								</EditorContent>
+							</FieldLayout>
+							<FieldLayout EditorCss="mt-1">
+								<LabelContent>
+									<Translatable Key="WorksheetItem/Summary.Tax"/>
+								</LabelContent>
+								<EditorContent>
+									<span>
+										<span>@totalTax.Currency.DisplayValue</span>
+										<span><MoneyDisplay Value="totalTax.CommercialRound()"/></span>
+									</span>
+								</EditorContent>
+							</FieldLayout>
+							<FieldLayout EditorCss="mt-1">
+								<LabelContent>
+									<Translatable Key="WorksheetItem/Summary.WithTax"/>
+								</LabelContent>
+								<EditorContent>
+									<span>
+										<span>@totalTax.Currency.DisplayValue</span>
+										<span><MoneyDisplay Value="totalMoney.Add(totalTax).CommercialRound()"/></span>
+									</span>
+								</EditorContent>
+							</FieldLayout>
+							<hr/>
+							<FieldLayout EditorCss="mt-1">
+								<LabelContent>
+									<Translatable Key="WorksheetItem/Summary.Possible"/>
+								</LabelContent>
+								<EditorContent>
+									<span>
+										<span>@totalTax.Currency.DisplayValue</span>
+										@if(totalPossibleLower.Same(totalPossibleUpper))
+										{
+											<span><MoneyDisplay Value="totalPossibleLower.CommercialRound()"/></span>
+										}	
+										else
+										{
+											<span><MoneyDisplay Value="totalPossibleLower.CommercialRound()"/> - <MoneyDisplay Value="totalPossibleUpper.CommercialRound()"/></span>
+										}									
+									</span>
+								</EditorContent>
+							</FieldLayout>							
+							<FieldLayout EditorCss="mt-1">
+								<LabelContent>
+									<Translatable Key="WorksheetItem/Summary.WithTax"/>
+								</LabelContent>
+								<EditorContent>
+									<span>
+										<span>@totalTax.Currency.DisplayValue</span>
+										@if(totalPossibleLower.Same(totalPossibleUpper))
+										{
+											<span><MoneyDisplay Value="minTaxRate.CommercialRound()"/></span>
+										}	
+										else
+										{
+											<span><MoneyDisplay Value="minTaxRate.CommercialRound()"/> - <MoneyDisplay Value="maxTaxRate.CommercialRound()"/></span>
+										}				
+									</span>
+								</EditorContent>
+							</FieldLayout>
+							<FieldLayout EditorCss="mt-1">
+								<LabelContent>
+									<Translatable Key="WorksheetItem/Summary.Possible.Tax"/>
+								</LabelContent>
+								<EditorContent>
+									<span>
+										<span>@totalTax.Currency.DisplayValue</span>
+										@if(totalPossibleLower.Same(totalPossibleUpper))
+										{
+											<span><MoneyDisplay Value="totalPossibleLower.Add(minTaxRate).CommercialRound()"/></span>
+										}	
+										else
+										{
+											<span><MoneyDisplay Value="totalPossibleLower.Add(minTaxRate).CommercialRound()"/> - <MoneyDisplay Value="totalPossibleUpper.Add(maxTaxRate).CommercialRound()"/></span>
+										}									
+									</span>
+								</EditorContent>
+							</FieldLayout>
+						</Disabled>
+					</PresentationStateAwareComponent>
+				</fieldset>
+			</div>
+
+			<div class="flex-fill">
+				<table class="table">
+					<thead>
+						<tr>
+							<th><Translatable Key="Time/Week" /></th>
+							<th><Translatable Key="Common/Is" /></th>
+							<th><Translatable Key="Common/Should" /></th>
+							<th><Translatable Key="WorksheetItem/Summary.HoursLeft" /></th>
+							<th><Translatable Key="Time/Day" /> (<Translatable Key="Worktime/WorkingDay" />)</th>
+						</tr>
+					</thead>
+					<tbody>						
+						@foreach (var week in Model.Weeks)
+						{
+							var weekWorktime = week.GetWeekWorktime();
+							var weekMeanWorktime = week.GetWeekMeanWorktime();
+							<tr>
+								<td><span>@week.WeekNo</span></td>
+								<td><TimeDisplay Value="weekWorktime"/></td>
+								<td><TimeDisplay Value="weekMeanWorktime"/></td>
+								<td class="@When(weekWorktime - weekMeanWorktime > 0, "text-success", "text-danger")">
+									<TimeDisplay Value="Math.Max((weekWorktime - weekMeanWorktime) * -1, 0)"/>
+								</td>
+								<td>
+									<span>@week.GetItemsInWeek().Count()</span>
+								</td>
+							</tr>
+						}
+					</tbody>
+					<tfoot>
+					<tr>
+						<td></td>
+						<td><TimeDisplay Value="totalWorktime" /></td>
+						<td><TimeDisplay Value="totalMeanWorktime" /></td>
+						<td><TimeDisplay Value="Math.Max((totalWorktime - totalMeanWorktime) *-1, 0)" /></td>
+						<td>
+							<span></span>
+						</td>
+					</tr>
+					</tfoot>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,30 @@
+﻿@inherits NavigationPageBase
+@*
+	<table class="table">
+		<caption>
+
+		</caption>
+		<thead>
+		<tr>
+			<th><Translatable Key="Common/Parent"/></th>
+			<th><Translatable Key="UserAssosiations/Relates"/></th>
+			<th><Translatable Key="UserAssosiations/To"/></th>
+		</tr>
+		</thead>
+		<tbody>
+		@code
+		{
+			private RenderFragment<> UserFragment()
+			{
+
+			}
+		}
+
+		@foreach (var ass in UserAssosiations)
+		{
+			<tr>
+				<td><span>@ass.</span></td>
+			</tr>
+		}
+		</tbody>
+	</table>*@

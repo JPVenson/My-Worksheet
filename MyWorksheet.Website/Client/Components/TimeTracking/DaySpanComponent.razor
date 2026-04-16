@@ -1,0 +1,38 @@
+﻿@using MyWorksheet.Website.Client.Pages.TimeTracking.Worksheet
+@inherits ComponentViewBase
+
+<div class="flex-fill">
+	<div class="timespan-container">
+		<div class="timespan-hours-container">
+			@for (var i = 0; i < 24; i++)
+			{
+				<div class="timespan-hour-container" aria-value="@i">
+					<div>@i.ToString("D2"):00</div>
+					<div class="timespan-parts">
+						<div class="timespan-display-container">
+							@{
+								var startSpan = i * 60;
+								var endSpan = startSpan + 60;
+							}
+							@foreach (var wsi in WorksheetItemModels
+								.Where(e => e.DateOfAction.Date == Date.Date)
+								.Select(f => WorksheetItemSpan.CheckRange(f, startSpan, endSpan))
+								.Where(f => f.IsInRange))
+							{
+								<span style="left: @(wsi.GetOffsetOfRangePercent())%; width: @wsi.GetLengthRangePercent()%;"
+								      class="timespan-display">
+								</span>
+							}
+						</div>
+						<div class="time-part-container">
+							@for (var j = 0; j < 4; j++)
+							{
+								<span class="time-part">@((j * 15).ToString("D2"))</span>
+							}
+						</div>
+					</div>
+				</div>
+			}
+		</div>
+	</div>
+</div>

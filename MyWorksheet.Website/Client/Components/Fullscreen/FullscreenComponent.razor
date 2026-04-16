@@ -1,0 +1,6 @@
+﻿@inherits ComponentViewBase;
+<div @ref="Container" id="@ContainerId" class="@When(HasFullscreenValue, ExpandedContainerClass, CollapsedContainerClass)">
+	<CascadingValue Value="FullscreenController" IsFixed="true">
+		@ChildContent
+	</CascadingValue>
+</div>

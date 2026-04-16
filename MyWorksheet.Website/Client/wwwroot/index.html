@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<title>My-Worksheet</title>
+	<base href="/" />
+	<link rel="shortcut icon" type="image/ico" src="my-worksheetIcon.ico" />
+	<link href="_content/Blazored.Typeahead/blazored-typeahead.css" rel="stylesheet" async />
+	<!--<link href="css/themes/dark/site-theme.min.css" rel="stylesheet" async />-->
+	<link href="MyWorksheet.Website.Client.styles.css" rel="stylesheet" />
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gridstack@11/dist/gridstack.min.css" />
+	<script type="importmap"></script>
+</head>
+
+<body>
+	<app>
+		<link defer href="css/preApp/pre-app.min.css" rel="stylesheet" />
+		<div class="body-loading-overlay">
+			<p class="center-element">
+				<img src="/Icons/waiter-icon.svg"
+					 alt="My-Worksheet Icon" />
+			</p>
+			<h1 class="center-element">
+				Please wait while My-Worksheet is loading
+				<br />
+			</h1>
+			<div class="center-element">
+				<div class="progress">
+					<progress id="progressbar"
+							  class="progress-bar progress-bar-striped active"
+							  role="progressbar"
+							  value="0"
+							  max="1"
+							  title="Loaded Resources">
+					</progress>
+				</div>
+			</div>
+			<div class="center-element">
+				<span id="current-progress"></span>
+				<ul id="items-list"></ul>
+			</div>
+		</div>
+	</app>
+
+	<div id="blazor-error-ui" class="alert alert-danger">
+		An unhandled error has occurred.
+		<a href="" class="reload">Reload</a>
+		<a class="dismiss">🗙</a>
+	</div>
+
+	<noscript>
+		<div class="alert alert-danger">
+			<span class="text text-center center-block">
+				<strong>Notice: </strong> JavaScript is not enabled. JavaScript is necessary for <b>My-Worksheet.com</b>.
+				Here are the <a href="http://www.enable-javascript.com/" target="_blank"> instructions how to enable JavaScript in your web browser</a>.
+			</span>
+		</div>
+		<div class="center-element">
+			<img alt="No Java - No Script - No Service"
+				 class="rounded"
+				 style="max-height: 90vh;"
+				 src="/Icons/nojsnoservice8.png" />
+		</div>
+	</noscript>
+	<!--<script type="text/javascript">
+		var cache = CacheStorage;
+		caches.keys().then(function (keyList) {
+			return Promise.all(keyList.map(function (key) {
+				return caches.delete(key);
+			}));
+		});
+	</script>-->
+	<script src="_framework/blazor.webassembly.js"></script>
+
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" crossorigin="anonymous"></script>
+	<script src="_content/Blazored.Typeahead/blazored-typeahead.js"></script>
+	<script src="scripts/app/app.js"></script>
+	<script src="scripts/app/bootstrapCollapsedInteropt.js"></script>
+	<script src="scripts/app/fileInteropt.js"></script>
+	<script src="scripts/app/windowInteropt.js"></script>
+	<script src="scripts/app/themeDetector.js"></script>
+	<script src="scripts/app/blazored.fullscreen.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/gridstack@11/dist/gridstack-all.js"></script>
+	<script src="scripts/app/gridstack-interop.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,50 @@
+﻿@attribute [Route("/ServerTasks")]
+@attribute [Page("Links/Server.Tasks", IsNavbarView = true, PageIconCss = "fas fa-user-lock", Group = "Links/Server")]
+@attribute [Authorize(Roles = "Administrator")]
+@inherits MyWorksheet.Website.Client.Pages.Base.NavigationPageBase
+@using MyWorksheet.Website.Client.Pages.Logging;
+
+
+<NotLoadedGuardComponent @bind-ViewState="ViewState">
+	<div>
+		<table class="table">
+			<thead>
+				<tr>
+					<th><Translatable Key="Common/Name" /></th>
+					<th><Translatable Key="TaskScheduler/Period" /></th>
+					<th><Translatable Key="TaskScheduler/NextRun" /></th>
+					<th><Translatable Key="TaskScheduler/LastRun" /></th>
+					<th><Translatable Key="Common/Success" /></th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var task in SchedulerInfos)
+				{
+					<CollapsedTrigger ElementType="tr"
+									  Key="@("Scheduler." + task.SchedulerInfo.TaskInfo.Name)"
+									  class="selectable selectable-primary"
+									  @key="@("Scheduler.Header." + task.SchedulerInfo.TaskInfo.Name)">
+						<td><span>@task.SchedulerInfo.TaskInfo.Name</span></td>
+						<td><span>@task.SchedulerInfo.Schedule</span></td>
+						<td><span>@task.SchedulerInfo.NextRun.ToString("G")</span></td>
+						<td><span>@task.SchedulerInfo.LastRun.ToString("G")</span></td>
+						<td><span>@task.SchedulerInfo.LastRunSuccess</span></td>
+					</CollapsedTrigger>
+					<Collapsed ElementType="tr"
+							   Key="@("Scheduler." + task.SchedulerInfo.TaskInfo.Name)"
+							   @key="@("Scheduler.Log." + task.SchedulerInfo.TaskInfo.Name)">
+						<td colspan="4">
+							<div class="d-flex flex-column">
+								<div class="d-flex flex-row">
+									<button class="btn btn-outline-primary" @onclick="(() => RunTask(task.SchedulerInfo.TaskInfo.Name))"><Translatable Key="TaskScheduler/Run" /></button>
+								</div>
+								<LogEntriesViewComponent LoggerEntries="task.Log" />
+							</div>
+						</td>
+					</Collapsed>
+				}
+			</tbody>
+		</table>
+	</div>
+
+</NotLoadedGuardComponent>

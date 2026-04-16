@@ -1,0 +1,40 @@
+﻿@attribute [Route("/Workflows")]
+@attribute [Page("Links/Timeboard.Workflow", IsNavbarView = true, PageIconCss = "fas fa-object-group", Group = "Links/Settings")]
+@attribute [Authorize()]
+@inherits NavigationPageBase
+
+<NotLoadedGuardComponent @bind-ViewState="ViewState">
+
+	<table class="table">
+		<thead>
+			<tr>
+				<th></th>
+				<th><Translatable Key="Common/Name" /></th>
+				<th><Translatable Key="Common/Comment" /></th>
+			</tr>
+		</thead>
+
+		@foreach (var wf in Workflows)
+		{
+			<thead>
+				<tr>
+					<td><a href="/Workflows/@wf.WorksheetWorkflowId/new"><i class="fa fa-plus-circle"></i></a></td>
+					<td><span><Translatable Loc="wf.DisplayKey" /></span></td>
+					<td><span>@wf.Comment</span></td>
+				</tr>
+			</thead>
+			<tbody>
+			@foreach (var data in WorkflowData[wf.WorksheetWorkflowId])
+			{
+				<tr class="selectable selectable-primary" @onclick="@(() => ModuleService.NavigateTo($"/Workflows/{wf.WorksheetWorkflowId}/{data.WorksheetWorkflowDataMapId}"))">
+					<td></td>
+					<td><span>@data.GroupKey</span></td>
+					<td></td>
+				</tr>
+			}
+			</tbody>
+		}
+
+	</table>
+
+</NotLoadedGuardComponent>

@@ -1,0 +1,52 @@
+@inherits WidgetViewBase
+@attribute [DashboardWidget("Welcome", "Dashboard/Widget.Welcome.Name", "Dashboard/Widget.Welcome.Description", "fas fa-hand-sparkles", true)]
+
+<div class="p-3">
+    <div class="row g-2">
+        <div class="col-6 col-sm-3">
+            <a href="/Projects" class="welcome-step-link h-100 d-block">
+                <div class="welcome-step h-100">
+                    <div class="welcome-step-icon"><i class="fas fa-folder-open"></i></div>
+                    <div>
+                        <div class="fw-semibold"><Translatable Key="Dashboard/Welcome.Step.Projects" /></div>
+                        <small class="text-muted"><Translatable Key="Dashboard/Welcome.Step.Projects.Hint" /></small>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-6 col-sm-3">
+            <a href="/Project/new" class="welcome-step-link h-100 d-block">
+                <div class="welcome-step h-100">
+                    <div class="welcome-step-icon"><i class="fas fa-plus-circle"></i></div>
+                    <div>
+                        <div class="fw-semibold"><Translatable Key="Dashboard/Welcome.Step.NewProject" /></div>
+                        <small class="text-muted"><Translatable Key="Dashboard/Welcome.Step.NewProject.Hint" /></small>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-6 col-sm-3">
+            <a href="/Project/Statistics" class="welcome-step-link h-100 d-block">
+                <div class="welcome-step h-100">
+                    <div class="welcome-step-icon"><i class="fas fa-chart-bar"></i></div>
+                    <div>
+                        <div class="fw-semibold"><Translatable Key="Dashboard/Welcome.Step.Statistics" /></div>
+                        <small class="text-muted"><Translatable Key="Dashboard/Welcome.Step.Statistics.Hint" /></small>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-6 col-sm-3">
+            <a href="/Reports" class="welcome-step-link h-100 d-block">
+                <div class="welcome-step h-100">
+                    <div class="welcome-step-icon"><i class="fas fa-file-alt"></i></div>
+                    <div>
+                        <div class="fw-semibold"><Translatable Key="Dashboard/Welcome.Step.Reports" /></div>
+                        <small class="text-muted"><Translatable Key="Dashboard/Welcome.Step.Reports.Hint" /></small>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+

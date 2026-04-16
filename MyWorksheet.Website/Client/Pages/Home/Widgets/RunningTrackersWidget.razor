@@ -1,0 +1,31 @@
+@inherits WidgetViewBase
+@using MyWorksheet.Website.Client.Pages.TimeTracking.Worksheet.Tracker
+@using MyWorksheet.Website.Shared.ViewModels.ApiResultModels.Worksheet
+@attribute [DashboardWidget("Tracker", "Dashboard/Widget.Tracker.Name", "Dashboard/Widget.Tracker.Description", "fas fa-stopwatch", true)]
+
+@if (WorksheetTrackerService.Trackers == null || !WorksheetTrackerService.Trackers.Any())
+{
+	<div class="p-4 text-center text-muted">
+		<i class="fas fa-stopwatch fa-2x mb-2 d-block opacity-50"></i>
+		<Translatable Key="Dashboard/Widget.Tracker.Empty" />
+	</div>
+	return;
+}
+
+<div class="d-flex flex-column">
+	@foreach (var tracker in WorksheetTrackerService.Trackers)
+	{
+		<div class="p-3 border-bottom">
+			<div class="d-flex align-items-center gap-2 mb-1">
+				<span class="tracker-pulse-dot"></span>
+				<small class="text-muted fw-semibold text-uppercase" style="letter-spacing:.05em; font-size:.65rem">
+					<Translatable Key="Dashboard/Widget.Tracker.Running" />
+				</small>
+				<small class="text-muted ms-auto">
+					<TimeDisplay Value="@((DateTimeOffset.UtcNow - tracker.StartTime).TotalMinutes)" />
+				</small>
+			</div>
+			<WorksheetTrackerPluginComponent WorksheetId="@tracker.IdWorksheet" />
+		</div>
+	}
+</div>

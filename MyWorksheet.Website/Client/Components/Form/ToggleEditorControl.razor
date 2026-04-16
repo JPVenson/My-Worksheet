@@ -1,0 +1,44 @@
+﻿@inherits ComponentViewBase
+
+@code
+{
+	public RenderFragment<bool> GetDefaultDisplay()
+	{
+		return value =>
+		{
+			return __builder =>
+			{
+				if (ContentText != null)
+				{
+					<Translatable Loc="@ContentText" />
+					<span>: </span>
+				}
+
+				if (value)
+				{
+				<Translatable Loc="@OnText" />
+				}
+				else
+				{
+				<Translatable Loc="@OffText" />
+				}
+			};
+		};
+	}
+}
+
+<div class="form-check form-switch btn-alike" style="margin-left: 20px">
+	<input type="checkbox"
+	       class="form-check-input" 
+	       @bind="Value"
+	       disabled="@ReadOnly"
+	       id="switch_@EditorId">
+	<label class="form-check-label" for="switch_@EditorId">@ChildContent(Value)</label>
+</div>
+
+@*<button @onclick="(() => ToggleState())"
+		class="btn @When(Value, "btn-outline-success", "btn-outline-danger")"
+		disabled="@ReadOnly"
+		@attributes="Attributes">
+	@ChildContent(Value)
+</button>*@

@@ -1,0 +1,63 @@
+﻿@inherits MyWorksheet.Website.Client.Pages.Base.NavigationPageBase
+@using MyWorksheet.Website.Shared.ViewModels.ApiResultModels.Worksheet.UserWorkload;
+@using MyWorksheet.Website.Client.Services.UserWorkload
+@using MyWorksheet.Website.Client.Services.Plugins
+@using MyWorksheet.Website.Client.Pages.TimeTracking.Shared
+@using Newtonsoft.Json
+
+@if (Project.ProjectWorkload == null || WorktimeEditContext == null)
+{
+	return;
+}
+
+@code
+{
+	public override void OnSetPlugins()
+	{
+		base.OnSetPlugins();
+
+		AddPlugin("SaveButton", GetSaveButton(), PluginLocation.Footer);
+	}
+
+	private RenderFragment GetSaveButton()
+	{
+		return __builder =>
+		{
+			<div>
+				<button type="submit" form="workload-form" class="btn btn-outline-success">
+					<Translatable Key="Common/Update" />
+				</button>
+				@if (Project.ProjectWorkload.IdProject.HasValue)
+				{
+					<button type="button" class="btn btn-outline-primary" @onclick="ResetToGlobal">
+						<Translatable Key="Common/Reset" />
+					</button>
+				}
+			</div>
+		};
+	}
+}
+
+
+@if (!Project.ProjectWorkload.IdProject.HasValue)
+{
+	<div class="alert alert-info">
+		<Translatable Key="Worksheet/WorktimeGlobal.Hint"/>
+	</div>
+}
+
+
+<EditForm EditContext="WorktimeEditContext"
+		  id="workload-form"
+		  name="workload-form"
+		  OnValidSubmit="Save">
+	<fieldset class="free-fieldset">
+		<legend>
+			<Translatable Key="Worksheet/WorktimeForProject" A="@Project.Project.Name"/>
+			<DirtyMarkerControl EntityState="Project.ProjectWorkloadState" />
+		</legend>
+		
+		<WorktimeEditComponent Workload="Project.ProjectWorkload" />
+
+	</fieldset>
+</EditForm>

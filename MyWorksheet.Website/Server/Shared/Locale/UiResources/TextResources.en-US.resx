@@ -1,0 +1,3264 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!--
+    Microsoft ResX Schema
+
+    Version 2.0
+
+    The primary goals of this format is to allow a simple XML format
+    that is mostly human readable. The generation and parsing of the
+    various data types are done through the TypeConverter classes
+    associated with the data types.
+
+    Example:
+
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+
+    There are any number of "resheader" rows that contain simple
+    name/value pairs.
+
+    Each data row contains a name, and value. The row also contains a
+    type or mimetype. Type corresponds to a .NET class that support
+    text/value conversion through the TypeConverter architecture.
+    Classes that don't support this are serialized and stored with the
+    mimetype set.
+
+    The mimetype is used for serialized objects, and tells the
+    ResXResourceReader how to depersist the object. This is currently not
+    extensible. For a given mimetype the value must be set accordingly:
+
+    Note - application/x-microsoft.net.object.binary.base64 is the format
+    that the ResXResourceWriter will generate, however the reader can
+    read any of the formats listed below.
+
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Links/Unauthorised" xml:space="preserve">
+    <value>Unauthorised</value>
+    <comment/>
+  </data>
+  <data name="Links/Faq" xml:space="preserve">
+    <value>FAQ</value>
+    <comment/>
+  </data>
+  <data name="Links/ThirdPartyLicenses" xml:space="preserve">
+    <value>Third-party licenses</value>
+    <comment/>
+  </data>
+  <data name="Links/InvalidStorage" xml:space="preserve">
+    <value>Invalid Storage Url</value>
+    <comment/>
+  </data>
+  <data name="Links/Impress" xml:space="preserve">
+    <value>Terms and Conditions</value>
+    <comment/>
+  </data>
+  <data name="Links/ReddemInviteLink" xml:space="preserve">
+    <value>Redeem Invite Link</value>
+    <comment/>
+  </data>
+  <data name="Links/PrivacyNotice" xml:space="preserve">
+    <value>Privacy Notice</value>
+    <comment/>
+  </data>
+  <data name="Links/ResetPassword" xml:space="preserve">
+    <value>Reset Password</value>
+    <comment/>
+  </data>
+  <data name="Links/StartInfo" xml:space="preserve">
+    <value>Start Info</value>
+    <comment/>
+  </data>
+  <data name="Links/Dashboard" xml:space="preserve">
+    <value>Dashboard</value>
+    <comment/>
+  </data>
+  <data name="Links/Home" xml:space="preserve">
+    <value>Home</value>
+    <comment/>
+  </data>
+  <data name="Links/About" xml:space="preserve">
+    <value>About</value>
+    <comment/>
+  </data>
+  <data name="Links/Contact" xml:space="preserve">
+    <value>Contact</value>
+    <comment/>
+  </data>
+  <data name="Links/Account" xml:space="preserve">
+    <value>Account</value>
+    <comment/>
+  </data>
+  <data name="Links/Login" xml:space="preserve">
+    <value>Login</value>
+    <comment/>
+  </data>
+  <data name="Links/Register" xml:space="preserve">
+    <value>Register</value>
+    <comment/>
+  </data>
+  <data name="Links/Logout" xml:space="preserve">
+    <value>Logout</value>
+    <comment/>
+  </data>
+  <data name="Links/ServerInfo" xml:space="preserve">
+    <value>Server Info</value>
+    <comment/>
+  </data>
+  <data name="Links/Server" xml:space="preserve">
+    <value>Server</value>
+    <comment/>
+  </data>
+  <data name="Links/Server.Content" xml:space="preserve">
+    <value>Content</value>
+    <comment/>
+  </data>
+  <data name="Links/Server.Mantaince" xml:space="preserve">
+    <value>Maintaince </value>
+    <comment/>
+  </data>
+  <data name="Links/Server.Countrys" xml:space="preserve">
+    <value>Countries </value>
+    <comment/>
+  </data>
+  <data name="Links/Server.Tasks" xml:space="preserve">
+    <value>Server Tasks</value>
+    <comment/>
+  </data>
+  <data name="Links/Server.Contacts" xml:space="preserve">
+    <value>Contacts</value>
+    <comment/>
+  </data>
+  <data name="Links/Server.Logger" xml:space="preserve">
+    <value>Logger</value>
+    <comment/>
+  </data>
+  <data name="Links/Server.Configuration" xml:space="preserve">
+    <value>Configuration</value>
+    <comment/>
+  </data>
+  <data name="Links/Server.Sitemap" xml:space="preserve">
+    <value>Sitemap</value>
+    <comment/>
+  </data>
+  <data name="Links/Timeboard" xml:space="preserve">
+    <value>Time Board</value>
+    <comment/>
+  </data>
+  <data name="Links/Timeboard.Projects" xml:space="preserve">
+    <value>{Entity/Projects}</value>
+    <comment/>
+  </data>
+  <data name="Links/Timeboard.ProjectStatistics" xml:space="preserve">
+    <value>{Entity/Project} Statistics</value>
+    <comment/>
+  </data>
+  <data name="Links/Timeboard.Workflow" xml:space="preserve">
+    <value>{Entity/Workflow}</value>
+    <comment/>
+  </data>
+  <data name="Links/Timeboard.EditWorkflow" xml:space="preserve">
+    <value>{Common/EditPhrase} {Links/Timeboard.Workflow}</value>
+    <comment/>
+  </data>
+  <data name="Links/Timeboard.Budget" xml:space="preserve">
+    <value>Project Budget</value>
+    <comment/>
+  </data>
+  <data name="Links/Timeboard.Worksheet" xml:space="preserve">
+    <value>{Entity/Worksheet}</value>
+    <comment/>
+  </data>
+  <data name="Links/Timeboard.Worksheets" xml:space="preserve">
+    <value>Worksheets</value>
+    <comment/>
+  </data>
+  <data name="Links/Timeboard.WorksheetAction" xml:space="preserve">
+    <value>{Entity/Worksheet} Actions</value>
+    <comment/>
+  </data>
+  <data name="Links/Timeboard.GeoFences" xml:space="preserve">
+    <value>Geo Fences</value>
+    <comment/>
+  </data>
+  <data name="Links/Timeboard.EditGeoFences" xml:space="preserve">
+    <value>{Common/EditPhrase} {Links/Timeboard.GeoFences}</value>
+    <comment/>
+  </data>
+  <data name="Common/EditPhrase" xml:space="preserve">
+    <value>Edit</value>
+    <comment/>
+  </data>
+  <data name="Links/UserSettings" xml:space="preserve">
+    <value>User Settings</value>
+    <comment/>
+  </data>
+  <data name="Links/Settings" xml:space="preserve">
+    <value>Settings</value>
+    <comment/>
+  </data>
+  <data name="Links/Webhooks" xml:space="preserve">
+    <value>{Entity/Webhooks}</value>
+    <comment/>
+  </data>
+  <data name="Links/Reporting" xml:space="preserve">
+    <value>Reporting</value>
+    <comment/>
+  </data>
+  <data name="Links/ReportingDetails" xml:space="preserve">
+    <value>{Entity/Report} Details</value>
+    <comment/>
+  </data>
+  <data name="Links/RunReport" xml:space="preserve">
+    <value>Run Template</value>
+    <comment/>
+  </data>
+  <data name="Links/FormatterOverview" xml:space="preserve">
+    <value>Formatter Overview</value>
+    <comment/>
+  </data>
+  <data name="Links/Organisations" xml:space="preserve">
+    <value>Organisations</value>
+    <comment/>
+  </data>
+  <data name="Links/CreateOrganization" xml:space="preserve">
+    <value>Create Organisation</value>
+    <comment/>
+  </data>
+  <data name="Links/ChangeOrganization" xml:space="preserve">
+    <value>Change Organisation</value>
+    <comment/>
+  </data>
+  <data name="Links/PaymentInfos" xml:space="preserve">
+    <value>Payment info</value>
+    <comment/>
+  </data>
+  <data name="Links/Storage" xml:space="preserve">
+    <value>Storage</value>
+    <comment/>
+  </data>
+  <data name="Links/StorageDetail" xml:space="preserve">
+    <value>Storage Detail</value>
+    <comment/>
+  </data>
+  <data name="Links/Invites" xml:space="preserve">
+    <value>Invites</value>
+    <comment/>
+  </data>
+  <data name="Links/CreateUser" xml:space="preserve">
+    <value>Create User</value>
+    <comment/>
+  </data>
+  <data name="Links/ManageUser" xml:space="preserve">
+    <value>Manage User</value>
+    <comment/>
+  </data>
+  <data name="Links/Features" xml:space="preserve">
+    <value>Features</value>
+    <comment/>
+  </data>
+  <data name="Links/CountrySelection" xml:space="preserve">
+    <value>Country Selection</value>
+    <comment/>
+  </data>
+  <data name="Common/Close" xml:space="preserve">
+    <value>Close</value>
+    <comment/>
+  </data>
+  <data name="Common/Create" xml:space="preserve">
+    <value>Create</value>
+    <comment/>
+  </data>
+  <data name="Logout/Title" xml:space="preserve">
+    <value>Logout</value>
+    <comment/>
+  </data>
+  <data name="Logout/Html.SingleTab.LogoutNotice" xml:space="preserve">
+    <value>You have &lt;b class="text text-uppercase"&gt;Only&lt;/b&gt; been logged out on this tab.</value>
+    <comment/>
+  </data>
+  <data name="Logout/SingleTab.LogoutNotice.Small" xml:space="preserve">
+    <value>Ensure that you close all other tabs of My-Worksheet before leaving the device as other tabs might still display Sensible data.</value>
+    <comment/>
+  </data>
+  <data name="Logout/OtherTab.Notice" xml:space="preserve">
+    <value>You have been logged out from another tab of this Device.&lt;br /&gt;  For the safety of all of your data you have been logged out on this browser</value>
+    <comment/>
+  </data>
+  <data name="Logout/ThanksForVisit" xml:space="preserve">
+    <value>Thank you for your visit</value>
+    <comment/>
+  </data>
+  <data name="ResetPassword/Title" xml:space="preserve">
+    <value>Reset Password</value>
+    <comment/>
+  </data>
+  <data name="Common/Username" xml:space="preserve">
+    <value>Username</value>
+    <comment/>
+  </data>
+  <data name="Common/EMail" xml:space="preserve">
+    <value>E-Mail</value>
+    <comment/>
+  </data>
+  <data name="ResetPassword/SendButton" xml:space="preserve">
+    <value>Send Password recovery mail</value>
+    <comment/>
+  </data>
+  <data name="Register/AcceptText" xml:space="preserve">
+    <value>I have read and Accept the</value>
+    <comment/>
+  </data>
+  <data name="Register/Title" xml:space="preserve">
+    <value>Register</value>
+    <comment/>
+  </data>
+  <data name="Register/LoginData" xml:space="preserve">
+    <value>Login Data</value>
+    <comment/>
+  </data>
+  <data name="Common/Required" xml:space="preserve">
+    <value>Required</value>
+    <comment/>
+  </data>
+  <data name="Address/Country" xml:space="preserve">
+    <value>Country</value>
+    <comment/>
+  </data>
+  <data name="Address/Title" xml:space="preserve">
+    <value>Address</value>
+    <comment/>
+  </data>
+  <data name="Address/CompanyName" xml:space="preserve">
+    <value>Company Name</value>
+    <comment/>
+  </data>
+  <data name="Common/Name" xml:space="preserve">
+    <value>Name</value>
+    <comment/>
+  </data>
+  <data name="Address/Lastname" xml:space="preserve">
+    <value>Lastname</value>
+    <comment/>
+  </data>
+  <data name="Address/Street" xml:space="preserve">
+    <value>Street</value>
+    <comment/>
+  </data>
+  <data name="Address/StreetNo" xml:space="preserve">
+    <value>Street-No</value>
+    <comment/>
+  </data>
+  <data name="Address/ZipCode" xml:space="preserve">
+    <value>Zip Code</value>
+    <comment/>
+  </data>
+  <data name="Address/City" xml:space="preserve">
+    <value>City</value>
+    <comment/>
+  </data>
+  <data name="Address/Phone" xml:space="preserve">
+    <value>Phone</value>
+    <comment/>
+  </data>
+  <data name="Common/Error" xml:space="preserve">
+    <value>Error</value>
+    <comment/>
+  </data>
+  <data name="Register/BetaNotice_1" xml:space="preserve">
+    <value>My-Worksheet is Still in Beta. That means it can be used in Production but it will undergo changes. By creating an Account on My-Worksheet you accept the</value>
+    <comment/>
+  </data>
+  <data name="Register/BetaNotice_2" xml:space="preserve">
+    <value>Please be aware that the UI and your data might be used for anonymous analytic</value>
+    <comment/>
+  </data>
+  <data name="Register/RegisterRequirementsMet" xml:space="preserve">
+    <value>You have Accepted and filled the Form you can now Register here:</value>
+    <comment/>
+  </data>
+  <data name="Register/IAccept" xml:space="preserve">
+    <value>I Accept</value>
+    <comment/>
+  </data>
+  <data name="Common/Done" xml:space="preserve">
+    <value>Done</value>
+    <comment/>
+  </data>
+  <data name="Common/Password" xml:space="preserve">
+    <value>Password</value>
+    <comment/>
+  </data>
+  <data name="Register/EMail.Hint" xml:space="preserve">
+    <value>You Primary Email address where you recive all mails from My-Worksheet</value>
+    <comment/>
+  </data>
+  <data name="Register/Username.Hint" xml:space="preserve">
+    <value>The username you want to use for Login</value>
+    <comment/>
+  </data>
+  <data name="Unauthorised/Text" xml:space="preserve">
+    <value>This site does not seem to exist or you are not allowed to see it.</value>
+    <comment/>
+  </data>
+  <data name="UserSettings/Alert.ChangeData" xml:space="preserve">
+    <value>Info. Please change your Username and Password. After that, you can continue</value>
+    <comment/>
+  </data>
+  <data name="UserQuota/ProjectQuotaExceeded" xml:space="preserve">
+    <value>Warning. You have exceeded all of your {Entity/Project} Quota. Please order more to create new {Entity/Projects}</value>
+    <comment/>
+  </data>
+  <data name="UserQuota/WorksheetQuotaExceeded" xml:space="preserve">
+    <value>Warning. You have exceeded all of your {Entity/Worksheet} Quota. Please order more to create new {Entity/Worksheets}</value>
+    <comment/>
+  </data>
+  <data name="UserSettings/Alert.MissingSettingsUserRole" xml:space="preserve">
+    <value>You are currently not allowed to change some of your settings. Please respond to your administrator to obtain the "Settings User" role</value>
+    <comment/>
+  </data>
+  <data name="UserSettings/Title" xml:space="preserve">
+    <value>User Settings</value>
+    <comment/>
+  </data>
+  <data name="UserSettings/Settings.PasswordHint" xml:space="preserve">
+    <value>Great! now please create a new password below</value>
+    <comment/>
+  </data>
+  <data name="UserSettings/Settings.ContactName" xml:space="preserve">
+    <value>Contact Name</value>
+    <comment/>
+  </data>
+  <data name="UserSettings/Settings.DirectPasswordHint" xml:space="preserve">
+    <value>Please create a new password</value>
+    <comment/>
+  </data>
+  <data name="UserSettings/Settings.Password.Old" xml:space="preserve">
+    <value>Old</value>
+    <comment/>
+  </data>
+  <data name="UserSettings/Settings.Password.New" xml:space="preserve">
+    <value>New</value>
+    <comment/>
+  </data>
+  <data name="Common/Update" xml:space="preserve">
+    <value>Update</value>
+    <comment/>
+  </data>
+  <data name="Common/Confirm" xml:space="preserve">
+    <value>Confirm</value>
+    <comment/>
+  </data>
+  <data name="UserSettings/Settings.LogOffEverywhere" xml:space="preserve">
+    <value>Logoff Everywhere</value>
+    <comment/>
+  </data>
+  <data name="Quota/Title" xml:space="preserve">
+    <value>Quota</value>
+    <comment/>
+  </data>
+  <data name="Common/Unlimited" xml:space="preserve">
+    <value>Unlimited</value>
+    <comment/>
+  </data>
+  <data name="UserAssosiations/Title" xml:space="preserve">
+    <value>User Assosiations</value>
+    <comment/>
+  </data>
+  <data name="Common/Parent" xml:space="preserve">
+    <value>Parent</value>
+    <comment/>
+  </data>
+  <data name="UserAssosiations/To" xml:space="preserve">
+    <value>To</value>
+    <comment/>
+  </data>
+  <data name="UserAssosiations/Relates" xml:space="preserve">
+    <value>Relates</value>
+    <comment/>
+  </data>
+  <data name="Common/You" xml:space="preserve">
+    <value>You</value>
+    <comment/>
+  </data>
+  <data name="UserSettings/Assosiation.FromUser" xml:space="preserve">
+    <value>Assosiation from user</value>
+    <comment/>
+  </data>
+  <data name="UserSettings/Assosiation.ToUser" xml:space="preserve">
+    <value>to user</value>
+    <comment/>
+  </data>
+  <data name="Common/Role" xml:space="preserve">
+    <value>Role</value>
+    <comment/>
+  </data>
+  <data name="Common/Remove" xml:space="preserve">
+    <value>Remove</value>
+    <comment/>
+  </data>
+  <data name="UserSettings/GlobalWorktime.Title" xml:space="preserve">
+    <value>Global Worktimes</value>
+    <comment/>
+  </data>
+  <data name="Worktime/Mode" xml:space="preserve">
+    <value>Worktime Mode</value>
+    <comment/>
+  </data>
+  <data name="Worktime/NonWorkingDay" xml:space="preserve">
+    <value>Non Working Day</value>
+    <comment/>
+  </data>
+  <data name="Worktime/WorkingDay" xml:space="preserve">
+    <value>Working Day</value>
+    <comment/>
+  </data>
+  <data name="Worktime/WeeklyWorktime.Title" xml:space="preserve">
+    <value>Weekly Worktime</value>
+    <comment/>
+  </data>
+  <data name="Common/Maximum" xml:space="preserve">
+    <value>Maximum</value>
+    <comment/>
+  </data>
+  <data name="Common/Minimum" xml:space="preserve">
+    <value>Minimum</value>
+    <comment/>
+  </data>
+  <data name="Common/Misc" xml:space="preserve">
+    <value>Miscellaneous</value>
+    <comment/>
+  </data>
+  <data name="Theme/Title" xml:space="preserve">
+    <value>Theme</value>
+    <comment/>
+  </data>
+  <data name="Common/Current" xml:space="preserve">
+    <value>Current</value>
+    <comment/>
+  </data>
+  <data name="Theme/CurrentActiveFormat" xml:space="preserve">
+    <value>Controlled by {Entity/NightMode}. Current theme is {0}</value>
+    <comment/>
+  </data>
+  <data name="Theme/NightMode.Title" xml:space="preserve">
+    <value>{Entity/NightMode}</value>
+    <comment/>
+  </data>
+  <data name="UserSettings/TimeLocale.Title" xml:space="preserve">
+    <value>Time Local-Settings</value>
+    <comment/>
+  </data>
+  <data name="UserSettings/Html.TimeLocale.Hint" xml:space="preserve">
+    <value>Changes how Times are displayed in the browser &lt;b&gt;not&lt;/b&gt; the language</value>
+    <comment/>
+  </data>
+  <data name="Common/Example" xml:space="preserve">
+    <value>Example</value>
+    <comment/>
+  </data>
+  <data name="UserSettings/TImeLocale.Example.Format" xml:space="preserve">
+    <value>Date Format</value>
+    <comment/>
+  </data>
+  <data name="UserSettings/TimeLocale.Example.TillMn" xml:space="preserve">
+    <value>Time Till midnight</value>
+    <comment/>
+  </data>
+  <data name="UserSettings/TimeLocale.Example.FirstDayOfWeek" xml:space="preserve">
+    <value>First day of Week</value>
+    <comment/>
+  </data>
+  <data name="UserSettings/Misc.DecimalTimes" xml:space="preserve">
+    <value>Decimal Time Display</value>
+    <comment/>
+  </data>
+  <data name="UserSettings/Misc.DecimalTimes.Hint" xml:space="preserve">
+    <value>Display all times as decimals. 10:45 (10 hours and 45 minutes) will be displayed as 10,75 (10 hours and 75th of an hour)</value>
+    <comment/>
+  </data>
+  <data name="Worktime/WeeklyWorktime.Hint" xml:space="preserve">
+    <value>How many hours per week. Format: HH*HH:MM. Minutes are optional.</value>
+    <comment/>
+  </data>
+  <data name="ConfigViewer/Title" xml:space="preserve">
+    <value>Configuration Viewer</value>
+    <comment/>
+  </data>
+  <data name="Common/Search" xml:space="preserve">
+    <value>Search</value>
+    <comment/>
+  </data>
+  <data name="ConfigViewer/Root" xml:space="preserve">
+    <value>Root</value>
+    <comment/>
+  </data>
+  <data name="AlterOrg/Title" xml:space="preserve">
+    <value>Manage {0}</value>
+    <comment/>
+  </data>
+  <data name="Common/Inactive" xml:space="preserve">
+    <value>Inactive</value>
+    <comment/>
+  </data>
+  <data name="Common/Delete" xml:space="preserve">
+    <value>Delete</value>
+    <comment/>
+  </data>
+  <data name="AlterOrg/GeneralData" xml:space="preserve">
+    <value>General data</value>
+    <comment/>
+  </data>
+  <data name="Org/Name.Hint" xml:space="preserve">
+    <value>The full name of this new Organisation</value>
+    <comment/>
+  </data>
+  <data name="Org/SharedId" xml:space="preserve">
+    <value>Shared ID</value>
+    <comment/>
+  </data>
+  <data name="Org/SharedId.Hint" xml:space="preserve">
+    <value>The Shared/short name that can be used for searching</value>
+    <comment/>
+  </data>
+  <data name="Common/Active" xml:space="preserve">
+    <value>Active</value>
+    <comment/>
+  </data>
+  <data name="Org/ParentOrg" xml:space="preserve">
+    <value>Parent Organisation</value>
+    <comment/>
+  </data>
+  <data name="Org/Active.Hint" xml:space="preserve">
+    <value>Is this Organisation still active. If inactive it will not longer be selectable from Projects and all Projects attached to it will be inaccessable</value>
+    <comment/>
+  </data>
+  <data name="Org/ParentOrg.Hint" xml:space="preserve">
+    <value>The Parent Organisations. This allows an hirachie of Organisations.</value>
+    <comment/>
+  </data>
+  <data name="AlterOrg/ManageUsers.Title" xml:space="preserve">
+    <value>Manage Users</value>
+    <comment/>
+  </data>
+  <data name="AlterOrg/ManageUsers.ToAdd" xml:space="preserve">
+    <value>{0} To add</value>
+    <comment/>
+  </data>
+  <data name="AlterOrg/ManageUsers.ToRemove" xml:space="preserve">
+    <value>{0} To remove</value>
+    <comment/>
+  </data>
+  <data name="AlterOrg/ManageUsers.AddUser.Title" xml:space="preserve">
+    <value>Add User</value>
+    <comment/>
+  </data>
+  <data name="AlterOrg/ManageUsers.AddUser.RoleInOrg" xml:space="preserve">
+    <value>Role in Organisation</value>
+    <comment/>
+  </data>
+  <data name="AlterOrg/ProjectsInOrg.Title" xml:space="preserve">
+    <value>{Entity/Projects} in {Entity/Organization}</value>
+    <comment/>
+  </data>
+  <data name="AlterOrg/ProjectsInOrg.Open" xml:space="preserve">
+    <value>Open</value>
+    <comment/>
+  </data>
+  <data name="Payment/Honorar" xml:space="preserve">
+    <value>Fee</value>
+    <comment/>
+  </data>
+  <data name="Workflow/WorkflowName" xml:space="preserve">
+    <value>{Entity/Workflow} Name</value>
+    <comment/>
+  </data>
+  <data name="AlterOrg/Projects.UsersTitle" xml:space="preserve">
+    <value>Users</value>
+    <comment/>
+  </data>
+  <data name="Common/Save" xml:space="preserve">
+    <value>Save</value>
+    <comment/>
+  </data>
+  <data name="Payment/TaxRate" xml:space="preserve">
+    <value>Tax Rate</value>
+    <comment/>
+  </data>
+  <data name="Payment/PerHour" xml:space="preserve">
+    <value>Per Hour</value>
+    <comment/>
+  </data>
+  <data name="CreateOrg/Title" xml:space="preserve">
+    <value>Create new Organization</value>
+    <comment/>
+  </data>
+  <data name="Org/Address.Title" xml:space="preserve">
+    <value>Organizations Address</value>
+    <comment/>
+  </data>
+  <data name="OrgOverview/Title" xml:space="preserve">
+    <value>Organizations</value>
+    <comment/>
+  </data>
+  <data name="OrgOverview/YourRole" xml:space="preserve">
+    <value>Your Role</value>
+    <comment/>
+  </data>
+  <data name="ServerHealth/Plugin.CdnStatus.Title" xml:space="preserve">
+    <value>Cdn Status</value>
+    <comment/>
+  </data>
+  <data name="ServerHealth/Plugin.DriveStatus.Title" xml:space="preserve">
+    <value>Drive Status</value>
+    <comment/>
+  </data>
+  <data name="ServerHealth/Plugin.ErrorLogger.Title" xml:space="preserve">
+    <value>Error Logger</value>
+    <comment/>
+  </data>
+  <data name="ServerHealth/Plugin.ProcessCpu.Title" xml:space="preserve">
+    <value>Process Cpu</value>
+    <comment/>
+  </data>
+  <data name="ServerHealth/Plugin.ProcessMemory.Title" xml:space="preserve">
+    <value>Process Memory</value>
+    <comment/>
+  </data>
+  <data name="ServerHealth/Plugin.ServerQueues.Title" xml:space="preserve">
+    <value>Server Queue Status</value>
+    <comment/>
+  </data>
+  <data name="ServerHealth/Plugin.TotalCpu.Title" xml:space="preserve">
+    <value>Total Server Cpu</value>
+    <comment/>
+  </data>
+  <data name="ServerHealth/Plugin.TotalMemory.Title" xml:space="preserve">
+    <value>Total Server Memory</value>
+    <comment/>
+  </data>
+  <data name="ServerHealth/Plugin.DriveStatus.Label" xml:space="preserve">
+    <value>Label</value>
+    <comment/>
+  </data>
+  <data name="ServerHealth/Plugin.DriveStatus.Filled" xml:space="preserve">
+    <value>Filled</value>
+    <comment/>
+  </data>
+  <data name="ServerHealth/Plugin.DriveStatus.Format" xml:space="preserve">
+    <value>Format</value>
+    <comment/>
+  </data>
+  <data name="ServerHealth/Plugin.DriveStatus.FreeSpace" xml:space="preserve">
+    <value>Free Space</value>
+    <comment/>
+  </data>
+  <data name="ServerHealth/Plugin.DriveStatus.Name" xml:space="preserve">
+    <value>Name</value>
+    <comment/>
+  </data>
+  <data name="ServerHealth/Plugin.DriveStatus.TotalFreeSize" xml:space="preserve">
+    <value>Total Free Space</value>
+    <comment/>
+  </data>
+  <data name="ServerHealth/Plugin.DriveStatus.TotalSize" xml:space="preserve">
+    <value>Total Size</value>
+    <comment/>
+  </data>
+  <data name="ServerHealth/Plugin.DriveStatus.Type" xml:space="preserve">
+    <value>Type</value>
+    <comment/>
+  </data>
+  <data name="Invite/Title" xml:space="preserve">
+    <value>Create Invite Link</value>
+    <comment/>
+  </data>
+  <data name="Invite/ValidUntil" xml:space="preserve">
+    <value>Valid Until</value>
+    <comment/>
+  </data>
+  <data name="Invite/ValidUntil.Hint" xml:space="preserve">
+    <value>When will the Link expire</value>
+    <comment/>
+  </data>
+  <data name="Invite/ValidOnce" xml:space="preserve">
+    <value>Valid Once</value>
+    <comment/>
+  </data>
+  <data name="Invite/ValidOnce.Hint" xml:space="preserve">
+    <value>Is the link One time usage?</value>
+    <comment/>
+  </data>
+  <data name="Invite/Revoked" xml:space="preserve">
+    <value>Revoked</value>
+    <comment/>
+  </data>
+  <data name="Invite/Asossiation" xml:space="preserve">
+    <value>Asossiation</value>
+    <comment/>
+  </data>
+  <data name="Invite/Bounds" xml:space="preserve">
+    <value>Bounds</value>
+    <comment/>
+  </data>
+  <data name="Invite/Reason" xml:space="preserve">
+    <value>Link/Revoke Reason</value>
+    <comment/>
+  </data>
+  <data name="Invite/List.NoInvites" xml:space="preserve">
+    <value>No Invites</value>
+    <comment/>
+  </data>
+  <data name="Invite/Revoke" xml:space="preserve">
+    <value>Revoke</value>
+    <comment/>
+  </data>
+  <data name="Common/But" xml:space="preserve">
+    <value>But</value>
+    <comment/>
+  </data>
+  <data name="Invite/OnlyOnce" xml:space="preserve">
+    <value>Until used once</value>
+    <comment/>
+  </data>
+  <data name="Logger/Title" xml:space="preserve">
+    <value>Logger</value>
+    <comment/>
+  </data>
+  <data name="Logger/Stop" xml:space="preserve">
+    <value>Stop</value>
+    <comment/>
+  </data>
+  <data name="Logger/Toggle" xml:space="preserve">
+    <value>Toggle Pause</value>
+    <comment/>
+  </data>
+  <data name="Logger/NextPullIn" xml:space="preserve">
+    <value>Next pull in {0}</value>
+    <comment/>
+  </data>
+  <data name="Logger/Start" xml:space="preserve">
+    <value>Start</value>
+    <comment/>
+  </data>
+  <data name="Logger/ReportMigrationStatus" xml:space="preserve">
+    <value>{Entity/Report} Migration</value>
+    <comment/>
+  </data>
+  <data name="Logger/Category" xml:space="preserve">
+    <value>Category</value>
+    <comment/>
+  </data>
+  <data name="Logger/Level" xml:space="preserve">
+    <value>Level</value>
+    <comment/>
+  </data>
+  <data name="Logger/Reset" xml:space="preserve">
+    <value>Reset</value>
+    <comment/>
+  </data>
+  <data name="Logger/PauseQueue" xml:space="preserve">
+    <value>Paused. There are {0} in queue</value>
+    <comment/>
+  </data>
+  <data name="Common/NULL" xml:space="preserve">
+    <value>NULL</value>
+    <comment/>
+  </data>
+  <data name="RedeemInvite/Title.NeedLogin" xml:space="preserve">
+    <value>Log in and redeem Invite</value>
+    <comment/>
+  </data>
+  <data name="RedeemInvite/Title.NeedLogin.Hint" xml:space="preserve">
+    <value>Please use the button below to Login and return to this screen</value>
+    <comment/>
+  </data>
+  <data name="RedeemInvite/NeedLogin.Register.Hint" xml:space="preserve">
+    <value>Please register/login first on My-Worksheet with the button below.       Then open the link again.</value>
+    <comment/>
+  </data>
+  <data name="RedeemInvite/InviteStatus.Title" xml:space="preserve">
+    <value>You are invited by '{0}' to Connect your Account to his</value>
+    <comment/>
+  </data>
+  <data name="RedeemInvite/InviteStatus.InviteFrom_1" xml:space="preserve">
+    <value>Please verify that you obtained this Link from '{0}'.</value>
+    <comment/>
+  </data>
+  <data name="RedeemInvite/InviteStatus.InviteFrom_2" xml:space="preserve">
+    <value>If not, please leave this page.</value>
+    <comment/>
+  </data>
+  <data name="RedeemInvite/InviteStatus.InviteFrom.Hint_1" xml:space="preserve">
+    <value>If you click on the button "Link" below your account will be linked to the account of '{0}'.</value>
+    <comment/>
+  </data>
+  <data name="RedeemInvite/InviteStatus.InviteFrom.Hint_2" xml:space="preserve">
+    <value>This means the following:</value>
+    <comment/>
+  </data>
+  <data name="RedeemInvite/LinkText" xml:space="preserve">
+    <value>Accept Link</value>
+    <comment/>
+  </data>
+  <data name="ResetPassword/NewPassword.Hint" xml:space="preserve">
+    <value>Your new Password</value>
+    <comment/>
+  </data>
+  <data name="ResetPassword/NewPassword.Confirm" xml:space="preserve">
+    <value>Confirm Password</value>
+    <comment/>
+  </data>
+  <data name="ResetPassword/NewPassword.Confirm.Hint" xml:space="preserve">
+    <value>Please confirm the Password</value>
+    <comment/>
+  </data>
+  <data name="FAQ/Title" xml:space="preserve">
+    <value>Frequent Questions</value>
+    <comment/>
+  </data>
+  <data name="ResetPassword/ChangeButton.Text" xml:space="preserve">
+    <value>Change Password</value>
+    <comment/>
+  </data>
+  <data name="ContactManage/Title" xml:space="preserve">
+    <value>List Contact Requests</value>
+    <comment/>
+  </data>
+  <data name="Common/Id" xml:space="preserve">
+    <value>Id</value>
+    <comment/>
+  </data>
+  <data name="ContactManage/Message" xml:space="preserve">
+    <value>Message</value>
+    <comment/>
+  </data>
+  <data name="Contact/Title" xml:space="preserve">
+    <value>Send a Message</value>
+    <comment/>
+  </data>
+  <data name="Contact/Name.Hint" xml:space="preserve">
+    <value>Please tell me your name</value>
+    <comment/>
+  </data>
+  <data name="Contact/Name.Hint.Error.Required" xml:space="preserve">
+    <value>Please enter a Name</value>
+    <comment/>
+  </data>
+  <data name="Contact/Email.Hint" xml:space="preserve">
+    <value>For response please enter your Mail-Address</value>
+    <comment/>
+  </data>
+  <data name="Contact/EMail.Error.Required" xml:space="preserve">
+    <value>Please enter a valid Mail-Address</value>
+    <comment/>
+  </data>
+  <data name="Contact/RequestKind" xml:space="preserve">
+    <value>Matter of Request</value>
+    <comment/>
+  </data>
+  <data name="Contact/RequestKind.Hint" xml:space="preserve">
+    <value>What kind of Request you have</value>
+    <comment/>
+  </data>
+  <data name="Contact/Message" xml:space="preserve">
+    <value>Message</value>
+    <comment/>
+  </data>
+  <data name="Contact/Message.Hint" xml:space="preserve">
+    <value>Please enter a message</value>
+    <comment/>
+  </data>
+  <data name="Contact/Error.Form.Invalid" xml:space="preserve">
+    <value>Please fill out all Fields</value>
+    <comment/>
+  </data>
+  <data name="Common/Send" xml:space="preserve">
+    <value>Send</value>
+    <comment/>
+  </data>
+  <data name="Activities/Title" xml:space="preserve">
+    <value>Notifications</value>
+    <comment/>
+  </data>
+  <data name="Activities/NoNewEntries" xml:space="preserve">
+    <value>No new {Entity/Activities}</value>
+    <comment/>
+  </data>
+  <data name="Common/Hide" xml:space="preserve">
+    <value>Hide</value>
+    <comment/>
+  </data>
+  <data name="Dashboard/CreatePlugin.Title" xml:space="preserve">
+    <value>Create Plugin '{0}'</value>
+    <comment/>
+  </data>
+  <data name="Common/Cancel" xml:space="preserve">
+    <value>Cancel</value>
+    <comment/>
+  </data>
+  <data name="Logout/Confirm" xml:space="preserve">
+    <value>Please confirm that you want to logout.</value>
+    <comment/>
+  </data>
+  <data name="ChangePassword/Title" xml:space="preserve">
+    <value>Change password</value>
+    <comment/>
+  </data>
+  <data name="ChangePassword/Text" xml:space="preserve">
+    <value>By changing your password you will logout everywhere including this device.</value>
+    <comment/>
+  </data>
+  <data name="ChangePassword/LogoutEverywhere" xml:space="preserve">
+    <value>Logout Everywhere and change password</value>
+    <comment/>
+  </data>
+  <data name="Project/ConfirmDelete.Title" xml:space="preserve">
+    <value>Confirm Delete</value>
+    <comment/>
+  </data>
+  <data name="Project/ConfirmDelete.Text_1" xml:space="preserve">
+    <value>Please confirm that you want to delete the {Entity/Project}</value>
+    <comment/>
+  </data>
+  <data name="Project/ConfirmDelete.Text_2" xml:space="preserve">
+    <value>by typing the {Entity/Project} name to the lower box.</value>
+    <comment/>
+  </data>
+  <data name="Project/ConfirmDelete.Text_3.Html" xml:space="preserve">
+    <value>Please be aware that if you delete the {Entity/Project}, also all {Entity/Worksheets} and Worksheet Items are &lt;b&gt;non rewindable&lt;/b&gt; lost.</value>
+    <comment/>
+  </data>
+  <data name="Worksheet/ConfirmDelete.Title" xml:space="preserve">
+    <value>Confirm Delete</value>
+    <comment/>
+  </data>
+  <data name="Worksheet/ConfirmDelete.Text_1" xml:space="preserve">
+    <value>Please confirm that you want to delete the {Entity/Worksheet}.</value>
+    <comment/>
+  </data>
+  <data name="Worksheet/ConfirmDelete.Text_2.Html" xml:space="preserve">
+    <value>Please be aware that if you delete the {Entity/Worksheet}, also all Worksheet Items are &lt;b&gt;non rewindable&lt;/b&gt; lost.</value>
+    <comment/>
+  </data>
+  <data name="WorksheetItem/Merge.Title" xml:space="preserve">
+    <value>Merge Needed</value>
+    <comment/>
+  </data>
+  <data name="WorksheetItem/Merge.Operation" xml:space="preserve">
+    <value>Operation</value>
+    <comment/>
+  </data>
+  <data name="WorksheetItem/From" xml:space="preserve">
+    <value>From</value>
+    <comment/>
+  </data>
+  <data name="WorksheetItem/To" xml:space="preserve">
+    <value>To</value>
+    <comment/>
+  </data>
+  <data name="WorksheetItem/Comment" xml:space="preserve">
+    <value>Comment</value>
+    <comment/>
+  </data>
+  <data name="WorksheetItem/Merge.Suggested" xml:space="preserve">
+    <value>This is the suggested Item by the Auto-Merger</value>
+    <comment/>
+  </data>
+  <data name="WorksheetItem/Merge.Abort" xml:space="preserve">
+    <value>Cancel (Do not save)</value>
+    <comment/>
+  </data>
+  <data name="UserSettings/LogoutEverywhere.Title" xml:space="preserve">
+    <value>Logout Everywhere</value>
+    <comment/>
+  </data>
+  <data name="UserSettings/LogoutEverywhere.Text" xml:space="preserve">
+    <value>Please confirm that you want to logout everywhere including this PC.</value>
+    <comment/>
+  </data>
+  <data name="RegisterTemp/Hint" xml:space="preserve">
+    <value>Please enter your Mail-Address to receive your Temporary Username and Password.</value>
+    <comment/>
+  </data>
+  <data name="RegisterTemp/Title" xml:space="preserve">
+    <value>Request your 24hours account</value>
+    <comment/>
+  </data>
+  <data name="RegisterTemp/Request" xml:space="preserve">
+    <value>Request Test-Account</value>
+    <comment/>
+  </data>
+  <data name="Relogin/Title" xml:space="preserve">
+    <value>Please Login</value>
+    <comment/>
+  </data>
+  <data name="RequestPassword/Title" xml:space="preserve">
+    <value>Request Password reset Mail</value>
+    <comment/>
+  </data>
+  <data name="RequestPassword/Title.Hint" xml:space="preserve">
+    <value>Please enter your Username and E-Mail Address that is currently active on your Account to recive a Password reset Link</value>
+    <comment/>
+  </data>
+  <data name="RequestPassword/Request" xml:space="preserve">
+    <value>Request Password link</value>
+    <comment/>
+  </data>
+  <data name="Workflow/ConfirmStatus.Title.Html" xml:space="preserve">
+    <value> Please confirm that you want to change the State to  &lt;b&gt;{0}&lt;/b&gt;  the {Entity/Worksheet}  {1} - {2}  in the Project  "{3}"</value>
+    <comment/>
+  </data>
+  <data name="Workflow/ConfirmStatus.ChangeToText" xml:space="preserve">
+    <value>Change to {0}</value>
+    <comment/>
+  </data>
+  <data name="FAQ/Title.Hint" xml:space="preserve">
+    <value>Simple answers to your most common questions</value>
+    <comment/>
+  </data>
+  <data name="FAQ/Q1" xml:space="preserve">
+    <value>Will my worksheet fit my needs?</value>
+    <comment/>
+  </data>
+  <data name="FAQ/Q1A" xml:space="preserve">
+    <value>Hopefully yes. My-Worksheet is designed for Freelancer and Self-Employed people who work for a particular Client or Project.</value>
+    <comment/>
+  </data>
+  <data name="FAQ/Q2" xml:space="preserve">
+    <value>This is still beta, what does this mean?</value>
+    <comment/>
+  </data>
+  <data name="FAQ/Q2A" xml:space="preserve">
+    <value>Well that means that some features might change in the Future as this project is devloped over a long time yet. But this includes mostly new Features and stable ones might just get small changes or bugfixes.</value>
+    <comment/>
+  </data>
+  <data name="FAQ/Q3" xml:space="preserve">
+    <value>What's included?</value>
+    <comment/>
+  </data>
+  <data name="FAQ/Q3A.Html" xml:space="preserve">
+    <value>The core of My-Worksheet is all about to document in a most easy way, your worked times so you can take care of your customer. &lt;br /&gt; It includes ways to enter your worked times, show yourself an overview, generate Bills and Timereports and more.</value>
+    <comment/>
+  </data>
+  <data name="FAQ/Q4" xml:space="preserve">
+    <value>Ok but i use an cool 10 year old Excel Worksheet, why should i move to My-Worksheet?</value>
+    <comment/>
+  </data>
+  <data name="FAQ/Q4A.Html" xml:space="preserve">
+    <value>If you are going fine with it, maybe not. But if you ever asked yourself: &lt;q&gt;Oh no end of the month i have to print my bill and send it and and and...&lt;/q&gt; you might want to take a look at the Automatisation features that coming soon.</value>
+    <comment/>
+  </data>
+  <data name="FAQ/Q5" xml:space="preserve">
+    <value>Who are you and why did you even created My-Worksheet?</value>
+    <comment/>
+  </data>
+  <data name="FAQ/Q5A" xml:space="preserve">
+    <value> I'm a IT-Freelancer who asked himself this questions in 2010. In the first few year i had an old style worksheet, i took from another Freelancer (Thank you Christian) but shortly i discovered there must be a better, a IT Style way. So i made a search for a webpage that fit my needs but did not found one that was secure (Full encryption) had all features (Time report generation) and most of them where just too complex. Also all of them had only a subscription model, so i had to bind myself to it.</value>
+    <comment/>
+  </data>
+  <data name="FAQ/Q6" xml:space="preserve">
+    <value>What is your Pricing strategy</value>
+    <comment/>
+  </data>
+  <data name="FAQ/Q6A_1.Html" xml:space="preserve">
+    <value>For single Persons and for the Cloud variant (The site hosted under &lt;a href="https://www.my-worksheet.com"&gt;My-Worksheet.com&lt;/a&gt;) its free. By using My-Worksheet.com you agree with the </value>
+    <comment/>
+  </data>
+  <data name="FAQ/Q6A_2" xml:space="preserve">
+    <value>However you can buy a version to be hosted on your network or let me host your instance of My-Worksheet. Please contact me for a proposal at </value>
+    <comment/>
+  </data>
+  <data name="FAQ/Q7" xml:space="preserve">
+    <value>My-Worksheet was created as an helping alternative to excel and other, simpler time tracking tools.</value>
+    <comment/>
+  </data>
+  <data name="FAQ/Q8" xml:space="preserve">
+    <value>I am a Software developer myself or i want to integrate into My-Worksheet for my company.</value>
+    <comment/>
+  </data>
+  <data name="FAQ/Q8A" xml:space="preserve">
+    <value>Sure thing, the whole webpage is allowed to be accessed by standard Http. You can get your own Server and Sub-domain.&lt;br /&gt; If you ever need help with your project related to My-Worksheet, don`t hassle to contact me. For more Infos contact me at</value>
+    <comment/>
+  </data>
+  <data name="CountryManage/Flag" xml:space="preserve">
+    <value>Flag</value>
+    <comment/>
+  </data>
+  <data name="Common/Currency" xml:space="preserve">
+    <value>Currency</value>
+    <comment/>
+  </data>
+  <data name="CountryManage/CountryEditor" xml:space="preserve">
+    <value>Country Editor</value>
+    <comment/>
+  </data>
+  <data name="CountryManage/ShortName" xml:space="preserve">
+    <value>Short Name</value>
+    <comment/>
+  </data>
+  <data name="CountryManage/ShortName.Hint" xml:space="preserve">
+    <value>Country ISO Alpha-2 name code</value>
+    <comment/>
+  </data>
+  <data name="CountryManage/CurrencyCode" xml:space="preserve">
+    <value>Currency</value>
+    <comment/>
+  </data>
+  <data name="Common/NoResults" xml:space="preserve">
+    <value>No Results Found</value>
+    <comment/>
+  </data>
+  <data name="CountrySelection.Title_1" xml:space="preserve">
+    <value>Your country is</value>
+    <comment/>
+  </data>
+  <data name="CountrySelection.SwitchCountry" xml:space="preserve">
+    <value>Not your country?</value>
+    <comment/>
+  </data>
+  <data name="CountrySelection.ItsFree" xml:space="preserve">
+    <value>Its free.</value>
+    <comment/>
+  </data>
+  <data name="CountrySelection.ItsFree_2" xml:space="preserve">
+    <value>Why?</value>
+    <comment/>
+  </data>
+  <data name="PaymentInfo/Title" xml:space="preserve">
+    <value>Payment Info</value>
+    <comment/>
+  </data>
+  <data name="PaymentInfo/PaymentType" xml:space="preserve">
+    <value>Payment Type</value>
+    <comment/>
+  </data>
+  <data name="PaymentInfo/Detail.Title" xml:space="preserve">
+    <value>Payment Information for '{0}'</value>
+    <comment/>
+  </data>
+  <data name="PaymentInfo/Detail.Disclaimer" xml:space="preserve">
+    <value>Payment Disclaimer</value>
+    <comment/>
+  </data>
+  <data name="PaymentInfo/Detail.Disclaimer.Hint" xml:space="preserve">
+    <value>The Payment Disclaimer as payment terms or conditions</value>
+    <comment/>
+  </data>
+  <data name="PaymentInfo/Detail.PaymentType.Hint" xml:space="preserve">
+    <value>The name/descriptor for this Payment type</value>
+    <comment/>
+  </data>
+  <data name="PaymentInfo/Detail.Fields" xml:space="preserve">
+    <value>Payment Custom Fields</value>
+    <comment/>
+  </data>
+  <data name="FormatterInfo/Title" xml:space="preserve">
+    <value>My-Worksheet Formatter infos</value>
+    <comment/>
+  </data>
+  <data name="FormatterInfo/Text_1" xml:space="preserve">
+    <value>A Formatter can be applied to the corresponding element in the template.If it matches the type, please lookup the type in the schema section in your template.  To use a formatter end the the property with 2 brackets like this: "</value>
+    <comment/>
+  </data>
+  <data name="FormatterInfo/Text_2" xml:space="preserve">
+    <value>"  If the formatter has arguments you must write them into the brackets.</value>
+    <comment/>
+  </data>
+  <data name="FormatterInfo/Text_3" xml:space="preserve">
+    <value>Example:</value>
+    <comment/>
+  </data>
+  <data name="FormatterInfo/Text_4.Html" xml:space="preserve">
+    <value>where "time" is the name of the formatter and "t" is its argument  &lt;br /&gt;  First we write the property then the brackets. Next we write the formatter to use, in this example the 'time' formatter.  the 'time' formatter accepts multiple arguments. The 'time, t' argument will format the property WorkedTime into a readable format</value>
+    <comment/>
+  </data>
+  <data name="Common/Description" xml:space="preserve">
+    <value>Description</value>
+    <comment/>
+  </data>
+  <data name="FormatterInfo/InputType" xml:space="preserve">
+    <value>Input Type</value>
+    <comment/>
+  </data>
+  <data name="FormatterInfo/ArgumentInfos" xml:space="preserve">
+    <value>Arguments</value>
+    <comment/>
+  </data>
+  <data name="FormatterInfo/OutputType" xml:space="preserve">
+    <value>Result</value>
+    <comment/>
+  </data>
+  <data name="FormatterInfo/OutputInfo" xml:space="preserve">
+    <value>Info</value>
+    <comment/>
+  </data>
+  <data name="RunTemplate/Title" xml:space="preserve">
+    <value>Run Template '{0}'</value>
+    <comment/>
+  </data>
+  <data name="RunTemplate/Filter" xml:space="preserve">
+    <value>Filter</value>
+    <comment/>
+  </data>
+  <data name="RunTemplate/StringEmptyHint" xml:space="preserve">
+    <value>Empty</value>
+    <comment/>
+  </data>
+  <data name="Storage/Storage" xml:space="preserve">
+    <value>Storage</value>
+    <comment/>
+  </data>
+  <data name="RunTemplate/Run" xml:space="preserve">
+    <value>Produce {Entity/Report} </value>
+    <comment/>
+  </data>
+  <data name="RunTemplate/SelectAll" xml:space="preserve">
+    <value>Select All</value>
+    <comment/>
+  </data>
+  <data name="RunTemplate/InvertSelection" xml:space="preserve">
+    <value>Invert Selection</value>
+    <comment/>
+  </data>
+  <data name="RunTemplate/DeleteSelection" xml:space="preserve">
+    <value>Delete Selection</value>
+    <comment/>
+  </data>
+  <data name="RunTemplate/Status" xml:space="preserve">
+    <value>Status</value>
+    <comment/>
+  </data>
+  <data name="RunTemplate/GeneratedAt" xml:space="preserve">
+    <value>Generated At</value>
+    <comment/>
+  </data>
+  <data name="Common/Download" xml:space="preserve">
+    <value>Download</value>
+    <comment/>
+  </data>
+  <data name="Common/Public" xml:space="preserve">
+    <value>Public</value>
+    <comment/>
+  </data>
+  <data name="Template/DataSource" xml:space="preserve">
+    <value>Data Source</value>
+    <comment/>
+  </data>
+  <data name="Template/FileType" xml:space="preserve">
+    <value>File Type</value>
+    <comment/>
+  </data>
+  <data name="Template/FileType.Hint" xml:space="preserve">
+    <value>The file ending. Use "pdf" without quotes to generate a PDF from Html.</value>
+    <comment/>
+  </data>
+  <data name="Template/FileExtenstion" xml:space="preserve">
+    <value>File Extention</value>
+    <comment/>
+  </data>
+  <data name="Template/FileExtenstion.Hint" xml:space="preserve">
+    <value>The type of Document that you are creating, for example "xml", "json", "txt", "csv" without quotes.</value>
+    <comment/>
+  </data>
+  <data name="Template/Template" xml:space="preserve">
+    <value>Template</value>
+    <comment/>
+  </data>
+  <data name="Common/Schema" xml:space="preserve">
+    <value>Schema</value>
+    <comment/>
+  </data>
+  <data name="Common/Private" xml:space="preserve">
+    <value>Private</value>
+    <comment/>
+  </data>
+  <data name="Dashboard.CurrentWorksheet/Range" xml:space="preserve">
+    <value>Range</value>
+    <comment/>
+  </data>
+  <data name="Dashboard.CurrentWorksheet/Missing" xml:space="preserve">
+    <value>Missing Entry</value>
+    <comment/>
+  </data>
+  <data name="Dashboard.CurrentWorksheet/NoOpenWorksheets" xml:space="preserve">
+    <value>No Open Worksheets</value>
+    <comment/>
+  </data>
+  <data name="Dashboard.Org/YourRoles" xml:space="preserve">
+    <value>Your Roles</value>
+    <comment/>
+  </data>
+  <data name="Dashboard.Tracker/TrackerRunning" xml:space="preserve">
+    <value>Tracker running for: '{0}'</value>
+    <comment/>
+  </data>
+  <data name="Dashboard.Tracker/TimeTracked" xml:space="preserve">
+    <value>Time Tracked: '{0}'</value>
+    <comment/>
+  </data>
+  <data name="Dashboard.Tracker/NoTracker" xml:space="preserve">
+    <value>No Tracker is Running</value>
+    <comment/>
+  </data>
+  <data name="Common/Start" xml:space="preserve">
+    <value>Start</value>
+    <comment/>
+  </data>
+  <data name="Common/Stop" xml:space="preserve">
+    <value>Stop</value>
+    <comment/>
+  </data>
+  <data name="Common/Of" xml:space="preserve">
+    <value>Of</value>
+    <comment/>
+  </data>
+  <data name="Dashboard/Title" xml:space="preserve">
+    <value>Dashboard</value>
+    <comment/>
+  </data>
+  <data name="Dashboard/NoMorePlugins" xml:space="preserve">
+    <value>There are no more plugins to you for adding</value>
+    <comment/>
+  </data>
+  <data name="LinkRedeemed/Alert.Title" xml:space="preserve">
+    <value>Your connection to '{0}'s account was successfully to created. See your User Options for more infos</value>
+    <comment/>
+  </data>
+  <data name="Login/Title" xml:space="preserve">
+    <value>Please login</value>
+    <comment/>
+  </data>
+  <data name="Login/ConfirmIdent" xml:space="preserve">
+    <value>Please confirm your Identity</value>
+    <comment/>
+  </data>
+  <data name="Login/Remember" xml:space="preserve">
+    <value>Remember me for 1 Month</value>
+    <comment/>
+  </data>
+  <data name="InvalidFileToken/Title" xml:space="preserve">
+    <value>File not Available</value>
+    <comment/>
+  </data>
+  <data name="InvalidFileToken/Text" xml:space="preserve">
+    <value>The file you requested was moved/deleted or the token used is expired.</value>
+    <comment/>
+  </data>
+  <data name="UserStorageDetail/ProviderName" xml:space="preserve">
+    <value>Storage Provider Connector</value>
+    <comment/>
+  </data>
+  <data name="UserStorageDetail/IsDefaultProvider" xml:space="preserve">
+    <value>Is Default</value>
+    <comment/>
+  </data>
+  <data name="UserStorageDetail/IsDefaultProvider.Hint" xml:space="preserve">
+    <value>The default storage provider will be preselected each time you have to store a file.</value>
+    <comment/>
+  </data>
+  <data name="UserStorageDetail/Entries" xml:space="preserve">
+    <value>Storage Entries</value>
+    <comment/>
+  </data>
+  <data name="UserStorageDetail/Entries.Filename" xml:space="preserve">
+    <value>File Name</value>
+    <comment/>
+  </data>
+  <data name="Common/Created" xml:space="preserve">
+    <value>Created</value>
+    <comment/>
+  </data>
+  <data name="Common/Deleted" xml:space="preserve">
+    <value>Deleted</value>
+    <comment/>
+  </data>
+  <data name="Common/Yes" xml:space="preserve">
+    <value>Yes</value>
+    <comment/>
+  </data>
+  <data name="Common/No" xml:space="preserve">
+    <value>No</value>
+    <comment/>
+  </data>
+  <data name="UserStorageDetail/NoFiles" xml:space="preserve">
+    <value>No Files stored</value>
+    <comment/>
+  </data>
+  <data name="UserStorageDetail/DeletedExternal" xml:space="preserve">
+    <value>Deleted from External</value>
+    <comment/>
+  </data>
+  <data name="Webhook/Title" xml:space="preserve">
+    <value>Http Hooks</value>
+    <comment/>
+  </data>
+  <data name="Webhook/Url" xml:space="preserve">
+    <value>Url</value>
+    <comment/>
+  </data>
+  <data name="Webhook/NewData" xml:space="preserve">
+    <value>New Historyical Data</value>
+    <comment/>
+  </data>
+  <data name="Webhook/Secret" xml:space="preserve">
+    <value>Secret</value>
+    <comment/>
+  </data>
+  <data name="Webhook/PurgeHint" xml:space="preserve">
+    <value>Will Purge History and Reset the Secret</value>
+    <comment/>
+  </data>
+  <data name="Webhook/History" xml:space="preserve">
+    <value>History</value>
+    <comment/>
+  </data>
+  <data name="Webhook/NoHistory" xml:space="preserve">
+    <value>No Historical data</value>
+    <comment/>
+  </data>
+  <data name="Budget/Title" xml:space="preserve">
+    <value>Budgets for Project</value>
+    <comment/>
+  </data>
+  <data name="Budget/NoBudgets" xml:space="preserve">
+    <value>No Budgets for the selected project</value>
+    <comment/>
+  </data>
+  <data name="Budget/EveryoneElse" xml:space="preserve">
+    <value>Everyone else combined</value>
+    <comment/>
+  </data>
+  <data name="Budget/OverbookedHint" xml:space="preserve">
+    <value>OVERBOOKED BY</value>
+    <comment/>
+  </data>
+  <data name="Budget/Deadline" xml:space="preserve">
+    <value>Deadline</value>
+    <comment/>
+  </data>
+  <data name="Budget/TimeBudget" xml:space="preserve">
+    <value>Time Budget</value>
+    <comment/>
+  </data>
+  <data name="Budget/ValidFrom" xml:space="preserve">
+    <value>Valid From</value>
+    <comment/>
+  </data>
+  <data name="Budget/ValidFrom.Hint" xml:space="preserve">
+    <value>When does the Budget start</value>
+    <comment/>
+  </data>
+  <data name="Budget/AllowOverbooking" xml:space="preserve">
+    <value>Allow Overbooking</value>
+    <comment/>
+  </data>
+  <data name="Budget/AllowOverbooking.Hint" xml:space="preserve">
+    <value>If set the user is allowed to overbook/enter worktimes beyond the boundaries set in the budgets</value>
+    <comment/>
+  </data>
+  <data name="Budget/NoUsersFound" xml:space="preserve">
+    <value>No Users Found</value>
+    <comment/>
+  </data>
+  <data name="Budget/Deadline.Hint" xml:space="preserve">
+    <value>After what date is the user no longer be able to enter times into the Projects</value>
+    <comment/>
+  </data>
+  <data name="Budget/TimeBudget.Hint" xml:space="preserve">
+    <value>How much time is the user allowed to enter. Format: hhh*hh:mm</value>
+    <comment/>
+  </data>
+  <data name="Budget/TotalBudget" xml:space="preserve">
+    <value>Total Budget</value>
+    <comment/>
+  </data>
+  <data name="Budget/TimeConsumed" xml:space="preserve">
+    <value>Time Consumed</value>
+    <comment/>
+  </data>
+  <data name="Budget/AddBudget" xml:space="preserve">
+    <value>Add Budget</value>
+    <comment/>
+  </data>
+  <data name="Budget/MyBudget" xml:space="preserve">
+    <value>My Budget</value>
+    <comment/>
+  </data>
+  <data name="Budget/TimeBudget.Min24h" xml:space="preserve">
+    <value>Time Budget must be at least 24 hours</value>
+    <comment/>
+  </data>
+  <data name="Time/Weekday" xml:space="preserve">
+    <value>Weekday</value>
+    <comment/>
+  </data>
+  <data name="Time/Day" xml:space="preserve">
+    <value>Day</value>
+    <comment/>
+  </data>
+  <data name="WorksheetItem/Time" xml:space="preserve">
+    <value>Time</value>
+    <comment/>
+  </data>
+  <data name="WorksheetItem/Timespan" xml:space="preserve">
+    <value>Timespan</value>
+    <comment/>
+  </data>
+  <data name="WorksheetItem/Search.Coming" xml:space="preserve">
+    <value>Coming Days</value>
+    <comment/>
+  </data>
+  <data name="WorksheetItem/Search.Workdays" xml:space="preserve">
+    <value>Workdays</value>
+    <comment/>
+  </data>
+  <data name="Time/Week" xml:space="preserve">
+    <value>Week</value>
+    <comment/>
+  </data>
+  <data name="Common/Worktime" xml:space="preserve">
+    <value>Working time</value>
+    <comment/>
+  </data>
+  <data name="WorksheetItem/CurrentWeek" xml:space="preserve">
+    <value>Current Week</value>
+    <comment/>
+  </data>
+  <data name="WorksheetItem/Pause" xml:space="preserve">
+    <value>Pause</value>
+    <comment/>
+  </data>
+  <data name="WorksheetItem/ToBeMerged" xml:space="preserve">
+    <value>to be Merged</value>
+    <comment/>
+  </data>
+  <data name="WorksheetAction.Editor/DisplayName" xml:space="preserve">
+    <value>Display Name</value>
+    <comment/>
+  </data>
+  <data name="Common/Value" xml:space="preserve">
+    <value>Value</value>
+    <comment/>
+  </data>
+  <data name="WorksheetAction.Editor/SingleValue.Hint" xml:space="preserve">
+    <value>Set a Property on the Day</value>
+    <comment/>
+  </data>
+  <data name="WorksheetAction.Editor/StatusText.Hint" xml:space="preserve">
+    <value>Add a Printable-Status code to this Day</value>
+    <comment/>
+  </data>
+  <data name="WorksheetAction.Editor/WorksheetItems.PersistantWarning.Html" xml:space="preserve">
+    <value>Warning. You have entered a Worksheet item and made it Persistent.    Every time you open the {Entity/Worksheet} a &lt;b class="text-uppercase"&gt;New&lt;/b&gt; Worksheet item will be added!</value>
+    <comment/>
+  </data>
+  <data name="WorksheetAction.Editor/WorksheetItems.Hint" xml:space="preserve">
+    <value>Add a Item-Unit the the Day</value>
+    <comment/>
+  </data>
+  <data name="GeoFence/Title" xml:space="preserve">
+    <value>Geo Fence</value>
+    <comment/>
+  </data>
+  <data name="GeoFence/Name.Hint" xml:space="preserve">
+    <value>A Well known name for this GeoFence</value>
+    <comment/>
+  </data>
+  <data name="GeoFence/ForProject" xml:space="preserve">
+    <value>For {Entity/Project}</value>
+    <comment/>
+  </data>
+  <data name="GeoFence/DrawToMap" xml:space="preserve">
+    <value>Draw Geo Fence to Map</value>
+    <comment/>
+  </data>
+  <data name="GeoFence/ForProject.Hint" xml:space="preserve">
+    <value>What {Entity/Project} does this Geo-Fence belongs to</value>
+    <comment/>
+  </data>
+  <data name="GeoFence/ListOfFences" xml:space="preserve">
+    <value>Fences</value>
+    <comment/>
+  </data>
+  <data name="GeoFence/Fence" xml:space="preserve">
+    <value>Fence</value>
+    <comment/>
+  </data>
+  <data name="GeoFence/Map.Hint" xml:space="preserve">
+    <value>Add 1 Marker for a Range of 50 meters.          Add 2 Marker to define a Circle.          Add more then 3 to define a custom shaped area.          You can Enable/Disable creating of new Markers on the top by clicking "Draw Geo Fence"</value>
+    <comment/>
+  </data>
+  <data name="GeoFence/AddWifiEndpoint" xml:space="preserve">
+    <value>Add WiFi endpoint</value>
+    <comment/>
+  </data>
+  <data name="GeoFence/NameOfWifiEndpoint" xml:space="preserve">
+    <value>Name of WiFi Network</value>
+    <comment/>
+  </data>
+  <data name="GeoFence/NameOfWifiEndpoint.Hint" xml:space="preserve">
+    <value>If set the Name as seen in your WiFi list.</value>
+    <comment/>
+  </data>
+  <data name="GeoFence/SSID" xml:space="preserve">
+    <value>SSID of WiFi Network</value>
+    <comment/>
+  </data>
+  <data name="GeoFence/SSID.Hint" xml:space="preserve">
+    <value>If set the exact SSID of the WiFi network. If you do not know what this is leave it empty</value>
+    <comment/>
+  </data>
+  <data name="ProjectStatistics/Title" xml:space="preserve">
+    <value>{Entity/Project} Statistics</value>
+    <comment/>
+  </data>
+  <data name="ProjectStatistics/NoProjects" xml:space="preserve">
+    <value>No {Entity/Projects} and No Submitted {Entity/Worksheets}</value>
+    <comment/>
+  </data>
+  <data name="Time/Hours" xml:space="preserve">
+    <value>Hours</value>
+    <comment/>
+  </data>
+  <data name="ProjectStatistics/ApproxHours.Hint" xml:space="preserve">
+    <value>Round down hours</value>
+    <comment/>
+  </data>
+  <data name="Symbols/Approx" xml:space="preserve">
+    <value>~</value>
+    <comment/>
+  </data>
+  <data name="ProjectStatistics/NoDataInRange" xml:space="preserve">
+    <value>No data in the Selected Range</value>
+    <comment/>
+  </data>
+  <data name="ProjectStatistics/DataMightBeTruncated" xml:space="preserve">
+    <value>The Visible data is maybe Truncated</value>
+    <comment/>
+  </data>
+  <data name="WorkflowData/DisplayName.Hint" xml:space="preserve">
+    <value>The name that is used for searching this {WorkflowData/Title} and displaying it</value>
+    <comment/>
+  </data>
+  <data name="WorkflowData/Title" xml:space="preserve">
+    <value>{Entity/Workflow} Dataset</value>
+    <comment/>
+  </data>
+  <data name="WorkflowData/ShareWithOrg" xml:space="preserve">
+    <value>Share with {Entity/Organization}</value>
+    <comment/>
+  </data>
+  <data name="WorkflowData/ShareWithOrg.Hint" xml:space="preserve">
+    <value>If shared with a Organization all members of the Organization can select this Dataset</value>
+    <comment/>
+  </data>
+  <data name="Workflow/Title" xml:space="preserve">
+    <value>{Entity/Worksheet} {Entity/Workflow}s</value>
+    <comment/>
+  </data>
+  <data name="Workflow/IsShared" xml:space="preserve">
+    <value>Shared</value>
+    <comment/>
+  </data>
+  <data name="Workflow/NoWorkflowData" xml:space="preserve">
+    <value>No Workflow data for this {Entity/Workflow}.</value>
+    <comment/>
+  </data>
+  <data name="Projects/Title" xml:space="preserve">
+    <value>{Entity/Projects}</value>
+    <comment/>
+  </data>
+  <data name="Entity/Organization" xml:space="preserve">
+    <value>Organization</value>
+    <comment/>
+  </data>
+  <data name="Projects/NoProjects" xml:space="preserve">
+    <value>No {Entity/Projects}</value>
+    <comment/>
+  </data>
+  <data name="Projects/AddressUnkown" xml:space="preserve">
+    <value>The address of this {Entity/Organization} is unknown</value>
+    <comment/>
+  </data>
+  <data name="Project/SubmittedWorksheetsHint" xml:space="preserve">
+    <value>This {Entity/Project} has submitted {Entity/Worksheets} and cannot be edited</value>
+    <comment/>
+  </data>
+  <data name="Common/Code" xml:space="preserve">
+    <value>Code</value>
+    <comment/>
+  </data>
+  <data name="Project/Code.Hint" xml:space="preserve">
+    <value>The Project code is used for shortly displaying the {Entity/Project} and for sorting</value>
+    <comment/>
+  </data>
+  <data name="Project/DefaultWorkflow" xml:space="preserve">
+    <value>Default {Entity/Workflow}</value>
+    <comment/>
+  </data>
+  <data name="Project/Actions.Title" xml:space="preserve">
+    <value>Actions</value>
+    <comment/>
+  </data>
+  <data name="Project/Actions.CopyToNew" xml:space="preserve">
+    <value>Copy to Create new</value>
+    <comment/>
+  </data>
+  <data name="Project/Actions.CannotDelete" xml:space="preserve">
+    <value>This {Entity/Project} cannot be deleted anymore for it has Submitted {Entity/Worksheets} </value>
+    <comment/>
+  </data>
+  <data name="Worksheet/WorktimeGlobal.Hint" xml:space="preserve">
+    <value>The current Worktime settings are your global ones. When you change them here, a new set for only this project will be created</value>
+    <comment/>
+  </data>
+  <data name="Common/StartTime" xml:space="preserve">
+    <value>Start Date</value>
+    <comment/>
+  </data>
+  <data name="Common/EndTime" xml:space="preserve">
+    <value>End Time</value>
+    <comment/>
+  </data>
+  <data name="WorksheetAction/Selected" xml:space="preserve">
+    <value>Selected Action</value>
+    <comment/>
+  </data>
+  <data name="WorksheetAction/Title" xml:space="preserve">
+    <value>{Entity/Worksheet} Custom Actions</value>
+    <comment/>
+  </data>
+  <data name="WorksheetAction/IsPersistent" xml:space="preserve">
+    <value>Is Persistent</value>
+    <comment/>
+  </data>
+  <data name="Common/Copy" xml:space="preserve">
+    <value>Copy</value>
+    <comment/>
+  </data>
+  <data name="WorksheetAction/Simple" xml:space="preserve">
+    <value>Simple</value>
+    <comment/>
+  </data>
+  <data name="WorksheetAction/Expert" xml:space="preserve">
+    <value>Expert</value>
+    <comment/>
+  </data>
+  <data name="WorksheetAction/Expert.Warning" xml:space="preserve">
+    <value>    Warning.      When using the Expert Editor you might break the function of the Simple editor!</value>
+    <comment/>
+  </data>
+  <data name="WorksheetAction/Owner" xml:space="preserve">
+    <value>Action Owner</value>
+    <comment/>
+  </data>
+  <data name="WorksheetAction/IsPersistent.Hint" xml:space="preserve">
+    <value>Should this action always be applied when opening the {Entity/Worksheet}. A Must use for Assigned values, but not good for dynamically added Worksheet Items</value>
+    <comment/>
+  </data>
+  <data name="WorksheetAction/Unparsable" xml:space="preserve">
+    <value>Unparsable</value>
+    <comment/>
+  </data>
+  <data name="WorksheetAction/Unparsable.Hint" xml:space="preserve">
+    <value>This code is not generated from the Simple editor and not yet Parsable</value>
+    <comment/>
+  </data>
+  <data name="WorksheetAction.TestOutput" xml:space="preserve">
+    <value>Test output</value>
+    <comment/>
+  </data>
+  <data name="WorksheetAction/TestParse" xml:space="preserve">
+    <value>Test Parse</value>
+    <comment/>
+  </data>
+  <data name="WorksheetAction/Parse" xml:space="preserve">
+    <value>Parse</value>
+    <comment/>
+  </data>
+  <data name="WorksheetItem/PreReport" xml:space="preserve">
+    <value>PRE-REPORT</value>
+    <comment/>
+  </data>
+  <data name="WorksheetItem/PreReport.Hint" xml:space="preserve">
+    <value>All values are meant to change</value>
+    <comment/>
+  </data>
+  <data name="Budget/Deadline.Exceeded" xml:space="preserve">
+    <value>Deadline is reached</value>
+    <comment/>
+  </data>
+  <data name="Budget/Deadline.AlmostExceeded" xml:space="preserve">
+    <value>Deadline is almost reached. Renaming Time: '{0}'</value>
+    <comment/>
+  </data>
+  <data name="Budget/Timebudget.Exceeded" xml:space="preserve">
+    <value>Time Budget is reached</value>
+    <comment/>
+  </data>
+  <data name="Budget/Timebudget.AlmostExceeded" xml:space="preserve">
+    <value>Time Budget is almost reached. Renaming Time: '{0}'</value>
+    <comment/>
+  </data>
+  <data name="WorksheetItem/History.Title" xml:space="preserve">
+    <value>History</value>
+    <comment/>
+  </data>
+  <data name="WorksheetItem/UiSettings.Title" xml:space="preserve">
+    <value>Ui Settings</value>
+    <comment/>
+  </data>
+  <data name="WorksheetItem/Asserts.Title" xml:space="preserve">
+    <value>Asserts</value>
+    <comment/>
+  </data>
+  <data name="WorksheetItem/Inactive" xml:space="preserve">
+    <value>This {Entity/Worksheet} is no longer Active</value>
+    <comment/>
+  </data>
+  <data name="WorksheetItem/Inactive.Hint" xml:space="preserve">
+    <value>That means its in the past or submitted</value>
+    <comment/>
+  </data>
+  <data name="Time/Second" xml:space="preserve">
+    <value>Seconds</value>
+    <comment/>
+  </data>
+  <data name="WorksheetItem/Tracking.Title" xml:space="preserve">
+    <value>Time Tracker</value>
+    <comment/>
+  </data>
+  <data name="WorksheetItem/Tracker.Wait" xml:space="preserve">
+    <value>Wait: '{0}' {Time/Second}</value>
+    <comment/>
+  </data>
+  <data name="WorksheetItem/History.SetStatus" xml:space="preserve">
+    <value>Set Status from</value>
+    <comment/>
+  </data>
+  <data name="WorksheetItem/History.ActivationTime" xml:space="preserve">
+    <value>Activation Time</value>
+    <comment/>
+  </data>
+  <data name="FileUpload/UploadQueue" xml:space="preserve">
+    <value>Upload Queue</value>
+    <comment/>
+  </data>
+  <data name="FileUpload/Processing" xml:space="preserve">
+    <value>Processing...</value>
+    <comment/>
+  </data>
+  <data name="WorksheetItem/History.SetWorkflow" xml:space="preserve">
+    <value>Set {Entity/Workflow}</value>
+    <comment/>
+  </data>
+  <data name="WorksheetItem/History.UploadFiles" xml:space="preserve">
+    <value>Upload files to step</value>
+    <comment/>
+  </data>
+  <data name="FileUpload/Store" xml:space="preserve">
+    <value>File Store</value>
+    <comment/>
+  </data>
+  <data name="FileUpload/UploadFiles" xml:space="preserve">
+    <value>Upload Files</value>
+    <comment/>
+  </data>
+  <data name="FileUpload/DropUnsupported" xml:space="preserve">
+    <value>File Drag/Drop is not supported for this browser</value>
+    <comment/>
+  </data>
+  <data name="WorksheetItem/UiSettings.Display" xml:space="preserve">
+    <value>Display</value>
+    <comment/>
+  </data>
+  <data name="WorksheetItem/UiSettings.ForThisWorksheet" xml:space="preserve">
+    <value>For this {Entity/Worksheet}</value>
+    <comment/>
+  </data>
+  <data name="WorksheetItem/UiSettings.Global" xml:space="preserve">
+    <value>Global</value>
+    <comment/>
+  </data>
+  <data name="Common/Result" xml:space="preserve">
+    <value>Result</value>
+    <comment/>
+  </data>
+  <data name="WorksheetItem/UiSettings.Test" xml:space="preserve">
+    <value>Test</value>
+    <comment/>
+  </data>
+  <data name="WorksheetItem/Summary.Title" xml:space="preserve">
+    <value>Summary</value>
+    <comment/>
+  </data>
+  <data name="WorksheetItem/Summary.WorkedHours" xml:space="preserve">
+    <value>Worked {Time/Hours}</value>
+    <comment/>
+  </data>
+  <data name="WorksheetItem/Summary.HonorarAggreated" xml:space="preserve">
+    <value>{Payment/Honorar} All</value>
+    <comment/>
+  </data>
+  <data name="WorksheetItem/Summary.WithTax" xml:space="preserve">
+    <value>with {Payment/TaxRate}</value>
+    <comment/>
+  </data>
+  <data name="WorksheetItem/Summary.AssertsAll" xml:space="preserve">
+    <value>{WorksheetItem/Asserts.Title} All</value>
+    <comment/>
+  </data>
+  <data name="Common/Is" xml:space="preserve">
+    <value>Is</value>
+    <comment/>
+  </data>
+  <data name="Common/Should" xml:space="preserve">
+    <value>Should</value>
+    <comment/>
+  </data>
+  <data name="WorksheetItem/Summary.HoursLeft" xml:space="preserve">
+    <value>{Time/Hours} Left</value>
+    <comment/>
+  </data>
+  <data name="WorksheetItem/Asserts.CreateTitle" xml:space="preserve">
+    <value>Create {Entity/Worksheet} Assert</value>
+    <comment/>
+  </data>
+  <data name="WorksheetItem/Asserts.Name.Hint" xml:space="preserve">
+    <value>The display name of this assert</value>
+    <comment/>
+  </data>
+  <data name="WorksheetItem/Asserts.Value.Hint" xml:space="preserve">
+    <value>What amount of money does this assert represents</value>
+    <comment/>
+  </data>
+  <data name="WorksheetItem/Asserts.TaxRate.ProjectsRate" xml:space="preserve">
+    <value>{Entity/Project} {Payment/TaxRate}: '{0}'%</value>
+    <comment/>
+  </data>
+  <data name="WorksheetItem/Asserts.TaxRate.Hint" xml:space="preserve">
+    <value>What percentage should be applied to the tax. If -1 the Project tax rate will be used</value>
+    <comment/>
+  </data>
+  <data name="WorksheetItem/Asserts.Edit.Title" xml:space="preserve">
+    <value>Edit {Entity/Worksheet} Assert: '{0}'</value>
+    <comment/>
+  </data>
+  <data name="WorksheetItem/SingleActions" xml:space="preserve">
+    <value>Single Actions</value>
+    <comment/>
+  </data>
+  <data name="WorksheetItem/PermanentActions" xml:space="preserve">
+    <value>Permanent Actions</value>
+    <comment/>
+  </data>
+  <data name="Common/Edit" xml:space="preserve">
+    <value>Edit</value>
+    <comment/>
+  </data>
+  <data name="Common/Abort" xml:space="preserve">
+    <value>Abort</value>
+    <comment/>
+  </data>
+  <data name="Address/EMail.Hint" xml:space="preserve">
+    <value>The {Common/EMail} you Customer will see on your Invoices</value>
+    <comment/>
+  </data>
+  <data name="Maintenance/Title" xml:space="preserve">
+    <value>Maintenance</value>
+    <comment/>
+  </data>
+  <data name="Maintenance/Reason" xml:space="preserve">
+    <value>Reason</value>
+    <comment/>
+  </data>
+  <data name="Maintenance/BeginTime" xml:space="preserve">
+    <value>Starts at</value>
+    <comment/>
+  </data>
+  <data name="Maintenance/IsPast" xml:space="preserve">
+    <value>Past</value>
+    <comment/>
+  </data>
+  <data name="Maintenance/EndTime" xml:space="preserve">
+    <value>Ends at</value>
+    <comment/>
+  </data>
+  <data name="Maintenance/LockoutEveryone" xml:space="preserve">
+    <value>lock all out</value>
+    <comment/>
+  </data>
+  <data name="Maintenance/LockoutEveryone.Hint" xml:space="preserve">
+    <value>If set no user can access the website. Otherwise only a Warning is displayed.</value>
+    <comment/>
+  </data>
+  <data name="Maintenance/Scheduled" xml:space="preserve">
+    <value>Is the Downtime Scheduled</value>
+    <comment/>
+  </data>
+  <data name="Maintenance/Scheduled.Hint" xml:space="preserve">
+    <value>Defines the template.</value>
+    <comment/>
+  </data>
+  <data name="TaskScheduler/NextRun" xml:space="preserve">
+    <value>Next Run</value>
+    <comment/>
+  </data>
+  <data name="TaskScheduler/LastRun" xml:space="preserve">
+    <value>Last run at</value>
+    <comment/>
+  </data>
+  <data name="Common/Success" xml:space="preserve">
+    <value>Success</value>
+    <comment/>
+  </data>
+  <data name="TaskScheduler/NotYetRun" xml:space="preserve">
+    <value>Not Yet Run</value>
+    <comment/>
+  </data>
+  <data name="TaskScheduler/Run" xml:space="preserve">
+    <value>Run</value>
+    <comment/>
+  </data>
+  <data name="TaskScheduler/RunAndWait" xml:space="preserve">
+    <value>Run and log</value>
+    <comment/>
+  </data>
+  <data name="Common/Clear" xml:space="preserve">
+    <value>Clear</value>
+    <comment/>
+  </data>
+  <data name="Common/Hidden" xml:space="preserve">
+    <value>Hidden</value>
+    <comment/>
+  </data>
+  <data name="Common/Visible" xml:space="preserve">
+    <value>Visible</value>
+    <comment/>
+  </data>
+  <data name="Worksheet/WorktimeForProject" xml:space="preserve">
+    <value>{Common/Worktime} for Project '{0}'</value>
+    <comment/>
+  </data>
+  <data name="Worksheet/ResetToDefault" xml:space="preserve">
+    <value>Reset to Global</value>
+    <comment/>
+  </data>
+  <data name="Worksheet/Restore" xml:space="preserve">
+    <value>Restore</value>
+    <comment/>
+  </data>
+  <data name="Time/Weekday.Friday" xml:space="preserve">
+    <value>Friday</value>
+    <comment/>
+  </data>
+  <data name="Time/Weekday.Monday" xml:space="preserve">
+    <value>Monday</value>
+    <comment/>
+  </data>
+  <data name="Time/Weekday.Saturday" xml:space="preserve">
+    <value>Saturday</value>
+    <comment/>
+  </data>
+  <data name="Time/Weekday.Sunday" xml:space="preserve">
+    <value>Sunday</value>
+    <comment/>
+  </data>
+  <data name="Time/Weekday.Thursday" xml:space="preserve">
+    <value>Thursday</value>
+    <comment/>
+  </data>
+  <data name="Time/Weekday.Tuesday" xml:space="preserve">
+    <value>Tuesday</value>
+    <comment/>
+  </data>
+  <data name="Time/Weekday.Wednesday" xml:space="preserve">
+    <value>Wednesday</value>
+    <comment/>
+  </data>
+  <data name="Logout/TimeUntilLogout" xml:space="preserve">
+    <value>Logout {0}</value>
+    <comment/>
+  </data>
+  <data name="Activities/NoNewActivities" xml:space="preserve">
+    <value>No new {Entity/Activities}</value>
+    <comment/>
+  </data>
+  <data name="Entity/Activities" xml:space="preserve">
+    <value>Activities</value>
+    <comment/>
+  </data>
+  <data name="Sidebar/Navigation" xml:space="preserve">
+    <value>Navigation</value>
+    <comment/>
+  </data>
+  <data name="RunTemplate/NewFilter" xml:space="preserve">
+    <value>New Query Filter</value>
+    <comment/>
+  </data>
+  <data name="Dashboard.Tracker/Title" xml:space="preserve">
+    <value>Tracker '{0}'</value>
+    <comment/>
+  </data>
+  <data name="Dashboard.Earnings/Title" xml:space="preserve">
+    <value>{Dashboard.Earnings/Earnings} from '{0}' to '{1}'</value>
+    <comment/>
+  </data>
+  <data name="Dashboard.Org/Title" xml:space="preserve">
+    <value>Assosiated {Entity/Organization}</value>
+    <comment/>
+  </data>
+  <data name="Dashboard.ProjectStatus/Title" xml:space="preserve">
+    <value>{Common/Worktime}: '{0}' from '{1}' - '{2}'</value>
+    <comment/>
+  </data>
+  <data name="Dashboard.PublicReports/Title" xml:space="preserve">
+    <value>{Common/Public} {Entity/Reports}</value>
+    <comment/>
+  </data>
+  <data name="Entity/Reports" xml:space="preserve">
+    <value>{Entity/Report}s</value>
+    <comment/>
+  </data>
+  <data name="Dashboard.WorktimeReport/Title" xml:space="preserve">
+    <value>{Common/Worktime}: '{0}'</value>
+    <comment/>
+  </data>
+  <data name="Dashboard.Tutorial/Title" xml:space="preserve">
+    <value>Tutorial</value>
+    <comment/>
+  </data>
+  <data name="Entity/Notification" xml:space="preserve">
+    <value>Notification</value>
+    <comment/>
+  </data>
+  <data name="Entity/NightMode" xml:space="preserve">
+    <value>Night Mode</value>
+    <comment/>
+  </data>
+  <data name="Entity/Report" xml:space="preserve">
+    <value>Report</value>
+    <comment/>
+  </data>
+  <data name="Entity/Workflow" xml:space="preserve">
+    <value>Workflow</value>
+    <comment/>
+  </data>
+  <data name="Entity/Worksheet" xml:space="preserve">
+    <value>Worksheet</value>
+    <comment/>
+  </data>
+  <data name="Entity/Worksheets" xml:space="preserve">
+    <value>Worksheet</value>
+    <comment/>
+  </data>
+  <data name="Dashboard.Workload/WorkedTime" xml:space="preserve">
+    <value>Worked Time</value>
+    <comment/>
+  </data>
+  <data name="Dashboard.Workload/MeanWorktime" xml:space="preserve">
+    <value>Working hours</value>
+    <comment/>
+  </data>
+  <data name="Dashboard.Earnings/Earnings" xml:space="preserve">
+    <value>Earnings</value>
+    <comment/>
+  </data>
+  <data name="Common/Language" xml:space="preserve">
+    <value>Language</value>
+    <comment/>
+  </data>
+  <data name="About/Title" xml:space="preserve">
+    <value>About me</value>
+    <comment/>
+  </data>
+  <data name="About/Text_1" xml:space="preserve">
+    <value>Hello, my name is Jean-Pierre Bachmann - Software Freelancer</value>
+    <comment/>
+  </data>
+  <data name="About/Text_2" xml:space="preserve">
+    <value>I am a Software freelancer since 2012 and had the idea of a simple to use but very Powerful Timetracking Webpage </value>
+    <comment/>
+  </data>
+  <data name="About/Text_3" xml:space="preserve">
+    <value>The project 'My-Worksheet' points directly forwards to freelancer and small companies.</value>
+    <comment/>
+  </data>
+  <data name="About/Text_4" xml:space="preserve">
+    <value>I have made some experience with some other Professional and self written solutions for Timetacking but non did fit all of my needs, so i decided to write a Platform for all those features myself.</value>
+    <comment/>
+  </data>
+  <data name="Entity/Tracker" xml:space="preserve">
+    <value>Tracker</value>
+    <comment/>
+  </data>
+  <data name="QuickEntry/Title" xml:space="preserve">
+    <value>Quick Times Entry</value>
+    <comment/>
+  </data>
+  <data name="QuickEntry/ForDate" xml:space="preserve">
+    <value>Date</value>
+    <comment/>
+  </data>
+  <data name="FileUpload/Hint" xml:space="preserve">
+    <value>Drop or click to upload files</value>
+    <comment/>
+  </data>
+  <data name="Dashboard.Projects/AddNew.Comments.Project" xml:space="preserve">
+    <value>Which {Entity/Project} should be displayed</value>
+    <comment/>
+  </data>
+  <data name="Report.Preview/Title" xml:space="preserve">
+    <value>Preview Report</value>
+    <comment/>
+  </data>
+  <data name="Report.Preview/Link" xml:space="preserve">
+    <value>Preview {Entity/Report}</value>
+    <comment/>
+  </data>
+  <data name="Template/Editor.SaveHint" xml:space="preserve">
+    <value>Use Ctrl+S to save or F11 to full screen, while in Editor</value>
+    <comment/>
+  </data>
+  <data name="Template.Preview/NeedData" xml:space="preserve">
+    <value>Before you can Preview this Report you must fill out all required data</value>
+    <comment/>
+  </data>
+  <data name="Template.Preview/Hint" xml:space="preserve">
+    <value>This page will refresh each time you save the Template anywhere else.</value>
+    <comment/>
+  </data>
+  <data name="Template/Engines" xml:space="preserve">
+    <value>Templating Engines</value>
+    <comment/>
+  </data>
+  <data name="Common/Print" xml:space="preserve">
+    <value>Print</value>
+    <comment/>
+  </data>
+  <data name="Template/ShowCommon" xml:space="preserve">
+    <value>Show Settings</value>
+    <comment/>
+  </data>
+  <data name="RunTemplate/IsObsolete.Hint" xml:space="preserve">
+    <value>This generated Report is obsolete as you have changed the Template code</value>
+    <comment/>
+  </data>
+  <data name="Home/Bulled.DataStorage.Header" xml:space="preserve">
+    <value>Your Data, Your choice.</value>
+    <comment/>
+  </data>
+  <data name="Home/Bulled.DataStorage.Text" xml:space="preserve">
+    <value>My-Worksheet only stores thoose data that you enter directly into it. Everything else from Reports or Uploaded files will be stored on a Storage of your Choice.</value>
+    <comment/>
+  </data>
+  <data name="Template/Editor.PartialHint" xml:space="preserve">
+    <value>Include other Document Tabs with:</value>
+    <comment/>
+  </data>
+  <data name="Template/Editor.AddPartial" xml:space="preserve">
+    <value>Partial Name</value>
+    <comment/>
+  </data>
+  <data name="Template/SelectServer" xml:space="preserve">
+    <value>Execute on Server</value>
+    <comment/>
+  </data>
+  <data name="Template/NoServerAvailable" xml:space="preserve">
+    <value>There is currently no server available to execute this Report</value>
+    <comment/>
+  </data>
+  <data name="ProjectStatistics/FilterDataSets" xml:space="preserve">
+    <value>Series</value>
+    <comment/>
+  </data>
+  <data name="ProjectRate/Title" xml:space="preserve">
+    <value>{Entity/Project} Rates</value>
+    <comment/>
+  </data>
+  <data name="Project/SharedLinks.Title" xml:space="preserve">
+    <value>Shared Links</value>
+    <comment/>
+  </data>
+  <data name="Project/SharedLinks.Link" xml:space="preserve">
+    <value>Link</value>
+    <comment/>
+  </data>
+  <data name="SharedLinks/Worksheet.EntryView" xml:space="preserve">
+    <value>Time Entries</value>
+    <comment/>
+  </data>
+  <data name="SharedLinks/AllowPrinting" xml:space="preserve">
+    <value>Allow Printing</value>
+    <comment/>
+  </data>
+  <data name="SharedLinks/ExpiresAfter" xml:space="preserve">
+    <value>Expires At</value>
+    <comment/>
+  </data>
+  <data name="SharedLinks/AllowNonSubmitted" xml:space="preserve">
+    <value>Allow Non-Submitted</value>
+    <comment/>
+  </data>
+  <data name="SharedLinks/Name.Hint" xml:space="preserve">
+    <value>The name of this Shared Link</value>
+    <comment/>
+  </data>
+  <data name="SharedLinks/Description.Hint" xml:space="preserve">
+    <value> </value>
+    <comment/>
+  </data>
+  <data name="SharedLinks/AllowPrinting.Hint" xml:space="preserve">
+    <value>Controls if the viewer of the Shared Link can print directly from Browser</value>
+    <comment/>
+  </data>
+  <data name="SharedLinks/ExpiresAfter.Hint" xml:space="preserve">
+    <value>Sets the Expireation date</value>
+    <comment/>
+  </data>
+  <data name="SharedLinks/AllowNonSubmitted.Hint" xml:space="preserve">
+    <value>Display Non-Submitted worksheets too</value>
+    <comment/>
+  </data>
+  <data name="ChargeRate/Title" xml:space="preserve">
+    <value>{Entity/ChargeRate}</value>
+    <comment/>
+  </data>
+  <data name="ProjectChargeRate/PerHour" xml:space="preserve">
+    <value>Per Hour</value>
+    <comment/>
+  </data>
+  <data name="ProjectChargeRate/PerMinute" xml:space="preserve">
+    <value>Per Minute</value>
+    <comment/>
+  </data>
+  <data name="ProjectChargeRate/PerQuarterMinute" xml:space="preserve">
+    <value>Per 1/4 Hour</value>
+    <comment/>
+  </data>
+  <data name="ProjectChargeRate/PerStartedHour" xml:space="preserve">
+    <value>Per Started Hour</value>
+    <comment/>
+  </data>
+  <data name="ProjectChargeRate/PerDay" xml:space="preserve">
+    <value>Per Day</value>
+    <comment/>
+  </data>
+  <data name="Common/Saved" xml:space="preserve">
+    <value>Saved</value>
+    <comment/>
+  </data>
+  <data name="Common/Info" xml:space="preserve">
+    <value>Info</value>
+    <comment/>
+  </data>
+  <data name="Project/DefaultChargeRate" xml:space="preserve">
+    <value>Default {Entity/ChargeRate}</value>
+    <comment/>
+  </data>
+  <data name="Workflow/ConfirmStatus.ChangedToText" xml:space="preserve">
+    <value>Status changed to {0}</value>
+    <comment/>
+  </data>
+  <data name="Links/Timeboard.Worksheet.Title" xml:space="preserve">
+    <value>{Entity/Worksheet} #{0}</value>
+    <comment/>
+  </data>
+  <data name="Links/Timeboard.Project.Title" xml:space="preserve">
+    <value>{Entity/Project} {0}</value>
+    <comment/>
+  </data>
+  <data name="Links/Storage.Title" xml:space="preserve">
+    <value>{Links/Storage} {0}</value>
+    <comment/>
+  </data>
+  <data name="Common/DayOfWeek" xml:space="preserve">
+    <value>Day of Week</value>
+    <comment/>
+  </data>
+  <data name="Url.Error/MustBeAbsolute" xml:space="preserve">
+    <value>The url must be in absolute format</value>
+    <comment/>
+  </data>
+  <data name="Url.Error/InvalidUrl" xml:space="preserve">
+    <value>The url is in an invalid format</value>
+    <comment/>
+  </data>
+  <data name="Url.Error/InvalidSchema" xml:space="preserve">
+    <value>Schema Invalid. Allowed are: {0}</value>
+    <comment/>
+  </data>
+  <data name="Url.Error/HostBlacklisted" xml:space="preserve">
+    <value>The used host '{0}' is blacklisted on this platform. Please contact support.</value>
+    <comment/>
+  </data>
+  <data name="Url.Error/LoopbackAddress" xml:space="preserve">
+    <value>Loopback Addresses are not allowed</value>
+    <comment/>
+  </data>
+  <data name="Common/NumberRange" xml:space="preserve">
+    <value>{Entity/NumberRange}</value>
+    <comment/>
+  </data>
+  <data name="Webhook/Type" xml:space="preserve">
+    <value>Type</value>
+    <comment/>
+  </data>
+  <data name="Common.Error/DoesNotExist.Header" xml:space="preserve">
+    <value>Somebody ate it!</value>
+    <comment/>
+  </data>
+  <data name="Common.Error/DoesNotExist.Body" xml:space="preserve">
+    <value>This resources does not exist here or you do not have the permission to access it. Please return there is nothing to see here</value>
+    <comment/>
+  </data>
+  <data name="Links/Webhook" xml:space="preserve">
+    <value>{Entity/Webhook} #{0}</value>
+    <comment/>
+  </data>
+  <data name="HttpHook/ConfirmClose.Title" xml:space="preserve">
+    <value>Deactivate Permanently</value>
+    <comment/>
+  </data>
+  <data name="HttpHook/ConfirmClose.Body" xml:space="preserve">
+    <value>You are about to deactivate this {Entity/Webhook} permanently. {Entity/Webhooks} cannot be deleted as they are used to call external resources on behalf of you over My-Worksheet Infastructure and will only be deleted after 6 Months. Continue?</value>
+    <comment/>
+  </data>
+  <data name="Entity/Webhook" xml:space="preserve">
+    <value>Webhook</value>
+    <comment/>
+  </data>
+  <data name="Entity/Webhooks" xml:space="preserve">
+    <value>Webhooks</value>
+    <comment/>
+  </data>
+  <data name="Project.Model.Description/ProjectId" xml:space="preserve">
+    <value>The {Entity/Project} PrimaryKey can be used to identify the entity</value>
+    <comment/>
+  </data>
+  <data name="Project.Model.Description/NumberRangeEntry" xml:space="preserve">
+    <value>The {Entity/NumberRange} entry</value>
+    <comment/>
+  </data>
+  <data name="Project.Model.Description/NoModifications" xml:space="preserve">
+    <value>When true the {Entity/Project} can no longer be altered.</value>
+    <comment/>
+  </data>
+  <data name="Project.Model.Description/Name" xml:space="preserve">
+    <value>The name of the {Entity/Project} as set by the user</value>
+    <comment/>
+  </data>
+  <data name="Project.Model.Description/IdOrganisation" xml:space="preserve">
+    <value>The Id of the {Entity/Organization}</value>
+    <comment/>
+  </data>
+  <data name="Entity/NumberRange" xml:space="preserve">
+    <value>Numberrange</value>
+    <comment/>
+  </data>
+  <data name="Entity/Project" xml:space="preserve">
+    <value>Project</value>
+    <comment/>
+  </data>
+  <data name="Entity/Projects" xml:space="preserve">
+    <value>Projects</value>
+    <comment/>
+  </data>
+  <data name="Template/PdfFromHtml" xml:space="preserve">
+    <value>From Html</value>
+    <comment/>
+  </data>
+  <data name="Links/Reporting.Title" xml:space="preserve">
+    <value>{Entity/Report} '{0}'</value>
+    <comment/>
+  </data>
+  <data name="Common.Delete/ConfirmDelete.Title" xml:space="preserve">
+    <value>Confirm Delete</value>
+    <comment/>
+  </data>
+  <data name="Common.Delete/ConfirmDelete.Body" xml:space="preserve">
+    <value>Are you sure that you want to delete this '{0}'?{1}</value>
+    <comment/>
+  </data>
+  <data name="PaymentInfo/AddNewField" xml:space="preserve">
+    <value>Add Field</value>
+    <comment/>
+  </data>
+  <data name="PaymentType.Errors/MustBeUnique" xml:space="preserve">
+    <value>The {PaymentInfo/PaymentType} must be Unique</value>
+    <comment/>
+  </data>
+  <data name="NumberRange/Title" xml:space="preserve">
+    <value>Numberranges</value>
+    <comment/>
+  </data>
+  <data name="NumberRange/Counter" xml:space="preserve">
+    <value>Counter</value>
+    <comment/>
+  </data>
+  <data name="NumberRange/Description" xml:space="preserve">
+    <value>Numberranges are tools that allows you to create custom counters for several operations. Define a {{NumberRange/Template}} and format the {{NumberRange/Counter}} as you wish. The {{NumberRange/Counter}} will count one up for every instance used</value>
+    <comment/>
+  </data>
+  <data name="NumberRange/Description.Invoice" xml:space="preserve">
+    <value>A {Entity/NumberRange} for invoices</value>
+    <comment/>
+  </data>
+  <data name="NumberRange/Description.Project" xml:space="preserve">
+    <value>A {Entity/NumberRange} for Projects</value>
+    <comment/>
+  </data>
+  <data name="NumberRange/Description.Worksheet" xml:space="preserve">
+    <value>A {Entity/NumberRange} for {Entity/Worksheet}</value>
+    <comment/>
+  </data>
+  <data name="NumberRange/Editor.Title" xml:space="preserve">
+    <value>Edit Numberrange</value>
+    <comment/>
+  </data>
+  <data name="NumberRange/Template" xml:space="preserve">
+    <value>Template</value>
+    <comment/>
+  </data>
+  <data name="NumberRange/Code" xml:space="preserve">
+    <value>Numberrange Code</value>
+    <comment/>
+  </data>
+  <data name="NumberRange/TestResult" xml:space="preserve">
+    <value>Test Result</value>
+    <comment/>
+  </data>
+  <data name="Common/Data" xml:space="preserve">
+    <value>General Data</value>
+    <comment/>
+  </data>
+  <data name="Links/NumberRange.Title" xml:space="preserve">
+    <value>{Entity/NumberRange} - {0}</value>
+    <comment/>
+  </data>
+  <data name="NumberRanges/Test" xml:space="preserve">
+    <value>Test</value>
+    <comment/>
+  </data>
+  <data name="Links/NumberRanges" xml:space="preserve">
+    <value>Number Ranges</value>
+    <comment/>
+  </data>
+  <data name="Worksheet/OpenEndedWorksheet" xml:space="preserve">
+    <value>{Worksheet/Ongoing}</value>
+    <comment/>
+  </data>
+  <data name="Worksheet/Ongoing.DateSelection" xml:space="preserve">
+    <value>Date Selection</value>
+    <comment/>
+  </data>
+  <data name="Worksheet/Ongoing.Date" xml:space="preserve">
+    <value>Date</value>
+    <comment/>
+  </data>
+  <data name="Worksheet/Ongoing.NewWsItem" xml:space="preserve">
+    <value>New Worksheet Entry</value>
+    <comment/>
+  </data>
+  <data name="Worksheet/Overview" xml:space="preserve">
+    <value>Overview</value>
+    <comment/>
+  </data>
+  <data name="Project/NewWorksheet" xml:space="preserve">
+    <value>New {Entity/Worksheet}</value>
+    <comment/>
+  </data>
+  <data name="Links/SiteNotice" xml:space="preserve">
+    <value>Site Notice</value>
+    <comment/>
+  </data>
+  <data name="Worksheet/Ongoing" xml:space="preserve">
+    <value>Ongoing</value>
+    <comment/>
+  </data>
+  <data name="WorksheetItem/Tracking.RunningFor" xml:space="preserve">
+    <value>Running for:</value>
+    <comment/>
+  </data>
+  <data name="Entity/ChargeRate" xml:space="preserve">
+    <value>Charge Rate</value>
+    <comment/>
+  </data>
+  <data name="WorksheetItem/NoTrackerRunning" xml:space="preserve">
+    <value>No Tracker Running</value>
+    <comment/>
+  </data>
+  <data name="Common/New" xml:space="preserve">
+    <value>New</value>
+    <comment/>
+  </data>
+  <data name="Common/Positive" xml:space="preserve">
+    <value>Yes</value>
+    <comment/>
+  </data>
+  <data name="Common/Negative" xml:space="preserve">
+    <value>No</value>
+    <comment/>
+  </data>
+  <data name="Common/ShowHidden" xml:space="preserve">
+    <value>Show Hidden</value>
+    <comment/>
+  </data>
+  <data name="Worksheet/QuickSet.ThisMonth" xml:space="preserve">
+    <value>Set to this month</value>
+    <comment/>
+  </data>
+  <data name="Worksheet/NextMonthMonth" xml:space="preserve">
+    <value>Set to next month</value>
+    <comment/>
+  </data>
+  <data name="Organization/Title" xml:space="preserve">
+    <value>{Entity/Organization} {0}</value>
+    <comment/>
+  </data>
+  <data name="Common/Back" xml:space="preserve">
+    <value>Back</value>
+    <comment/>
+  </data>
+  <data name="Template/Refresh" xml:space="preserve">
+    <value>Refresh</value>
+    <comment/>
+  </data>
+  <data name="SignaL/LostConnection" xml:space="preserve">
+    <value>There is no connection to My-Worksheet. Please wait while the site tries to reconnect</value>
+    <comment/>
+  </data>
+  <data name="Common/ViewOrComponentIsLoading" xml:space="preserve">
+    <value>Please wait while this Component is loading...</value>
+    <comment/>
+  </data>
+  <data name="Presentation/HiddenEnabled" xml:space="preserve">
+    <value>Hidden by Presentation Mode</value>
+    <comment/>
+  </data>
+  <data name="Presentation/Mode" xml:space="preserve">
+    <value>Presentation Mode</value>
+    <comment/>
+  </data>
+  <data name="Worksheet/QuickSet.NextMonth" xml:space="preserve">
+    <value>{Worksheet/NextMonthMonth}</value>
+    <comment/>
+  </data>
+  <data name="AlterMailAccount/Title" xml:space="preserve">
+    <value>Mail Account for '{0}' at '{1}'</value>
+    <comment/>
+  </data>
+  <data name="Links/CreateMailAccount" xml:space="preserve">
+    <value>Create Mail Account</value>
+    <comment/>
+  </data>
+  <data name="Links/MailAccounts" xml:space="preserve">
+    <value>Mail Accounts</value>
+    <comment/>
+  </data>
+  <data name="MailAccount/AccountData.Title" xml:space="preserve">
+    <value>SMTP Data for your Mailaccount</value>
+    <comment/>
+  </data>
+  <data name="MailAccount/Protocol" xml:space="preserve">
+    <value>Protocol</value>
+    <comment/>
+  </data>
+  <data name="MailAccount/ServerAddress" xml:space="preserve">
+    <value>Mail Server Address</value>
+    <comment/>
+  </data>
+  <data name="MailAccount/ServerPort" xml:space="preserve">
+    <value>Server Port</value>
+    <comment/>
+  </data>
+  <data name="Workflow.Mail/Arguments.Comments.MailAccount" xml:space="preserve">
+    <value>The Account from which all {Common/EMail} are send</value>
+    <comment/>
+  </data>
+  <data name="Workflow.Mail/Arguments.Names.MailAccount" xml:space="preserve">
+    <value>Mail Account</value>
+    <comment/>
+  </data>
+  <data name="MailAccount/Title" xml:space="preserve">
+    <value>EMail Account '{0}'</value>
+    <comment/>
+  </data>
+  <data name="Worksheet/QuickSet.CurrentWeek" xml:space="preserve">
+    <value>Current Week</value>
+    <comment/>
+  </data>
+  <data name="Worksheet/QuickSet.ForOneWeek" xml:space="preserve">
+    <value>Until end of Week</value>
+    <comment/>
+  </data>
+  <data name="Report.Preview.Title" xml:space="preserve">
+    <value>{Report.Preview/Link}</value>
+    <comment/>
+  </data>
+  <data name="Project.Model.Description/ProjectReference" xml:space="preserve">
+    <value>The customers Reference code to be printed on an Invoice</value>
+    <comment/>
+  </data>
+  <data name="Project/ProjectReference" xml:space="preserve">
+    <value>Project Reference</value>
+    <comment/>
+  </data>
+  <data name="Report/Preview" xml:space="preserve">
+    <value>{Report.Preview/Title}</value>
+    <comment/>
+  </data>
+  <data name="Template/Filename" xml:space="preserve">
+    <value>Filename Template</value>
+    <comment/>
+  </data>
+  <data name="Links/Timeboard.Statistics" xml:space="preserve">
+    <value>{Links/Timeboard.ProjectStatistics}</value>
+    <comment/>
+  </data>
+  <data name="Links/PaymentInfo" xml:space="preserve">
+    <value>{Links/PaymentInfos}</value>
+    <comment/>
+  </data>
+  <data name="WorksheetItem/Summary.Tax" xml:space="preserve">
+    <value>Tax</value>
+    <comment/>
+  </data>
+  <data name="Common/Days" xml:space="preserve">
+    <value>Days</value>
+    <comment/>
+  </data>
+  <data name="PaymentInfo/Detail.PaymentTarget" xml:space="preserve">
+    <value>Payment Target in Days</value>
+    <comment/>
+  </data>
+  <data name="Worksheet.Manual/Steps.Confirmed.Arguments.Comments.DueDate" xml:space="preserve">
+    <value>Update Due Date</value>
+    <comment/>
+  </data>
+  <data name="Worksheet/DueDate" xml:space="preserve">
+    <value>Due Date</value>
+    <comment/>
+  </data>
+  <data name="WorksheetItem/Summary.Possible" xml:space="preserve">
+    <value>Max Fee</value>
+    <comment/>
+  </data>
+  <data name="WorksheetItem/Summary.Possible.Tax" xml:space="preserve">
+    <value>Max With Tax</value>
+    <comment/>
+  </data>
+  <data name="UNAUTHORIZED/HEADER" xml:space="preserve">
+    <value>Unauthorized</value>
+    <comment> </comment>
+  </data>
+  <data name="UNAUTHORIZED/BODY" xml:space="preserve">
+    <value>You are not Authorized to view this resource</value>
+    <comment> </comment>
+  </data>
+  <data name="Links/Server.Users" xml:space="preserve">
+    <value>Users</value>
+    <comment/>
+  </data>
+  <data name="User/Username" xml:space="preserve">
+    <value>Username</value>
+    <comment/>
+  </data>
+  <data name="User/Email" xml:space="preserve">
+    <value>E-Mail</value>
+    <comment/>
+  </data>
+  <data name="User/ContactName" xml:space="preserve">
+    <value>Contact Name</value>
+    <comment/>
+  </data>
+  <data name="User/IsActive" xml:space="preserve">
+    <value>Active</value>
+    <comment/>
+  </data>
+  <data name="User/NeedPasswordReset" xml:space="preserve">
+    <value>Needs Password Reset</value>
+    <comment/>
+  </data>
+  <data name="User/Region" xml:space="preserve">
+    <value>Region</value>
+    <comment/>
+  </data>
+  <data name="User/UserPlainTextPassword" xml:space="preserve">
+    <value>Password</value>
+    <comment/>
+  </data>
+  <data name="User/Organizations" xml:space="preserve">
+    <value>Organizations</value>
+    <comment/>
+  </data>
+  <data name="User/Quotas" xml:space="preserve">
+    <value>Quotas</value>
+    <comment/>
+  </data>
+  <data name="User/RecentActivity" xml:space="preserve">
+    <value>Recent Activity</value>
+    <comment/>
+  </data>
+  <data name="Common/IsActive" xml:space="preserve">
+    <value>Active</value>
+    <comment/>
+  </data>
+  <data name="Organization/Name" xml:space="preserve">
+    <value>Name</value>
+    <comment/>
+  </data>
+  <data name="Quota/Name" xml:space="preserve">
+    <value>Name</value>
+    <comment/>
+  </data>
+  <data name="Quota/Value" xml:space="preserve">
+    <value>Value</value>
+    <comment/>
+  </data>
+  <data name="Quota/MaxValue" xml:space="preserve">
+    <value>Limit</value>
+    <comment/>
+  </data>
+  <data name="UserAction/Date" xml:space="preserve">
+    <value>Date</value>
+    <comment/>
+  </data>
+  <data name="UserAction/Type" xml:space="preserve">
+    <value>Type</value>
+    <comment/>
+  </data>
+  <data name="UserAction/IP" xml:space="preserve">
+    <value>IP Address</value>
+    <comment/>
+  </data>
+  <data name="UserAction/PcName" xml:space="preserve">
+    <value>Device</value>
+    <comment/>
+  </data>
+  <data name="Common/Comment" xml:space="preserve">
+    <value>Comment</value>
+    <comment/>
+  </data>
+  <data name="Common/Reset" xml:space="preserve">
+    <value>Reset</value>
+    <comment/>
+  </data>
+  <data name="Common/Test" xml:space="preserve">
+    <value>Test</value>
+    <comment/>
+  </data>
+  <data name="Reporting/ProjectSpec.Form.Comment.InvoiceNo" xml:space="preserve">
+    <value>Invoice No.</value>
+    <comment/>
+  </data>
+  <data name="Storage/TestResult" xml:space="preserve">
+    <value>Test Result</value>
+    <comment/>
+  </data>
+  <data name="TaskScheduler/Period" xml:space="preserve">
+    <value>Period</value>
+    <comment/>
+  </data>
+  <data name="Users/Id" xml:space="preserve">
+    <value>ID</value>
+    <comment/>
+  </data>
+  <data name="Users/Username" xml:space="preserve">
+    <value>Username</value>
+    <comment/>
+  </data>
+  <data name="REPORTING/PROJECTSPEC.FORM.COMMENT.TIMEDISPLAYARG" xml:space="preserve">
+    <value>Time Format</value>
+    <comment/>
+  </data>
+  <data name="Dashboard/EditMode.Start" xml:space="preserve">
+    <value>Edit</value>
+    <comment/>
+  </data>
+  <data name="Dashboard/EditMode.Save" xml:space="preserve">
+    <value>Save layout</value>
+    <comment/>
+  </data>
+  <data name="Dashboard/AddWidget.Title" xml:space="preserve">
+    <value>Add widget</value>
+    <comment/>
+  </data>
+  <data name="Dashboard/Empty.Hint" xml:space="preserve">
+    <value>Your dashboard is empty. Add widgets to get started.</value>
+    <comment/>
+  </data>
+  <data name="Dashboard/Widget.ActiveWorksheets.Name" xml:space="preserve">
+    <value>Active Worksheets</value>
+    <comment/>
+  </data>
+  <data name="Dashboard/Widget.ActiveWorksheets.Description" xml:space="preserve">
+    <value>Shows your currently open worksheets</value>
+    <comment/>
+  </data>
+  <data name="Dashboard/Widget.Earnings.Name" xml:space="preserve">
+    <value>Earnings</value>
+    <comment/>
+  </data>
+  <data name="Dashboard/Widget.Earnings.Description" xml:space="preserve">
+    <value>Overview of recent invoices and billable hours</value>
+    <comment/>
+  </data>
+  <data name="Dashboard/Widget.Tracker.Name" xml:space="preserve">
+    <value>Running Trackers</value>
+    <comment/>
+  </data>
+  <data name="Dashboard/Widget.Tracker.Description" xml:space="preserve">
+    <value>Shows all currently running time trackers</value>
+    <comment/>
+  </data>
+  <data name="Dashboard/Widget.Reports.Name" xml:space="preserve">
+    <value>Public Reports</value>
+    <comment/>
+  </data>
+  <data name="Dashboard/Widget.Reports.Description" xml:space="preserve">
+    <value>Quick links to your shared public reports</value>
+    <comment/>
+  </data>
+  <data name="Dashboard/Widget.TodayWorkload.Name" xml:space="preserve">
+    <value>Today's Workload</value>
+    <comment/>
+  </data>
+  <data name="Dashboard/Widget.TodayWorkload.Description" xml:space="preserve">
+    <value>Your tracked time vs expected hours for today</value>
+    <comment/>
+  </data>
+  <data name="Dashboard/Widget.TodayForProject.Name" xml:space="preserve">
+    <value>Project Workload</value>
+    <comment/>
+  </data>
+  <data name="Dashboard/Widget.TodayForProject.Description" xml:space="preserve">
+    <value>Today's tracked time for a specific project</value>
+    <comment/>
+  </data>
+  <data name="Dashboard/Widget.TrackerButton.Name" xml:space="preserve">
+    <value>Project Tracker</value>
+    <comment/>
+  </data>
+  <data name="Dashboard/Widget.TrackerButton.Description" xml:space="preserve">
+    <value>Start or stop the time tracker for a project</value>
+    <comment/>
+  </data>
+  <data name="Dashboard/Widget.ProjectChart.Name" xml:space="preserve">
+    <value>Project Calendar</value>
+    <comment/>
+  </data>
+  <data name="Dashboard/Widget.ProjectChart.Description" xml:space="preserve">
+    <value>15-day worksheet overview for a project</value>
+    <comment/>
+  </data>
+  <data name="Dashboard/Widget.Welcome.Name" xml:space="preserve">
+    <value>Welcome</value>
+    <comment/>
+  </data>
+  <data name="Dashboard/Widget.Welcome.Description" xml:space="preserve">
+    <value>Quick-start links to key sections</value>
+    <comment/>
+  </data>
+  <data name="Dashboard/Widget.Orgs.Name" xml:space="preserve">
+    <value>Organisations</value>
+    <comment/>
+  </data>
+  <data name="Dashboard/Widget.Orgs.Description" xml:space="preserve">
+    <value>All organisations you are a member of</value>
+    <comment/>
+  </data>
+  <data name="Dashboard/Widget.ActiveWorksheets.HasEntries" xml:space="preserve">
+    <value>{0} open worksheet(s)</value>
+    <comment/>
+  </data>
+  <data name="Dashboard/Widget.ActiveWorksheets.NoEntryToday" xml:space="preserve">
+    <value>No worksheet started today</value>
+    <comment/>
+  </data>
+  <data name="Dashboard/Widget.ActiveWorksheets.Empty" xml:space="preserve">
+    <value>No open worksheets</value>
+    <comment/>
+  </data>
+  <data name="Dashboard/Widget.ActiveWorksheets.ViewAll" xml:space="preserve">
+    <value>View all projects</value>
+    <comment/>
+  </data>
+  <data name="Dashboard/Widget.Earnings.TotalLabel" xml:space="preserve">
+    <value>Total billed hours</value>
+    <comment/>
+  </data>
+  <data name="Dashboard/Widget.Earnings.Empty" xml:space="preserve">
+    <value>No recent invoices</value>
+    <comment/>
+  </data>
+  <data name="Dashboard/Widget.Tracker.Running" xml:space="preserve">
+    <value>Running</value>
+    <comment/>
+  </data>
+  <data name="Dashboard/Widget.Tracker.Empty" xml:space="preserve">
+    <value>No trackers running</value>
+    <comment/>
+  </data>
+  <data name="Dashboard/Widget.Reports.Empty" xml:space="preserve">
+    <value>No public reports available</value>
+    <comment/>
+  </data>
+  <data name="Dashboard/Widget.Today.TrackedToday" xml:space="preserve">
+    <value>Tracked today</value>
+    <comment/>
+  </data>
+  <data name="Dashboard/Widget.Today.ExpectedToday" xml:space="preserve">
+    <value>Expected</value>
+    <comment/>
+  </data>
+  <data name="Dashboard/Widget.Today.ActiveTrackers" xml:space="preserve">
+    <value>Active trackers</value>
+    <comment/>
+  </data>
+  <data name="Dashboard/Widget.TodayForProject.SelectProject" xml:space="preserve">
+    <value>Select project</value>
+    <comment/>
+  </data>
+  <data name="Dashboard/Widget.ProjectChart.SelectProject" xml:space="preserve">
+    <value>Select a project to view its calendar</value>
+    <comment/>
+  </data>
+  <data name="Dashboard/Widget.TrackerButton.SelectProject" xml:space="preserve">
+    <value>Select a project to track</value>
+    <comment/>
+  </data>
+  <data name="Dashboard/Widget.TrackerButton.NoActiveWorksheet" xml:space="preserve">
+    <value>No active worksheet for this project</value>
+    <comment/>
+  </data>
+  <data name="Dashboard/Widget.Orgs.Empty" xml:space="preserve">
+    <value>No organisations found</value>
+    <comment/>
+  </data>
+  <data name="Dashboard/Widget.Orgs.ViewAll" xml:space="preserve">
+    <value>View all organisations</value>
+    <comment/>
+  </data>
+  <data name="Dashboard/Welcome.Step.Projects" xml:space="preserve">
+    <value>My Projects</value>
+    <comment/>
+  </data>
+  <data name="Dashboard/Welcome.Step.Projects.Hint" xml:space="preserve">
+    <value>View and manage all your projects</value>
+    <comment/>
+  </data>
+  <data name="Dashboard/Welcome.Step.NewProject" xml:space="preserve">
+    <value>New Project</value>
+    <comment/>
+  </data>
+  <data name="Dashboard/Welcome.Step.NewProject.Hint" xml:space="preserve">
+    <value>Create a new project and start tracking</value>
+    <comment/>
+  </data>
+  <data name="Dashboard/Welcome.Step.Statistics" xml:space="preserve">
+    <value>Statistics</value>
+    <comment/>
+  </data>
+  <data name="Dashboard/Welcome.Step.Statistics.Hint" xml:space="preserve">
+    <value>See charts and summaries of your work</value>
+    <comment/>
+  </data>
+  <data name="Dashboard/Welcome.Step.Reports" xml:space="preserve">
+    <value>Reports</value>
+    <comment/>
+  </data>
+  <data name="Dashboard/Welcome.Step.Reports.Hint" xml:space="preserve">
+    <value>Generate and share public reports</value>
+    <comment/>
+  </data>
+  <data name="BUDGET/TIMEOPEN" xml:space="preserve">
+    <value>Time Available</value>
+    <comment/>
+  </data>
+</root>

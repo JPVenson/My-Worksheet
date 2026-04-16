@@ -1,0 +1,28 @@
+﻿@inherits NavigationPageBase
+
+<FieldControl Label="Address/CompanyName"
+              @bind-Value="Address.Entity.CompanyName"/>
+<FieldControl Label="Common/Name"
+              @bind-Value="Address.Entity.FirstName" />
+<FieldControl Label="Address/Lastname"
+              @bind-Value="Address.Entity.LastName" />
+<FieldControl Label="Address/Street"
+              @bind-Value="Address.Entity.Street" />
+<FieldControl Label="Address/StreetNo"
+			  @bind-Value="Address.Entity.StreetNo" />
+<FieldControl Label="Address/ZipCode"
+			  @bind-Value="Address.Entity.ZipCode" />
+<FieldControl Label="Address/City"
+              @bind-Value="Address.Entity.City" />
+
+<FieldControl Label="Address/Country"
+              ReadOnly="!AllowChangeOfCountry"
+              @bind-Value="Address.Entity.Country" />
+
+<FieldControl Label="Address/Phone"
+			  type="tel"
+			  @bind-Value="Address.Entity.Phone" />
+<FieldControl Label="Common/EMail"
+			  type="email"
+			  @bind-Value="Address.Entity.Email"
+			  HelpText="Address/EMail.Hint"/>

@@ -1,0 +1,7 @@
+﻿@inherits MyWorksheet.Website.Client.Pages.Base.ComponentViewBase;
+
+<button @onclick="ExecuteCommand"
+		disabled="@(CanExecute == false)"
+		@attributes="Arguments">
+	@ChildContent
+</button>

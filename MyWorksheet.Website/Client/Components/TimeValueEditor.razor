@@ -1,0 +1,22 @@
+﻿@inherits MyWorksheet.Website.Client.Pages.Base.ComponentViewBase
+@typeparam TValue;
+
+@if (DisplayMode == DisplayModeTypes.TimeOfDay)
+{
+	<input class="form-control"
+	       type="time"
+		   disabled="@ReadOnly"
+		   @attributes="Attributes"
+		   @bind-value="EditorValue" />
+}
+else if (DisplayMode == DisplayModeTypes.TimeOfValue)
+{
+	<input class="form-control"
+	       type="text"
+	       disabled="@ReadOnly"
+		   pattern="@GetEditorFormat()"
+		   @attributes="Attributes"
+		   @bind-value="EditorValueAsString"
+		   @bind-value:event="oninput" />
+}
+

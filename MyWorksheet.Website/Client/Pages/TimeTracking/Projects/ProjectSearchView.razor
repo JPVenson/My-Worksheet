@@ -1,0 +1,128 @@
+﻿@attribute [Route("/Projects")]
+@attribute [Page("Links/Timeboard.Projects", IsNavbarView = true, PageIconCss = "fas fa-table", Group = "Links/Timeboard")]
+@attribute [Authorize()]
+
+@using MyWorksheet.Website.Client.Services.Plugins
+@using Microsoft.AspNetCore.Components.Rendering
+@using MyWorksheet.Website.Client.Shared.Data
+@inherits MyWorksheet.Website.Client.Pages.Base.NavigationPageBase
+
+@functions
+{
+	public override void OnSetPlugins()
+	{
+		AddPlugin("AddNewProject", ButtonAreaHeader(), PluginLocation.Header);
+		AddPlugin("Search", SearchAreaHeader(), PluginLocation.Header);
+		base.OnSetPlugins();
+	}
+
+	private RenderFragment ButtonAreaHeader()
+	{
+		return __builder =>
+		{
+		<div class="footer-button-area d-flex flex-row gap-2 align-items-center">
+			<a class="btn btn-outline-primary" href="/Project/new">
+				<i class="fa fa-plus-circle"></i>
+			</a>
+			<ToggleEditorControl @bind-Value="FilterHidden"
+								 ContentText="@("Common/ShowHidden".AsLocString())" />
+		</div>
+		};
+	}
+
+	private RenderFragment SearchAreaHeader()
+	{
+		return __builder =>
+		{
+		<div class="footer-button-area d-flex flex-row gap-2 align-items-center">
+			<span class="input-group-text"><i class="fa fa-search"></i></span>			
+			<InputControl @bind-Value="SearchText" />
+		</div>
+		};
+	}
+}
+
+<NotLoadedGuardComponent @bind-ViewState="ViewState">
+	<div class="d-flex flex-row">
+		<table class="w-100 table table-hover">
+			<thead>
+				<tr>
+					<th scope="col" style="width:6rem"></th>
+					<th scope="col"><Translatable Key="Common/NumberRange" /></th>
+					<th scope="col"><Translatable Key="Common/Name" /></th>
+					<th scope="col"><Translatable Key="Time/Hours" /></th>
+					<th scope="col"><Translatable Key="Entity/Organization" /></th>
+					<th scope="col"><Translatable Key="Time/Hours" /> / <Translatable Key="Time/Week" /></th>
+				</tr>
+			</thead>
+			<tbody>
+				@{
+					var visibleProjects = FilteredProjects.ToList();
+				}
+				@if (!visibleProjects.Any())
+				{
+					<tr>
+						<td colspan="6" class="text-center text-muted py-4">
+							<i class="fas fa-search me-2"></i>
+							<Translatable Key="Projects/NoProjects" />
+						</td>
+					</tr>
+				}
+
+				@foreach (var projectInView in visibleProjects)
+				{
+					<tr class="selectable selectable-primary"
+						@onclick="@(() => ModuleService.NavigateTo($"/Project/{projectInView.ProjectSearchView.ProjectId}"))">
+						<td>
+							<span class="badge @When(!projectInView.ProjectSearchView.Hidden, "bg-primary", "bg-warning")">
+								<Translatable Key="@(projectInView.ProjectSearchView.Hidden ? "Common/Hidden" : "Common/Active")"></Translatable>
+							</span>
+						</td>
+						<td>@projectInView.ProjectSearchView.NumberRangeEntry</td>
+						<td>
+							<div>@projectInView.ProjectSearchView.Name</div>
+							@if (!string.IsNullOrWhiteSpace(projectInView.ProjectSearchView.ProjectReference))
+							{
+								<small class="text-muted">@projectInView.ProjectSearchView.ProjectReference</small>
+							}
+						</td>
+						<td>
+							<PresentationStateAwareComponent>
+								<Enabled>
+									<span class="badge bg-secondary">***</span>
+								</Enabled>
+								<Disabled>
+									@{
+										var rate = projectInView.DefaultRate();
+										if (rate != null)
+										{
+											<span class="fw-semibold">@rate.Rate @rate.CurrencyType</span>
+											<small class="text-muted ms-1">/ <Translatable Key="@ChargeRateService.GetChargeRate(rate.IdProjectChargeRate)?.DisplayKey" /></small>
+										}
+										else
+										{
+											<span class="text-muted">—</span>
+										}
+									}
+								</Disabled>
+							</PresentationStateAwareComponent>
+						</td>
+						<td>@projectInView.Organization?.Name</td>
+						<td><TimeDisplay Value="WeekWorktime(projectInView)"></TimeDisplay></td>
+					</tr>
+				}
+			</tbody>
+			@if (visibleProjects.Any())
+			{
+				<tfoot>
+					<tr>
+						<td colspan="6" class="text-muted small">
+							@visibleProjects.Count @if (!string.IsNullOrWhiteSpace(SearchText)) { <text>/ @(Projects?.Count ?? 0)</text> } <Translatable Key="Entity/Project" />
+						</td>
+					</tr>
+				</tfoot>
+			}
+		</table>
+	</div>
+
+</NotLoadedGuardComponent>

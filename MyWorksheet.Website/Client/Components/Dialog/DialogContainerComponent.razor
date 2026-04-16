@@ -1,0 +1,34 @@
+﻿
+
+@if (CurrentDialog != null)
+{
+	@if (!CurrentDialog.ToBeHidden)
+	{
+		<div class="dialog-container" @onclick="() => Hide()">
+		
+		</div>
+	}
+	
+	<div class="dialog-layout-container @When(CurrentDialog.ToBeHidden, "hide")"
+	     style="z-index: @(1000 + _currentIndex) ">
+		<div class="modal-dialog @When(CurrentDialog.Dialog.DialogView.IsFullscreen, "modal-fullscreen") modal-dialog-scrollable"
+		     @attributes="CurrentDialog.Dialog.DialogView.Attributes">
+			<div class="modal-content">
+				<div class="modal-header">
+					@CurrentDialog.Dialog.DialogView.GetHeader(CurrentDialog.HeaderContent)
+					<button type="button" class="btn-close" aria-label="Close" @onclick="() => Hide()"></button>
+				</div>
+				<div class="modal-body">
+					@CurrentDialog.Dialog.DialogView.GetBody(CurrentDialog.BodyContent)
+				</div>
+				<div class="modal-footer d-block">
+					@CurrentDialog.Dialog.DialogView.GetFooter(CurrentDialog.FooterContent)
+				</div>
+			</div>
+		</div>
+	</div>
+}
+
+<CascadingValue Name="DialogComponent" Value="this" IsFixed="true">
+	@ChildContent
+</CascadingValue>

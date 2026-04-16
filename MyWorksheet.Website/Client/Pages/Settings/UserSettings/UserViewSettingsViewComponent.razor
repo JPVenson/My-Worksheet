@@ -1,0 +1,38 @@
+﻿@using MyWorksheet.Website.Client.Services.ThemeManager
+@inherits NavigationPageBase
+
+<NotLoadedGuardComponent @bind-ViewState="ViewState">
+	<EditForm Model="UserSettingsService.UiSettings"
+			  OnValidSubmit="SaveSettings">
+		<fieldset>
+			<legend>
+				<Translatable Key="Common/Misc" />
+			</legend>
+
+			<FieldLayout>
+				<LabelContent>
+					<Translatable Key="Theme/Title" />
+				</LabelContent>
+				<EditorContent>
+					<div class="alert alert-info">
+						<Translatable Key="Theme/CurrentActiveFormat"
+									  _0="@ThemeManagerService.CurrentTheme.Name" />
+					</div>
+				</EditorContent>
+			</FieldLayout>
+
+			<FieldControl Label="UserSettings/Misc.DecimalTimes"
+						  @bind-Value="UserSettingsService.UiSettings.UseDecimalTimes"
+						  HelpText="UserSettings/Misc.DecimalTimes.Hint" />
+			<div>
+				<button class="btn btn-outline-primary">
+					<Translatable Key="Common/Save" />
+				</button>
+			</div>
+
+			<ServerErrorsComponent ServerErrorManager="ServerErrorManager" />
+			<DataAnnotationsValidator />
+			<ValidationSummary />
+		</fieldset>
+	</EditForm>
+</NotLoadedGuardComponent>

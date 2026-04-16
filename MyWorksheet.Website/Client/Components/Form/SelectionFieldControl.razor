@@ -1,0 +1,52 @@
+﻿@typeparam TValue
+@typeparam TKey
+@inherits MyWorksheet.Website.Client.Pages.Base.ComponentViewBase
+
+@functions
+{
+	public RenderFragment AsLoc(LocalizableString locString)
+	{
+		return __builder =>
+		{
+		<Translatable Key="@locString.Text" />
+		};
+	}
+}
+
+@if (EditContext == null)
+{
+	<select @bind="SelectedKeyValue"
+			class="form-control form-select"
+			disabled="@ReadOnly"
+			@attributes="Attributes">
+		@if (AllowNullValue)
+		{
+			<option value=""></option>
+		}
+		@foreach (var option in ItemsSource)
+		{
+			<option value="@(GetFromValueMember(option).ToString())">
+				@GetFromDisplayMember(option)
+			</option>
+		}
+	</select>
+}
+else
+{
+	<InputSelect @bind-Value="SelectedKeyValue"
+				 class="form-control form-select"
+				 @bind-disabled="ReadOnly"
+				 @attributes="Attributes">
+		@if (AllowNullValue)
+		{
+			<option value=""></option>
+		}
+		@foreach (var option in ItemsSource)
+		{
+			<option value="@GetFromValueMember(option)">
+				@GetFromDisplayMember(option)
+			</option>
+		}
+	</InputSelect>
+}
+

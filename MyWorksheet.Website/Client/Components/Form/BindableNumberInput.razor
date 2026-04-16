@@ -1,0 +1,34 @@
+﻿@inherits InputNumber<TValue>
+@typeparam TValue
+
+@code {
+	[Parameter]
+	public EventCallback<KeyboardEventArgs> OnKeyPress { get; set; }
+	[Parameter]
+	public EventCallback<KeyboardEventArgs> OnKeyDown { get; set; }
+	[Parameter]
+	public EventCallback<KeyboardEventArgs> OnKeyUp { get; set; }
+	[Parameter]
+	public BindingMode ChangeTrigger { get; set; }
+}
+
+@if (ChangeTrigger is BindingMode.LostFocus or BindingMode.Default)
+{
+	<input @attributes="AdditionalAttributes"
+		   class="@CssClass"
+		   @onkeypress="OnKeyPress"
+		   @onkeydown="OnKeyDown"
+		   @onkeyup="OnKeyUp"
+		   @bind="CurrentValueAsString"
+		   @bind:event="onchange" />
+}
+else
+{
+	<input @attributes="AdditionalAttributes"
+		   class="@CssClass"
+		   @onkeypress="OnKeyPress"
+		   @onkeydown="OnKeyDown"
+		   @onkeyup="OnKeyUp"
+		   @bind="CurrentValueAsString"
+		   @bind:event="oninput" />
+}

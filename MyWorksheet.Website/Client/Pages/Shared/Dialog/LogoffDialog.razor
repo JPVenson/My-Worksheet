@@ -1,0 +1,25 @@
+﻿@using MyWorksheet.Website.Client.Pages.Shared; 
+
+<DialogComponent Key="LogoffDialog"
+				 THeader="object"
+				 TBody="object"
+				 TFooter="object">
+	<HeaderTemplate Context="header">
+		<Translatable Key="Links/Logout" />
+		<i class="fa fa-lock"></i>
+	</HeaderTemplate>
+	<BodyTemplate Context="body">
+		<i class="fa fa-question-circle"></i>
+		<Translatable Key="Logout/Confirm"/>
+	</BodyTemplate>
+	<FooterTemplate Context="footer">
+		<div class="footer-button-area">
+			<button @onclick="LogoffUser" class="btn btn-outline-primary">
+				<Translatable Key="Links/Logout" />
+			</button>
+			<button @onclick="(() => DialogService.Hide())" class="btn btn-outline-secondary">
+				<Translatable Key="Common/Cancel" />
+			</button>
+		</div>
+	</FooterTemplate>
+</DialogComponent>

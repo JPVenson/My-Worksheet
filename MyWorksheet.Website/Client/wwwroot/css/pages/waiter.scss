@@ -1,0 +1,54 @@
+﻿
+.waiter-container {
+    position: absolute;
+    z-index: $z-waiter-container;
+
+    &.full-sized-block {
+        width: 100%;
+        height: 100%;
+        background: rgba($gray-500, 0.33);
+
+        img.waiter-img {
+        }
+    }
+
+    &.ok-message {
+        left: 50vw;
+        right: 50vw;
+    }
+
+    .ok-message-container {
+        @extend .align-items-center;
+        @extend .d-flex;
+        @extend .flex-row;
+        background: rgba($gray-500, 0.33);
+        border-radius: 2rem;
+        @include DefaultAnimation(bounce-in-container 2s ease-in-out 0s 1 normal);
+    }
+}
+
+@-webkit-keyframes bounce-in-container {
+    0% {
+        -webkit-transform: translateY(-100%);
+    }
+
+    10% {
+        -webkit-transform: translateY(20%);
+    }
+
+    20% {
+        -webkit-transform: translateY(0%);
+    }
+
+    40% {
+        -webkit-transform: translateY(10%);
+    }
+
+    90% {
+        -webkit-transform: translateY(10%);
+    }
+
+    100% {
+        -webkit-transform: translateY(-100%);
+    }
+}

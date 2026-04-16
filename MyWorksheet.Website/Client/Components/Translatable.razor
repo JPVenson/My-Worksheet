@@ -1,0 +1,17 @@
+﻿@if (ChildContent != null)
+{
+	<CascadingValue Value="this" IsFixed="true">
+		@ChildContent
+	</CascadingValue>
+}
+
+<span @attributes="Arguments">
+	@if (DisplayTemplate == null)
+	{
+		@((MarkupString) Content)
+	}
+	else
+	{
+		@DisplayTemplate(Content)
+	}
+</span>

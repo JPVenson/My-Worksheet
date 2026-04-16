@@ -1,0 +1,63 @@
+/* ── Outer wrapper ─────────────────────────────────────────────── */
+/* Constrains to the app's extended form width so top-level fields  */
+/* don't stretch full-viewport. Nested fieldsets use global form.scss */
+/* which already sets width: $form-group-width (25rem).              */
+.schema-editor {
+    width: 35rem;
+    max-width: 100%;
+}
+
+.schema-editor fieldset {
+    min-width: 35rem;
+    max-width: 100%;
+}
+
+/* ── Field row hover (pierces into FieldLayout child component) ─── */
+.schema-editor ::deep .form-group.schema-field {
+    border-radius: 0.25rem;
+    transition: background-color 0.1s ease;
+    min-width: 23rem;
+    max-width: 100%;
+}
+
+.schema-editor ::deep .form-group.schema-field:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+}
+
+/* ── Label ─────────────────────────────────────────────────────── */
+.schema-label {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.2rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.schema-required {
+    color: var(--bs-danger, #dc3545);
+    font-weight: 700;
+    font-size: 0.8em;
+    line-height: 1;
+}
+
+/* ── Group legend icon ─────────────────────────────────────────── */
+.schema-group-icon {
+    font-size: 0.6rem;
+    margin-right: 0.25rem;
+    vertical-align: middle;
+}
+
+/* ── Switch / checkbox ─────────────────────────────────────────── */
+.schema-switch {
+    padding-top: 0.375rem;
+    margin-bottom: 0;
+}
+
+/* ── Help / comment text ───────────────────────────────────────── */
+.schema-help {
+    margin-top: 0.25rem;
+    font-size: 0.78rem;
+    line-height: 1.4;
+    color: var(--bs-secondary-color, #6c757d);
+}

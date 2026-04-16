@@ -1,0 +1,20 @@
+﻿@inherits NavigationPageBase;
+@using MyWorksheet.Website.Client.Pages.TimeTracking.Worksheet.Display
+@using MyWorksheet.Website.Client.Pages.TimeTracking.Worksheet.Display.Ongoing
+@using MyWorksheet.Website.Client.Pages.TimeTracking.Worksheet.Display.PerWeek
+
+@if (!Model.Worksheet.Submitted)
+{
+	if (Model.Worksheet.EndTime.HasValue)
+	{
+		<WorksheetItemsEdit Model="Model" />
+	}
+	else
+	{
+		<OngoingWorksheetItemsEdit Model="Model"/>	
+	}
+}
+else
+{
+	<ReadOnlyWorksheetItemsEdit Model="Model" />
+}

@@ -1,0 +1,35 @@
+﻿@using MyWorksheet.Website.Client.Pages.TimeTracking.Shared;
+@using MimeKit
+@using Morestachio.Helper
+
+<DialogComponent THeader="WorksheetTrackEditorDialogViewModel"
+				 TBody="WorksheetTrackEditorDialogViewModel"
+				 TFooter="WorksheetTrackEditorDialogViewModel">
+	<HeaderTemplate Context="header">
+		<h2>
+			@header.Project.Name - @header.Worksheet.NumberRangeEntry
+		</h2>
+	</HeaderTemplate>
+	<BodyTemplate Context="body">
+		<EditForm Model="body.Tracker"
+		          id="tracker_edit"
+		          name="tracker_edit"
+		          OnValidSubmit="body.Save">
+			<fieldset>
+				<FieldControl Label="TimeTracker/FromTime" @bind-Value="body.Tracker.StartTime" FieldType="FieldTypes.Time"/>
+				<FieldControl Label="TimeTracker/ToTime" @bind-Value="body.Tracker.EndTime" FieldType="FieldTypes.Time"/>
+				<FieldControl Label="TimeTracker/Comment" @bind-Value="body.Tracker.Comment" FieldType="FieldTypes.Text"/>
+			</fieldset>
+		</EditForm>
+	</BodyTemplate>
+	<FooterTemplate Context="footer">
+		<div class="button-bar">
+			<button form="tracker_edit" type="submit">
+				<Translatable Key="Common/Save" />
+			</button>
+			<button @onclick="footer.Close">
+				<Translatable Key="Common/Close" />
+			</button>
+		</div>
+	</FooterTemplate>
+</DialogComponent>

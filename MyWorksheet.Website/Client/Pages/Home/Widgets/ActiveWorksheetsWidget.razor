@@ -1,0 +1,57 @@
+@inherits WidgetViewBase
+@using MyWorksheet.Website.Shared.ViewModels.ApiResultModels.Worksheet
+@attribute [DashboardWidget("CurrentWorksheetsList", "Dashboard/Widget.ActiveWorksheets.Name", "Dashboard/Widget.ActiveWorksheets.Description", "fas fa-file-alt", true)]
+
+@if (ActiveWorksheets == null)
+{
+	<div class="d-flex justify-content-center p-4">
+		<div class="spinner-border spinner-border-sm text-primary" role="status"></div>
+	</div>
+	return;
+}
+
+@if (!ActiveWorksheets.Any())
+{
+	<div class="p-4 text-center text-muted">
+		<i class="fas fa-check-circle fa-2x mb-2 text-success d-block"></i>
+		<Translatable Key="Dashboard/Widget.ActiveWorksheets.Empty" />
+	</div>
+	return;
+}
+
+<ul class="list-group list-group-flush">
+	@foreach (var ws in ActiveWorksheets)
+	{
+		<li class="list-group-item list-group-item-action px-3 py-2">
+			<div class="d-flex justify-content-between align-items-center">
+				<div>
+					<a href="/Project/Worksheet/@ws.WorksheetId" class="fw-semibold text-decoration-none d-block">
+						@ws.NumberRangeEntry
+					</a>
+					<small class="text-muted">@ws.ProjectName</small>
+				</div>
+				@if (ws.HasDaysOpen)
+				{
+					<span class="badge bg-success">
+						<i class="fas fa-calendar-check me-1"></i>
+						<Translatable Key="Dashboard/Widget.ActiveWorksheets.HasEntries" />
+					</span>
+				}
+				else
+				{
+					<span class="badge bg-warning text-dark">
+						<i class="fas fa-exclamation-triangle me-1"></i>
+						<Translatable Key="Dashboard/Widget.ActiveWorksheets.NoEntryToday" />
+					</span>
+				}
+			</div>
+		</li>
+	}
+</ul>
+
+<div class="p-2 border-top text-end">
+	<a href="/Projects" class="btn btn-sm btn-outline-primary">
+		<i class="fas fa-folder-open me-1"></i>
+		<Translatable Key="Dashboard/Widget.ActiveWorksheets.ViewAll" />
+	</a>
+</div>

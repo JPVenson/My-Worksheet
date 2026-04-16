@@ -1,0 +1,24 @@
+﻿@inherits ComponentViewBase
+
+<CascadingValue Name="TabParent" Value="this">
+	@ChildContent
+</CascadingValue>
+
+<ul class="nav nav-tabs">
+	@foreach (var header in Tabs)
+	{
+		<li class="nav-item">
+			<a class="nav-link @When(CurrentTab == header.Key, "active")"
+			   @onclick="() => SetPage(header)">
+				@if (header.HeaderTemplate == null)
+				{
+					<Translatable Key="@header.HeaderContent" />
+				}
+				else
+				{
+					@header.HeaderTemplate
+				}
+			</a>
+		</li>
+	}
+</ul>

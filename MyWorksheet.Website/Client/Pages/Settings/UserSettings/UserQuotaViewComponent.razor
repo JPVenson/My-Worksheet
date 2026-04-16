@@ -1,0 +1,35 @@
+﻿@inherits NavigationPageBase
+
+
+<fieldset>
+	<legend>
+		<Translatable Key="Quota/Title" />
+	</legend>
+
+	@foreach (var item in UserQuotaService.UserQuota)
+	{
+		<FieldLayout>
+			<LabelContent>
+				@item.Name
+			</LabelContent>
+			<EditorContent>
+				<progress value="@item.Value"
+				          max="@item.MaxValue"
+				          type="@When(item.Value < item.MaxValue, "color-success", "color-danger")"
+				          class="w-100">
+
+				</progress>
+			</EditorContent>
+			<HelpTextContent>
+				@item.Value - @if (item.MaxValue == -1)
+				              {
+					              <Translatable Key="Common/Unlimited"/>
+				              }
+				              else
+				              {
+					              @item.MaxValue
+				              }
+			</HelpTextContent>
+		</FieldLayout>
+	}
+</fieldset>

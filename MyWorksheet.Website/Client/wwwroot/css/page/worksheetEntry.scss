@@ -1,0 +1,178 @@
+﻿.timespan-container {
+    position: relative;
+
+    .timespan-hours-container {
+        @extend .d-flex;
+        @extend .flex-row;
+        @extend .flex-wrap;
+        position: absolute;
+
+        .timespan-hour-container {
+
+            > div {
+                @extend .text-center;
+            }
+
+            .timespan-parts {
+                /*   @extend .d-flex;
+                @extend .flex-row;*/
+                position: relative;
+
+                .time-part-container {
+                    /*width: 75px;*/
+                    position: relative;
+
+                    .time-part {
+                        border-color: black;
+                        border: 0.5px;
+                        border-style: solid;
+                        background-color: transparent;
+                        font-size: smaller;
+                    }
+                }
+
+                .timespan-display-container {
+                    width: 100%;
+                    height: 100%;
+                    position: absolute;
+
+                    .timespan-display {
+                        background-color: $green;
+                        position: absolute;
+                        height: 8%;
+                        bottom: 0;
+
+                        &:hover {
+                            height: 100%;
+                            background-color: rgba($green,0.85);
+                        }
+                    }
+                }
+            }
+        }
+    }
+    /*.time-worked-container {
+        position: absolute;
+
+        .timespan-display {
+            background-color: rgba($green,0.55);
+            position: relative;
+            height: 1rem;
+            margin-top: 1.7rem;
+        }
+    }*/
+}
+
+.item-badge-offset {
+    width: $form-list-item-badge-width;
+}
+
+tr.pause-item {
+    @extend .bg-info;
+}
+
+.d-flex, .flex-row {
+    > .time-display-column {
+        flex-basis: 7rem;
+    }
+
+    > .time-weekday-display-column {
+        flex-basis: 5rem;
+    }
+
+    > .timespan-display-column {
+        flex-basis: 7rem;
+    }
+
+    > .time-input-column {
+        flex-basis: 8rem;
+    }
+
+    > .command-column {
+        flex-basis: 2rem;
+    }
+
+    > .comment-column {
+        @extend .flex-fill;
+        min-width: 5rem;
+        flex-shrink: 1;
+    }
+}
+
+tr {
+    > .time-display-column {
+        width: 7rem;
+    }
+
+    > .time-weekday-display-column {
+        width: 5rem;
+    }
+
+    > .timespan-display-column {
+        width: 7rem;
+    }
+
+    > .time-input-column {
+        width: 4rem;
+    }
+
+    > .chargerate-input-column {
+        width: 8rem;
+    }
+
+    > .command-column {
+        width: 2rem;
+    }
+
+    > .comment-column {
+        width: 100%;
+    }
+}
+
+.dropArea {
+    border: 2px dashed steelblue;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: lightblue;
+    font-size: 1.5rem;
+    cursor: pointer;
+    position: relative;
+    min-height: 200px;
+
+    &:hover {
+        background-color: lightskyblue;
+        color: #333;
+    }
+
+    input[type=file] {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        cursor: pointer;
+    }
+}
+
+.dropAreaDrug {
+    background-color: lightseagreen;
+}
+
+
+.timespan-progress {
+    @extend .progress;
+    height: 3px;
+
+    .text {
+        display: none;
+    }
+
+    &.expanded {
+        height: 1rem;
+
+        .text{
+            display: block;
+        }
+    }
+}

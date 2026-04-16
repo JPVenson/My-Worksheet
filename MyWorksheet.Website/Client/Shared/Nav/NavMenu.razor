@@ -1,0 +1,84 @@
+﻿@inherits ComponentViewBase
+@using MyWorksheet.Website.Client.Shared.Nav.Plugins
+@using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Hosting
+
+@code{
+
+	private RenderFragment NavItem(NavItem navItem)
+	{
+		return __builder =>
+		{
+			var children = navItem.Children.Where(FilterNavItem).ToArray();
+		<li class="nav-item no-fx">
+			<CollapsedTrigger ElementType="a"
+							  IsCollapsedDisabled="!children.Any()"
+							  OnClick="(() => OnNavbarActionAsync(navItem))"
+							  href="@navItem.Url"
+							  data-bs-toggle="collapse"
+							  Key="@("navbar." + navItem.Name)"
+							  class="@(GetActiveNavItemClass(navItem.LocName) + " nav-link selectable selectable-primary d-flex flex-row")">
+				<i class="nav-icon @navItem.IconName"></i>
+
+				<span class="nav-item-content me-auto">
+					<Translatable Key="@navItem.LocName" />
+				</span>
+
+				@if (navItem.BadgeContent != null)
+					{
+					<span class="badge badge-secondary m-3">
+						<span>@navItem.BadgeContent</span>
+					</span>
+					}
+				@if (children.Any())
+					{
+					<CollapsedIndicator Key="@("navbar." + navItem.Name)" Class="expander" />
+					}
+			</CollapsedTrigger>
+			@if (children.Any())
+				{
+				<Collapsed ElementType="ul"
+						   Key="@("navbar." + navItem.Name)"
+						   class="nav-items">
+					@foreach (var dataItem in children)
+						{
+						@NavItem(dataItem)
+						}
+				</Collapsed>
+				}
+		</li>
+		};
+	}
+
+}
+
+
+<div class="sidebar">
+	<div class="d-flex flex-row btn-alike">
+		<img src="/Icons/my-worksheetIcon.svg"
+			 class="nav-icon" />
+		<span>My-Worksheet</span>
+	</div>
+
+
+	<nav class="navbar-container">
+		<ul class="nav flex-column nav-items">
+			@foreach (var dataItem in NavItems.Where(FilterNavItem))
+			{
+				@NavItem(dataItem)
+			}
+		</ul>
+	</nav>
+
+	<AuthorizeView>
+		<RunningTrackersNavPluginComponent />
+	</AuthorizeView>
+	
+	
+	@if (WebAssemblyHostEnvironment.IsDevelopment())
+	{
+		<div class="alert alert-warning">
+			<span>DEVELOPMENT ENV</span>
+		</div>
+	}
+</div>

@@ -1,0 +1,12 @@
+﻿@mixin when-mobile() {
+    @media (min-width: 0) and (max-width: map-get($grid-breakpoints, "md")) {
+        @content;
+    }
+}
+
+
+@mixin DefaultAnimation ($animationDefinition) {
+    @each $animationType in $animation-types {
+        #{$animationType}: $animationDefinition
+    }
+}

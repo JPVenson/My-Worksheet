@@ -1,0 +1,161 @@
+﻿@import "../bootstrap/functions";
+@import "../bootstrap/mixins";
+
+html, body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    height: 100vh;
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+}
+
+$theme-light-color: #212529;
+$theme-light-bg-color: #fff;
+
+$theme-dark-color: #fff;
+$theme-dark-bg-color: #222;
+
+@media (prefers-color-scheme: dark) {
+    html, body {
+        background-color: $theme-light-color;
+        color: $theme-light-bg-color;
+    }
+}
+
+@media (prefers-color-scheme: light) {
+    html, body {
+        background-color: $theme-dark-bg-color;
+        color: $theme-light-color;
+    }
+}
+
+#blazor-error-ui {
+    bottom: 0;
+    box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.2);
+    display: none;
+    left: 0;
+    padding: 0.6rem 1.25rem 0.7rem 1.25rem;
+    position: fixed;
+    width: 100%;
+    z-index: 100;
+}
+
+#blazor-error-ui .dismiss {
+    cursor: pointer;
+    position: absolute;
+    right: 0.75rem;
+    top: 0.5rem;
+}
+
+
+.body-loading-overlay {
+    margin: 0px;
+    height: 100%;
+    width: 100%;
+
+    p {
+        margin: 0;
+    }
+
+    img {
+        @include img-fluid;
+    }
+
+    .body-loading {
+        display: none !important;
+        height: 0;
+        width: 0;
+        left: 50%;
+    }
+
+    .body-loading-img-overlay {
+        height: 64px !important;
+        width: 60px;
+    }
+
+    .progress {
+        width: 35rem;
+        margin-left: auto;
+        margin-right: auto;
+
+        progress {
+            width: 100%;
+        }
+    }
+
+    ul#items-list {
+        //max-height: 12rem;
+        overflow: hidden;
+        list-style: none;
+
+        $start-color-iteration: 2;
+        $end-color-iteration: 6;
+
+        @media (prefers-color-scheme: dark) {
+            @for $i from 1 through $end-color-iteration {
+                $opacitiy-code: (100 - (100 / $end-color-iteration * $i )) / 100;
+
+                :nth-child(#{$i + $start-color-iteration}) {
+                    color: rgba($theme-dark-color, $opacitiy-code);
+                }
+            }
+        }
+
+        @media (prefers-color-scheme: light) {
+            @for $i from 1 through $end-color-iteration {
+                $opacitiy-code: (100 - (100 / $end-color-iteration * $i )) / 100;
+
+                :nth-child(#{$i + $start-color-iteration}) {
+                    color: rgba($theme-light-color, $opacitiy-code);
+                }
+            }
+        }
+
+        :nth-child(n+ #{$end-color-iteration + 1}) {
+            opacity: 0;
+        }
+    }
+}
+
+
+@mixin center {
+    left: 50%;
+    right: 50%;
+}
+.center-block {
+    @include center;
+    display: block;
+    /*margin-left: auto;
+        margin-right: auto;*/
+}
+
+.center-element {
+    @include center;
+    display: block;
+    /* margin-left: auto;
+        margin-right: auto;*/
+    text-align: center;
+}
+
+
+noscript {
+    position: absolute;
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: gray;
+
+
+
+    @media (prefers-color-scheme: dark) {
+        background-color: $theme-light-color;
+        color: $theme-light-bg-color;
+    }
+
+    @media (prefers-color-scheme: light) {
+        background-color: $theme-dark-bg-color;
+        color: $theme-light-color;
+    }
+}

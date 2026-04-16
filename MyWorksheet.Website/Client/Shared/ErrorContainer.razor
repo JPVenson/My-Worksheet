@@ -1,0 +1,13 @@
+﻿@code {
+	[Parameter]
+	public RenderFragment ChildContent { get; set; }
+}
+
+<ErrorBoundary>
+	<ChildContent>
+		@ChildContent
+	</ChildContent>
+	<ErrorContent>
+		<h4>ERROR</h4>
+	</ErrorContent>
+</ErrorBoundary>

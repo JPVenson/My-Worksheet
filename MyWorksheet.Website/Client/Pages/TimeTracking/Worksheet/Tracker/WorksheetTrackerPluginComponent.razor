@@ -1,0 +1,73 @@
+﻿@using System.Runtime.CompilerServices
+@inherits NavigationPageBase;
+
+@if (WorksheetModel == null)
+{
+	return;
+}
+
+@if (WorksheetModel.Submitted || WorksheetModel.StartTime > DateTimeOffset.UtcNow || WorksheetModel.EndTime < DateTimeOffset.UtcNow)
+{
+	<div class="d-flex flex-row">
+		<h5 class="btn-alike">
+			<Translatable Key="WorksheetItem/Inactive" />
+			<small><Translatable Key="WorksheetItem/Inactive.Hint" /></small>
+		</h5>
+	</div>
+	return;
+}
+
+<div class="d-flex flex-row @When(Tracker != null, "bg-success")">
+	<h4 class="btn-alike">
+		<Translatable Key="WorksheetItem/Tracking.Title" />
+	</h4>
+
+
+	@if (Tracker == null)
+	{
+		@foreach (var chargeRate in ProjectItemRateViewModels)
+		{
+			<button class="btn btn-outline-secondary"
+					@onclick="(() => StartTrack(chargeRate))">
+				<i class="fa fa-play-circle"></i> @chargeRate.Name
+			</button>
+		}
+	}
+	else
+	{
+		<EditForm Model="Tracker"
+		          OnValidSubmit="SaveTracker">
+			<div class="d-flex flex-row">
+				<button class="btn btn-outline-secondary"
+						type="reset"
+				        @onclick="AbortTracker">
+					<i class="fa fa-ban"></i>
+				</button>
+				<div class="btn-alike">
+					<Translatable Key="WorksheetItem/From" />
+					<span class="ml-1">
+						@if (Tracker.StartTime.Date != DateTime.Today)
+						{
+							@Tracker.StartTime.ToString("G")
+						}
+						else
+						{
+							@Tracker.StartTime.ToString("t")
+						}
+					</span>
+					<Translatable Key="WorksheetItem/Tracking.RunningFor" class="ml-1" />
+					<TimeDisplay Value="@((DateTimeOffset.UtcNow - Tracker.StartTime).TotalMinutes)" class="ml-1" />
+				</div>
+
+				<InputControl TValue="string"
+							  @bind-Value="CommentValue.Entity"
+							  OnValueChanged="CommentChanged"
+							  @bind-ReadOnly="UpdatingCommentValue" />
+				<button class="btn btn-outline-primary" type="submit">
+					<i class="fa fa-check"></i>
+				</button>
+			</div>
+		</EditForm>
+
+	}
+</div>

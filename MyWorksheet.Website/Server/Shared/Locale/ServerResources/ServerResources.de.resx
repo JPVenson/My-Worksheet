@@ -1,0 +1,455 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Workflow.Manual/StatusType.Invalid" xml:space="preserve">
+    <value>Ungültig</value>
+  </data>
+  <data name="Workflow.Manual/StatusType.Created" xml:space="preserve">
+    <value>Erstellt</value>
+  </data>
+  <data name="Workflow.Manual/StatusType.Submitted" xml:space="preserve">
+    <value>Abgeschlossen</value>
+  </data>
+  <data name="Workflow.Manual/StatusType.AwaitingResponse" xml:space="preserve">
+    <value>Erwarte Rückmeldung</value>
+  </data>
+  <data name="Workflow.Manual/StatusType.Confirmed" xml:space="preserve">
+    <value>Bestätigt</value>
+  </data>
+  <data name="Workflow.Manual/StatusType.AwaitingPayment" xml:space="preserve">
+    <value>Erwarte Zahlung</value>
+  </data>
+  <data name="Workflow.Manual/StatusType.Rejected" xml:space="preserve">
+    <value>Abgelehnt</value>
+  </data>
+  <data name="Workflow.Manual/StatusType.Payed" xml:space="preserve">
+    <value>Bezahlt</value>
+  </data>
+  <data name="Account/PasswordReset.DefaultText" xml:space="preserve">
+    <value>Wenn der Nutzername und ihr {Common/Password} stimmen erhalten sie in kürze eine {Common/EMail} mit einem Link zum Zurücksetzen ihres Passwords</value>
+  </data>
+  <data name="Common/GoogleVertficationFailed" xml:space="preserve">
+    <value>Die google Recaptcha überprüfung ist Fehlgeschlagen. Bitte erneut versuchen.</value>
+  </data>
+  <data name="Account/ChangePassword.Mismatch" xml:space="preserve">
+    <value>Die Passwörter müssen gleich sein</value>
+  </data>
+  <data name="Account/ChangePassword.YouAreTestUser" xml:space="preserve">
+    <value>Ein Testbenutzer kann sein password nicht ändern.</value>
+  </data>
+  <data name="Account/ChangePassword.OldPasswordMismatch" xml:space="preserve">
+    <value>Ihr altes Password ist nicht Korrekt</value>
+  </data>
+  <data name="Account/ResetPassword.InvalidToken" xml:space="preserve">
+    <value>Abgelaufener Resettoken. Der benutzte Link ist abgelaufen.</value>
+  </data>
+  <data name="Account/ResetPassword.InactiveAccount" xml:space="preserve">
+    <value>Ihr Benutzerkonto ist deaktiviert.</value>
+  </data>
+  <data name="AccountAssosiation/TryRedeem.Unkown" xml:space="preserve">
+    <value>Der code der Einladung ist unbekannt</value>
+  </data>
+  <data name="AccountAssosiation/TryRedeem.Expired" xml:space="preserve">
+    <value>Die Einladung wurde zurückgezogen</value>
+  </data>
+  <data name="AccountAssosiation/TryRedeem.Expired2" xml:space="preserve">
+    <value>Die Einladung ist abgelaufen</value>
+  </data>
+  <data name="AccountAssosiation/TryRedeem.Pun" xml:space="preserve">
+    <value>Fühlen Sie sich auch oft einsam? Sich einfach selbst einladen ... tze tze tze...</value>
+  </data>
+  <data name="AccountAssosiation/TryRedeem.AssosiationExists" xml:space="preserve">
+    <value>Sie sind bereits mit diesem Benutzer verbunden.</value>
+  </data>
+  <data name="Common/InvalidId" xml:space="preserve">
+    <value>Ungültige Id</value>
+  </data>
+  <data name="AccountAssosiation/Create.LimitReached" xml:space="preserve">
+    <value>Sie können nicht mehr als 10 Aktive Einladungen haben</value>
+  </data>
+  <data name="AccountAssosiation/Redeem.Code" xml:space="preserve">
+    <value>Benutzt</value>
+  </data>
+  <data name="AccountAssosiation/RemoveAdminstrator.NoActive" xml:space="preserve">
+    <value>Kein Aktiver Admin</value>
+  </data>
+  <data name="Org/NotPartOfOrg" xml:space="preserve">
+    <value>Sie sind nicht in dieser {Entity/Organization}</value>
+  </data>
+  <data name="Login/MaxTrys" xml:space="preserve">
+    <value>Maximale versuche erreicht. Bitte warten sie 20 Sekunden und warten sie.</value>
+  </data>
+  <data name="Register/Disabled" xml:space="preserve">
+    <value>Die Registrierung ist momentan Ausgeschaltet</value>
+  </data>
+  <data name="Register/MailFailed" xml:space="preserve">
+    <value>Oh! Leider gab es Probleme bei der überprüfung ihrer {Common/Email}. Bitte überprüfen sie diese.</value>
+  </data>
+  <data name="Register/UnexpectedError" xml:space="preserve">
+    <value>Oh! Es gab einen Fehler bei der Registrierung. Wir melden uns bald bei ihnen.</value>
+  </data>
+  <data name="Register.Done" xml:space="preserve">
+    <value>Ihr Benutzerkonto wurde Erfolgreich angelegt. Bitte checken sie Ihre E-Mails.</value>
+  </data>
+  <data name="Role/AddRole.UserHasRole" xml:space="preserve">
+    <value>Dieser Benutzer hat bereits diese Rolle</value>
+  </data>
+  <data name="Role/RemoveRole.SuperAdmin" xml:space="preserve">
+    <value>Diese rolle kann nicht gelöscht werden</value>
+  </data>
+  <data name="WorksheetItem/TrackerRunning" xml:space="preserve">
+    <value>Sie können momentan keine Arbeitszeiten manuell eingeben da ein {Entity/Tracker} auf diesem {Entity/Worksheet} läuft</value>
+  </data>
+  <data name="WebhookData/Comment.Type" xml:space="preserve">
+    <value>Die Art der Aktion die ausgeführt wurde</value>
+  </data>
+  <data name="WebhookData/Comment.Content" xml:space="preserve">
+    <value>Die Daten für die Aktion. 
+Wenn der Typ ist 'Deleted' wird normallerweise nur die Property mit der Endung 'Id' gefüllt.</value>
+  </data>
+  <data name="WebhookData/Comment.SendAt" xml:space="preserve">
+    <value>Das Datum im ISO 8601 Format als die nachricht abgeschickt wurde</value>
+  </data>
+  <data name="WebhookData/Comment.CreatedAt" xml:space="preserve">
+    <value>Das Datum im ISO 8601 Format als die Aktion ausgeführt wurde.
+Kann stark von 'SendAt' abweichen da {Entity/Webhooks} asyncron ausgeführt werden</value>
+  </data>
+  <data name="WebhookData/Comment.User" xml:space="preserve">
+    <value>Der Benutzername welcher die Aktion ausgeführt hat</value>
+  </data>
+  <data name="Reporting/DataTemplate.Comment.DataSource" xml:space="preserve">
+    <value>Der Root knoten für alle Daten</value>
+  </data>
+  <data name="Reporting/ProjectSpec.Comment.Owner" xml:space="preserve">
+    <value>Informationen über den Besitzer des Projektes (Die {Entity/Organization})</value>
+  </data>
+  <data name="Reporting/ProjectSpec.Comment.Creator" xml:space="preserve">
+    <value>Informationen über den Ersteller des Projekets</value>
+  </data>
+  <data name="Reporting/ProjectSpec.Comment.CommonInfos" xml:space="preserve">
+    <value>Die errechnete {Payment/TaxRate}, Netto&amp;Brutto Beträge und andere Infos. Daten sind gerundet auf die 3 Dezimalstelle</value>
+  </data>
+  <data name="Reporting/ProjectSpec.Comment.Aggregations.WorkedMinutes" xml:space="preserve">
+    <value>The Arbeitszeit in Minuten</value>
+  </data>
+  <data name="Reporting/ProjectSpec.Comment.Aggregations.CalculatedTax" xml:space="preserve">
+    <value>Die errechnete Steuer auf Netto aller Einkommen</value>
+  </data>
+  <data name="Reporting/ProjectSpec.Comment.Aggregations.CalculatedNet" xml:space="preserve">
+    <value>Errechneter Nettobetrag</value>
+  </data>
+  <data name="Reporting/ProjectSpec.Form.Comment.Project" xml:space="preserve">
+    <value>Das Projekt</value>
+  </data>
+  <data name="Reporting/ProjectSpec.Form.Comment.PaymentInfos" xml:space="preserve">
+    <value>Zahlungsinformationen</value>
+  </data>
+  <data name="Reporting/ProjectSpec.Form.Comment.InvoiceNo" xml:space="preserve">
+    <value>Rechnungsnummer</value>
+  </data>
+  <data name="Reporting/ProjectSpec.Form.Comment.Date" xml:space="preserve">
+    <value>Datum</value>
+  </data>
+  <data name="Reporting/ProjectSpec.Form.Comment.AdditionalInfos" xml:space="preserve">
+    <value>Zusätzliche Infos</value>
+  </data>
+  <data name="Storage/AzureBlob.Arguments.Comments.AccountName" xml:space="preserve">
+    <value>Der name des Blob-Speichers</value>
+  </data>
+  <data name="Storage/AzureBlob.Arguments.Comments.AccountKey" xml:space="preserve">
+    <value>Das Password für den Speicher. {Common/SecureStringHint}</value>
+  </data>
+  <data name="Common/SecureStringHint" xml:space="preserve">
+    <value>Diese Daten werden verschlüsselt auf My-Worksheet gespeichert und nur entschlüsselt wenn gebraucht.</value>
+  </data>
+  <data name="Storage/AzureBlob.Arguments.Comments.Container" xml:space="preserve">
+    <value>Der Container name des Speichers</value>
+  </data>
+  <data name="Storage/AzureFile.Arguments.Comments.Share" xml:space="preserve">
+    <value>Der "Share" name des Datenspeichers</value>
+  </data>
+  <data name="Storage/AzureFile.Arguments.Comments.Directory" xml:space="preserve">
+    <value>Der Name des Verzeichniss</value>
+  </data>
+  <data name="Storage/FTP.Arguments.Comments.Password" xml:space="preserve">
+    <value>Das Password. {Common/SecureStringHint}</value>
+  </data>
+  <data name="Storage/FTP.Arguments.Comments.Url" xml:space="preserve">
+    <value>Die Vollquallifizierte URL. Muss mit 'ftp://' starten</value>
+  </data>
+  <data name="Statistics/ActionCases.Arguments.Comments.FromDate" xml:space="preserve">
+    <value>Die untere Datumsgrenze für die Anzeige</value>
+  </data>
+  <data name="Statistics/ActionCases.Arguments.Comments.ToDate" xml:space="preserve">
+    <value>Die obere Datumsgrenze für die Anzeige</value>
+  </data>
+  <data name="Statistics/ActionCases.Arguments.Comments.IncludenNonSub" xml:space="preserve">
+    <value>Sollen auch nicht abgeschlossene daten mit angezeigt werden</value>
+  </data>
+  <data name="Workflow.Manual/Step.Submit.Arguments.Comments.Description" xml:space="preserve">
+    <value>Die Beschreibung für dieses {Entity/Worksheet}</value>
+  </data>
+  <data name="Workflow.Manual/Data.Comments.ReportData" xml:space="preserve">
+    <value>Die allgemeinen Daten für die {Entity/Report}erstellung</value>
+  </data>
+  <data name="Worksheet.Manual/Steps.Confirmed.Arguments.Comments.InvoiceNo" xml:space="preserve">
+    <value>Rechnungsnummer</value>
+  </data>
+  <data name="Worksheet.Manual/Steps.Confirmed.Arguments.Comments.Reminder" xml:space="preserve">
+    <value>Nach wievielen Tagen sollen wir Sie erinnern?</value>
+  </data>
+  <data name="Reporting/FullProject.Arguments.Name.Project" xml:space="preserve">
+    <value>Projekt</value>
+  </data>
+  <data name="Storage/AzureBlob.Arguments.Names.AccountKey" xml:space="preserve">
+    <value>Kontoschlüssel</value>
+  </data>
+  <data name="Storage/AzureBlob.Arguments.Names.AccountName" xml:space="preserve">
+    <value>Konto Name</value>
+  </data>
+  <data name="Storage/AzureBlob.Arguments.Names.Container" xml:space="preserve">
+    <value>Container</value>
+  </data>
+  <data name="Storage/AzureFile.Arguments.Names.Directory" xml:space="preserve">
+    <value>Verzeichniss</value>
+  </data>
+  <data name="Storage/FTP.Arguments.Names.Url" xml:space="preserve">
+    <value>Url</value>
+  </data>
+  <data name="Storage/Http.Arguments.Comments.BaseUrl" xml:space="preserve">
+    <value>Wenn gesetzt wird die BaseUrl für alle operationen genutzt und vorrangesetzt. Falls leer wird die Url der jeweiligen Operation genutzt. Entweder die BaseUrl oder einer der Operationen Urls muss den Platzhalter '{{!id}}' enthalten, ohne ''.</value>
+  </data>
+  <data name="Storage/Http.Arguments.Comments.GetUrl" xml:space="preserve">
+    <value>Wird aufgerufen um Daten aus dem Speicher zu laden</value>
+  </data>
+  <data name="Storage/Http.Arguments.Comments.DeleteUrl" xml:space="preserve">
+    <value>Wird aufgerufen wenn ein Datensatz gelöscht werden soll</value>
+  </data>
+  <data name="Storage/Http.Arguments.Comments.PostUrl" xml:space="preserve">
+    <value>Wird aufgerufen um Daten hochzuladen. Der Inhalt wird mit dem entsprechenden application/mime type übermitelt.</value>
+  </data>
+  <data name="Statistics/ActionCases.Arguments.Names.FromDate" xml:space="preserve">
+    <value>Von Datum</value>
+  </data>
+  <data name="Statistics/ActionCases.Arguments.Names.ToDate" xml:space="preserve">
+    <value>Bis Datum</value>
+  </data>
+  <data name="Statistics/ActionCases.Arguments.Names.IncludeNonSub" xml:space="preserve">
+    <value>Zeige nicht Abgeschlossene an</value>
+  </data>
+  <data name="Workflow.Mail/Arguments.Comments.AwaitingResponse" xml:space="preserve">
+    <value>Das {Common/EMail} Konto von dem die {Common/EMail} gesendet werden soll</value>
+  </data>
+  <data name="Workflow.Mail/Arguments.Comments.MailAccount" xml:space="preserve">
+    <value>Der {Links/Storage} auf dem die erzeugten Mails gespeichert werden sollen</value>
+  </data>
+  <data name="Workflow.Mail/Arguments.Comments.Storage" xml:space="preserve">
+    <value>Der {Entity/Report} der für die Erzeugung der {Common/EMail} genutzt wird wenn der Status '{Workflow.Manual/StatusType.AwaitingResponse}' gesetzt wird. Hinweis: Es können alle {Entity/Reports} genutzt werden die als {Template/DataSource} '{Report/Names.Worksheet}' haben und einen {Entity/Report} vom Typ 'Html' erzeugen.</value>
+  </data>
+  <data name="Workflow.Mail/Arguments.Names.AwaitingResponse" xml:space="preserve">
+    <value>{Entity/Report} für '{Workflow.Manual/StatusType.AwaitingPayment}'</value>
+  </data>
+  <data name="Workflow.Mail/Arguments.Names.MailAccount" xml:space="preserve">
+    <value>{Common/EMail}konto</value>
+  </data>
+  <data name="Workflow.Mail/Arguments.Names.Storage" xml:space="preserve">
+    <value>{Common/EMail}{Links/Storage}</value>
+  </data>
+  <data name="Workflow.Manual/Step.Submit.Arguments.Names.Description" xml:space="preserve">
+    <value>{Common/Description}</value>
+  </data>
+  <data name="Workflow.Manual/Arguments.Comments.ConfirmedReport" xml:space="preserve">
+    <value>Wird genutzt um ein {Entity/Report} zu erstellen wenn sich der Status auf '{Workflow.Manual/StatusType.Confirmed}' ändert</value>
+  </data>
+  <data name="Workflow.Manual/Arguments.Comments.SubmitReport" xml:space="preserve">
+    <value>Wird genutzt um ein {Entity/Report} zu erstellen wenn sich der Status auf '{Workflow.Manual/StatusType.Submitted}' ändert</value>
+  </data>
+  <data name="Workflow.Manual/Arguments.Comments.Report.Template" xml:space="preserve">
+    <value>Der {Entity/Report} der erstellt werden soll</value>
+  </data>
+  <data name="Workflow.Manual/Arguments.Comments.Report.Storage" xml:space="preserve">
+    <value>Der {Storage/Storage} auf dem der {Entity/Report} gespeichert werden soll</value>
+  </data>
+  <data name="Workflow.Manual/Arguments.Comments.CreateReport" xml:space="preserve">
+    <value> </value>
+  </data>
+  <data name="Workflow.Manual/Arguments.Names.ConfirmedReport" xml:space="preserve">
+    <value>{Entity/Report} - {Workflow.Manual/StatusType.Confirmed}</value>
+  </data>
+  <data name="Workflow.Manual/Arguments.Names.CreateReport" xml:space="preserve">
+    <value>Erstelle {Entity/Report}</value>
+  </data>
+  <data name="Workflow.Manual/Arguments.Names.SubmitReport" xml:space="preserve">
+    <value>{Entity/Report} - {Workflow.Manual/StatusType.Submitted}</value>
+  </data>
+  <data name="Workflow.Manual/Arguments.Names.Report.Storage" xml:space="preserve">
+    <value>{Storage/Storage}</value>
+  </data>
+  <data name="Workflow.Manual/Arguments.Names.Report.Template" xml:space="preserve">
+    <value>{Template/Template}</value>
+  </data>
+  <data name="Report/Names.Worksheet" xml:space="preserve">
+    <value>{Entity/Worksheet}</value>
+  </data>
+  <data name="Reporting/ProjectSpec.Comment.AssertInfos" xml:space="preserve">
+    <value>Zusammenfassung aller Anhänge</value>
+  </data>
+  <data name="Reporting/ProjectSpec.Comment.AssertInfos.TotalValue" xml:space="preserve">
+    <value>Gesammtbetrag</value>
+  </data>
+  <data name="Reporting/ProjectSpec.Comment.AssertInfos.TotalTax" xml:space="preserve">
+    <value>Gesammtsteuern</value>
+  </data>
+  <data name="Reporting/ProjectSpec.Comment.WorktimeInfos" xml:space="preserve">
+    <value>Zusammenfassung aber Arbeitstunden</value>
+  </data>
+  <data name="Reporting/ProjectSpec.Form.Comment.RoundBy" xml:space="preserve">
+    <value>Runden auf x Nachkommerstellen</value>
+  </data>
+  <data name="ProjectItemRate/Delete.RateInUse" xml:space="preserve">
+    <value>Diese {Entity/ProjectItemRate} wird von einem oder mehr {Entity/Worksheet} genutzt.</value>
+  </data>
+  <data name="Entity/ProjectItemRate" xml:space="preserve">
+    <value>Honorar</value>
+  </data>
+  <data name="Reporting/ProjectSpec.WorksheetRates" xml:space="preserve">
+    <value>Alle {Entity/Worksheet} mit den dazugehörigen {Entity/ProjectItemRate}</value>
+  </data>
+  <data name="UserWorkload/Errors.KindExists" xml:space="preserve">
+    <value>Diese Art von Workflow existiert bereits. Bitte Updaten.</value>
+  </data>
+  <data name="Reporting/ProjectSpec.Form.Comment.UseParentOrgAsAddress" xml:space="preserve">
+    <value>Nutze übergeordnete Organisation als Addresse</value>
+  </data>
+  <data name="Workflow.Templated/Arguments.Names.Created" xml:space="preserve">
+    <value>Template für status '{Workflow.Manual/StatusType.Created}'</value>
+  </data>
+  <data name="Workflow.Templated/Arguments.Names.Submitted" xml:space="preserve">
+    <value>Template für status '{Workflow.Manual/StatusType.Submitted}'</value>
+  </data>
+  <data name="Workflow.Templated/Arguments.Names.AwaitingResponse" xml:space="preserve">
+    <value>Template für status '{Workflow.Manual/StatusType.AwaitingResponse}'</value>
+  </data>
+  <data name="Workflow.Templated/Arguments.Names.Confirmed" xml:space="preserve">
+    <value>Template für status '{Workflow.Manual/StatusType.Confirmed}'</value>
+  </data>
+  <data name="Workflow.Templated/Arguments.Names.AwaitingPayment" xml:space="preserve">
+    <value>Template für status '{Workflow.Manual/StatusType.AwaitingPayment}'</value>
+  </data>
+</root>

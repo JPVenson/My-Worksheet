@@ -1,0 +1,42 @@
+@inherits WidgetViewBase
+@using MyWorksheet.Website.Shared.ViewModels.ApiResultModels.Reporting
+@attribute [DashboardWidget("PublicReports", "Dashboard/Widget.Reports.Name", "Dashboard/Widget.Reports.Description", "fas fa-file-invoice", true)]
+
+@if (PublicReports == null)
+{
+	<div class="d-flex justify-content-center p-4">
+		<div class="spinner-border spinner-border-sm text-primary" role="status"></div>
+	</div>
+	return;
+}
+
+@if (!PublicReports.Any())
+{
+	<div class="p-4 text-center text-muted">
+		<i class="fas fa-file-alt fa-2x mb-2 d-block opacity-50"></i>
+		<Translatable Key="Dashboard/Widget.Reports.Empty" />
+	</div>
+	return;
+}
+
+<div class="d-flex flex-column gap-0">
+	@foreach (var report in PublicReports)
+	{
+		<a href="/Report/Preview/@report.NEngineTemplateId"
+		   class="list-group-item list-group-item-action px-3 py-2 border-0 border-bottom">
+			<div class="d-flex align-items-center gap-2">
+				<span class="report-icon">
+					<i class="fas fa-file-chart-bar"></i>
+				</span>
+				<div>
+					<div class="fw-semibold small">@report.Name</div>
+					@if (!string.IsNullOrWhiteSpace(report.Comment))
+					{
+						<small class="text-muted">@report.Comment</small>
+					}
+				</div>
+				<i class="fas fa-chevron-right ms-auto text-muted" style="font-size:.75rem"></i>
+			</div>
+		</a>
+	}
+</div>

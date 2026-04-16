@@ -1,0 +1,29 @@
+﻿@typeparam T
+
+<table class="table">
+	<thead>
+	<tr>
+		@foreach (var gridColumnBase in DataDisplay.ColumnManager.Columns)
+		{
+			<th>
+				<div class="d-flex flex-column">
+					<span>@gridColumnBase.GetTH(DataDisplay)</span>
+				</div>
+			</th>
+		}
+	</tr>
+	</thead>
+	<tbody>
+	@foreach (T item in DataDisplay.DataProvider.BoundValues)
+	{
+		<tr>
+			@foreach (var column in DataDisplay.ColumnManager.Columns)
+			{
+				<td>
+					@column.GetTD()(item)
+				</td>
+			}
+		</tr>
+	}
+	</tbody>
+</table>

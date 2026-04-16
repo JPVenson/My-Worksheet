@@ -1,0 +1,57 @@
+@inherits WidgetViewBase
+@using MyWorksheet.Website.Client.Pages.TimeTracking.Worksheet.Tracker
+@using MyWorksheet.Website.Shared.ViewModels.ApiResultModels.Worksheet
+@attribute [DashboardWidget("TrackerButton", "Dashboard/Widget.TrackerButton.Name", "Dashboard/Widget.TrackerButton.Description", "fas fa-play-circle", false)]
+
+@if (Projects == null)
+{
+	<div class="d-flex justify-content-center p-4">
+		<div class="spinner-border spinner-border-sm text-secondary" role="status"></div>
+	</div>
+	return;
+}
+
+<div class="p-3">
+	@if (SelectedWorksheet == null)
+	{
+		<div class="mb-2">
+			<label class="form-label small text-muted">
+				<Translatable Key="Dashboard/Widget.TrackerButton.SelectProject" />
+			</label>
+			<select class="form-select form-select-sm" value="@(SelectedProject?.ProjectId.ToString() ?? "")" @onchange="OnProjectSelected">
+				<option value="">— <Translatable Key="Common/Select" /> —</option>
+				@foreach (var p in Projects)
+				{
+					<option value="@p.ProjectId">@p.Name</option>
+				}
+			</select>
+		</div>
+
+		@if (SelectedProject != null && LoadingWorksheet)
+		{
+			<div class="d-flex justify-content-center py-2">
+				<div class="spinner-border spinner-border-sm text-secondary" role="status"></div>
+			</div>
+		}
+		else if (SelectedProject != null && !LoadingWorksheet && SelectedWorksheet == null)
+		{
+			<div class="text-muted small">
+				<i class="fas fa-info-circle me-1"></i>
+				<Translatable Key="Dashboard/Widget.TrackerButton.NoActiveWorksheet" />
+			</div>
+		}
+	}
+	else
+	{
+		<div class="d-flex align-items-center justify-content-between mb-2">
+			<span class="fw-semibold">@SelectedProject?.Name</span>
+			<button class="btn btn-sm btn-link text-muted p-0"
+					title="Change project"
+					@onclick="ClearSelection">
+				<i class="fas fa-times"></i>
+			</button>
+		</div>
+
+		<WorksheetTrackerPluginComponent WorksheetId="@SelectedWorksheet.WorksheetId" />
+	}
+</div>

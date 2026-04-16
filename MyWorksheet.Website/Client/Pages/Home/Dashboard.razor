@@ -1,0 +1,149 @@
+@attribute [Route("/")]
+@attribute [Page("Links/Home", IsNavbarView = true, PageIconCss = "fas fa-tachometer-alt", Group = "Links/StartInfo")]
+@attribute [Authorize()]
+@inherits MyWorksheet.Website.Client.Pages.Base.NavigationPageBase
+@using MyWorksheet.Website.Client.Pages.Home.Widgets
+
+@functions
+{
+    public override void OnSetPlugins()
+    {
+        AddPlugin("DashboardActions", BuildEditToolbar(), PluginLocation.Header, PluginOrientation.Left);
+        base.OnSetPlugins();
+    }
+
+    private RenderFragment BuildEditToolbar()
+    {
+        return __builder =>
+        {
+            <div class="footer-button-area d-flex gap-2">
+                @if (!IsEditMode)
+                {
+                    <button class="btn btn-outline-secondary btn-sm" title="Edit Dashboard" @onclick="StartEdit">
+                        <i class="fas fa-edit me-1"></i>
+                        <Translatable Key="Dashboard/EditMode.Start" />
+                    </button>
+                }
+                else
+                {
+                    <button class="btn btn-outline-secondary btn-sm" title="Add widget" @onclick="() => IsAddPanelOpen = !IsAddPanelOpen">
+                        <i class="fas fa-plus me-1"></i>
+                        <Translatable Key="Dashboard/AddWidget.Title" />
+                    </button>
+                    <button class="btn btn-success btn-sm" title="Save layout" @onclick="StopEdit">
+                        <i class="fas fa-check me-1"></i>
+                        <Translatable Key="Dashboard/EditMode.Save" />
+                    </button>
+                }
+            </div>
+        };
+    }
+
+    private RenderFragment<DashboardWidgetInstance> DefaultWidget()
+    {
+        return (inst) => {
+             return __builder => {
+                <div class="p-3 text-muted small">
+                    <i class="fas fa-puzzle-piece me-2"></i>@inst.WidgetKey
+                </div>
+             };
+        };
+    }
+}
+
+<NotLoadedGuardComponent @bind-ViewState="ViewState">
+    <div class="dashboard-page">
+
+        @if (IsEditMode && IsAddPanelOpen)
+        {
+            <div class="card mb-3 border-primary">
+                <div class="card-header d-flex justify-content-between align-items-center bg-primary text-white">
+                    <span class="fw-semibold">
+                        <i class="fas fa-th me-2"></i>
+                        <Translatable Key="Dashboard/AddWidget.Title" />
+                    </span>
+                    <button class="btn btn-sm btn-close btn-close-white" @onclick="() => IsAddPanelOpen = false"></button>
+                </div>
+                <div class="card-body">
+                    @{
+                        var addable = FilteredAvailableWidgets.ToList();
+                    }
+                    @if (!addable.Any())
+                    {
+                        <p class="text-muted mb-0">
+                            <i class="fas fa-check-circle me-2 text-success"></i>
+                            <Translatable Key="Dashboard/NoMorePlugins" />
+                        </p>
+                    }
+                    else
+                    {
+                        <div class="d-flex flex-row flex-wrap gap-2">
+                            @foreach (var def in addable)
+                            {
+                                <div class="widget-add-card card border-0 shadow-sm" role="button" @onclick="() => AddWidget(def)">
+                                    <div class="card-body py-2 px-3 d-flex align-items-center gap-2">
+                                        <span class="widget-add-icon">
+                                            <i class="@def.Icon"></i>
+                                        </span>
+                                        <div>
+                                            <div class="fw-semibold small"><Translatable Key="@def.Name" /></div>
+                                            <div class="text-muted" style="font-size:.7rem"><Translatable Key="@def.Description" /></div>
+                                        </div>
+                                        <i class="fas fa-plus-circle text-primary ms-auto"></i>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+
+        @if (!ActiveWidgets.Any())
+        {
+            <div class="text-center text-muted py-5">
+                <i class="fas fa-th-large fa-3x mb-3 d-block opacity-25"></i>
+                <p><Translatable Key="Dashboard/Empty.Hint" /></p>
+                <button class="btn btn-primary" @onclick="StartEdit">
+                    <i class="fas fa-plus me-1"></i>
+                    <Translatable Key="Dashboard/AddWidget.Title" />
+                </button>
+            </div>
+        }
+        else
+        {
+            <div class="grid-stack" id="dashboard-grid">
+                @foreach (var inst in ActiveWidgets)
+                {
+                    <div class="grid-stack-item"
+                         @key="inst.Id"
+                         gs-x="@inst.X" gs-y="@inst.Y" gs-w="@inst.W" gs-h="@inst.H"
+                         data-id="@inst.Id">
+                        <div class="grid-stack-item-content widget-card card h-100 border-0 shadow-sm">
+                            <div class="widget-card-header card-header d-flex justify-content-between align-items-center">
+                                <span class="d-flex align-items-center gap-2 fw-semibold small text-uppercase tracking-wide">
+                                    <i class="@GetWidgetIcon(inst.WidgetKey) text-primary"></i>
+                                    <Translatable Key="@GetWidgetTitle(inst.WidgetKey)" />
+                                </span>
+                                @if (IsEditMode)
+                                {
+                                    <button class="btn btn-outline-danger btn-sm py-0 px-1 widget-remove-btn"
+                                            title="Remove widget"
+                                            @onclick:stopPropagation="true"
+                                            @onclick="() => RemoveWidget(inst)">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                }
+                            </div>
+                            <div class="card-body p-0 overflow-auto">
+                                @BuildWidget(inst)
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+
+    </div>
+</NotLoadedGuardComponent>
+

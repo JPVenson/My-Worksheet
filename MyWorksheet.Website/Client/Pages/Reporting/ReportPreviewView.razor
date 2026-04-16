@@ -1,0 +1,47 @@
+﻿@layout NoLayoutLayoutLayout
+@attribute [Route("/Report/Preview/{id:guid}")]
+@attribute [Page("Report/Preview.Title")]
+@inherits NavigationPageBase
+<ResourcesListComponent />
+<WaiterIndicatorComponent />
+
+<NotLoadedGuardComponent @bind-ViewState="ViewState">
+
+	<div class="d-flex flex-column h-100vh">
+		<div class="card">
+			<CollapsedTrigger ElementType="div" class="card-header" Key="Preview_Data">
+				<CollapsedIndicator Key="Preview_Data"></CollapsedIndicator>
+				<span>@TemplateData.Name</span>
+				<span><Translatable Key="Template.Preview/Hint" /></span>
+			</CollapsedTrigger>
+			<Collapsed Key="Preview_Data" Class="card-body" UseDomManipulation="false">
+				<EditForm Model="Values"
+						  OnValidSubmit="LoadReport">
+					<fieldset>
+						<SchemaEditControl SchemaInfo="TemplateSchema" Values="Values">
+
+						</SchemaEditControl>
+						<button class="btn btn-outline-primary">
+							<Translatable Key="Template/Refresh" />
+						</button>
+					</fieldset>
+				</EditForm>
+			</Collapsed>
+		</div>
+		@if (TemplateUrl == null)
+		{
+			<div class="mx-auto ">
+				<i class="fa fa-refresh fa-spin fa-10x"></i>
+			</div>
+
+		}
+		else
+		{
+			<div class="flex-fill bg-light d-flex">
+				<object data="@(TemplateUrl)" class="flex-fill">
+				</object>
+			</div>
+		}
+
+	</div>
+</NotLoadedGuardComponent>

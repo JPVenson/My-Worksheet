@@ -1,0 +1,72 @@
+﻿@inherits EntityTrackingComponent
+@using System.IO
+
+@code
+{
+	protected RenderFragment FileDisplay(FileModel file)
+	{
+		return __builder =>
+		{
+		<div class="p-1 storage-entry">
+			<div class="card full p-0">
+				<div class="card-header p-0">
+					<div class="row">
+						<div class="col-auto mr-auto">
+							@if (!file.InTransition && OnFileDeleteRequest.HasDelegate)
+								{
+								<i class="fas fa-ban"
+								   @onclick="(() => DeleteFile(file))">
+								</i>
+								}
+						</div>
+						<div class="col-auto text-capitalize">@Path.GetExtension(file.Model.FileName)</div>
+					</div>
+				</div>
+				<div class="card-body p-0">
+					<div class="no-fx-horizontal file-image-upload-container">
+						@{
+							var token = ServerStorageService.GetValidResourceThumbnailUrl(file.Model.StorageEntryId, "md");
+							if (file.ForceRefresh && token != null)
+							{
+								token += "&rand=" + DateTimeOffset.Now.Ticks;
+								file.ForceRefresh = false;
+							}
+						}
+						@if (token == null || file.InTransition)
+							{
+							<img class="img-fluid center-block storage-entry-container waiter-img"
+								 src="/Icons/my-worksheetIcon.svg"
+								 alt="...deleting" />
+							}
+						@if (token != null && !file.InTransition)
+							{
+							<img class="img-fluid center-block storage-entry-container selectable selectable-primary"
+								 @onclick="() => OpenLightbox(file)"
+								 src="@token"
+								 alt="Thumbnail" />
+							}
+					</div>
+				</div>
+				<div class="card-footer p-0">
+					<a @onclick="() => DownloadFile(file)" disabled="@file.InTransition">
+						<div class="text-entry text-truncate"
+							 title="@file.Model.FileName">
+							@Path.GetFileNameWithoutExtension(file.Model.FileName)
+						</div>
+					</a>
+				</div>
+			</div>
+		</div>
+		};
+	}
+}
+
+<div class="row">
+	<div class="flexbox-horizontal">
+		@foreach (var file in Files)
+		{
+			@FileDisplay(file)
+		}
+
+	</div>
+</div>

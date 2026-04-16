@@ -1,0 +1,38 @@
+﻿@*@attribute [Route("/WorksheetItemStatus")]
+@attribute [Page("Links/Timeboard.WorksheetAction", IsNavbarView = true, PageIconCss = "fas fa-table", Group = "Links/Timeboard")]
+@attribute [Authorize()]
+
+
+<NotLoadedGuardComponent @bind-ViewState="ViewState">
+	<div class="d-flex flex-row">
+		<table class="w-100 table">
+			<thead>
+				<tr>
+					<th scope="col"></th>
+					<th scope="col"><Translatable Key="Common/NumberRange" /></th>
+					<th scope="col"><Translatable Key="Common/Name" /></th>
+					<th scope="col"><Translatable Key="Time/Hours" /></th>
+					<th scope="col"><Translatable Key="Entity/Organization" /></th>
+					<th scope="col"><Translatable Key="Time/Hours" /> / <Translatable Key="Time/Week" /></th>
+					<th scope="col"></th>
+				</tr>
+			</thead>
+			<tbody>
+				@if (!Projects.Any())
+				{
+					<Translatable Key="Projects/NoProjects" />
+				}
+
+				@foreach (var projectInView in Projects.Where(e => e.ProjectSearchView.Hidden == FilterHidden))
+				{
+					<tr class="selectable selectable-primary"
+						@onclick="@(() => ModuleService.NavigateTo($"/WorksheetItemStatus/{projectInView.ProjectSearchView.ProjectId}"))">
+						<td>@projectInView.ProjectSearchView.NumberRangeEntry</td>
+						<td>@projectInView.ProjectSearchView.Name</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	</div>
+
+</NotLoadedGuardComponent>*@

@@ -1,0 +1,286 @@
+/* ── Dashboard page wrapper ───────────────────────────────────────── */
+.dashboard-page {
+    padding: 1rem;
+}
+
+/* ── GridStack container ──────────────────────────────────────────── */
+.grid-stack {
+    background: transparent;
+}
+
+/* The inner content div must fill the entire grid-stack-item cell */
+::deep .grid-stack-item-content {
+    overflow: auto;
+    border-radius: .375rem;
+}
+
+/* ── Widget card inside each grid cell ────────────────────────────── */
+.widget-card {
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 180px;
+}
+
+.widget-card-header {
+    background: transparent;
+    border-bottom: 1px solid rgba(0,0,0,.07);
+    padding: .5rem .75rem;
+    letter-spacing: .04em;
+}
+
+.widget-remove-btn {
+    opacity: 0;
+    transition: opacity .15s;
+}
+
+.widget-card:hover .widget-remove-btn {
+    opacity: 1;
+}
+
+/* ── Add-widget picker card ───────────────────────────────────────── */
+.widget-add-card {
+    min-width: 200px;
+    max-width: 260px;
+    cursor: pointer;
+    transition: box-shadow .15s, transform .1s;
+}
+
+.widget-add-card:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,.15) !important;
+    transform: translateY(-1px);
+}
+
+.widget-add-icon {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    background: rgba(13, 110, 253, .1);
+    color: var(--bs-primary, #0d6efd);
+    font-size: 1rem;
+    flex-shrink: 0;
+}
+
+/* ── ProjectChartWidget calendar grid ────────────────────────────── */
+.project-chart-grid {
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    gap: 0.35rem;
+    padding-bottom: 0.25rem;
+}
+
+.project-chart-day {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    min-width: 44px;
+    padding: 0.25rem 0.2rem;
+    border-radius: 6px;
+    border: 1px solid transparent;
+}
+
+.project-chart-day--today {
+    border-color: var(--bs-primary, #0d6efd);
+    background-color: rgba(13, 110, 253, .06);
+}
+
+.project-chart-day--empty .project-chart-day-label {
+    opacity: 0.4;
+}
+
+.project-chart-day-label {
+    font-size: 0.7rem;
+    text-align: center;
+    line-height: 1.2;
+    color: var(--bs-secondary);
+}
+
+.project-chart-ws-block {
+    display: block;
+    width: 100%;
+    font-size: 0.65rem;
+    padding: 2px 4px;
+    border-radius: 4px;
+    background-color: var(--bs-primary, #0d6efd);
+    color: #fff;
+    text-decoration: none;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 40px;
+    transition: opacity .15s;
+}
+
+.project-chart-ws-block:hover {
+    opacity: 0.8;
+    color: #fff;
+}
+
+.project-chart-ws--submitted {
+    background-color: var(--bs-success, #198754);
+    opacity: 0.7;
+}
+
+/* ── WelcomeWidget steps ──────────────────────────────────────────── */
+.welcome-step-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.welcome-step {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    padding: .6rem .75rem;
+    border-radius: 8px;
+    border: 1px solid rgba(0,0,0,.07);
+    background: rgba(0,0,0,.01);
+    transition: background .15s, box-shadow .15s;
+}
+
+.welcome-step:hover {
+    background: rgba(13, 110, 253, .05);
+    box-shadow: 0 2px 8px rgba(0,0,0,.08);
+}
+
+.welcome-step-icon {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    background: rgba(13, 110, 253, .1);
+    color: var(--bs-primary, #0d6efd);
+    font-size: 1rem;
+    flex-shrink: 0;
+}
+
+/* ── Workload ring ────────────────────────────────────────────────── */
+.workload-ring-container {
+    position: relative;
+    width: 96px;
+    height: 96px;
+    flex-shrink: 0;
+}
+
+.workload-ring-svg {
+    transform: rotate(-90deg);
+    width: 96px;
+    height: 96px;
+}
+
+.workload-ring-bg {
+    fill: none;
+    stroke: rgba(0,0,0,.08);
+    stroke-width: 8;
+}
+
+.workload-ring-bar {
+    fill: none;
+    stroke-width: 8;
+    stroke-linecap: round;
+    transition: stroke-dashoffset .4s ease, stroke .3s;
+}
+
+.workload-ring-bar--normal {
+    stroke: var(--bs-primary, #0d6efd);
+}
+
+.workload-ring-bar--done {
+    stroke: var(--bs-success, #198754);
+}
+
+.workload-ring-label {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: .9rem;
+    font-weight: 700;
+    line-height: 1;
+}
+
+/* ── Tracker pulse dot ─────────────────────────────────────────────── */
+.tracker-pulse-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--bs-danger, #dc3545);
+    box-shadow: 0 0 0 0 rgba(220,53,69,.4);
+    animation: pulse-ring 1.4s ease-out infinite;
+    flex-shrink: 0;
+}
+
+@keyframes pulse-ring {
+    0%   { box-shadow: 0 0 0 0 rgba(220,53,69,.5); }
+    70%  { box-shadow: 0 0 0 8px rgba(220,53,69,0); }
+    100% { box-shadow: 0 0 0 0 rgba(220,53,69,0); }
+}
+
+/* ── Report icon ───────────────────────────────────────────────────── */
+.report-icon {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    background: rgba(13,110,253,.08);
+    color: var(--bs-primary, #0d6efd);
+    font-size: .85rem;
+    flex-shrink: 0;
+}
+
+/* ── Organisation card ─────────────────────────────────────────────── */
+.org-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: .4rem;
+    padding: .75rem .5rem;
+    border-radius: 10px;
+    border: 1px solid rgba(0,0,0,.08);
+    background: rgba(0,0,0,.01);
+    color: inherit;
+    text-decoration: none;
+    transition: background .15s, box-shadow .15s;
+    text-align: center;
+}
+
+.org-card:hover {
+    background: rgba(13,110,253,.05);
+    box-shadow: 0 2px 10px rgba(0,0,0,.08);
+    color: inherit;
+}
+
+.org-card-icon {
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    background: rgba(13,110,253,.1);
+    color: var(--bs-primary, #0d6efd);
+    font-size: 1rem;
+}
+
+.org-card-name {
+    font-size: .8rem;
+    font-weight: 600;
+    line-height: 1.2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 100%;
+}
+

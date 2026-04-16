@@ -1,0 +1,9 @@
+﻿<CascadingValue Name="DirtyMarkerControlGroup" Value="this" IsFixed="true">
+	@ChildContent
+</CascadingValue>
+
+
+@if (DirtyMarkerControls.Where(e => e.EntityState != null).Any(f => f.EntityState.IsObjectDirty))
+{
+	<span class="text-info">*</span>
+}

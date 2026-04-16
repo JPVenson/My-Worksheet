@@ -1,0 +1,62 @@
+﻿@attribute [Authorize]
+@attribute [Route("/Settings/UserSettings")]
+@attribute [Page("Links/UserSettings", Group = "Links/Settings", IsNavbarView = true, PageIconCss = "fas fa-cog")]
+@inherits NavigationPageBase
+@using Microsoft.AspNetCore.Components.Authorization;
+@using MyWorksheet.Website.Client.Pages.TimeTracking.Shared
+
+@if (!CurrentUserStore.HasRole("SettingsUser"))
+{
+	<div class="alert alert-warning row">
+		<Translatable Key="UserSettings/Alert.MissingSettingsUserRole" />
+	</div>
+}
+
+<NotLoadedGuardComponent @bind-ViewState="ViewState">
+	<div class="d-flex flex-row flex-wrap">
+		<div class="d-flex flex-column">
+			<UserSettingsEditComponent />
+			<UserChangePasswordComponent />
+		</div>
+		@if (UsersAddress != null)
+		{
+			<EditForm Model="UsersAddress.Entity"
+					  OnValidSubmit="SaveAddress">
+				<fieldset>
+					<legend>
+						<Translatable Key="Address/Title" />
+						<DirtyMarkerControl EntityState="UsersAddress" />
+					</legend>
+					<AddressEditComponent Address="UsersAddress" />
+					<div>
+						<button class="btn btn-outline-primary" disabled="@(!UsersAddress.IsObjectDirty)">
+							<Translatable Key="Common/Save" />
+						</button>
+					</div>
+				</fieldset>
+
+			</EditForm>
+		}
+		<UserQuotaViewComponent />
+		@if (UserWorkload != null)
+		{
+			<EditForm Model="UserWorkload.Entity"
+					  OnValidSubmit="SaveUserWorkload">
+				<fieldset class="free-fieldset">
+					<legend>
+						<Translatable Key="UserSettings/GlobalWorktime.Title" />
+						<DirtyMarkerControl EntityState="UserWorkload" />
+					</legend>
+					<WorktimeEditComponent Workload="UserWorkload.Entity" />
+					<div>
+						<button class="btn btn-outline-primary" disabled="@(!UserWorkload.IsObjectDirty)">
+							<Translatable Key="Common/Save" />
+						</button>
+					</div>
+				</fieldset>
+
+			</EditForm>
+		}
+		<UserViewSettingsViewComponent />
+	</div>
+</NotLoadedGuardComponent>

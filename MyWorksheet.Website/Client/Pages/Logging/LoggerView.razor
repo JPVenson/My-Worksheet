@@ -1,0 +1,8 @@
+﻿@attribute [Route("/Logger")]
+@attribute [Page("Links/Logger", IsNavbarView = true, PageIconCss = "fas fa-object-group", Group = "Links/Server")]
+@attribute [Authorize()]
+@inherits MyWorksheet.Website.Client.Pages.Base.NavigationPageBase
+
+<NotLoadedGuardComponent @bind-ViewState="ViewState">
+	<LogEntriesViewComponent LoggerEntries="LoggerEntries" />
+</NotLoadedGuardComponent>

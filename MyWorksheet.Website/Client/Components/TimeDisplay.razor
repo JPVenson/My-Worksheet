@@ -1,0 +1,10 @@
+﻿@inherits ComponentViewBase
+@using System.Globalization
+@typeparam TValue
+
+<time class="time-display"
+      data-bs-toggle="tooltip"
+      @attributes="Attributes"
+      title="@(FormatMinutesToDateOnly((Value as IConvertible ?? 0F).ToInt32(TextService.CurrentSystemUiCulture), Format, !UserSettingsService.UiSettings.UseDecimalTimes))">
+@(FormatMinutesToDateOnly((Value as IConvertible ?? 0F).ToInt32(TextService.CurrentSystemUiCulture), Format, UserSettingsService.UiSettings.UseDecimalTimes))
+</time>

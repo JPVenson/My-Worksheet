@@ -1,0 +1,64 @@
+﻿@inherits NavigationPageBase
+@using BlazorMonaco.Editor;
+@using MyWorksheet.Website.Client.Components.InputHandler.Keyboard;
+@using MyWorksheet.Website.Client.Components.Fullscreen;
+
+<NotLoadedGuardComponent @bind-ViewState="ViewState">
+	<FullscreenComponent @bind-FullscreenController="FullscreenController"
+	                     CollapsedContainerClass="flex-fill d-flex">
+		<div class="d-flex flex-column w-100"  style="height: calc(100% - 1.6rem)">
+			<div>
+				<ul class="nav nav-tabs">
+					@foreach (var partialTab in ModelParts)
+					{
+						<li class="nav-item">
+							<a class="nav-link @When(partialTab == SelectedPart, "active")"
+							   @onclick="(() => SetPartial(partialTab))">
+								@if (partialTab == SelectedPart && !partialTab.IsRootDocument)
+								{
+									<input @bind-value="partialTab.Name"
+									       type="text"
+									       class="form-control form-control-sm"/>
+								}
+								else
+								{
+									@partialTab.Name
+								}
+							</a>
+						</li>
+					}
+					<li class="nav-item">
+						<a class="nav-link" @onclick="AddNewPartial">
+							<i class="fa fa-plus"></i>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link @When(DisplaySchema, "active")" @onclick="ToggleSchemaDisplay">
+							<Translatable Key="Common/Schema"/>
+						</a>
+					</li>
+				</ul>
+			</div>
+			@if (DisplaySchema)
+			{
+				<div style="overflow: none; height: calc(60vh - 1.6rem);">
+					<SchemaDisplayControl SchemaInfo="DataSourceSchema">
+
+					</SchemaDisplayControl>
+				</div>				
+			}
+			else
+			{
+				<div class="monacco-edtior-container h-100 @ContainerClass">
+					<StandaloneCodeEditor Id="@EditorId"
+					              OnDidInit="() => OnContinuesRender(EditorCreated)"
+					              OnDidFocusEditorText="RefreshEditorValue"
+					              OnDidChangeModel="ValueChanged"
+					              ConstructionOptions="EditorConstructionOptions"
+					              CssClass="@(EditorClass + " h-100 monacco-edtior")"
+					              @ref="Editor"/>
+				</div>
+			}
+		</div>
+	</FullscreenComponent>
+</NotLoadedGuardComponent>
