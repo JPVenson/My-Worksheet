@@ -86,7 +86,10 @@
 	// Use 'postCreateCommand' to run commands after the container is created.
 	// "postCreateCommand": "dotnet restore; dotnet workload install wasm-tools; dotnet dev-certs https --trust",
 	"postCreateCommand": "dotnet workload restore; dotnet restore; dotnet workload update",
-	"postStartCommand": "sudo mkdir -p /etc/docker && echo '{\"dns\": [\"10.255.255.254\"]}' | sudo tee /etc/docker/daemon.json > /dev/null && sudo kill -9 $(cat /var/run/docker.pid 2>/dev/null || pgrep dockerd) 2>/dev/null; sleep 2; sudo dockerd > /tmp/dockerd.log 2>&1 &",
+	"postStartCommand": {
+		"FixDns": "sudo mkdir -p /etc/docker && echo '{\"dns\": [\"10.255.255.254\"]}' | sudo tee /etc/docker/daemon.json > /dev/null && sudo kill -9 $(cat /var/run/docker.pid 2>/dev/null || pgrep dockerd) 2>/dev/null; sleep 2; sudo dockerd > /tmp/dockerd.log 2>&1 &",
+		"FixPermissions": "sudo mkdir /opt/myworksheet && sudo chown -R vscode:vscode /opt/myworksheet && sudo chown -R vscode:vscode /workspaces/My-Worksheet"
+	},
 	// Configure tool-specific properties.
 	// "customizations": {},
 	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
