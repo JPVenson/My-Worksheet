@@ -89,6 +89,161 @@ networks:
 
 ```
 
+### appsettings.json for Docker
+
+When running with Docker, mount your own `appsettings.json` into the container.
+
+This full template includes all current keys with inline comments. The snippet uses `jsonc` (JSON with comments) for readability in the README.
+
+```jsonc
+{
+  // Application logging verbosity
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information", // Global fallback log level
+      "Microsoft": "Warning", // ASP.NET Core framework logs
+      "Microsoft.Hosting.Lifetime": "Information" // Startup/shutdown lifecycle logs
+    }
+  },
+
+  // Database connection (from appsettings.Development.json)
+  "ConnectionStrings": {
+    "DefaultConnection": "User ID=postgres;Password=postgres;Host=db;Port=5432;Database=MyWorksheet;" // PostgreSQL connection string
+  },
+
+  // Hostname filter. Set to your real domain in production.
+  "AllowedHosts": "myworksheet.example.com",
+
+  // Internal transformation metadata used by the app/runtime
+  "transformation": {
+    "state": "debug", // Example: debug, staging, production
+    "realm": "test", // Environment/realm marker
+    "version": "beta" // App or rollout channel marker
+  },
+
+  // JWT token configuration for auth
+  "TokenSettings": {
+    "Issuer": "myworksheet.example.com", // Public issuer/host users access
+    "Audience": "API", // Token audience expected by API
+    "Key": "replace-with-a-long-random-secret" // Change this to a long random secret
+  },
+
+  // Mail settings (note: key names are part of current config contract)
+  "mail": {
+    "recive": {
+      "mainMailAddress": "noreply@example.com" // Default inbound address
+    },
+    "send": {
+      "realm": "smtp.example.com", // SMTP host name
+      "port": 587, // SMTP port
+      "sender": "noreply@example.com", // From address
+      "username": "smtp-user", // SMTP user
+      "password": "smtp-password", // SMTP password/secret
+      "dns": true // Enable domain checks for sending
+    }
+  },
+
+  // Maintenance mode message templates
+  "maintainace": {
+    "templates": {
+      "scheduled": "", // Template/message for planned maintenance
+      "unScheduled": "" // Template/message for unplanned downtime
+    }
+  },
+
+  // Main server options
+  "server": {
+    "realm": {
+      "primaryRealm": "https://www.my-worksheet.com" // Primary realm URL used by the server
+    },
+    "storage": {
+      "default": {
+        "path": "/opt/myworksheet" // Default base storage path
+      },
+      "sql": {
+        "maxReportSize": 25600 // Max generated report payload size
+      },
+      "file": {
+        "token": {
+          "maxttl": 1200 // File token TTL in seconds
+        },
+        "location": "/file-store/", // Persistent storage mount path
+        "temp": "/tmp/mw-temp/" // Temporary file path (must be writable)
+      }
+    },
+    "user": {
+      "create": {
+        "defaultRegion": "00000000-0000-0000-0000-000000000000", // Default region id for new users
+        "defaultRoles": "Kunde,WorksheetActionsUser,OrganisationAdmin,SettingsUsers,ProjectManager,WorksheetUser,WorksheetAdmin" // Comma-separated default roles
+      }
+    },
+    "external": {
+      "user": {
+        "callthreshold": 20 // Threshold for external user related checks
+      },
+      "uriRules": {
+        "allowLoopback": false, // Allow calls to 127.0.0.1 / localhost
+        "allowSameNetwork": false, // Allow calls to private LAN targets
+        "allowRelative": false // Allow relative target URLs
+      }
+    },
+    "featureSwitch": {
+      "registration": {
+        "enabled": false // Public self-registration
+      },
+      "testRegistration": {
+        "enabled": false // Test-user registration
+      }
+    }
+  },
+
+  // Google reCAPTCHA keys (from appsettings.Development.json)
+  "google": {
+    "recaptcha": {
+      "keys": {
+        "public": "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI", // Site key
+        "secret": "6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe" // Secret key
+      }
+    }
+  },
+
+  // CDN fallback cache
+  "Cdn": {
+    "Cache": {
+      "Path": "/Content/CdnCache/", // Cache folder
+      "Enumeration": [] // Optional predefined CDN entries
+    }
+  },
+
+  // Activity/monitoring settings
+  "activitys": {
+    "trackerStillRunning": {
+      "fallbackMwt": 60 // Minutes before long-running tracker warning
+    }
+  },
+
+  // Feature switches for optional "is it" integration
+  "is": {
+    "it": {
+      "free": true // Example feature flag
+    }
+  },
+
+  // Default quotas applied to new accounts/users
+  "account": {
+    "quota": {
+      "default": {
+        "Project": -1, // -1 means unlimited
+        "Worksheet": -1, // -1 means unlimited
+        "LocalFile": 50000, // File quota (project-specific unit)
+        "Webhooks": 20, // Max webhook count
+        "ConcurrentReports": 3 // Max concurrent report jobs
+      }
+    }
+  }
+}
+```
+
 ---
 
 ## AI Usage
