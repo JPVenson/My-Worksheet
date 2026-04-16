@@ -2,24 +2,12 @@
 
 # RUN:
 # Increment Tag no:
-# docker build -t docker.borgcube.de/myworksheet:1.00 -f "MyWorksheet.Website/Server/Dockerfile" .
+# docker build -t ghcr.io/myworksheet:1.00 -f "MyWorksheet.Website/Server/Dockerfile" .
 # Then if not logged in:
-# docker login docker.borgcube.de
-# docker image push docker.borgcube.de/myworksheet:1.00
+# docker image push ghcr.io/myworksheet:1.00
 FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS base
 
-
 # RUN pwsh bin\Debug\net6\playwright.ps1 install --with-deps chromium
-
-# RUN apt-get update && apt-get install -y --no-install-recommends \
-#     xvfb
-
-
-# RUN apt-get update && apt-get install -y npm && \
-#      npm i playwright-chromium@1.6.2 && \
-#      npm i playwright-firefox@1.6.2 && \
-#      npm i playwright-webkit@1.6.2
-# RUN apt-get remove nodejs -y
  
 WORKDIR /app
 EXPOSE 80
