@@ -8,6 +8,10 @@ My-Worksheet is a free, open-source time tracking and project management tool bu
 
 You host it yourself. Your data stays yours.
 
+> [!WARNING]
+> My-Worksheet as a public FOSS project has just been open sourced from multiple years of running just for myself. There might be start issues i forgotten. For all intents and purposes treat this as an Beta software.
+
+
 ---
 
 ## Background
@@ -63,7 +67,7 @@ Example Docker-Compose.yml file:
 
 services:
   my-worksheet:
-    image: ghcs.io/myworksheet:latest
+    image: ghcr.io/jpvenson/my-worksheet:main
     hostname: my-worksheet
     restart: unless-stopped
     networks:
