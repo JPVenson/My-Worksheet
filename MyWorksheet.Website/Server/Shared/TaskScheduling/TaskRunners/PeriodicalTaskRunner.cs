@@ -46,7 +46,7 @@ internal class PeriodicalTaskRunner : ITaskRunner
 
     public bool IsAwaitable { get; set; }
 
-    public async Task Execute(IAppLogger logger)
+    public async Task Execute(ILogger logger)
     {
         try
         {

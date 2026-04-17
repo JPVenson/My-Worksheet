@@ -120,8 +120,8 @@ public class AppUserConfiguration : IEntityTypeConfiguration<AppUser>
             .HasMaxLength(64);
         entity.Property(e => e.RowState)
             .IsRequired()
-            .IsRowVersion()
-            .IsConcurrencyToken();
+            .IsConcurrencyToken()
+            .ValueGeneratedNever();
         entity.Property(e => e.Username)
             .IsRequired()
             .HasMaxLength(56);

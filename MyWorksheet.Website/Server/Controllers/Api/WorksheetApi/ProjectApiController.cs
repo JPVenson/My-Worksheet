@@ -35,7 +35,7 @@ public class ProjectControllerBase : RestApiControllerBase<Project, GetProjectMo
 {
     private readonly IBlobManagerService _blobManagerService;
     private readonly IBudgetService _budgetService;
-    private readonly IAppLogger _logger;
+    private readonly ILogger<ProjectControllerBase> _logger;
     private readonly INumberRangeService _numberRangeService;
     private readonly ObjectChangedService _objectChangedService;
     private readonly IUserQuotaService _userQuotaService;
@@ -44,7 +44,7 @@ public class ProjectControllerBase : RestApiControllerBase<Project, GetProjectMo
 
     public ProjectControllerBase(
         IMapperService mapper,
-        IAppLogger logger,
+        ILogger<ProjectControllerBase> logger,
         WebHookService webHooks,
         IUserQuotaService userQuotaService,
         WorksheetWorkflowManager worksheetWorkflowManager,

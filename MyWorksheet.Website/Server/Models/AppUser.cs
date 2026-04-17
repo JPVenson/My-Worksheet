@@ -37,7 +37,7 @@ public partial class AppUser
 
     public DateTime CreateDate { get; set; }
 
-    public byte[] RowState { get; set; }
+    public byte[] RowState { get; set; } = Guid.NewGuid().ToByteArray();
 
     public virtual ICollection<Address> Addresses { get; set; } = [];
 

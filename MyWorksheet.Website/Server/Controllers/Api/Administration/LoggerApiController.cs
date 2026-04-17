@@ -15,11 +15,11 @@ namespace MyWorksheet.Website.Server.Controllers.Api.Administration;
 [ApiController]
 public class LoggerApiController : ApiControllerBase
 {
-    private readonly IAppLogger _logger;
+    private readonly ILogger<LoggerApiController> _logger;
     private readonly IDbContextFactory<MyworksheetContext> _contextFactory;
     private readonly IMapperService _mapperService;
 
-    public LoggerApiController(IAppLogger logger,
+    public LoggerApiController(ILogger<LoggerApiController> logger,
         IDbContextFactory<MyworksheetContext> contextFactory,
         IMapperService mapperService)
     {

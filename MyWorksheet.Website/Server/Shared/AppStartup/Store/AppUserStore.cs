@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -26,6 +27,11 @@ public class AppUserStore : IUserStore<AppUser>, IUserPasswordStore<AppUser>, IU
 
     public async Task<IdentityResult> CreateAsync(AppUser user, CancellationToken cancellationToken)
     {
+        if (user.RowState == null || user.RowState.Length == 0)
+        {
+            user.RowState = Guid.NewGuid().ToByteArray();
+        }
+
         var db = await _dbContextFactory.CreateDbContextAsync(cancellationToken);
         await using (db.ConfigureAwait(false))
         {

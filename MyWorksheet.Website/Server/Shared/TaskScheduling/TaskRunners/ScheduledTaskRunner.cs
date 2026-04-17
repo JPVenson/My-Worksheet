@@ -47,7 +47,7 @@ internal class ScheduledTaskRunner : ITaskRunner
 
     protected TimeSpan RunAt { get; }
 
-    public async Task Execute(IAppLogger logger)
+    public async Task Execute(ILogger logger)
     {
         try
         {

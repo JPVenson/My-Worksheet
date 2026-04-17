@@ -16,11 +16,11 @@ public class SchedulerApiController : ApiControllerBase
 {
     private readonly IMapperService _mapperService;
     private readonly ISchedulerService _schedulerService;
-    private readonly IAppLogger _appLogger;
+    private readonly ILogger<SchedulerApiController> _appLogger;
 
     public SchedulerApiController(IMapperService mapperService,
         ISchedulerService schedulerService,
-        IAppLogger appLogger)
+        ILogger<SchedulerApiController> appLogger)
     {
         _mapperService = mapperService;
         _schedulerService = schedulerService;

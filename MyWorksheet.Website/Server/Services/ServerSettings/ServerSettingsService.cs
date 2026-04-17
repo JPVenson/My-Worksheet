@@ -55,9 +55,9 @@ public static class ServerSettingsExtentions
 [SingletonService(typeof(IServerSettingsService))]
 public class ServerSettingsService : IServerSettingsService
 {
-    private readonly IAppLogger _logger;
+    private readonly ILogger<ServerSettingsService> _logger;
 
-    public ServerSettingsService(IAppLogger logger)
+    public ServerSettingsService(ILogger<ServerSettingsService> logger)
     {
         _logger = logger;
         Root = new ServerSettingsModel("root");

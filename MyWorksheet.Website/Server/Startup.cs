@@ -8,8 +8,6 @@ using MyWorksheet.Webpage.Controller.Api;
 using MyWorksheet.Website.Server.Models;
 using MyWorksheet.Website.Server.Services.Migration;
 using MyWorksheet.Website.Server.Shared.Hubs.Hubs.Server;
-using MyWorksheet.Website.Server.Shared.Services.Logging;
-using MyWorksheet.Website.Server.Shared.Services.Logging.Contracts;
 using MyWorksheet.Website.Shared.Services;
 using MyWorksheet.Website.Shared.Services.Activation;
 using Microsoft.AspNetCore.Builder;
@@ -91,16 +89,12 @@ public class Startup
             .FromTypes(typeof(Startup).Assembly.GetExportedTypes())
             .FromTypes(typeof(ActivatorService).Assembly.GetExportedTypes())
             .LocateServices();
+        services.AddSingleton(services);
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {
-        var activator = app.ApplicationServices.GetRequiredService<ActivatorService>();
-
-        var logger = app.ApplicationServices.GetService<IAppLogger>();
-        var requiredService = app.ApplicationServices.GetRequiredService<ILogger<Startup>>();
-        logger.Add(new AppDelegateLogger(requiredService));
         var migrationService = app.ApplicationServices.GetRequiredService<MigrationService>();
         migrationService.MigrateStepAsync(MigrationStageTypes.PreInitialisation, app.ApplicationServices).ConfigureAwait(true).GetAwaiter().GetResult();
         migrationService.MigrateStepAsync(MigrationStageTypes.CoreInitialisation, app.ApplicationServices).ConfigureAwait(true).GetAwaiter().GetResult();
@@ -165,6 +159,5 @@ public class Startup
             }
         });
 
-        logger.Add(activator.ActivateType<SignalLogger>());
     }
 }

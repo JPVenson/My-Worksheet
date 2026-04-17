@@ -18,10 +18,10 @@ namespace MyWorksheet.Website.Server.Services.Statistics.Provider;
 
 public class ActionCasesStatisticsProvider : StatisticsProviderBase
 {
-    private readonly IAppLogger _appLogger;
+    private readonly ILogger<ActionCasesStatisticsProvider> _appLogger;
     private readonly IUserWorktimeService _userWorktimeService;
 
-    public ActionCasesStatisticsProvider(IDbContextFactory<MyworksheetContext> dbContextFactory, IAppLogger appLogger,
+    public ActionCasesStatisticsProvider(IDbContextFactory<MyworksheetContext> dbContextFactory, ILogger<ActionCasesStatisticsProvider> appLogger,
         IUserWorktimeService userWorktimeService) : base(dbContextFactory)
     {
         _appLogger = appLogger;

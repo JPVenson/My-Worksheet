@@ -1,5 +1,4 @@
 ﻿using System;
-using MyWorksheet.Website.Server.Shared.Services.Logging.Contracts;
 
 namespace MyWorksheet.Website.Server.Services.ServerInfo.InfoItems;
 
@@ -8,7 +7,7 @@ public class ServerPullInfoListenerDelegate : ServerPullInfoListener
     private readonly Func<object> _getValue;
 
     public ServerPullInfoListenerDelegate(Action<string, object> publisher, string key, Func<object> getValue,
-        IAppLogger logger)
+        ILogger logger)
         : base(publisher, logger)
     {
         _getValue = getValue;

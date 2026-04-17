@@ -9,6 +9,7 @@ using MyWorksheet.Website.Server.Shared.Services.Logging.Contracts;
 using MyWorksheet.Website.Shared.Util;
 using MyWorksheet.Website.Shared.ViewModels.ApiResultModels.Accounting;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace MyWorksheet.Webpage.Helper;
 
@@ -36,7 +37,7 @@ public static class AccountHelper
         AccountApiUserCreate model,
         Address address,
         string defaultRoles,
-        IAppLogger logger,
+        ILogger logger,
         IUserQuotaService userQuotaService,
         INumberRangeService numberRangeService,
         bool isTestUser = false)
@@ -63,7 +64,9 @@ public static class AccountHelper
         user.IsAktive = true;
         user.NeedPasswordReset = model.NeedPasswordReset;
         user.CreateDate = DateTime.UtcNow;
+        user.RowState = Guid.NewGuid().ToByteArray();
         db.Add(user);
+        db.SaveChanges();
 
         address.Country = country.RegionName;
         address.DateOfCreation = DateTime.UtcNow;
@@ -83,19 +86,19 @@ public static class AccountHelper
             db.Add(new UserRoleMap
             {
                 IdRole = hasRole.Id,
-                IdUser = user.AppUserId
+                IdUserNavigation = user
             });
         }
 
         db.Add(new UserWorkload()
         {
-            IdAppUser = user.AppUserId,
+            IdAppUserNavigation = user,
         });
 
         db.Add(new UserAssoisiatedUserMap
         {
-            IdChildUser = user.AppUserId,
-            IdParentUser = user.AppUserId,
+            IdChildUserNavigation = user,
+            IdParentUserNavigation = user,
             IdUserRelation = UserToUserRoles.Self.Id
         });
 

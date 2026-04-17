@@ -37,13 +37,13 @@ public class PriorityQueueManager : RequireInit, IDisposable, IPriorityQueueMana
 {
     private readonly PriorityQueueOptions _queueOptions;
     private readonly IAppMetricsLogger _client;
-    private readonly IAppLogger _logger;
+    private readonly ILogger<PriorityQueueManager> _logger;
     private readonly IPriorityQueueArgumentStore _priorityQueueArgumentStore;
     private readonly ActivatorService _activatorService;
 
     public PriorityQueueManager(PriorityQueueOptions queueOptions,
         IAppMetricsLogger appMetricsLogger,
-        IAppLogger logger,
+        ILogger<PriorityQueueManager> logger,
         IPriorityQueueArgumentStore priorityQueueArgumentStore,
         ActivatorService activatorService)
     {

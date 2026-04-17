@@ -1,5 +1,4 @@
 ﻿using MyWorksheet.Website.Server.Shared.Services.Logging;
-using MyWorksheet.Website.Server.Shared.Services.Logging.Contracts;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -22,7 +21,7 @@ public class Program
             })
             .ConfigureServices(collection =>
             {
-                collection.AddSingleton<IAppLogger, DelegateLogger>();
+                collection.AddSingleton<DelegateLogger>();
             })
             .ConfigureLogging(e =>
             {

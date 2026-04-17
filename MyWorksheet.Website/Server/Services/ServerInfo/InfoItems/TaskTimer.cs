@@ -11,9 +11,9 @@ namespace MyWorksheet.Website.Server.Services.ServerInfo.InfoItems;
 public class TaskTimer
 {
     private readonly int _delay;
-    private readonly IAppLogger _appLogger;
+    private readonly ILogger _appLogger;
 
-    public TaskTimer(int delay, string tag, IAppLogger appLogger)
+    public TaskTimer(int delay, string tag, ILogger appLogger)
     {
         Tag = tag;
         _delay = delay;

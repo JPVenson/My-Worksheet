@@ -1,7 +1,6 @@
 ﻿using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
-using MyWorksheet.Website.Server.Shared.Services.Logging.Contracts;
 
 namespace MyWorksheet.Website.Server.Services.ServerInfo.InfoItems;
 
@@ -14,7 +13,7 @@ public static class TaskTimerManager
 
     public static ConcurrentDictionary<int, TaskTimer> SharedTimers { get; private set; }
 
-    public static TaskTimer GetOrCreateFromCache(int delay, string tag, IAppLogger logger)
+    public static TaskTimer GetOrCreateFromCache(int delay, string tag, ILogger logger)
     {
         return SharedTimers.GetOrAdd(delay, f => new TaskTimer(f, tag, logger));
     }

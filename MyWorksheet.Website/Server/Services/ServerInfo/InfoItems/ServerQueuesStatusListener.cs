@@ -1,7 +1,6 @@
 ﻿using System;
 using MyWorksheet.Website.Server.Services.PriorityQueue.ExecuteLater;
 using MyWorksheet.Website.Server.Services.PriorityQueue.ExecuteLater.ArgumentStore;
-using MyWorksheet.Website.Server.Shared.Services.Logging.Contracts;
 
 namespace MyWorksheet.Website.Server.Services.ServerInfo.InfoItems;
 
@@ -9,7 +8,7 @@ public class ServerQueuesStatusListener : ServerPullInfoListener
 {
     readonly IPriorityQueueManager _priorityQueueManager;
     public ServerQueuesStatusListener(Action<string, object> publisher, IPriorityQueueManager priorityQueueManager,
-        IAppLogger logger) : base(publisher, logger)
+        ILogger logger) : base(publisher, logger)
     {
         _priorityQueueManager = priorityQueueManager;
         foreach (var queueDispatcher in _priorityQueueManager.PriorityQueues)

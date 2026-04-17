@@ -34,14 +34,14 @@ public class ServerManagerService : RequireInit, IServerManagerService
     private readonly IDbContextFactory<MyworksheetContext> _dbFactory;
     private readonly IOptions<MyWorksheetSettings> _myWorksheetSettings;
     private readonly IOptions<AppServerSettings> _serverSettings;
-    private readonly IAppLogger _logger;
+    private readonly ILogger<ServerManagerService> _logger;
     private readonly ActivatorService _activatorService;
     private readonly ObjectChangedService _objectChangedService;
 
     public ServerManagerService(IDbContextFactory<MyworksheetContext> dbFactory,
         IOptions<MyWorksheetSettings> myWorksheetSettings,
         IOptions<AppServerSettings> serverSettings,
-        IAppLogger logger,
+        ILogger<ServerManagerService> logger,
         ActivatorService activatorService,
         ObjectChangedService objectChangedService)
     {

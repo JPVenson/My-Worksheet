@@ -19,11 +19,11 @@ namespace MyWorksheet.Website.Server.Services.CdnFallback;
 public class CdnFallbackService : ICdnFallbackService
 {
     private readonly IOptions<CdnSettings> _cdnSettings;
-    private readonly IAppLogger _appLogger;
+    private readonly ILogger<CdnFallbackService> _appLogger;
     private readonly ILocalFileProvider _localFileProvider;
 
     public CdnFallbackService(IOptions<CdnSettings> cdnSettings,
-        IAppLogger appLogger,
+        ILogger<CdnFallbackService> appLogger,
         ILocalFileProvider localFileProvider)
     {
         _cdnSettings = cdnSettings;

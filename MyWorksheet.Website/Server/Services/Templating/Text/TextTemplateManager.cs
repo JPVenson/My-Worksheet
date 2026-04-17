@@ -33,7 +33,7 @@ public class TextTemplateManager : ITextTemplateManager
 {
     private readonly IServerPriorityQueueManager _mgr;
     private readonly ActivatorService _activatorService;
-    private readonly IAppLogger _appLogger;
+    private readonly ILogger<TextTemplateManager> _appLogger;
     private readonly IBlobManagerService _blobManagerService;
     private readonly IUserQuotaService _userQuotaService;
     private readonly IDbContextFactory<MyworksheetContext> _dbContextFactory;
@@ -41,7 +41,7 @@ public class TextTemplateManager : ITextTemplateManager
 
     public TextTemplateManager(IServerPriorityQueueManager mgr,
         ActivatorService activatorService,
-        IAppLogger appLogger,
+        ILogger<TextTemplateManager> appLogger,
         IBlobManagerService blobManagerService,
         IUserQuotaService userQuotaService,
         IDbContextFactory<MyworksheetContext> dbContextFactory,

@@ -17,11 +17,11 @@ public interface ITask
 
 public class TaskContext
 {
-    public TaskContext(IAppLogger logger)
+    public TaskContext(ILogger logger)
     {
         Logger = logger;
     }
 
-    public IAppLogger Logger { get; }
+    public ILogger Logger { get; }
     public bool IsManualInvocation { get; set; }
 }

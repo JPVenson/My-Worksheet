@@ -7,7 +7,7 @@ using MyWorksheet.Website.Server.Shared.Services.Logging.Contracts;
 
 namespace MyWorksheet.Website.Server.Shared.Services.Logging;
 
-public class DelegateLogger : IAppLogger
+public class DelegateLogger : ILoggerDelegation, ICollection<ILoggerDelegation>
 {
     public DelegateLogger()
     {
@@ -33,7 +33,7 @@ public class DelegateLogger : IAppLogger
         Log(message, category, "Warning", optionalData);
     }
 
-    IAppLogger IAppLogger.Copy()
+    public DelegateLogger CopyLogger()
     {
         var logger = new DelegateLogger();
         foreach (var loggerDelegation in Logger)
@@ -111,7 +111,7 @@ public class DelegateLogger : IAppLogger
 
     public ILoggerDelegation Copy()
     {
-        return (this as IAppLogger).Copy();
+        return CopyLogger();
     }
 
     protected virtual void OnOnLog(string message, string category, string level, IDictionary<string, string> optionalData)

@@ -4,9 +4,9 @@ namespace MyWorksheet.Website.Server.Shared.Services.Logging;
 
 public class LoggerFactory
 {
-    private static IAppLogger _logger;
+    private static DelegateLogger _logger;
 
-    public static IAppLogger Logger
+    public static DelegateLogger Logger
     {
         get
         {

@@ -15,10 +15,10 @@ namespace MyWorksheet.Website.Server.Shared.Services.Logging;
 public class SignalLogger : ILoggerDelegation
 {
     private readonly IHubContext<LoggerHub> _loggerHub;
-    private readonly IAppLogger _logger;
+    private readonly ILogger<SignalLogger> _logger;
     private readonly IHostApplicationLifetime _hostApplicationLifetime;
 
-    public SignalLogger(IHubContext<LoggerHub> loggerHub, IAppLogger logger, IHostApplicationLifetime hostApplicationLifetime)
+    public SignalLogger(IHubContext<LoggerHub> loggerHub, ILogger<SignalLogger> logger, IHostApplicationLifetime hostApplicationLifetime)
     {
         _loggerHub = loggerHub;
         _logger = logger;

@@ -28,14 +28,14 @@ namespace MyWorksheet.Website.Server.Services.Blob;
 public class BlobManagerService : RequireInit, IBlobManagerService
 {
     private readonly IDbContextFactory<MyworksheetContext> _dbContextFactory;
-    private readonly IAppLogger _appLogger;
+    private readonly ILogger<BlobManagerService> _appLogger;
     private readonly IServerPriorityQueueManager _serverPriorityQueueManager;
     private readonly IThumbnailService _thumbnailService;
     private readonly IOptions<AppServerSettings> _serverSettings;
     private readonly ActivatorService _activatorService;
 
     public BlobManagerService(IDbContextFactory<MyworksheetContext> dbContextFactory,
-        IAppLogger appLogger,
+        ILogger<BlobManagerService> appLogger,
         IServerPriorityQueueManager serverPriorityQueueManager,
         IThumbnailService thumbnailService,
         IOptions<AppServerSettings> serverSettings,

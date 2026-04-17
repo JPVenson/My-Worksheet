@@ -13,7 +13,7 @@ namespace MyWorksheet.Website.Server.Services.Templating.Pdf;
 [SingletonService(typeof(IPdfTemplateEngine), typeof(IReportCapability))]
 public class HtmlRenderTemplateEngine : RequireInit, IPdfTemplateEngine
 {
-    private readonly IAppLogger _appLogger;
+    private readonly ILogger<HtmlRenderTemplateEngine> _appLogger;
 
     static HtmlRenderTemplateEngine()
     {
@@ -21,7 +21,7 @@ public class HtmlRenderTemplateEngine : RequireInit, IPdfTemplateEngine
         Encoding.RegisterProvider(provider);
     }
 
-    public HtmlRenderTemplateEngine(IAppLogger appLogger)
+    public HtmlRenderTemplateEngine(ILogger<HtmlRenderTemplateEngine> appLogger)
     {
         _appLogger = appLogger;
     }

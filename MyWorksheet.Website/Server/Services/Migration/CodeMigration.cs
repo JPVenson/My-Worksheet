@@ -1,6 +1,7 @@
 namespace MyWorksheet.Website.Server.Services.Migration;
 
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
@@ -26,17 +27,7 @@ internal class CodeMigration(Type migrationType, MigrationAttribute metadata)
 
         foreach (ServiceDescriptor service in serviceProvider.GetRequiredService<IServiceCollection>())
         {
-            if (service.Lifetime == ServiceLifetime.Singleton && !service.ServiceType.IsGenericTypeDefinition)
-            {
-                object? serviceInstance = serviceProvider.GetService(service.ServiceType);
-                if (serviceInstance != null)
-                {
-                    childServiceCollection.AddSingleton(service.ServiceType, serviceInstance);
-                    continue;
-                }
-            }
-
-            childServiceCollection.Add(service);
+            (childServiceCollection as ICollection<ServiceDescriptor>).Add(service);            
         }
 
         return childServiceCollection;

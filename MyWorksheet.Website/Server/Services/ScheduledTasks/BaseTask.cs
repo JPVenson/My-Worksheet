@@ -49,11 +49,13 @@ public abstract class BaseTask : ITask
             {
                 optionalData["Exception"] = failed.ToString();
             }
-            context.Logger.Log(string.Format("Stopped Task: " + (failed != null ? "Failed" : "") + " {1} at {0}", DateTime.UtcNow, NamedTask),
-                LoggerCategories.ServerTask.ToString(),
-                failed == null ? LogLevel.Information.ToString() : LogLevel.Error.ToString(),
-                optionalData,
-                DateTime.UtcNow);
+            using (context.Logger.BeginScope(optionalData))
+            {
+                context.Logger.Log(failed == null ? LogLevel.Information : LogLevel.Error,
+                    "[{Category}] {Message}",
+                    LoggerCategories.ServerTask.ToString(),
+                    string.Format("Stopped Task: " + (failed != null ? "Failed" : "") + " {1} at {0}", DateTime.UtcNow, NamedTask));
+            }
 
 
             IsBusy = false;

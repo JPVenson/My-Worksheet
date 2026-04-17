@@ -15,11 +15,11 @@ namespace MyWorksheet.Website.Server.Services.Statistics.Provider;
 
 public class WorktimeStatisticsProvider : StatisticsProviderBase
 {
-    private readonly IAppLogger _appLogger;
+    private readonly ILogger<WorktimeStatisticsProvider> _appLogger;
     private readonly IUserWorktimeService _userWorktimeService;
 
     public WorktimeStatisticsProvider(IDbContextFactory<MyworksheetContext> dbContextFactory,
-        IAppLogger appLogger,
+        ILogger<WorktimeStatisticsProvider> appLogger,
         IUserWorktimeService userWorktimeService) : base(dbContextFactory)
     {
         _appLogger = appLogger;

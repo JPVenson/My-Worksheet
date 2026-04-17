@@ -24,12 +24,12 @@ public class ConfigurateSettingsService : RequireInit
     public override void Init(IServiceProvider services)
     {
         var activator = services.GetRequiredService<ActivatorService>();
-        Action<ServerSettingsService, IAppLogger, IConfiguration> configurateSettings = ConfigurateSettings;
+        Action<ServerSettingsService, ILogger<ConfigurateSettingsService>, IConfiguration> configurateSettings = ConfigurateSettings;
         activator.ActivateMethod(configurateSettings.Method, this);
     }
 
     public void ConfigurateSettings(ServerSettingsService settings,
-        IAppLogger logger, IConfiguration configuration)
+        ILogger<ConfigurateSettingsService> logger, IConfiguration configuration)
     {
         settings.Delimiter.Add("->");
         settings.FromConfiguration(configuration, "AppSettings").ToArray();
@@ -93,7 +93,7 @@ public class ConfigurateSettingsService : RequireInit
     //private static void Entitys_OnQuery(object sender, DataAccess.DbEventArgs.DatabaseActionEvent e)
     //{
     //	var queryDebuggerStackTracer = e.QueryDebugger.StackTracer;
-    //	IoC.Resolve<IAppLogger>()
+    //	IoC.Resolve<ILogger<ConfigurateSettingsService>>()
     //		.LogVerbose("Query", LoggerCategories.Database.ToString(),
     //			new Dictionary<string, string>()
     //			{

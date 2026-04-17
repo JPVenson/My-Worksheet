@@ -21,9 +21,9 @@ public class WorksheetItemStatusController : ApiControllerBase
 {
     private readonly IMapperService _mapper;
     private readonly IDbContextFactory<MyworksheetContext> _dbContextFactory;
-    private readonly IAppLogger _logger;
+    private readonly ILogger<WorksheetItemStatusController> _logger;
 
-    public WorksheetItemStatusController(IMapperService mapper, IDbContextFactory<MyworksheetContext> dbContextFactory, IAppLogger logger)
+    public WorksheetItemStatusController(IMapperService mapper, IDbContextFactory<MyworksheetContext> dbContextFactory, ILogger<WorksheetItemStatusController> logger)
     {
         _mapper = mapper;
         _dbContextFactory = dbContextFactory;

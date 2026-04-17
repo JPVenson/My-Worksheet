@@ -20,7 +20,7 @@ public class TemplateProviderService : ITemplateProviderService
         _localFileProvider = localFileProvider;
         LocalTemplates = [];
         //var settingsService = IoC.Resolve<IServerSettingsService>();
-        //var logger = IoC.Resolve<IAppLogger>();
+        //var logger = IoC.Resolve<ILogger<TemplateProviderService>>();
         //var fileService = IoC.ResolveLater<ILocalFileProvider>();
 
         //fileService.ContinueWith(f =>

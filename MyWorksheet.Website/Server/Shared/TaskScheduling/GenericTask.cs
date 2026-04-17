@@ -1,19 +1,18 @@
 ﻿using System;
 using System.Threading.Tasks;
-using MyWorksheet.Website.Server.Shared.Services.Logging.Contracts;
 
 namespace MyWorksheet.Website.Server.Shared.TaskScheduling;
 
 public class GenericTask : ITask
 {
-    public GenericTask(string namedTask, Action<IAppLogger> taskItem, Action<Exception> onFailed)
+    public GenericTask(string namedTask, Action<ILogger> taskItem, Action<Exception> onFailed)
     {
         TaskItem = taskItem;
         OnFailed = onFailed;
         NamedTask = namedTask;
     }
 
-    public Action<IAppLogger> TaskItem { get; private set; }
+    public Action<ILogger> TaskItem { get; private set; }
     public Action<Exception> OnFailed { get; private set; }
     public async Task Run(TaskContext context)
     {

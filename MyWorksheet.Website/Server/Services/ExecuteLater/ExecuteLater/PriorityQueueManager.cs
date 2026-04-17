@@ -18,10 +18,10 @@ namespace MyWorksheet.Website.Server.Services.ExecuteLater.ExecuteLater
 	{
 		private readonly PriorityQueueOptions _queueOptions;
 		private readonly IAppMetricsLogger _appMetricsLogger;
-		private readonly IAppLogger _appLogger;
+		private readonly ILogger<PriorityQueueManager> _appLogger;
 		private readonly IPriorityQueueArgumentStore _priorityQueueArgumentStore;
 
-		public PriorityQueueManager(PriorityQueueOptions queueOptions, IAppMetricsLogger appMetricsLogger, IAppLogger appLogger, IPriorityQueueArgumentStore priorityQueueArgumentStore)
+		public PriorityQueueManager(PriorityQueueOptions queueOptions, IAppMetricsLogger appMetricsLogger, ILogger<PriorityQueueManager> appLogger, IPriorityQueueArgumentStore priorityQueueArgumentStore)
 		{
 			_queueOptions = queueOptions;
 			_appMetricsLogger = appMetricsLogger;

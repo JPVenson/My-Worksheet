@@ -29,14 +29,14 @@ public class TemplateReportingApiController : ApiControllerBase
 {
     private readonly IMapperService _mapperService;
     private readonly IDbContextFactory<MyworksheetContext> _dbContextFactory;
-    private readonly IAppLogger _logger;
+    private readonly ILogger<TemplateReportingApiController> _logger;
     private readonly ICdnFallbackService _cdnFallbackService;
     private readonly ILocalFileProvider _localFileProvider;
     private readonly ITextTemplateManager _textTemplateManager;
 
     public TemplateReportingApiController(IMapperService mapperService,
         IDbContextFactory<MyworksheetContext> dbContextFactory,
-        IAppLogger logger,
+        ILogger<TemplateReportingApiController> logger,
         ICdnFallbackService cdnFallbackService,
         ILocalFileProvider localFileProvider,
         ITextTemplateManager textTemplateManager)

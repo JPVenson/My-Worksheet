@@ -31,7 +31,7 @@ namespace MyWorksheet.Website.Server.Controllers.Api.WorksheetApi;
     Roles.AdminRoleName + "," + Roles.WorksheetAdminRoleName + "," + Roles.WorksheetUserRoleName)]
 public class WorksheetApiControllerBase : RestApiControllerBase<Worksheet, WorksheetModel, WorksheetModel>
 {
-    private readonly IAppLogger _logger;
+    private readonly ILogger<WorksheetApiControllerBase> _logger;
     private readonly WorksheetWorkflowManager _workflowManager;
     private readonly IUserQuotaService _userQuotaService;
     private readonly INumberRangeService _numberRangeService;
@@ -42,7 +42,7 @@ public class WorksheetApiControllerBase : RestApiControllerBase<Worksheet, Works
 
     public WorksheetApiControllerBase(IMapperService mapper,
         WebHookService webHookService,
-        IAppLogger logger,
+        ILogger<WorksheetApiControllerBase> logger,
         WorksheetWorkflowManager workflowManager,
         IUserQuotaService userQuotaService,
         IDbContextFactory<MyworksheetContext> dbContextFactory,

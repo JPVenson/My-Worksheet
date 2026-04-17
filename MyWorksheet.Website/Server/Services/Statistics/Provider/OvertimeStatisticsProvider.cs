@@ -20,12 +20,12 @@ public class OvertimeStatisticsProvider : StatisticsProviderBase
 {
     private readonly WorksheetWorkflowManager _worksheetWorkflowManager;
     private IUserWorktimeService _userWorktimeService;
-    private IAppLogger _appLogger;
+    private ILogger<OvertimeStatisticsProvider> _appLogger;
 
     public OvertimeStatisticsProvider(IDbContextFactory<MyworksheetContext> dbContextFactory,
         WorksheetWorkflowManager worksheetWorkflowManager,
         IUserWorktimeService userWorktimeService,
-        IAppLogger appLogger) : base(dbContextFactory)
+        ILogger<OvertimeStatisticsProvider> appLogger) : base(dbContextFactory)
     {
         _worksheetWorkflowManager = worksheetWorkflowManager;
         _userWorktimeService = userWorktimeService;

@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using MyWorksheet.Website.Server.Models;
 using MyWorksheet.Website.Server.Shared.Services.Logger;
-using MyWorksheet.Website.Server.Shared.Services.Logging.Contracts;
+using MyWorksheet.Website.Server.Shared.Services.Logging;
 using MyWorksheet.Website.Server.Shared.Services.Logging.Default;
 using MyWorksheet.Website.Server.Shared.TaskScheduling;
 using Microsoft.EntityFrameworkCore;
@@ -12,9 +12,9 @@ namespace MyWorksheet.Website.Server.Services.ScheduledTasks;
 [ScheduleOnDemand]
 public class CleanupUndisposedTempLoggerTask : BaseTask
 {
-    private readonly IAppLogger _logger;
+    private readonly DelegateLogger _logger;
 
-    public CleanupUndisposedTempLoggerTask(IAppLogger logger,
+    public CleanupUndisposedTempLoggerTask(DelegateLogger logger,
         IDbContextFactory<MyworksheetContext> dbContextFactory) : base(dbContextFactory)
     {
         _logger = logger;

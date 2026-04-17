@@ -18,7 +18,7 @@ namespace MyWorksheet.Website.Server.Services.Blob;
 [SingletonService(typeof(ITempFileTokenService))]
 public class TempFileTokenService : ITempFileTokenService
 {
-    public TempFileTokenService(IOptions<AppServerSettings> serverSettings, IAppLogger appLogger)
+    public TempFileTokenService(IOptions<AppServerSettings> serverSettings, ILogger<TempFileTokenService> appLogger)
     {
         _serverSettings = serverSettings;
         _appLogger = appLogger;
@@ -26,7 +26,7 @@ public class TempFileTokenService : ITempFileTokenService
     }
 
     private IOptions<AppServerSettings> _serverSettings;
-    private readonly IAppLogger _appLogger;
+    private readonly ILogger<TempFileTokenService> _appLogger;
     public ConcurrentDictionary<string, FileToken> TokensIssued { get; set; }
 
     private string EncryptToken(FileToken token)

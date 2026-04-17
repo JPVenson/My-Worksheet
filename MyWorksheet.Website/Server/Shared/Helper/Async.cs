@@ -4,14 +4,13 @@ using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using MyWorksheet.Website.Server.Shared.Services.Logger;
-using MyWorksheet.Website.Server.Shared.Services.Logging.Contracts;
 using Exception = System.Exception;
 
 namespace MyWorksheet.Shared.Helper;
 
 public static class AsyncExtensions
 {
-    public static IAppLogger AppLogger { get; set; }
+    public static ILogger AppLogger { get; set; }
 
     public static void AttachAsyncHandler(this Task task,
         [CallerMemberName] string callerMemberName = "",

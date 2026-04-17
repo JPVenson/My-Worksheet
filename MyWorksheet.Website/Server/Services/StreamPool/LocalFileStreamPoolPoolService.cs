@@ -11,10 +11,10 @@ namespace MyWorksheet.Website.Server.Services.StreamPool;
 [SingletonService(typeof(ILocalFileStreamPoolService))]
 public class LocalFileStreamPoolPoolService : ILocalFileStreamPoolService
 {
-    private readonly IAppLogger _logger;
+    private readonly ILogger<LocalFileStreamPoolPoolService> _logger;
     private readonly ActivatorService _activatorService;
 
-    public LocalFileStreamPoolPoolService(IAppLogger logger, ActivatorService activatorService)
+    public LocalFileStreamPoolPoolService(ILogger<LocalFileStreamPoolPoolService> logger, ActivatorService activatorService)
     {
         _logger = logger;
         _activatorService = activatorService;
@@ -27,7 +27,7 @@ public class LocalFileStreamPoolPoolService : ILocalFileStreamPoolService
     public const string OPKEY_STORAGE_PROVIDER = nameof(OPKEY_STORAGE_PROVIDER);
     public const string OPKEY_EXTRACT_THUMBNAIL = nameof(OPKEY_EXTRACT_THUMBNAIL);
 
-    public IAppLogger Logger { get; set; }
+    public ILogger<LocalFileStreamPoolPoolService> Logger { get; set; }
 
     public ConcurrentDictionary<string, StreamingType> StreamsPerOperation { get; private set; }
 

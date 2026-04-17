@@ -20,12 +20,12 @@ public class ServerInfoManager
     private readonly ActivatorService _activatorService;
     private readonly ICdnFallbackService _cdnFallbackService;
     private readonly ILocalFileProvider _localFileProvider;
-    private readonly IAppLogger _appLogger;
+    private readonly ILogger<ServerInfoManager> _appLogger;
 
     public ServerInfoManager(ActivatorService activatorService,
         ICdnFallbackService cdnFallbackService,
         ILocalFileProvider localFileProvider,
-        IAppLogger appLogger)
+        ILogger<ServerInfoManager> appLogger)
     {
         _activatorService = activatorService;
         _cdnFallbackService = cdnFallbackService;

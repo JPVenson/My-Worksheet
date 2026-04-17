@@ -30,7 +30,7 @@ public class DynamicTaskRunner : ITaskRunner
         return RunAt <= DateTime.UtcNow;
     }
 
-    public async Task Execute(IAppLogger logger)
+    public async Task Execute(ILogger logger)
     {
         _lastRun = DateTime.UtcNow;
 

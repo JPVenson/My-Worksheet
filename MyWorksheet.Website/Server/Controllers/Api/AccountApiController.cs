@@ -46,7 +46,7 @@ public class AccountControllerBase : RestApiControllerBase<AppUser, AccountApiAd
 {
     private readonly IMapperService _mapper;
     private readonly IDbContextFactory<MyworksheetContext> _dbFactory;
-    private readonly IAppLogger _logger;
+    private readonly ILogger<AccountControllerBase> _logger;
     private readonly IServerPriorityQueueManager _actionDispatcher;
     private readonly IOptions<TransformationSettings> _transformationSettings;
     private readonly IOptions<GoogleSettings> _googleSettings;
@@ -62,7 +62,7 @@ public class AccountControllerBase : RestApiControllerBase<AppUser, AccountApiAd
 
     public AccountControllerBase(IMapperService mapper,
         IDbContextFactory<MyworksheetContext> dbFactory,
-        IAppLogger logger,
+        ILogger<AccountControllerBase> logger,
         IServerPriorityQueueManager actionDispatcher,
         IOptions<TransformationSettings> transformationSettings,
         IOptions<GoogleSettings> googleSettings,

@@ -30,7 +30,7 @@ public class WorksheetItemsApiControllerBase : RestApiControllerBase<WorksheetIt
     public WorksheetItemsApiControllerBase(IMapperService mapper,
         IDbContextFactory<MyworksheetContext> entitiesFactory,
         WebHookService webHookService,
-        IAppLogger logger,
+        ILogger<WorksheetItemsApiControllerBase> logger,
         IBudgetService budgetService,
         ObjectChangedService objectChangedService) : base(entitiesFactory, mapper)
     {
@@ -41,7 +41,7 @@ public class WorksheetItemsApiControllerBase : RestApiControllerBase<WorksheetIt
     }
 
     private readonly WebHookService _webHookService;
-    private readonly IAppLogger _logger;
+    private readonly ILogger<WorksheetItemsApiControllerBase> _logger;
     private readonly IBudgetService _budgetService;
     private readonly ObjectChangedService _objectChangedService;
 

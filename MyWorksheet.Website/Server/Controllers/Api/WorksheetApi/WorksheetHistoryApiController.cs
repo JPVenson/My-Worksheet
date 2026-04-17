@@ -19,10 +19,10 @@ namespace MyWorksheet.Website.Server.Controllers.Api.WorksheetApi;
 public class WorksheetHistoryApiControllerBase : ApiControllerBase
 {
     private readonly IDbContextFactory<MyworksheetContext> _dbContextFactory;
-    private readonly IAppLogger _logger;
+    private readonly ILogger<WorksheetHistoryApiControllerBase> _logger;
     private readonly IMapperService _mapper;
 
-    public WorksheetHistoryApiControllerBase(IDbContextFactory<MyworksheetContext> dbContextFactory, IAppLogger logger, IMapperService mapper)
+    public WorksheetHistoryApiControllerBase(IDbContextFactory<MyworksheetContext> dbContextFactory, ILogger<WorksheetHistoryApiControllerBase> logger, IMapperService mapper)
     {
         _dbContextFactory = dbContextFactory;
         _logger = logger;

@@ -23,9 +23,9 @@ public interface IValueExchangeService : IRequireInit
 [SingletonService(typeof(IValueExchangeService))]
 public class ValueExchangeService : RequireInit, IValueExchangeService
 {
-    private readonly IAppLogger _appLogger;
+    private readonly ILogger<ValueExchangeService> _appLogger;
 
-    public ValueExchangeService(IAppLogger appLogger)
+    public ValueExchangeService(ILogger<ValueExchangeService> appLogger)
     {
         _appLogger = appLogger;
         ValueExchangeRates = [];

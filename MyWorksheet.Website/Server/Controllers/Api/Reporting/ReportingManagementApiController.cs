@@ -31,7 +31,7 @@ namespace MyWorksheet.Website.Server.Controllers.Api.Reporting;
 public class ReportingManagementApiController : ApiControllerBase
 {
     private readonly IDbContextFactory<MyworksheetContext> _dbContextFactory;
-    private readonly IAppLogger _logger;
+    private readonly ILogger<ReportingManagementApiController> _logger;
     private readonly ITemplateProviderService _templateProviderService;
     private readonly IBlobManagerService _blobManagerService;
     private readonly ITempFileTokenService _tempFileTokenService;
@@ -41,7 +41,7 @@ public class ReportingManagementApiController : ApiControllerBase
 
     public ReportingManagementApiController(IMapperService mapper,
         IDbContextFactory<MyworksheetContext> dbContextFactory,
-        IAppLogger logger,
+        ILogger<ReportingManagementApiController> logger,
         ITemplateProviderService templateProviderService,
         IBlobManagerService blobManagerService,
         ITempFileTokenService tempFileTokenService,

@@ -7,10 +7,10 @@ namespace MyWorksheet.Website.Server.Services.ServerInfo.InfoItems;
 
 public class AppLoggerStatusListener : ServerInfoListener
 {
-    private readonly IAppLogger _appLogger;
+    private readonly DelegateLogger _appLogger;
 
     public AppLoggerStatusListener(Action<string, object> publisher,
-        IAppLogger appLogger) : base(publisher)
+        DelegateLogger appLogger) : base(publisher)
     {
         _appLogger = appLogger;
         Key = "ErrorAppLogger";

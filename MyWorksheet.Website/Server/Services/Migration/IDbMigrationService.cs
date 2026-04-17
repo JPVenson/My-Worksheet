@@ -1,10 +1,10 @@
 ﻿using System.Threading.Tasks;
-using MyWorksheet.Website.Server.Shared.Services.Logging.Contracts;
+using Microsoft.Extensions.Logging;
 
 namespace MyWorksheet.Website.Server.Services.Migration;
 
 public interface IDbMigrationService
 {
     Task ExecuteDataMigration();
-    Task ReportDataMigration(IAppLogger tempLogger);
+    Task ReportDataMigration(ILogger tempLogger);
 }

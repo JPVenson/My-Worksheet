@@ -33,7 +33,7 @@ namespace MyWorksheet.Website.Server.Controllers.Api;
 public class AuthorizeApiController : ApiControllerBase
 {
     private readonly IDbContextFactory<MyworksheetContext> _dbContextFactory;
-    private readonly IAppLogger _logger;
+    private readonly ILogger<AuthorizeApiController> _logger;
     private IBlobManagerService _blobManagerService;
     private readonly TokenManager _tokenManager;
     private readonly SignInManager<AppUser> _signInManager;
@@ -42,7 +42,7 @@ public class AuthorizeApiController : ApiControllerBase
     private readonly IOptions<TokenSettings> _tokenSettings;
 
     public AuthorizeApiController(IDbContextFactory<MyworksheetContext> dbContextFactory,
-        IAppLogger logger,
+        ILogger<AuthorizeApiController> logger,
         TokenManager tokenManager,
         SignInManager<AppUser> signInManager,
         IBlobManagerService blobManagerService,

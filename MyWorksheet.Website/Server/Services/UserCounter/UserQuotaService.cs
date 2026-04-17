@@ -18,14 +18,14 @@ namespace MyWorksheet.Website.Server.Services.UserCounter;
 [SingletonService(typeof(IUserQuotaService))]
 public class UserQuotaService : IUserQuotaService
 {
-    private readonly IAppLogger _appLogger;
+    private readonly ILogger<UserQuotaService> _appLogger;
     private readonly ObjectChangedService _objectChangedService;
     private readonly IDbContextFactory<MyworksheetContext> _dbContextFactory;
     private readonly IOptions<AccountDefaultQuotaSettings> _quotaSettings;
 
     public UserQuotaService(IOptions<AccountDefaultQuotaSettings> quotaSettings,
         IDbContextFactory<MyworksheetContext> dbContextFactory,
-        IAppLogger appLogger,
+        ILogger<UserQuotaService> appLogger,
         ObjectChangedService objectChangedService)
     {
         _quotaSettings = quotaSettings;

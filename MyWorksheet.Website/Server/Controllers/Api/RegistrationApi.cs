@@ -41,7 +41,7 @@ public class RegistrationApiController : ApiControllerBase
     private readonly IOptions<AppServerSettings> _serverSettings;
     private readonly IOptions<IsItSettings> _isItSettings;
     private readonly IUserQuotaService _userQuotaService;
-    private readonly IAppLogger _appLogger;
+    private readonly ILogger<RegistrationApiController> _appLogger;
     private readonly IActivityService _activityService;
     private readonly IBlacklistMailDomainService _blacklistMailDomainService;
     private readonly UserManager<AppUser> _userManager;
@@ -55,7 +55,7 @@ public class RegistrationApiController : ApiControllerBase
         IOptions<AppServerSettings> serverSettings,
         IOptions<IsItSettings> isItSettings,
         IUserQuotaService userQuotaService,
-        IAppLogger appLogger,
+        ILogger<RegistrationApiController> appLogger,
         IActivityService activityService,
         IBlacklistMailDomainService blacklistMailDomainService,
         UserManager<AppUser> userManager,

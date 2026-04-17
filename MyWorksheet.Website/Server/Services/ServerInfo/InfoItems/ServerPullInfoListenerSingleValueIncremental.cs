@@ -1,5 +1,4 @@
 ﻿using System;
-using MyWorksheet.Website.Server.Shared.Services.Logging.Contracts;
 
 namespace MyWorksheet.Website.Server.Services.ServerInfo.InfoItems;
 
@@ -9,7 +8,7 @@ public class ServerPullInfoListenerSingleValueIncremental<TValue> : ServerPullIn
     private readonly Func<TValue, TValue> _getValue;
 
     public ServerPullInfoListenerSingleValueIncremental(Action<string, object> publisher, string key,
-        Func<TValue, TValue> getValue, IAppLogger logger)
+        Func<TValue, TValue> getValue, ILogger logger)
         : base(publisher, logger)
     {
         _getValue = getValue;

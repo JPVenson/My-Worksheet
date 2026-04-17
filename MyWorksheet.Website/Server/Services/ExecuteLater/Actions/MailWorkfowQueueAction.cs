@@ -30,7 +30,7 @@ public class MailWorkfowQueueAction : IPriorityQueueAction
     private readonly WorksheetWorkflowManager _worksheetWorkflowManager;
     private readonly IBlobManagerService _blobManagerService;
     private readonly IMailServiceProvider _mailServiceProvider;
-    private readonly IAppLogger _appLogger;
+    private readonly ILogger<MailWorkfowQueueAction> _appLogger;
 
     public MailWorkfowQueueAction(
     IDbContextFactory<MyworksheetContext> dbContextFactory,
@@ -38,7 +38,7 @@ public class MailWorkfowQueueAction : IPriorityQueueAction
     WorksheetWorkflowManager worksheetWorkflowManager,
     IBlobManagerService blobManagerService,
     IMailServiceProvider mailServiceProvider,
-    IAppLogger appLogger)
+    ILogger<MailWorkfowQueueAction> appLogger)
     {
         _dbContextFactory = dbContextFactory;
         _activityService = activityService;

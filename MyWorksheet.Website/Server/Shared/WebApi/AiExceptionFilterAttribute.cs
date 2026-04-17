@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
 namespace MyWorksheet.Webpage.Controller.Api;
@@ -17,7 +18,8 @@ public static class AiExceptionLogger
         return app.UseExceptionHandler(appError =>
         {
             var provider = appError.ApplicationServices.GetRequiredService<IAppInsightsProviderService>();
-            var logger = appError.ApplicationServices.GetRequiredService<IAppLogger>();
+            var loggerFactory = appError.ApplicationServices.GetRequiredService<ILoggerFactory>();
+            var logger = loggerFactory.CreateLogger("AiExceptionLogger");
 
             appError.Run(async context =>
             {

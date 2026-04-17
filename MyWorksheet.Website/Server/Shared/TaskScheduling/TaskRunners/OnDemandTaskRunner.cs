@@ -16,7 +16,7 @@ public class SingleTaskRunner : ITaskRunner
         return true;
     }
 
-    public Task Execute(IAppLogger logger)
+    public Task Execute(ILogger logger)
     {
         return Task.Run(new TaskContext(logger));
     }
@@ -53,7 +53,7 @@ public class OnDemandTaskRunner : ITaskRunner
         return false;
     }
 
-    public async Task Execute(IAppLogger logger)
+    public async Task Execute(ILogger logger)
     {
         try
         {

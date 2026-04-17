@@ -26,7 +26,7 @@ public class SchedulerService : RequireInit, ISchedulerService, IDisposable
     /// When this token is set it indicates a stop operation is in progress and the interal Task should be stopped
     /// </summary>
     private readonly CancellationTokenSource _innerControlToken;
-    private readonly IAppLogger _logger;
+    private readonly ILogger<SchedulerService> _logger;
     private readonly IDbContextFactory<MyworksheetContext> _dbContextFactory;
 
     /// <summary>
@@ -36,14 +36,14 @@ public class SchedulerService : RequireInit, ISchedulerService, IDisposable
     private readonly Thread _runner;
     private readonly IList<ITaskRunner> _taskRunners;
 
-    public SchedulerService(IAppLogger logger, IDbContextFactory<MyworksheetContext> dbContextFactory) : this(CancellationToken.None, logger, dbContextFactory)
+    public SchedulerService(ILogger<SchedulerService> logger, IDbContextFactory<MyworksheetContext> dbContextFactory) : this(CancellationToken.None, logger, dbContextFactory)
     {
     }
 
     /// <summary>
     ///     Instantiate a new Scheduler to run background tasks
     /// </summary>
-    public SchedulerService(CancellationToken cancellationToken, IAppLogger logger, IDbContextFactory<MyworksheetContext> dbContextFactory)
+    public SchedulerService(CancellationToken cancellationToken, ILogger<SchedulerService> logger, IDbContextFactory<MyworksheetContext> dbContextFactory)
     {
         _logger = logger;
         _dbContextFactory = dbContextFactory;
@@ -319,17 +319,20 @@ public class SchedulerService : RequireInit, ISchedulerService, IDisposable
         Reinvalidate();
     }
 
-    private Task RunTaskNow(ITaskRunner taskRunner, IAppLogger parentLogger)
+    private async Task RunTaskNow(ITaskRunner taskRunner, ILogger parentLogger)
     {
         var runKey = Guid.NewGuid().ToString("N");
-        var logger = parentLogger.Copy();
-        logger.Transform.Add(entry =>
+        var dbKey = $"SchedulerTask.{taskRunner.Task.NamedTask}.{runKey}";
+        var scopeState = new Dictionary<string, object>
         {
-            var dbKey = $"SchedulerTask.{taskRunner.Task.NamedTask}.{runKey}";
-            entry.OptionalData["DatabaseEntryKey"] = dbKey;
-            return entry;
-        });
-        return taskRunner.Execute(logger);
+            ["DatabaseEntryKey"] = dbKey,
+            ["SchedulerTaskName"] = taskRunner.Task.NamedTask
+        };
+
+        using (parentLogger.BeginScope(scopeState))
+        {
+            await taskRunner.Execute(parentLogger).ConfigureAwait(false);
+        }
     }
 
     protected virtual void OnOnFailedTask(ITask task, Exception exception, ExceptionHandler handler)

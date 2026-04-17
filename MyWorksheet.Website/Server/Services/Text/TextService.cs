@@ -22,11 +22,11 @@ namespace MyWorksheet.Website.Server.Services.Text;
 public class TextService : RequireInit, ITextService
 {
     private static readonly Regex RefRegex = new(@"([{][^\d}]+[}]+)");
-    private readonly IAppLogger _logger;
+    private readonly ILogger<TextService> _logger;
 
     private readonly List<Exception> _loaderExceptions = [];
 
-    public TextService(IAppLogger logger)
+    public TextService(ILogger<TextService> logger)
     {
         _logger = logger;
         SupportedCultures = new KeyedDictionary<string, CultureInfo>(e => e.Name)

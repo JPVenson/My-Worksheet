@@ -4,7 +4,6 @@ using System.Linq;
 using MyWorksheet.Website.Server.Models;
 using MyWorksheet.Website.Server.Shared.Services.Logger;
 using MyWorksheet.Website.Server.Shared.Services.Logging;
-using MyWorksheet.Website.Server.Shared.Services.Logging.Contracts;
 using MyWorksheet.Website.Server.Shared.Services.Logging.Default;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
@@ -17,7 +16,7 @@ public static class LoggerConfig
 {
     public static void UseLogger(
         IApplicationBuilder app,
-        IAppLogger loggerDelegation)
+        DelegateLogger loggerDelegation)
     {
         var bufferLogger = loggerDelegation.FirstOrDefault() as BufferLogger;
         loggerDelegation.Clear();
