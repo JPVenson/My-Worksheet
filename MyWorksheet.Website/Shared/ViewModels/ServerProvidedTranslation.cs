@@ -1,29 +1,28 @@
-namespace MyWorksheet.Website.Shared.ViewModels
+namespace MyWorksheet.Website.Shared.ViewModels;
+
+public class ServerProvidedTranslation : ViewModelBase
 {
-    public class ServerProvidedTranslation : ViewModelBase
+    public string Key
     {
-        public string Key
+        get { return _key; }
+        set { SetProperty(ref _key, value); }
+    }
+
+    public string[] Arguments
+    {
+        get { return _arguments; }
+        set
         {
-            get { return _key; }
-            set { SetProperty(ref _key, value); }
+            SetProperty(ref _arguments, value);
         }
+    }
 
-        public string[] Arguments
-        {
-            get { return _arguments; }
-            set
-            {
-                SetProperty(ref _arguments, value);
-            }
-        }
-
-        private string _key;
-        private string[] _arguments;
+    private string _key;
+    private string[] _arguments;
 
 
-        public static implicit operator ServerProvidedTranslation(string text)
-        {
-            return new ServerProvidedTranslation() { Key = text };
-        }
+    public static implicit operator ServerProvidedTranslation(string text)
+    {
+        return new ServerProvidedTranslation() { Key = text };
     }
 }

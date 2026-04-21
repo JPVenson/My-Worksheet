@@ -1,8 +1,7 @@
-namespace MyWorksheet.Website.Shared.ViewModels.ApiResultModels.Reporting.Engine
+namespace MyWorksheet.Website.Shared.ViewModels.ApiResultModels.Reporting.Engine;
+
+public enum ReportingRelationalOperator
 {
-    public enum ReportingRelationalOperator
-    {
-        And,
-        Or
-    }
+    And,
+    Or
 }

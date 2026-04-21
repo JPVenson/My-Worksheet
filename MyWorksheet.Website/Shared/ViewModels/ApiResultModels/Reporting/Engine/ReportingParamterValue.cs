@@ -1,37 +1,36 @@
-namespace MyWorksheet.Website.Shared.ViewModels.ApiResultModels.Reporting.Engine
+namespace MyWorksheet.Website.Shared.ViewModels.ApiResultModels.Reporting.Engine;
+
+public class ReportingParamterValue : ViewModelBase
 {
-    public class ReportingParamterValue : ViewModelBase
+    private string _name;
+
+    private object _value;
+
+    public ReportingParamterValue()
     {
-        private string _name;
+    }
 
-        private object _value;
+    public ReportingParamterValue(object value)
+    {
+        Name = value.ToString();
+        Value = value;
+    }
 
-        public ReportingParamterValue()
-        {
-        }
+    public ReportingParamterValue(string name, object value)
+    {
+        Name = name;
+        Value = value;
+    }
 
-        public ReportingParamterValue(object value)
-        {
-            Name = value.ToString();
-            Value = value;
-        }
+    public string Name
+    {
+        get { return _name; }
+        set { SetProperty(ref _name, value); }
+    }
 
-        public ReportingParamterValue(string name, object value)
-        {
-            Name = name;
-            Value = value;
-        }
-
-        public string Name
-        {
-            get { return _name; }
-            set { SetProperty(ref _name, value); }
-        }
-
-        public object Value
-        {
-            get { return _value; }
-            set { SetProperty(ref _value, value); }
-        }
+    public object Value
+    {
+        get { return _value; }
+        set { SetProperty(ref _value, value); }
     }
 }

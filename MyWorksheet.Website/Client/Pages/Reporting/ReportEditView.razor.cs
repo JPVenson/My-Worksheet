@@ -98,8 +98,10 @@ public partial class ReportEditView : NavigationPageBase
 
     public async Task ReloadSchema()
     {
-        var scheduleReportSchemaModel = ServerErrorManager.EvalAndUnbox(await HttpService.ReportManagementApiAccess.GetSchemaForRds(SelectedDataSource.Key));
-        DataSourceSchema = scheduleReportSchemaModel.QuerySchema;
+        var scheduleReportSchemaModel = await HttpService.ReportManagementApiAccess.GetSchemaForRds(SelectedDataSource.Key);
+        DataSourceSchema = scheduleReportSchemaModel
+            .Object
+            .QuerySchema;
     }
 
     public async Task Delete()

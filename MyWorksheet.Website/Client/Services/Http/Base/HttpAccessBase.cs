@@ -196,46 +196,6 @@ public abstract class HttpAccessBase
         }
     }
 
-    protected Task<ApiResult<T>> UnpackSchema<T>(ValueTask<ApiResult<T>> operation) where T : IObjectSchemaInfo
-    {
-        return operation.AsTask()
-            .ContinueWith(t =>
-            {
-                if (!t.Result.Success)
-                {
-                    return t.Result;
-                }
-
-                var schema = t.Result.Object;
-                foreach (var dValue in schema.Defaults.Where(e => e.Value is JToken))
-                {
-                    schema.Defaults[dValue.Key] = JsonNetValueResolver.EvalJToken(dValue.Value as JToken);
-                }
-
-                return t.Result;
-            });
-    }
-
-    protected Task<ApiResult<T>> UnpackSchemaValues<T>(ValueTask<ApiResult<T>> operation) where T : IDictionary<string, object>
-    {
-        return operation.AsTask()
-            .ContinueWith(t =>
-            {
-                if (!t.Result.Success)
-                {
-                    return t.Result;
-                }
-
-                var schema = t.Result.Object;
-                foreach (var dValue in schema.Where(e => e.Value is JToken))
-                {
-                    schema[dValue.Key] = JsonNetValueResolver.EvalJToken(dValue.Value as JToken);
-                }
-
-                return t.Result;
-            });
-    }
-
     private async ValueTask<ApiResult<T>> GetResult<T>(HttpResponseMessage response)
     {
         if (!response.IsSuccessStatusCode)

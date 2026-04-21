@@ -1,51 +1,50 @@
 using System;
-namespace MyWorksheet.Website.Shared.ViewModels.ApiResultModels.Worksheet
+namespace MyWorksheet.Website.Shared.ViewModels.ApiResultModels.Worksheet;
+
+public class OverviewModel : ViewModelBase
 {
-    public class OverviewModel : ViewModelBase
+    private decimal _earned;
+
+    private decimal _honorar;
+
+    private long _hours;
+
+    private Guid _projectId;
+
+    private string _projectName;
+
+    public Guid ProjectId
     {
-        private decimal _earned;
+        get { return _projectId; }
+        set { SetProperty(ref _projectId, value); }
+    }
 
-        private decimal _honorar;
+    public long Hours
+    {
+        get { return _hours; }
+        set { SetProperty(ref _hours, value); }
+    }
 
-        private long _hours;
+    public decimal Earned
+    {
+        get { return _earned; }
+        set { SetProperty(ref _earned, value); }
+    }
 
-        private Guid _projectId;
+    public decimal Honorar
+    {
+        get { return _honorar; }
+        set { SetProperty(ref _honorar, value); }
+    }
 
-        private string _projectName;
+    public string ProjectName
+    {
+        get { return _projectName; }
+        set { SetProperty(ref _projectName, value); }
+    }
 
-        public Guid ProjectId
-        {
-            get { return _projectId; }
-            set { SetProperty(ref _projectId, value); }
-        }
-
-        public long Hours
-        {
-            get { return _hours; }
-            set { SetProperty(ref _hours, value); }
-        }
-
-        public decimal Earned
-        {
-            get { return _earned; }
-            set { SetProperty(ref _earned, value); }
-        }
-
-        public decimal Honorar
-        {
-            get { return _honorar; }
-            set { SetProperty(ref _honorar, value); }
-        }
-
-        public string ProjectName
-        {
-            get { return _projectName; }
-            set { SetProperty(ref _projectName, value); }
-        }
-
-        public override Guid? GetModelIdentifier()
-        {
-            return ProjectId;
-        }
+    public override Guid? GetModelIdentifier()
+    {
+        return ProjectId;
     }
 }

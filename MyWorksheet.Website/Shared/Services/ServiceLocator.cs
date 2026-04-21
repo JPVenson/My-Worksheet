@@ -6,57 +6,56 @@ using MyWorksheet.Website.Server.Services;
 using Microsoft.Extensions.DependencyInjection;
 using ServiceLocator.Discovery;
 
-namespace MyWorksheet.Website.Shared.Services
+namespace MyWorksheet.Website.Shared.Services;
+
+public static class ServiceLocatorHelper
 {
-    public static class ServiceLocatorHelper
+    public static IServiceDiscoveryManager DiscoverInitServices(this IServiceDiscoveryManager serviceDiscoveryManager)
     {
-        public static IServiceDiscoveryManager DiscoverInitServices(this IServiceDiscoveryManager serviceDiscoveryManager)
+        serviceDiscoveryManager.ServiceTypes.Add(new RequireInitDiscovery());
+        return serviceDiscoveryManager;
+    }
+
+    private class RequireInitDiscovery : IServiceDiscovery
+    {
+        public IEnumerable<ServiceDescriptor> DiscoverServices(IServiceDiscoveryManager locator)
         {
-            serviceDiscoveryManager.ServiceTypes.Add(new RequireInitDiscovery());
-            return serviceDiscoveryManager;
+            return locator.ServiceTypes.Where(e => e != this)
+                .SelectMany(f => f.DiscoverServices(locator))
+                .Where(e => e.ServiceType.IsClass)
+                .Where(e => typeof(IRequireInit).IsAssignableFrom(e.ServiceType))
+                .Select(serviceDiscovery => new ServiceDescriptor(typeof(IRequireInit), e => e.GetService(serviceDiscovery.ServiceType), ServiceLifetime.Singleton));
         }
+    }
 
-        private class RequireInitDiscovery : IServiceDiscovery
+    public static async Task InitServices(IServiceProvider appApplicationServices,
+                                          Func<int, int, string, ValueTask> progress = null)
+    {
+        var initServices = new List<object>();
+
+        var toInitServices = appApplicationServices.GetServices<IRequireInit>()
+                                                      .Distinct()
+                                                      .OrderByDescending(e => e.Order)
+                                                      .ToArray();
+
+        for (var index = 0; index < toInitServices.Length; index++)
         {
-            public IEnumerable<ServiceDescriptor> DiscoverServices(IServiceDiscoveryManager locator)
+            var requireInit = toInitServices[index];
+            if (progress != null)
             {
-                return locator.ServiceTypes.Where(e => e != this)
-                    .SelectMany(f => f.DiscoverServices(locator))
-                    .Where(e => e.ServiceType.IsClass)
-                    .Where(e => typeof(IRequireInit).IsAssignableFrom(e.ServiceType))
-                    .Select(serviceDiscovery => new ServiceDescriptor(typeof(IRequireInit), e => e.GetService(serviceDiscovery.ServiceType), ServiceLifetime.Singleton));
+                await progress.Invoke(index, toInitServices.Length, requireInit.GetType().ToString());
             }
-        }
 
-        public static async Task InitServices(IServiceProvider appApplicationServices,
-                                              Func<int, int, string, ValueTask> progress = null)
-        {
-            var initServices = new List<object>();
-
-            var toInitServices = appApplicationServices.GetServices<IRequireInit>()
-                                                          .Distinct()
-                                                          .OrderByDescending(e => e.Order)
-                                                          .ToArray();
-
-            for (var index = 0; index < toInitServices.Length; index++)
+            if (initServices.Contains(requireInit))
             {
-                var requireInit = toInitServices[index];
-                if (progress != null)
-                {
-                    await progress.Invoke(index, toInitServices.Length, requireInit.GetType().ToString());
-                }
-
-                if (initServices.Contains(requireInit))
-                {
-                    continue;
-                }
-
-                initServices.Add(requireInit);
-                requireInit.Init();
-                requireInit.Init(appApplicationServices);
-                await requireInit.InitAsync();
-                await requireInit.InitAsync(appApplicationServices);
+                continue;
             }
+
+            initServices.Add(requireInit);
+            requireInit.Init();
+            requireInit.Init(appApplicationServices);
+            await requireInit.InitAsync();
+            await requireInit.InitAsync(appApplicationServices);
         }
     }
 }

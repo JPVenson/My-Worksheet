@@ -1,10 +1,9 @@
-﻿namespace MyWorksheet.Website.Shared.ViewModels.Notifications
+﻿namespace MyWorksheet.Website.Shared.ViewModels.Notifications;
+
+public static class ActionTypesExtensions
 {
-    public static class ActionTypesExtensions
+    public static bool HasFlagFast(this ActionTypes value, ActionTypes flag)
     {
-        public static bool HasFlagFast(this ActionTypes value, ActionTypes flag)
-        {
-            return (value & flag) != 0;
-        }
+        return (value & flag) != 0;
     }
 }

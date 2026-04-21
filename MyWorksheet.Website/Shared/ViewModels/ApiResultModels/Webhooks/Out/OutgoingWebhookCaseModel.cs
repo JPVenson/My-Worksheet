@@ -1,35 +1,34 @@
 using System;
-namespace MyWorksheet.Website.Shared.ViewModels.ApiResultModels.Webhooks.Out
+namespace MyWorksheet.Website.Shared.ViewModels.ApiResultModels.Webhooks.Out;
+
+public class OutgoingWebhookCaseModel : ViewModelBase
 {
-    public class OutgoingWebhookCaseModel : ViewModelBase
+    private string _descriptionHtml;
+
+    private string _name;
+
+    private Guid _outgoingWebhookCaseId;
+
+    public Guid OutgoingWebhookCaseId
     {
-        private string _descriptionHtml;
+        get { return _outgoingWebhookCaseId; }
+        set { SetProperty(ref _outgoingWebhookCaseId, value); }
+    }
 
-        private string _name;
+    public string Name
+    {
+        get { return _name; }
+        set { SetProperty(ref _name, value); }
+    }
 
-        private Guid _outgoingWebhookCaseId;
+    public string DescriptionHtml
+    {
+        get { return _descriptionHtml; }
+        set { SetProperty(ref _descriptionHtml, value); }
+    }
 
-        public Guid OutgoingWebhookCaseId
-        {
-            get { return _outgoingWebhookCaseId; }
-            set { SetProperty(ref _outgoingWebhookCaseId, value); }
-        }
-
-        public string Name
-        {
-            get { return _name; }
-            set { SetProperty(ref _name, value); }
-        }
-
-        public string DescriptionHtml
-        {
-            get { return _descriptionHtml; }
-            set { SetProperty(ref _descriptionHtml, value); }
-        }
-
-        public override Guid? GetModelIdentifier()
-        {
-            return OutgoingWebhookCaseId;
-        }
+    public override Guid? GetModelIdentifier()
+    {
+        return OutgoingWebhookCaseId;
     }
 }

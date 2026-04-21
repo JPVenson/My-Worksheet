@@ -1,19 +1,18 @@
 using System;
-namespace MyWorksheet.Website.Shared.ViewModels.ApiResultModels.Worksheet.UserWorkload
+namespace MyWorksheet.Website.Shared.ViewModels.ApiResultModels.Worksheet.UserWorkload;
+
+public class UpdateUserWorkloadViewModel : CreateUserWorkloadViewModel
 {
-    public class UpdateUserWorkloadViewModel : CreateUserWorkloadViewModel
+    private Guid _userWorkloadId;
+
+    public Guid UserWorkloadId
     {
-        private Guid _userWorkloadId;
+        get { return _userWorkloadId; }
+        set { SetProperty(ref _userWorkloadId, value); }
+    }
 
-        public Guid UserWorkloadId
-        {
-            get { return _userWorkloadId; }
-            set { SetProperty(ref _userWorkloadId, value); }
-        }
-
-        public override Guid? GetModelIdentifier()
-        {
-            return UserWorkloadId;
-        }
+    public override Guid? GetModelIdentifier()
+    {
+        return UserWorkloadId;
     }
 }

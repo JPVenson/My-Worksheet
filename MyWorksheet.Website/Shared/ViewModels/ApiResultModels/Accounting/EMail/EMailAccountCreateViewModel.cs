@@ -1,13 +1,12 @@
-namespace MyWorksheet.Website.Shared.ViewModels.ApiResultModels.Accounting.EMail
-{
-    public class EMailAccountCreateViewModel : EMailAccountViewModel
-    {
-        private string _password;
+namespace MyWorksheet.Website.Shared.ViewModels.ApiResultModels.Accounting.EMail;
 
-        public string Password
-        {
-            get { return _password; }
-            set { SetProperty(ref _password, value); }
-        }
+public class EMailAccountCreateViewModel : EMailAccountViewModel
+{
+    private string _password;
+
+    public string Password
+    {
+        get { return _password; }
+        set { SetProperty(ref _password, value); }
     }
 }

@@ -1,8 +1,7 @@
 ﻿using System;
 
-namespace MyWorksheet.Website.Shared.ViewModels
+namespace MyWorksheet.Website.Shared.ViewModels;
+
+public class IdentityPropertyAttribute : Attribute
 {
-    public class IdentityPropertyAttribute : Attribute
-    {
-    }
 }

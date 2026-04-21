@@ -4,43 +4,82 @@ using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 using ServiceLocator.Attributes;
 
-namespace MyWorksheet.Website.Shared.Services.Activation
+namespace MyWorksheet.Website.Shared.Services.Activation;
+
+[SingletonService()]
+public class ActivatorService
 {
-    [SingletonService()]
-    public class ActivatorService
+    private readonly IServiceProvider _serviceProvider;
+
+    public ActivatorService(IServiceProvider serviceProvider)
     {
-        private readonly IServiceProvider _serviceProvider;
+        _serviceProvider = serviceProvider;
+    }
 
-        public ActivatorService(IServiceProvider serviceProvider)
+    /// <summary>
+    ///		Injects services from the <see cref="IServiceProvider"/> into the method.
+    ///		if fixedValues contain any number of values, those values will be injected first in order of presence
+    /// </summary>
+    /// <param name="method">The delegate to inject</param>
+    /// <param name="target">The target of the delegate</param>
+    /// <param name="fixedValues"></param>
+    /// <returns>if the delegate returns any value it is returned</returns>
+    public object ActivateMethod(Delegate method, object target, params object[] fixedValues)
+    {
+        return ActivateMethod(method.Method, target, fixedValues);
+    }
+
+
+    /// <summary>
+    ///		Injects services from the <see cref="IServiceProvider"/> into the method.
+    ///		if fixedValues contain any number of values, those values will be injected first in order of presence
+    /// </summary>
+    /// <param name="method">The delegate to inject</param>
+    /// <param name="target">The target of the delegate</param>
+    /// <param name="fixedValues"></param>
+    /// <returns>if the delegate returns any value it is returned</returns>
+    public object ActivateMethod(MethodInfo method, object target, params object[] fixedValues)
+    {
+        var scope = _serviceProvider.CreateScope();
+        var constructorArgs = method.GetParameters();
+        var services = new object[constructorArgs.Length];
+        Array.Copy(fixedValues, services, fixedValues.Length);
+
+        for (var index = fixedValues.Length; index < constructorArgs.Length; index++)
         {
-            _serviceProvider = serviceProvider;
+            var constructorArg = constructorArgs[index];
+            services[index] = scope.ServiceProvider.GetService(constructorArg.ParameterType);
         }
 
-        /// <summary>
-        ///		Injects services from the <see cref="IServiceProvider"/> into the method.
-        ///		if fixedValues contain any number of values, those values will be injected first in order of presence
-        /// </summary>
-        /// <param name="method">The delegate to inject</param>
-        /// <param name="target">The target of the delegate</param>
-        /// <param name="fixedValues"></param>
-        /// <returns>if the delegate returns any value it is returned</returns>
-        public object ActivateMethod(Delegate method, object target, params object[] fixedValues)
-        {
-            return ActivateMethod(method.Method, target, fixedValues);
-        }
+        return method.Invoke(target, services);
+    }
 
 
-        /// <summary>
-        ///		Injects services from the <see cref="IServiceProvider"/> into the method.
-        ///		if fixedValues contain any number of values, those values will be injected first in order of presence
-        /// </summary>
-        /// <param name="method">The delegate to inject</param>
-        /// <param name="target">The target of the delegate</param>
-        /// <param name="fixedValues"></param>
-        /// <returns>if the delegate returns any value it is returned</returns>
-        public object ActivateMethod(MethodInfo method, object target, params object[] fixedValues)
+    /// <summary>
+    ///		Injects services from the <see cref="IServiceProvider"/> into the method.
+    ///		if fixedValues contain any number of values, those values will be injected first in order of presence
+    /// </summary>
+    /// <param name="method">The delegate to inject</param>
+    /// <param name="target">The target of the delegate</param>
+    /// <param name="fixedValues"></param>
+    /// <returns>if the delegate returns any value it is returned</returns>
+    public TResult ActivateMethod<TResult>(MethodInfo method, object target, params object[] fixedValues)
+    {
+        return (TResult)ActivateMethod(method, target, fixedValues);
+    }
+
+
+    /// <summary>
+    ///		Injects services from the <see cref="IServiceProvider"/> into the method.
+    ///		if fixedValues contain any number of values, those values will be injected first in order of presence
+    /// </summary>
+    /// <param name="method">The delegate to inject</param>
+    /// <param name="target">The target of the delegate</param>
+    /// <param name="fixedValues"></param>
+    public void ActivateVoidMethod(MethodBase method, object target, params object[] fixedValues)
+    {
+        using (var scope = _serviceProvider.CreateScope())
         {
-            var scope = _serviceProvider.CreateScope();
             var constructorArgs = method.GetParameters();
             var services = new object[constructorArgs.Length];
             Array.Copy(fixedValues, services, fixedValues.Length);
@@ -50,97 +89,57 @@ namespace MyWorksheet.Website.Shared.Services.Activation
                 var constructorArg = constructorArgs[index];
                 services[index] = scope.ServiceProvider.GetService(constructorArg.ParameterType);
             }
-
-            return method.Invoke(target, services);
+            method.Invoke(target, services);
         }
 
+    }
 
-        /// <summary>
-        ///		Injects services from the <see cref="IServiceProvider"/> into the method.
-        ///		if fixedValues contain any number of values, those values will be injected first in order of presence
-        /// </summary>
-        /// <param name="method">The delegate to inject</param>
-        /// <param name="target">The target of the delegate</param>
-        /// <param name="fixedValues"></param>
-        /// <returns>if the delegate returns any value it is returned</returns>
-        public TResult ActivateMethod<TResult>(MethodInfo method, object target, params object[] fixedValues)
+    public T ActivateType<T>(params object[] fixedValues) where T : class
+    {
+        return (T)ActivateType(typeof(T), fixedValues);
+    }
+
+    public T ActivateType<T>(Type type, params object[] fixedValues) where T : class
+    {
+        if (!typeof(T).IsAssignableFrom(type))
         {
-            return (TResult)ActivateMethod(method, target, fixedValues);
+            throw new NotSupportedException($"Cannot cast type '{type}' into '{typeof(T)}' for activation");
         }
 
+        return ActivateType(type, fixedValues) as T;
+    }
 
-        /// <summary>
-        ///		Injects services from the <see cref="IServiceProvider"/> into the method.
-        ///		if fixedValues contain any number of values, those values will be injected first in order of presence
-        /// </summary>
-        /// <param name="method">The delegate to inject</param>
-        /// <param name="target">The target of the delegate</param>
-        /// <param name="fixedValues"></param>
-        public void ActivateVoidMethod(MethodBase method, object target, params object[] fixedValues)
+    /// <summary>
+    ///		Tries to create a new instance of <see cref="type"/> by injecting its parameter first from <see cref="fixedValues"/> and then lookup from <see cref="IServiceProvider"/>
+    /// </summary>
+    /// <param name="type"></param>
+    /// <param name="fixedValues"></param>
+    /// <returns></returns>
+    public object ActivateType(Type type, params object[] fixedValues)
+    {
+        using (var scope = _serviceProvider.CreateScope())
         {
-            using (var scope = _serviceProvider.CreateScope())
+            if (type.IsInterface)
             {
-                var constructorArgs = method.GetParameters();
-                var services = new object[constructorArgs.Length];
-                Array.Copy(fixedValues, services, fixedValues.Length);
-
-                for (var index = fixedValues.Length; index < constructorArgs.Length; index++)
-                {
-                    var constructorArg = constructorArgs[index];
-                    services[index] = scope.ServiceProvider.GetService(constructorArg.ParameterType);
-                }
-                method.Invoke(target, services);
+                return scope.ServiceProvider.GetService(type);
             }
 
-        }
-
-        public T ActivateType<T>(params object[] fixedValues) where T : class
-        {
-            return (T)ActivateType(typeof(T), fixedValues);
-        }
-
-        public T ActivateType<T>(Type type, params object[] fixedValues) where T : class
-        {
-            if (!typeof(T).IsAssignableFrom(type))
+            var firstOrDefault = type.GetConstructors().FirstOrDefault();
+            if (firstOrDefault == null)
             {
-                throw new NotSupportedException($"Cannot cast type '{type}' into '{typeof(T)}' for activation");
+                return Activator.CreateInstance(type);
             }
 
-            return ActivateType(type, fixedValues) as T;
-        }
+            var constructorArgs = firstOrDefault.GetParameters();
+            var services = new object[constructorArgs.Length];
+            Array.Copy(fixedValues, services, fixedValues.Length);
 
-        /// <summary>
-        ///		Tries to create a new instance of <see cref="type"/> by injecting its parameter first from <see cref="fixedValues"/> and then lookup from <see cref="IServiceProvider"/>
-        /// </summary>
-        /// <param name="type"></param>
-        /// <param name="fixedValues"></param>
-        /// <returns></returns>
-        public object ActivateType(Type type, params object[] fixedValues)
-        {
-            using (var scope = _serviceProvider.CreateScope())
+            for (var index = fixedValues.Length; index < constructorArgs.Length; index++)
             {
-                if (type.IsInterface)
-                {
-                    return scope.ServiceProvider.GetService(type);
-                }
-
-                var firstOrDefault = type.GetConstructors().FirstOrDefault();
-                if (firstOrDefault == null)
-                {
-                    return Activator.CreateInstance(type);
-                }
-
-                var constructorArgs = firstOrDefault.GetParameters();
-                var services = new object[constructorArgs.Length];
-                Array.Copy(fixedValues, services, fixedValues.Length);
-
-                for (var index = fixedValues.Length; index < constructorArgs.Length; index++)
-                {
-                    var constructorArg = constructorArgs[index];
-                    services[index] = scope.ServiceProvider.GetService(constructorArg.ParameterType);
-                }
-                return Activator.CreateInstance(type, services);
+                var constructorArg = constructorArgs[index];
+                services[index] = scope.ServiceProvider.GetService(constructorArg.ParameterType);
             }
+            return Activator.CreateInstance(type, services);
         }
     }
 }

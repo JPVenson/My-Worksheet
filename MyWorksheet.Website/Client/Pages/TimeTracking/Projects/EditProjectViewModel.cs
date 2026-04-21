@@ -172,20 +172,23 @@ public class EditProjectViewModel : ViewModelBase
 
     public void AddNewRate()
     {
-        Rates.Add(new ProjectItemRateViewModel()
+        _chargeRateService.ChargeRates.WhenLoadedOnce(() =>
         {
-            Name = "Rate",
-            Rate = 0,
-            TaxRate = 0,
-            IdProject = Project.ProjectId,
-            CurrencyType = WellKnownCurrencies.GetCurrentCurrency().IsoName,
-            IdProjectChargeRate = DefaultRate?.IdProjectChargeRate ?? _chargeRateService.ChargeRates.First().ProjectChargeRateId,
-            ProjectItemRateId = Guid.NewGuid()
+            Rates.Add(new ProjectItemRateViewModel()
+            {
+                Name = "Rate",
+                Rate = 0,
+                TaxRate = 0,
+                IdProject = Project.ProjectId,
+                CurrencyType = WellKnownCurrencies.GetCurrentCurrency().IsoName,
+                IdProjectChargeRate = DefaultRate?.IdProjectChargeRate ?? _chargeRateService.ChargeRates.First().ProjectChargeRateId,
+                ProjectItemRateId = Guid.NewGuid()
+            });
+            if (Rates.Count == 1)
+            {
+                DefaultRate = Rates.First();
+            }
         });
-        if (Rates.Count == 1)
-        {
-            DefaultRate = Rates.First();
-        }
     }
 
     public void RemoveRate(ProjectItemRateViewModel rate)

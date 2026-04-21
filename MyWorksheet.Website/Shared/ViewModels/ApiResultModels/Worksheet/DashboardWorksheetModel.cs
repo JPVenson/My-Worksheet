@@ -1,21 +1,20 @@
-namespace MyWorksheet.Website.Shared.ViewModels.ApiResultModels.Worksheet
+namespace MyWorksheet.Website.Shared.ViewModels.ApiResultModels.Worksheet;
+
+public class DashboardWorksheetModel : WorksheetModel
 {
-    public class DashboardWorksheetModel : WorksheetModel
+    private bool _hasDaysOpen;
+
+    private string _projectName;
+
+    public string ProjectName
     {
-        private bool _hasDaysOpen;
+        get { return _projectName; }
+        set { SetProperty(ref _projectName, value); }
+    }
 
-        private string _projectName;
-
-        public string ProjectName
-        {
-            get { return _projectName; }
-            set { SetProperty(ref _projectName, value); }
-        }
-
-        public bool HasDaysOpen
-        {
-            get { return _hasDaysOpen; }
-            set { SetProperty(ref _hasDaysOpen, value); }
-        }
+    public bool HasDaysOpen
+    {
+        get { return _hasDaysOpen; }
+        set { SetProperty(ref _hasDaysOpen, value); }
     }
 }

@@ -1,9 +1,8 @@
-namespace MyWorksheet.Website.Shared.ViewModels
+namespace MyWorksheet.Website.Shared.ViewModels;
+
+public enum ChangeEventTypes
 {
-    public enum ChangeEventTypes
-    {
-        Added,
-        Removed,
-        Changed
-    }
+    Added,
+    Removed,
+    Changed
 }

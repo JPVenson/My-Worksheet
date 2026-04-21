@@ -57,11 +57,11 @@ public partial class WorksheetReportComponent
         OnContinuesRender(() =>
         {
             var idPaymentCondition = Model.Project.IdPaymentCondition;
-            schema.Defaults["PaymentInfos"] = idPaymentCondition;
+            schema.Properties["PaymentInfos"].Default = idPaymentCondition;
             TemplateSchema = schema;
-            TemplateSchema.Schema.Remove("Worksheet");
+            TemplateSchema.Properties.Remove("Worksheet");
             TemplateValues["Worksheet"] = Model.Worksheet.WorksheetId;
-            TemplateValues["PaymentInfos"] = schema.Defaults["PaymentInfos"];
+            TemplateValues["PaymentInfos"] = idPaymentCondition;
             Render();
         });
 

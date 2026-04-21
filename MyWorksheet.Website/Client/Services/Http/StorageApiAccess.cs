@@ -54,12 +54,12 @@ public class StorageApiAccess : RestHttpAccessBase<GetStorageProvider, CreateSto
         return Get<StorageTypeViewModel>(BuildApi("GetStorageTypes"));
     }
 
-    public Task<ApiResult<IDictionary<string, object>>> GetStorageProviderData(Guid storageId)
+    public ValueTask<ApiResult<IDictionary<string, object>>> GetStorageProviderData(Guid storageId)
     {
-        return UnpackSchemaValues(Get<IDictionary<string, object>>(BuildApi("GetStorageProviderData", new
+        return Get<IDictionary<string, object>>(BuildApi("GetStorageProviderData", new
         {
             storageId
-        })));
+        }));
     }
 
     public ValueTask<ApiResult<JsonSchema>> GetStorageProviderDataStructure(string storageKey)
@@ -94,9 +94,9 @@ public class StorageApiAccess : RestHttpAccessBase<GetStorageProvider, CreateSto
         }), fields);
     }
 
-    public Task<ApiResult<IObjectSchemaInfo>> GetStorageProviderDataStructure()
+    public ValueTask<ApiResult<IObjectSchemaInfo>> GetStorageProviderDataStructure()
     {
-        return UnpackSchema(Get<IObjectSchemaInfo>(BuildApi("GetStorageProviderDataStructure")));
+        return Get<IObjectSchemaInfo>(BuildApi("GetStorageProviderDataStructure"));
     }
 
     public string DownloadUrl(Guid storageId, string token)

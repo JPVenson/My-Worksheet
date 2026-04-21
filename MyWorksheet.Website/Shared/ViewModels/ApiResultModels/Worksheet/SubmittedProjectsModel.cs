@@ -1,28 +1,27 @@
 using System;
-namespace MyWorksheet.Website.Shared.ViewModels.ApiResultModels.Worksheet
+namespace MyWorksheet.Website.Shared.ViewModels.ApiResultModels.Worksheet;
+
+public class SubmittedProjectsModel : ViewModelBase
 {
-    public class SubmittedProjectsModel : ViewModelBase
+    private Guid _projectId;
+
+    private long _wCount;
+
+    public Guid ProjectId
     {
-        private Guid _projectId;
+        get { return _projectId; }
+        set { SetProperty(ref _projectId, value); }
+    }
 
-        private long _wCount;
+    public long WCount
+    {
+        get { return _wCount; }
+        set { SetProperty(ref _wCount, value); }
+    }
+    //public Guid IdCreator { get; set; }
 
-        public Guid ProjectId
-        {
-            get { return _projectId; }
-            set { SetProperty(ref _projectId, value); }
-        }
-
-        public long WCount
-        {
-            get { return _wCount; }
-            set { SetProperty(ref _wCount, value); }
-        }
-        //public Guid IdCreator { get; set; }
-
-        public override Guid? GetModelIdentifier()
-        {
-            return ProjectId;
-        }
+    public override Guid? GetModelIdentifier()
+    {
+        return ProjectId;
     }
 }

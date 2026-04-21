@@ -1,13 +1,12 @@
 using System;
-namespace MyWorksheet.Website.Shared.ViewModels.ApiResultModels.NumberRange
-{
-    public class NumberRangeModel : CreateNumberRangeModel
-    {
-        public Guid AppNumberRangeId { get; set; }
+namespace MyWorksheet.Website.Shared.ViewModels.ApiResultModels.NumberRange;
 
-        public override Guid? GetModelIdentifier()
-        {
-            return AppNumberRangeId;
-        }
+public class NumberRangeModel : CreateNumberRangeModel
+{
+    public Guid AppNumberRangeId { get; set; }
+
+    public override Guid? GetModelIdentifier()
+    {
+        return AppNumberRangeId;
     }
 }

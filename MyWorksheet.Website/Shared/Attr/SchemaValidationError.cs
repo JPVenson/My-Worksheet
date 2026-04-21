@@ -1,9 +1,8 @@
-﻿namespace MyWorksheet.Public.Models.ObjectSchema
+﻿namespace MyWorksheet.Public.Models.ObjectSchema;
+
+public enum SchemaValidationError
 {
-    public enum SchemaValidationError
-    {
-        Missing,
-        WrongType,
-        Unexpected
-    }
+    Missing,
+    WrongType,
+    Unexpected
 }

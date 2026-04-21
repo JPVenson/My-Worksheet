@@ -1,9 +1,8 @@
-﻿namespace MyWorksheet.Public.Models.ObjectSchema
+﻿namespace MyWorksheet.Public.Models.ObjectSchema;
+
+public interface IFunctionInfo
 {
-    public interface IFunctionInfo
-    {
-        string Name { get; }
-        string ReturnValue { get; }
-        string[] Arguments { get; }
-    }
+    string Name { get; }
+    string ReturnValue { get; }
+    string[] Arguments { get; }
 }

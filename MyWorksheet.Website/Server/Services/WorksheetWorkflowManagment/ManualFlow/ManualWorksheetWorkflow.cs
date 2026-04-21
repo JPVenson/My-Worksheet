@@ -87,22 +87,21 @@ public class ManualWorksheetWorkflow : IWorksheetWorkflow
                     nameof(ManualWorkflowData.ManualWorkflowReport.Template), templatesOfTypeOfX)
             ;
 
-        var argumentSchema = ReportDataSources.WorksheetSpecReport.ArgumentSchema(db, userId);
+        var argumentSchema = ReportDataSources.WorksheetSpecReport.ArgumentSchema(db, userId) as JsonSchema;
 
-        argumentSchema.Schema.Remove(nameof(WorkflowReportArguments.Worksheet));
-        argumentSchema.Defaults.Remove(nameof(WorkflowReportArguments.Date));
-
-        schema.Add(nameof(ManualWorkflowData.SubmitReport) +
-                   "." +
-                   nameof(ManualWorkflowData.ManualWorkflowReport.ReportData),
-            "Workflow.Manual/Data.Comments.ReportData",
-            argumentSchema);
-
-        schema.Add(nameof(ManualWorkflowData.ConfirmedReport) +
-                   "." +
-                   nameof(ManualWorkflowData.ManualWorkflowReport.ReportData),
-            "Workflow.Manual/Data.Comments.ReportData",
-            argumentSchema);
+        argumentSchema.Properties.Remove(nameof(WorkflowReportArguments.Worksheet));
+        argumentSchema.Properties.Remove(nameof(WorkflowReportArguments.Date));
+        schema.References["WorksheetSpecSchema"] = argumentSchema;
+        schema.References[schema.Properties[nameof(ManualWorkflowData.SubmitReport)].Type].Properties[nameof(ManualWorkflowData.ManualWorkflowReport.ReportData)] = new()
+        {
+            Name = "Workflow.Manual/Data.Comments.ReportData",
+            Type = "WorksheetSpecSchema"
+        };
+        schema.References[schema.Properties[nameof(ManualWorkflowData.ConfirmedReport)].Type].Properties[nameof(ManualWorkflowData.ManualWorkflowReport.ReportData)] = new()
+        {
+            Name = "Workflow.Manual/Data.Comments.ReportData",
+            Type = "WorksheetSpecSchema"
+        };
 
         return schema;
     }

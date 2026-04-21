@@ -1,22 +1,21 @@
 using System;
-namespace MyWorksheet.Website.Shared.ViewModels.ApiResultModels.Payment
+namespace MyWorksheet.Website.Shared.ViewModels.ApiResultModels.Payment;
+
+public class FeatureOverviewAggregatedFeatures : ViewModelBase
 {
-    public class FeatureOverviewAggregatedFeatures : ViewModelBase
+    private int? _ammount;
+
+    private Guid _idPromisedFeatureContent;
+
+    public Guid IdPromisedFeatureContent
     {
-        private int? _ammount;
+        get { return _idPromisedFeatureContent; }
+        set { SetProperty(ref _idPromisedFeatureContent, value); }
+    }
 
-        private Guid _idPromisedFeatureContent;
-
-        public Guid IdPromisedFeatureContent
-        {
-            get { return _idPromisedFeatureContent; }
-            set { SetProperty(ref _idPromisedFeatureContent, value); }
-        }
-
-        public int? Ammount
-        {
-            get { return _ammount; }
-            set { SetProperty(ref _ammount, value); }
-        }
+    public int? Ammount
+    {
+        get { return _ammount; }
+        set { SetProperty(ref _ammount, value); }
     }
 }

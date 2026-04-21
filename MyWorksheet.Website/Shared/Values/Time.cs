@@ -1,24 +1,23 @@
 ﻿using System;
 
-namespace MyWorksheet.Public.Models.Values
+namespace MyWorksheet.Public.Models.Values;
+
+public struct Time : IEquatable<decimal>
 {
-    public struct Time : IEquatable<decimal>
+    public Time(decimal value)
     {
-        public Time(decimal value)
-        {
-            Value = value;
-        }
+        Value = value;
+    }
 
-        public decimal Value { get; private set; }
+    public decimal Value { get; private set; }
 
-        public static implicit operator Time(decimal from)
-        {
-            return new Time(from);
-        }
+    public static implicit operator Time(decimal from)
+    {
+        return new Time(from);
+    }
 
-        public bool Equals(decimal other)
-        {
-            return Value.Equals(other);
-        }
+    public bool Equals(decimal other)
+    {
+        return Value.Equals(other);
     }
 }

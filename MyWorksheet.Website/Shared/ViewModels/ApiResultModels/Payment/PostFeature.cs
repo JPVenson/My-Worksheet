@@ -1,55 +1,54 @@
 using System;
 
-namespace MyWorksheet.Website.Shared.ViewModels.ApiResultModels.Payment
+namespace MyWorksheet.Website.Shared.ViewModels.ApiResultModels.Payment;
+
+public class PostFeature : GetFeature
 {
-    public class PostFeature : GetFeature
+    private string _comment;
+
+    private Guid _idPromisedFeatureRegion;
+
+    private int? _limitTo;
+
+    private int? _limitToUser;
+
+    private DateTime? _validFrom;
+
+    private DateTime? _validTo;
+
+    public Guid IdPromisedFeatureRegion
     {
-        private string _comment;
+        get { return _idPromisedFeatureRegion; }
+        set { SetProperty(ref _idPromisedFeatureRegion, value); }
+    }
 
-        private Guid _idPromisedFeatureRegion;
+    public string Comment
+    {
+        get { return _comment; }
+        set { SetProperty(ref _comment, value); }
+    }
 
-        private int? _limitTo;
+    public DateTime? ValidFrom
+    {
+        get { return _validFrom; }
+        set { SetProperty(ref _validFrom, value); }
+    }
 
-        private int? _limitToUser;
+    public DateTime? ValidTo
+    {
+        get { return _validTo; }
+        set { SetProperty(ref _validTo, value); }
+    }
 
-        private DateTime? _validFrom;
+    public int? LimitTo
+    {
+        get { return _limitTo; }
+        set { SetProperty(ref _limitTo, value); }
+    }
 
-        private DateTime? _validTo;
-
-        public Guid IdPromisedFeatureRegion
-        {
-            get { return _idPromisedFeatureRegion; }
-            set { SetProperty(ref _idPromisedFeatureRegion, value); }
-        }
-
-        public string Comment
-        {
-            get { return _comment; }
-            set { SetProperty(ref _comment, value); }
-        }
-
-        public DateTime? ValidFrom
-        {
-            get { return _validFrom; }
-            set { SetProperty(ref _validFrom, value); }
-        }
-
-        public DateTime? ValidTo
-        {
-            get { return _validTo; }
-            set { SetProperty(ref _validTo, value); }
-        }
-
-        public int? LimitTo
-        {
-            get { return _limitTo; }
-            set { SetProperty(ref _limitTo, value); }
-        }
-
-        public int? LimitToUser
-        {
-            get { return _limitToUser; }
-            set { SetProperty(ref _limitToUser, value); }
-        }
+    public int? LimitToUser
+    {
+        get { return _limitToUser; }
+        set { SetProperty(ref _limitToUser, value); }
     }
 }

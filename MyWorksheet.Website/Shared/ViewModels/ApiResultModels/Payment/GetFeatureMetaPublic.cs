@@ -1,51 +1,50 @@
 using System;
-namespace MyWorksheet.Website.Shared.ViewModels.ApiResultModels.Payment
+namespace MyWorksheet.Website.Shared.ViewModels.ApiResultModels.Payment;
+
+public class GetFeatureMetaPublic : ViewModelBase
 {
-    public class GetFeatureMetaPublic : ViewModelBase
+    private string _displayKey;
+
+    private bool _inclusiveFeature;
+
+    private bool _isActive;
+
+    private Guid _promisedFeatureId;
+
+    private bool _reoccuringFeature;
+
+    public Guid PromisedFeatureId
     {
-        private string _displayKey;
+        get { return _promisedFeatureId; }
+        set { SetProperty(ref _promisedFeatureId, value); }
+    }
 
-        private bool _inclusiveFeature;
+    public string DisplayKey
+    {
+        get { return _displayKey; }
+        set { SetProperty(ref _displayKey, value); }
+    }
 
-        private bool _isActive;
+    public bool IsActive
+    {
+        get { return _isActive; }
+        set { SetProperty(ref _isActive, value); }
+    }
 
-        private Guid _promisedFeatureId;
+    public bool ReoccuringFeature
+    {
+        get { return _reoccuringFeature; }
+        set { SetProperty(ref _reoccuringFeature, value); }
+    }
 
-        private bool _reoccuringFeature;
+    public bool InclusiveFeature
+    {
+        get { return _inclusiveFeature; }
+        set { SetProperty(ref _inclusiveFeature, value); }
+    }
 
-        public Guid PromisedFeatureId
-        {
-            get { return _promisedFeatureId; }
-            set { SetProperty(ref _promisedFeatureId, value); }
-        }
-
-        public string DisplayKey
-        {
-            get { return _displayKey; }
-            set { SetProperty(ref _displayKey, value); }
-        }
-
-        public bool IsActive
-        {
-            get { return _isActive; }
-            set { SetProperty(ref _isActive, value); }
-        }
-
-        public bool ReoccuringFeature
-        {
-            get { return _reoccuringFeature; }
-            set { SetProperty(ref _reoccuringFeature, value); }
-        }
-
-        public bool InclusiveFeature
-        {
-            get { return _inclusiveFeature; }
-            set { SetProperty(ref _inclusiveFeature, value); }
-        }
-
-        public override Guid? GetModelIdentifier()
-        {
-            return PromisedFeatureId;
-        }
+    public override Guid? GetModelIdentifier()
+    {
+        return PromisedFeatureId;
     }
 }

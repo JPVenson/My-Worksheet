@@ -103,7 +103,7 @@ public partial class SchemaEditControl
         SchemaItems.Clear();
 
         var fromObjectSchema = SchemaInfoValue
-            .FromObjectSchema(SchemaInfo, SchemaInfo.Schema, "", () => Values ?? new ValueBag())
+            .FromObjectSchema(SchemaInfo, SchemaInfo, () => Values ?? new ValueBag(), new Dictionary<string, SchemaInfoValue>()) // references are not supported here
             .ToArray();
 
         var items = new List<SchemaInfoValue>();
@@ -182,6 +182,7 @@ public class SchemaInfoValue
     public object DefaultValue { get; set; }
     public bool Optional { get; set; }
     public object SchemaType { get; set; }
+    public bool IsListType { get; set; }
 
     public bool BooleanValue
     {
@@ -257,55 +258,74 @@ public class SchemaInfoValue
     public List<SchemaInfoValue> Children { get; set; }
 
     public IDictionary<string, object> AllowedValues { get; set; }
+
     public SchemaEditDisplayType DisplayType { get; set; }
 
-    public static IEnumerable<SchemaInfoValue> FromObjectSchema(IObjectSchemaInfo schema,
-        IDictionary<string, object> valueObject,
-        string name,
-        Func<ValueBag> valueStore)
+    public static IEnumerable<SchemaInfoValue> FromObjectSchema(
+        IObjectSchemaInfo schema,
+        IObjectSchemaInfo rootSchema,
+        Func<ValueBag> valueStore,
+        IDictionary<string, SchemaInfoValue> referenceSchemas)
     {
         var values = new List<SchemaInfoValue>();
-        foreach (var prop in valueObject)
+        foreach (var prop in schema.Properties)
         {
             var schemaValue = new SchemaInfoValue();
             schemaValue._valueStore = valueStore;
-            var valueName = name + "" + prop.Key;
-            var value = prop.Value;
 
+            schemaValue.Optional = prop.Value.IsOptional;
+            schemaValue.ValueName = prop.Key;
+            schemaValue.Name = prop.Key;
+            schemaValue.DisplayName = prop.Value.Name ?? prop.Key;
 
-            schemaValue.Optional = valueName.EndsWith("!") || value?.ToString() == "boolean";
-            schemaValue.ValueName = valueName.TrimEnd('!');
-            schemaValue.Name = valueName;
-            schemaValue.DisplayName = schema.Names[valueName] ?? schemaValue.ValueName.Split('.').LastOrDefault();
-
-            schemaValue.SchemaType = value;
-            //schemaValue.Value = value;
+            schemaValue.SchemaType = prop.Value.Type;
             if (schemaValue.Value == null)
             {
-                schemaValue.Value = schema.Defaults.GetOrDefault(valueName, null);
+                schemaValue.Value = prop.Value.Default;
                 schemaValue.ValueAsString = schemaValue.Value?.ToString();
             }
-            schemaValue.Comment = schema.Comments.GetOrDefault(valueName, null);
-            schemaValue.AllowedValues = schema.AllowedValues.GetOrDefault(valueName, null);
+            schemaValue.Comment = prop.Value.Comment;
+            schemaValue.AllowedValues = prop.Value.AllowedValues;
+            schemaValue.IsListType = prop.Value.IsListType;
 
-            if (value is string) // this is a primitive value like "string" "boolean" "string | Guid"
+            if (prop.Value.IsAnonymousType)
+            {
+                schemaValue.DisplayType = SchemaEditDisplayType.Object;
+                schemaValue.Children.AddRange(FromObjectSchema(rootSchema.References[prop.Value.Type], rootSchema, valueStore, referenceSchemas));
+            }
+            else if (!JsonHelper.TypeCsToTsMapping.Any(e => e.Value.Equals(prop.Value.Type, StringComparison.InvariantCultureIgnoreCase)))
+            {
+                var usageCount = rootSchema.References
+                    .Select(e => e.Value.Properties.Count(f => f.Value.Type.Equals(prop.Value.Type, StringComparison.InvariantCultureIgnoreCase)))
+                    .Sum();
+                System.Console.WriteLine($"Type {prop.Value.Type} is used {usageCount} times");
+                if (usageCount <= 1)
+                {
+                    schemaValue.DisplayType = SchemaEditDisplayType.Object;                    
+                    schemaValue.Children.AddRange(FromObjectSchema(rootSchema.References[prop.Value.Type], rootSchema, valueStore, referenceSchemas));
+                }
+                else
+                {
+                    schemaValue.DisplayType = SchemaEditDisplayType.ObjectReference;
+                    schemaValue.Value = rootSchema.References[prop.Value.Type];
+                    if (!referenceSchemas.ContainsKey(prop.Value.Type))
+                    {
+                        var referenceScheme = new SchemaInfoValue();
+                        referenceScheme.Name = prop.Value.Type;
+                        referenceSchemas[prop.Value.Type] = referenceScheme;
+                        referenceScheme.Children.AddRange(FromObjectSchema(rootSchema.References[prop.Value.Type], rootSchema, valueStore, referenceSchemas));
+                    }
+                }
+            }
+            else
+            // this is a primitive value like "string" "boolean" "string | Guid"
             {
                 schemaValue.DisplayType = SchemaEditDisplayType.Value;
 
-                if (value is "string | Guid" && schemaValue.AllowedValues?.Any() == true) // Guids are special as they are send as strings in the allowed values but needs conversion
+                if (prop.Value.Type is "string | Guid" && schemaValue.AllowedValues?.Any() == true) // Guids are special as they are send as strings in the allowed values but needs conversion
                 {
                     schemaValue.AllowedValues = schemaValue.AllowedValues.ToDictionary(e => e.Key, e => Guid.Parse(e.Value.ToString()) as object);
                 }
-            }
-            else if (value is JArray jArr)
-            {
-                schemaValue.DisplayType = SchemaEditDisplayType.List;
-                schemaValue.Children.AddRange(FromObjectSchema(schema, jArr.ElementAt(0).ToObject<IDictionary<string, object>>(), valueName + ".", valueStore));
-            }
-            else if (value is JObject jobj)
-            {
-                schemaValue.DisplayType = SchemaEditDisplayType.Object;
-                schemaValue.Children.AddRange(FromObjectSchema(schema, jobj.ToObject<IDictionary<string, object>>(), valueName + ".", valueStore));
             }
             values.Add(schemaValue);
         }
@@ -347,6 +367,6 @@ public class SchemaInfoValue
 public enum SchemaEditDisplayType
 {
     Value,
-    List,
-    Object
+    Object,
+    ObjectReference,
 }

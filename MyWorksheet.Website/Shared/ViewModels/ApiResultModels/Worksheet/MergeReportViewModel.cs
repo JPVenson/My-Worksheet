@@ -1,7 +1,6 @@
-﻿namespace MyWorksheet.Website.Shared.ViewModels.ApiResultModels.Worksheet
+﻿namespace MyWorksheet.Website.Shared.ViewModels.ApiResultModels.Worksheet;
+
+public class MergeReportViewModel
 {
-    public class MergeReportViewModel
-    {
-        public WorksheetItemModel[] Overlapping { get; set; }
-    }
+    public WorksheetItemModel[] Overlapping { get; set; }
 }

@@ -1,46 +1,45 @@
 using System;
-namespace MyWorksheet.Website.Shared.ViewModels.ApiResultModels.Storage
+namespace MyWorksheet.Website.Shared.ViewModels.ApiResultModels.Storage;
+
+public class StorageProviderInfo : ViewModelBase
 {
-    public class StorageProviderInfo : ViewModelBase
+    private string _display;
+
+    private string _key;
+
+    public string Display
     {
-        private string _display;
+        get { return _display; }
+        set { SetProperty(ref _display, value); }
+    }
 
-        private string _key;
+    public string Key
+    {
+        get { return _key; }
+        set { SetProperty(ref _key, value); }
+    }
+}
 
-        public string Display
+public class StorageTypeViewModel : ViewModelBase
+{
+    private Guid _storageTypeId;
+    private string _name;
+
+    public Guid StorageTypeId
+    {
+        get { return _storageTypeId; }
+        set
         {
-            get { return _display; }
-            set { SetProperty(ref _display, value); }
-        }
-
-        public string Key
-        {
-            get { return _key; }
-            set { SetProperty(ref _key, value); }
+            SetProperty(ref _storageTypeId, value);
         }
     }
 
-    public class StorageTypeViewModel : ViewModelBase
+    public string Name
     {
-        private Guid _storageTypeId;
-        private string _name;
-
-        public Guid StorageTypeId
+        get { return _name; }
+        set
         {
-            get { return _storageTypeId; }
-            set
-            {
-                SetProperty(ref _storageTypeId, value);
-            }
-        }
-
-        public string Name
-        {
-            get { return _name; }
-            set
-            {
-                SetProperty(ref _name, value);
-            }
+            SetProperty(ref _name, value);
         }
     }
 }

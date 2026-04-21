@@ -1,10 +1,9 @@
 ﻿using System;
-namespace MyWorksheet.Website.Shared.ViewModels.ApiResultModels.Worksheet
+namespace MyWorksheet.Website.Shared.ViewModels.ApiResultModels.Worksheet;
+
+public interface IEntityObject
 {
-    public interface IEntityObject
-    {
-        int State();
-        ViewModelState SnapshotState();
-        Guid? GetModelIdentifier();
-    }
+    int State();
+    ViewModelState SnapshotState();
+    Guid? GetModelIdentifier();
 }

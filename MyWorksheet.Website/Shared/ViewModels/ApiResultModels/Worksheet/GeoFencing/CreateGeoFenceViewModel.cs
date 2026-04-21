@@ -1,3 +1,1 @@
-﻿namespace MyWorksheet.Website.Shared.ViewModels.ApiResultModels.Worksheet.GeoFencing
-{
-}
+﻿namespace MyWorksheet.Website.Shared.ViewModels.ApiResultModels.Worksheet.GeoFencing;

@@ -1,108 +1,107 @@
 using System;
 
-namespace MyWorksheet.Website.Shared.ViewModels.ApiResultModels.Administration.ExecuteLater
+namespace MyWorksheet.Website.Shared.ViewModels.ApiResultModels.Administration.ExecuteLater;
+
+public class PriorityQueueItemViewModel : ViewModelBase
 {
-    public class PriorityQueueItemViewModel : ViewModelBase
+    private string _actionKey;
+
+    private string _dataArguments;
+
+    private DateTimeOffset _dateOfCreation;
+
+    private DateTimeOffset? _dateOfDone;
+
+    private bool _done;
+
+    private string _error;
+
+    private Guid _idCreator;
+
+    private Guid? _idParent;
+
+    private string _level;
+
+    private Guid _priorityQueueItemId;
+
+    private bool _success;
+
+    private string _version;
+
+    public Guid PriorityQueueItemId
     {
-        private string _actionKey;
+        get { return _priorityQueueItemId; }
+        set { SetProperty(ref _priorityQueueItemId, value); }
+    }
 
-        private string _dataArguments;
+    public Guid? IdParent
+    {
+        get { return _idParent; }
+        set { SetProperty(ref _idParent, value); }
+    }
 
-        private DateTimeOffset _dateOfCreation;
+    public Guid IdCreator
+    {
+        get { return _idCreator; }
+        set { SetProperty(ref _idCreator, value); }
+    }
 
-        private DateTimeOffset? _dateOfDone;
+    public string ActionKey
+    {
+        get { return _actionKey; }
+        set { SetProperty(ref _actionKey, value); }
+    }
 
-        private bool _done;
+    public string DataArguments
+    {
+        get { return _dataArguments; }
+        set { SetProperty(ref _dataArguments, value); }
+    }
 
-        private string _error;
+    public string Version
+    {
+        get { return _version; }
+        set { SetProperty(ref _version, value); }
+    }
 
-        private Guid _idCreator;
+    public string Level
+    {
+        get { return _level; }
+        set { SetProperty(ref _level, value); }
+    }
 
-        private Guid? _idParent;
+    public DateTimeOffset DateOfCreation
+    {
+        get { return _dateOfCreation; }
+        set { SetProperty(ref _dateOfCreation, value); }
+    }
 
-        private string _level;
+    public DateTimeOffset? DateOfDone
+    {
+        get { return _dateOfDone; }
+        set { SetProperty(ref _dateOfDone, value); }
+    }
 
-        private Guid _priorityQueueItemId;
+    public bool Done
+    {
+        get { return _done; }
+        set { SetProperty(ref _done, value); }
+    }
 
-        private bool _success;
+    public bool Success
+    {
+        get { return _success; }
+        set { SetProperty(ref _success, value); }
+    }
 
-        private string _version;
+    public string Error
+    {
+        get { return _error; }
+        set { SetProperty(ref _error, value); }
+    }
 
-        public Guid PriorityQueueItemId
-        {
-            get { return _priorityQueueItemId; }
-            set { SetProperty(ref _priorityQueueItemId, value); }
-        }
-
-        public Guid? IdParent
-        {
-            get { return _idParent; }
-            set { SetProperty(ref _idParent, value); }
-        }
-
-        public Guid IdCreator
-        {
-            get { return _idCreator; }
-            set { SetProperty(ref _idCreator, value); }
-        }
-
-        public string ActionKey
-        {
-            get { return _actionKey; }
-            set { SetProperty(ref _actionKey, value); }
-        }
-
-        public string DataArguments
-        {
-            get { return _dataArguments; }
-            set { SetProperty(ref _dataArguments, value); }
-        }
-
-        public string Version
-        {
-            get { return _version; }
-            set { SetProperty(ref _version, value); }
-        }
-
-        public string Level
-        {
-            get { return _level; }
-            set { SetProperty(ref _level, value); }
-        }
-
-        public DateTimeOffset DateOfCreation
-        {
-            get { return _dateOfCreation; }
-            set { SetProperty(ref _dateOfCreation, value); }
-        }
-
-        public DateTimeOffset? DateOfDone
-        {
-            get { return _dateOfDone; }
-            set { SetProperty(ref _dateOfDone, value); }
-        }
-
-        public bool Done
-        {
-            get { return _done; }
-            set { SetProperty(ref _done, value); }
-        }
-
-        public bool Success
-        {
-            get { return _success; }
-            set { SetProperty(ref _success, value); }
-        }
-
-        public string Error
-        {
-            get { return _error; }
-            set { SetProperty(ref _error, value); }
-        }
-
-        public override Guid? GetModelIdentifier()
-        {
-            return PriorityQueueItemId;
-        }
+    public override Guid? GetModelIdentifier()
+    {
+        return PriorityQueueItemId;
     }
 }

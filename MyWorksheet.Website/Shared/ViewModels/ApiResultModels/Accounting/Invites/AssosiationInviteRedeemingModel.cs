@@ -1,31 +1,30 @@
 using MyWorksheet.Website.Shared.ViewModels.ApiResultModels.Accounting.Roles;
 
-namespace MyWorksheet.Website.Shared.ViewModels.ApiResultModels.Accounting.Invites
+namespace MyWorksheet.Website.Shared.ViewModels.ApiResultModels.Accounting.Invites;
+
+public class AssosiationInviteRedeemingModel : ViewModelBase
 {
-    public class AssosiationInviteRedeemingModel : ViewModelBase
+    private AccountApiUserPost _account;
+
+    private string _externalId;
+
+    private UserToUserRoleViewModel _role;
+
+    public string ExternalId
     {
-        private AccountApiUserPost _account;
+        get { return _externalId; }
+        set { SetProperty(ref _externalId, value); }
+    }
 
-        private string _externalId;
+    public UserToUserRoleViewModel Role
+    {
+        get { return _role; }
+        set { SetProperty(ref _role, value); }
+    }
 
-        private UserToUserRoleViewModel _role;
-
-        public string ExternalId
-        {
-            get { return _externalId; }
-            set { SetProperty(ref _externalId, value); }
-        }
-
-        public UserToUserRoleViewModel Role
-        {
-            get { return _role; }
-            set { SetProperty(ref _role, value); }
-        }
-
-        public AccountApiUserPost Account
-        {
-            get { return _account; }
-            set { SetProperty(ref _account, value); }
-        }
+    public AccountApiUserPost Account
+    {
+        get { return _account; }
+        set { SetProperty(ref _account, value); }
     }
 }

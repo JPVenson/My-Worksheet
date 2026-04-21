@@ -19305,7 +19305,7 @@ tr > .comment-column {
   display: block;
 }
 
-.pre {
+.schemaDisplay .pre {
   display: block;
   font-family: monospace;
   white-space: nowrap;
@@ -19322,17 +19322,20 @@ tr > .comment-column {
   border-radius: 4px;
   overflow-x: scroll;
 }
-
-span.comment {
+.schemaDisplay span.comment {
   color: #287a1d;
 }
-
-span.type {
+.schemaDisplay span.type {
   color: #5b9de1;
 }
-
-span.property {
+.schemaDisplay span.property {
   color: #ff7070;
+}
+.schemaDisplay span.reference {
+  cursor: pointer;
+}
+.schemaDisplay .referenceHeader {
+  color: #287a1d;
 }
 
 .monacco-edtior-container {

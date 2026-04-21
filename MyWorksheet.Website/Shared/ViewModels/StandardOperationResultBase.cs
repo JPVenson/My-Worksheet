@@ -1,21 +1,20 @@
 ﻿using Newtonsoft.Json;
 
-namespace MyWorksheet.Website.Shared.ViewModels
+namespace MyWorksheet.Website.Shared.ViewModels;
+
+public class StandardOperationResultBase<TObject> : OperationResultBase<TObject, string>
 {
-    public class StandardOperationResultBase<TObject> : OperationResultBase<TObject, string>
+    [JsonConstructor]
+    protected StandardOperationResultBase()
     {
-        [JsonConstructor]
-        protected StandardOperationResultBase()
-        {
 
-        }
+    }
 
-        public StandardOperationResultBase(TObject successObject) : base(successObject)
-        {
-        }
+    public StandardOperationResultBase(TObject successObject) : base(successObject)
+    {
+    }
 
-        public StandardOperationResultBase(string error) : base(error)
-        {
-        }
+    public StandardOperationResultBase(string error) : base(error)
+    {
     }
 }

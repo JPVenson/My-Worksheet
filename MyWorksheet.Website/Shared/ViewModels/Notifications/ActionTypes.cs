@@ -1,13 +1,12 @@
 ﻿using System;
 
-namespace MyWorksheet.Website.Shared.ViewModels.Notifications
+namespace MyWorksheet.Website.Shared.ViewModels.Notifications;
+
+[Flags]
+public enum ActionTypes
 {
-    [Flags]
-    public enum ActionTypes
-    {
-        Created,
-        Updated,
-        Submitted,
-        Deleted
-    }
+    Created,
+    Updated,
+    Submitted,
+    Deleted
 }

@@ -1,9 +1,8 @@
-﻿namespace MyWorksheet.Website.Shared.ViewModels.ApiResultModels.Worksheet
+﻿namespace MyWorksheet.Website.Shared.ViewModels.ApiResultModels.Worksheet;
+
+public enum WorksheetItemCreateStatus
 {
-    public enum WorksheetItemCreateStatus
-    {
-        Failed,
-        FailedOverlapping,
-        Created
-    }
+    Failed,
+    FailedOverlapping,
+    Created
 }

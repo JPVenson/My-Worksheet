@@ -1,3 +1,4 @@
+using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -1016,6 +1017,14 @@ public class ProjectChargeRateConfiguration : IEntityTypeConfiguration<ProjectCh
         entity.Property(e => e.ProjectChargeRateId).HasColumnName("ProjectChargeRate_Id");
         entity.Property(e => e.Code).IsRequired();
         entity.Property(e => e.DisplayKey).IsRequired();
+
+        entity.HasData([
+            new ProjectChargeRate(){Code = "PER_HOUR", DisplayKey = "ProjectChargeRate/PerHour", ProjectChargeRateId = new Guid("00000000-0000-0000-0009-000000000001")},
+            new ProjectChargeRate(){Code = "PER_MINUTE", DisplayKey = "ProjectChargeRate/PerMinute", ProjectChargeRateId = new Guid("00000000-0000-0000-0009-000000000002")},
+            new ProjectChargeRate(){Code = "PER_QUARTER_MINUTE", DisplayKey = "ProjectChargeRate/PerQuarterMinute", ProjectChargeRateId = new Guid("00000000-0000-0000-0009-000000000003")},
+            new ProjectChargeRate(){Code = "PER_STARTED_HOUR", DisplayKey = "ProjectChargeRate/PerStartedHour", ProjectChargeRateId = new Guid("00000000-0000-0000-0009-000000000004")},
+            new ProjectChargeRate(){Code = "PER_DAY", DisplayKey = "ProjectChargeRate/PerDay", ProjectChargeRateId = new Guid("00000000-0000-0000-0009-000000000005")},
+        ]);
     }
 }
 public class ProjectItemRateConfiguration : IEntityTypeConfiguration<ProjectItemRate>

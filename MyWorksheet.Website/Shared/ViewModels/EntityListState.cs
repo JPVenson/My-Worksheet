@@ -1,10 +1,9 @@
-﻿namespace MyWorksheet.Website.Shared.ViewModels
+﻿namespace MyWorksheet.Website.Shared.ViewModels;
+
+public enum EntityListState
 {
-    public enum EntityListState
-    {
-        Unknown,
-        Pristine,
-        Added,
-        Deleted,
-    }
+    Unknown,
+    Pristine,
+    Added,
+    Deleted,
 }

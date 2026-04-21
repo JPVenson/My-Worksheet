@@ -1,21 +1,20 @@
-namespace MyWorksheet.Website.Shared.ViewModels.ApiResultModels.Administration
+namespace MyWorksheet.Website.Shared.ViewModels.ApiResultModels.Administration;
+
+public class ConfigurationModelGetFlat : ViewModelBase
 {
-    public class ConfigurationModelGetFlat : ViewModelBase
+    private string _path;
+
+    private string _value;
+
+    public string Path
     {
-        private string _path;
+        get { return _path; }
+        set { SetProperty(ref _path, value); }
+    }
 
-        private string _value;
-
-        public string Path
-        {
-            get { return _path; }
-            set { SetProperty(ref _path, value); }
-        }
-
-        public string Value
-        {
-            get { return _value; }
-            set { SetProperty(ref _value, value); }
-        }
+    public string Value
+    {
+        get { return _value; }
+        set { SetProperty(ref _value, value); }
     }
 }

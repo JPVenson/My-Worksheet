@@ -1,37 +1,36 @@
 using System;
-namespace MyWorksheet.Website.Shared.ViewModels.ApiResultModels.Worksheet.Workflow
+namespace MyWorksheet.Website.Shared.ViewModels.ApiResultModels.Worksheet.Workflow;
+
+public class WorksheetWorkflowStatusLookupViewModel : ViewModelBase
 {
-    public class WorksheetWorkflowStatusLookupViewModel : ViewModelBase
+    private string _descriptionKey;
+
+    private string _displayKey;
+
+    private Guid _worksheetStatusLookupId;
+
+    public bool AllowModifications { get; set; }
+
+    public Guid WorksheetStatusLookupId
     {
-        private string _descriptionKey;
+        get { return _worksheetStatusLookupId; }
+        set { SetProperty(ref _worksheetStatusLookupId, value); }
+    }
 
-        private string _displayKey;
+    public string DisplayKey
+    {
+        get { return _displayKey; }
+        set { SetProperty(ref _displayKey, value); }
+    }
 
-        private Guid _worksheetStatusLookupId;
+    public string DescriptionKey
+    {
+        get { return _descriptionKey; }
+        set { SetProperty(ref _descriptionKey, value); }
+    }
 
-        public bool AllowModifications { get; set; }
-
-        public Guid WorksheetStatusLookupId
-        {
-            get { return _worksheetStatusLookupId; }
-            set { SetProperty(ref _worksheetStatusLookupId, value); }
-        }
-
-        public string DisplayKey
-        {
-            get { return _displayKey; }
-            set { SetProperty(ref _displayKey, value); }
-        }
-
-        public string DescriptionKey
-        {
-            get { return _descriptionKey; }
-            set { SetProperty(ref _descriptionKey, value); }
-        }
-
-        public override Guid? GetModelIdentifier()
-        {
-            return WorksheetStatusLookupId;
-        }
+    public override Guid? GetModelIdentifier()
+    {
+        return WorksheetStatusLookupId;
     }
 }

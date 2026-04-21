@@ -1,29 +1,28 @@
-namespace MyWorksheet.Website.Shared.ViewModels.ApiResultModels.Storage
+namespace MyWorksheet.Website.Shared.ViewModels.ApiResultModels.Storage;
+
+public class StorageProviderStatistics : ViewModelBase
 {
-    public class StorageProviderStatistics : ViewModelBase
+    private long _createdFiles;
+
+    private long _freeSpaceInMb;
+
+    private long _usedSpaceInMb;
+
+    public long FreeSpaceInMb
     {
-        private long _createdFiles;
+        get { return _freeSpaceInMb; }
+        set { SetProperty(ref _freeSpaceInMb, value); }
+    }
 
-        private long _freeSpaceInMb;
+    public long UsedSpaceInMb
+    {
+        get { return _usedSpaceInMb; }
+        set { SetProperty(ref _usedSpaceInMb, value); }
+    }
 
-        private long _usedSpaceInMb;
-
-        public long FreeSpaceInMb
-        {
-            get { return _freeSpaceInMb; }
-            set { SetProperty(ref _freeSpaceInMb, value); }
-        }
-
-        public long UsedSpaceInMb
-        {
-            get { return _usedSpaceInMb; }
-            set { SetProperty(ref _usedSpaceInMb, value); }
-        }
-
-        public long CreatedFiles
-        {
-            get { return _createdFiles; }
-            set { SetProperty(ref _createdFiles, value); }
-        }
+    public long CreatedFiles
+    {
+        get { return _createdFiles; }
+        set { SetProperty(ref _createdFiles, value); }
     }
 }

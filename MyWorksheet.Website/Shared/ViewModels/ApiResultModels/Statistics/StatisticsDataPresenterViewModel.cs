@@ -1,9 +1,8 @@
-﻿namespace MyWorksheet.Website.Shared.ViewModels.ApiResultModels.Statistics
+﻿namespace MyWorksheet.Website.Shared.ViewModels.ApiResultModels.Statistics;
+
+public class StatisticsDataPresenterViewModel
 {
-    public class StatisticsDataPresenterViewModel
-    {
-        public string Name { get; set; }
-        public string[] AllowedCharts { get; set; }
-        public string DefaultChart { get; set; }
-    }
+    public string Name { get; set; }
+    public string[] AllowedCharts { get; set; }
+    public string DefaultChart { get; set; }
 }

@@ -1,9 +1,8 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace MyWorksheet.Public.Models.ObjectSchema
+namespace MyWorksheet.Public.Models.ObjectSchema;
+
+public class ValueValidator
 {
-    public class ValueValidator
-    {
-        public Regex ValidatorRegex { get; set; }
-    }
+    public Regex ValidatorRegex { get; set; }
 }

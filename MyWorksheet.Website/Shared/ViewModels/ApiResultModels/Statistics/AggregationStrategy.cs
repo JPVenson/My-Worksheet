@@ -1,10 +1,9 @@
-﻿namespace MyWorksheet.Website.Shared.ViewModels.ApiResultModels.Statistics
+﻿namespace MyWorksheet.Website.Shared.ViewModels.ApiResultModels.Statistics;
+
+public enum AggregationStrategy
 {
-    public enum AggregationStrategy
-    {
-        Additive,
-        Average,
-        Duplicative,
-        AddWhereExistsAndDuplicateWhereNot
-    }
+    Additive,
+    Average,
+    Duplicative,
+    AddWhereExistsAndDuplicateWhereNot
 }

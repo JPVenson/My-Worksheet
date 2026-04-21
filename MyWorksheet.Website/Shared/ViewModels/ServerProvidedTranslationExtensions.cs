@@ -1,10 +1,9 @@
-﻿namespace MyWorksheet.Website.Shared.ViewModels
+﻿namespace MyWorksheet.Website.Shared.ViewModels;
+
+public static class ServerProvidedTranslationExtensions
 {
-    public static class ServerProvidedTranslationExtensions
+    public static ServerProvidedTranslation AsTranslation(this string text)
     {
-        public static ServerProvidedTranslation AsTranslation(this string text)
-        {
-            return new ServerProvidedTranslation() { Key = text };
-        }
+        return new ServerProvidedTranslation() { Key = text };
     }
 }
