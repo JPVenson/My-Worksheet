@@ -96,11 +96,23 @@ public partial class UserManagementCreateView : NavigationPageBase
             if (Id.HasValue)
             {
                 var apiResult = ServerErrorManager.Eval(await HttpService.AccountApiAccess.AdminApi.UpdateAccount(EditUser.Entity));
-                ServerErrorManager.DisplayStatus();
                 if (apiResult.Success)
                 {
+                    var quotaResult = ServerErrorManager.Eval(await HttpService.AccountApiAccess.AdminApi.UpdateCounterInfos(new UpdateUserQuotasViewModel
+                    {
+                        UserId = EditUser.Entity.UserID,
+                        Quotas = UserQuotas ?? Array.Empty<UserQuotaViewModel>()
+                    }));
+
+                    if (quotaResult.Success)
+                    {
+                        UserQuotas = ServerErrorManager.EvalAndUnbox(await HttpService.AccountApiAccess.AdminApi.GetCounterInfos(EditUser.Entity.UserID));
+                    }
+
                     EditUser = apiResult;
                 }
+
+                ServerErrorManager.DisplayStatus();
             }
             else
             {

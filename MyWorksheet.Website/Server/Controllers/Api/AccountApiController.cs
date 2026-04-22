@@ -429,6 +429,51 @@ public class AccountControllerBase : RestApiControllerBase<AppUser, AccountApiAd
         return Data(_mapper.ViewModelMapper.Map<UserQuotaViewModel[]>(quota.ToArray()));
     }
 
+    [RevokableAuthorize(Roles = Roles.AdminRoleName)]
+    [Route("Admin/UpdateCounterInfos")]
+    [HttpPost]
+    public IActionResult UpdateCounterInfos([FromBody] UpdateUserQuotasViewModel model)
+    {
+        using var db = EntitiesFactory.CreateDbContext();
+
+        if (!db.AppUsers.Any(f => f.AppUserId == model.UserId))
+        {
+            throw new ArgumentOutOfRangeException(nameof(model.UserId));
+        }
+
+        var quotas = model.Quotas ?? Array.Empty<UserQuotaViewModel>();
+        var types = quotas.Select(e => e.Type).Distinct().ToArray();
+        var userQuotas = db.UserQuota
+            .Where(f => f.IdAppUser == model.UserId)
+            .Where(f => types.Contains(f.QuotaType))
+            .ToArray();
+
+        foreach (var quota in quotas)
+        {
+            var userQuota = userQuotas.FirstOrDefault(f => f.QuotaType == quota.Type);
+            if (userQuota == null)
+            {
+                continue;
+            }
+
+            var maxValue = (int)Math.Clamp(quota.MaxValue, -1, int.MaxValue);
+
+            userQuota.QuotaMax = maxValue;
+            userQuota.QuotaUnlimited = maxValue == -1;
+
+            if (!userQuota.QuotaUnlimited && userQuota.QuotaValue > userQuota.QuotaMax)
+            {
+                userQuota.QuotaValue = userQuota.QuotaMax;
+            }
+
+            db.Update(userQuota);
+        }
+
+        db.SaveChanges();
+
+        return Data();
+    }
+
     [RevokableAuthorize()]
     [Route("GetCounterInfos")]
     [HttpGet]
@@ -449,12 +494,14 @@ public class AccountControllerBase : RestApiControllerBase<AppUser, AccountApiAd
     [RevokableAuthorize(Roles = Roles.AdminRoleName)]
     [HttpPost]
     [Route("Admin/Update")]
-    public void UpdateUser([FromBody] AccountApiAdminGet postData)
+    public IActionResult UpdateUser([FromBody] AccountApiAdminGet postData)
     {
         using var db = EntitiesFactory.CreateDbContext();
         var entity = db.AppUsers.Find(postData.UserID);
         _mapper.ViewModelMapper.Map(postData, entity);
         db.Update(entity);
+        db.SaveChanges();
+        return Ok(_mapper.ViewModelMapper.Map<AccountApiAdminGet>(entity));
     }
 
     [HttpGet]

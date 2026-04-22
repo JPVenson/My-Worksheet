@@ -89,4 +89,9 @@ public class AdminAccountApiAccess : HttpAccessBase
             userId
         }));
     }
+
+    public ValueTask<ApiResult> UpdateCounterInfos(UpdateUserQuotasViewModel model)
+    {
+        return Post<UpdateUserQuotasViewModel>(BuildApi("UpdateCounterInfos"), model);
+    }
 }

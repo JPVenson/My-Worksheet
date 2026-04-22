@@ -14,7 +14,8 @@ EXPOSE 80
 EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
-RUN apt-get update && apt-get install -y --no-install-recommends python3 && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y --no-install-recommends python3 npm && rm -rf /var/lib/apt/lists/*
+RUN npm install --global sass
 RUN dotnet workload install wasm-tools --skip-manifest-update
 
 
@@ -26,6 +27,12 @@ COPY ["MyWorksheet.Website/Shared/MyWorksheet.Website.Shared.csproj", "MyWorkshe
 
 RUN dotnet restore "MyWorksheet.Website/Server/MyWorksheet.Website.Server.csproj"
 COPY . .
+RUN sass --no-source-map /src/MyWorksheet.Website/Client/wwwroot/css/preApp/pre-app.scss:/src/MyWorksheet.Website/Client/wwwroot/css/preApp/pre-app.css \
+    && sass --style=compressed --no-source-map /src/MyWorksheet.Website/Client/wwwroot/css/preApp/pre-app.scss:/src/MyWorksheet.Website/Client/wwwroot/css/preApp/pre-app.min.css \
+    && sass --no-source-map /src/MyWorksheet.Website/Client/wwwroot/css/themes/dark/site-theme.scss:/src/MyWorksheet.Website/Client/wwwroot/css/themes/dark/site-theme.css \
+    && sass --style=compressed --no-source-map /src/MyWorksheet.Website/Client/wwwroot/css/themes/dark/site-theme.scss:/src/MyWorksheet.Website/Client/wwwroot/css/themes/dark/site-theme.min.css \
+    && sass --no-source-map /src/MyWorksheet.Website/Client/wwwroot/css/themes/light/site-theme.scss:/src/MyWorksheet.Website/Client/wwwroot/css/themes/light/site-theme.css \
+    && sass --style=compressed --no-source-map /src/MyWorksheet.Website/Client/wwwroot/css/themes/light/site-theme.scss:/src/MyWorksheet.Website/Client/wwwroot/css/themes/light/site-theme.min.css
 WORKDIR "/src/MyWorksheet.Website/Server"
 RUN dotnet build "MyWorksheet.Website.Server.csproj" -c Release -o /app/build --property WarningLevel=0
 

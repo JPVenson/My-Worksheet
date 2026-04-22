@@ -63,11 +63,18 @@
 									<tr>
 										<td>@quota.Name</td>
 										<td>@quota.Value</td>
-										<td>@quota.MaxValue</td>
+										<td>
+											<input type="number"
+											       class="form-control form-control-sm"
+											       @bind="quota.MaxValue" />
+										</td>
 									</tr>
 								}
 							</tbody>
 						</table>
+						<small class="text-muted">
+							<Translatable Key="Quota/MaxValue" />: -1 = <Translatable Key="Common/Unlimited" />
+						</small>
 					</fieldset>
 				</div>
 			</div>

@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
@@ -6,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using MyWorksheet.Webpage.Helper;
+using MyWorksheet.Webpage.Helper.Roles;
 using MyWorksheet.Website.Server.Models;
 using MyWorksheet.Website.Server.Services.NumberRangeService;
 using MyWorksheet.Website.Server.Services.UserCounter;
@@ -53,7 +55,7 @@ public class CreateDefaultUserMigration : IAsyncMigrationRoutine
             UserPlainTextPassword = defaultUserConfig.Password,
             RegionId = (await db.PromisedFeatureRegions.FirstAsync()).PromisedFeatureRegionId
         }, AccountHelper.CreateDefaultAddress(),
-            _serverOptions.Value.User.Create.DefaultRoles,
+            string.Join(",", Roles.Yield().Select(e => e.Name)),
             _logger,
             _userQuotaService,
             _numberRangeService);
