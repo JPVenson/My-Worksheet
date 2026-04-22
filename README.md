@@ -47,7 +47,7 @@ Projects connect to organisations (your clients), carry their own billing rates 
 </p>
 
 ### Billing & Invoicing
-Billing rates are flexible per project and per charge type. Payment conditions are configurable. Invoices and reports are generated from templates using [Morestachio](https://github.com/JPVenson/morestachio) — meaning you can build your own document layouts without touching any code. Sequential invoice numbering via configurable number ranges is included. PayPal integration is available for payment tracking.
+Billing rates are flexible per project and per charge type. Payment conditions are configurable. Invoices and reports are generated from templates using [Morestachio](https://github.com/JPVenson/morestachio) — meaning you can build your own document layouts without touching any code. Sequential invoice numbering via configurable number ranges is included. 
 
 <p align="center">
   <img src=".github/images/Screenshot%20-%20Numberranges.png" alt="Number range settings" width="900" />
