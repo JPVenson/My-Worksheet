@@ -25,14 +25,50 @@ This started over 13 years ago as an AngularJS 1.0 application, born out of a pe
 ### Time Tracking
 The core of the app. You create worksheets tied to projects and log your time as items with start/end times, comments, billing rates, and statuses. You can run multiple live timers at once, stop them when you're done, and everything flows into your worksheets automatically.
 
+<p align="center">
+  <img src=".github/images/Screenshot%20-%20Worksheet%20Example.png" alt="Worksheet example view" width="900" />
+  <br />
+  <em>Worksheet item editor and day-based work log in the worksheet screen.</em>
+</p>
+
+<p align="center">
+  <img src=".github/images/Screenshot%20-%20Worksheet%20Summery.png" alt="Worksheet summary" width="900" />
+  <br />
+  <em>Worksheet summary with tracked time, status flow, and quick navigation.</em>
+</p>
+
 ### Projects & Clients
 Projects connect to organisations (your clients), carry their own billing rates and tax rates, and can have a team of users assigned to them. Each project can have a budget — time-based, monetary, or both — with optional deadlines and overbooking flags so you always know when you're heading into trouble.
+
+<p align="center">
+  <img src=".github/images/Screenshot%20-%20Project%20Example%20Project.png" alt="Project detail view" width="900" />
+  <br />
+  <em>Project detail page showing project metadata, rates, budgeting context, and assignment information.</em>
+</p>
 
 ### Billing & Invoicing
 Billing rates are flexible per project and per charge type. Payment conditions are configurable. Invoices and reports are generated from templates using [Morestachio](https://github.com/JPVenson/morestachio) — meaning you can build your own document layouts without touching any code. Sequential invoice numbering via configurable number ranges is included. PayPal integration is available for payment tracking.
 
+<p align="center">
+  <img src=".github/images/Screenshot%20-%20Numberranges.png" alt="Number range settings" width="900" />
+  <br />
+  <em>Number range configuration used for predictable invoice and document numbering.</em>
+</p>
+
 ### Reporting
 The reporting engine is template-driven. You write a Morestachio template, point it at a data source (work items, projects, aggregated stats), and get back whatever output format you need — HTML, PDF, DOCX (Soon), or anything else your templates produce. Aggregate database views pre-crunch the numbers for per-day, per-project, and per-worksheet summaries. You can also share reports publicly via a share key, no login required on the recipient's end.
+
+<p align="center">
+  <img src=".github/images/Screenshot%20-%20Reporting%20HtmlEditor.png" alt="Reporting HTML editor" width="900" />
+  <br />
+  <em>Template editor for report layout and output formatting.</em>
+</p>
+
+<p align="center">
+  <img src=".github/images/Screenshot%20-%20Reporting%20Schema.png" alt="Reporting schema explorer" width="900" />
+  <br />
+  <em>Schema and data browser for discovering available report fields and structures.</em>
+</p>
 
 ### Dashboard
 A customisable grid dashboard with drag-and-drop widgets. Widgets cover active worksheets, running timers, today's workload, earnings, project breakdowns, and more. Each user gets their own layout.
@@ -179,6 +215,10 @@ This full template includes all current keys with inline comments. The snippet u
       "create": {
         "defaultRegion": "00000000-0000-0000-0000-000000000000", // Default region id for new users
         "defaultRoles": "Kunde,WorksheetActionsUser,OrganisationAdmin,SettingsUsers,ProjectManager,WorksheetUser,WorksheetAdmin" // Comma-separated default roles
+      },
+      "default": {
+        "username": "admin", // Initial bootstrap user name (used by CreateDefaultUser migration)
+        "password": "change-me-now" // Initial bootstrap password, replace immediately
       }
     },
     "external": {
