@@ -9,7 +9,7 @@ My-Worksheet is a free, open-source time tracking and project management tool bu
 You host it yourself. Your data stays yours.
 
 > [!WARNING]
-> My-Worksheet as a public FOSS project has just been open sourced from multiple years of running just for myself. There might be start issues i forgotten. For all intents and purposes treat this as an Beta software.
+> My-Worksheet as a public FOSS project has just been open sourced from multiple years of running just for myself. There might be start issues i forgotten. For all intents and purposes treat this as an Beta software. I am aware of the current start issues and i am working on it to make my-worksheet info a fully selfhosted application.
 
 
 ---
