@@ -49,6 +49,7 @@ public partial class WorkflowEditView
                 GroupKey = "",
                 IdWorksheetWorkflow = WorkflowId
             });
+            ValueBag = new();
         }
         else
         {

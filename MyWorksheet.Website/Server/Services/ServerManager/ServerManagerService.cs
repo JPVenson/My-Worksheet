@@ -141,6 +141,8 @@ public class ServerManagerService : RequireInit, IServerManagerService
 
         db.DoCreateDeleteOrUpdate(existing, capabilities, e => e.Name);
 
+        db.SaveChanges();
+
         Self = new KnownServer(isServerKnown,
             db.ProcessorCapabilities.Where(f => f.IdProcessor == isServerKnown.ProcessorId).ToArray());
 

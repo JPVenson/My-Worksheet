@@ -61,7 +61,7 @@ public class WorkflowMailReportDataSource : IReportingDataSource
         {
             {"DataSource.Worksheets.WorksheetId", "Primary Key"},
             {"DataSource.Worksheets.Hidden", "Marked as Hidden"},
-            {"DataSource.Worksheets.StatusCode", "The current Workflow Status"},
+            {"DataSource.Worksheets.StatusCodeKey", "The current Workflow Status"},
         });
     }
     /// <inheritdoc />

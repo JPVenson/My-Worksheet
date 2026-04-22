@@ -98,8 +98,8 @@ public class ProjectSpecReport : IReportingDataSource
         return JsonSchemaExtensions.JsonSchema(new ReportArguments())
             .ExtendDefault(nameof(ReportArguments.Project), projects.FirstOrDefault().Value)
             .ExtendDefault(nameof(ReportArguments.PaymentInfos), payment.FirstOrDefault().Value)
-            .ExtendDefault("Date!", DateTime.UtcNow)
-            .ExtendDefault("Additonal!", "")
+            .ExtendDefault("Date", DateTime.UtcNow)
+            .ExtendDefault("AdditionalInfos", "")
             .ExtendAllowedValues(nameof(ReportArguments.Project), projects)
             .ExtendAllowedValues(nameof(ReportArguments.PaymentInfos), payment);
     }

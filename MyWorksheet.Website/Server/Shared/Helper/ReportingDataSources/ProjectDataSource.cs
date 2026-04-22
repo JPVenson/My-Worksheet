@@ -6,14 +6,15 @@ using MyWorksheet.Private.Models.ObjectSchema;
 using MyWorksheet.Website.Server.Models;
 using MyWorksheet.Website.Server.Services.Mapping;
 using MyWorksheet.Website.Server.Shared.ObjectSchema;
+using MyWorksheet.Website.Shared.ViewModels.ApiResultModels.Reporting.Reports;
 
 namespace MyWorksheet.Website.Server.Shared.Helper.ReportingDataSources;
 
-public sealed class ProjectDataSource : ReportingDataSourceBase<ProjectReporting, ProjectReporting>
+public sealed class ProjectDataSource : ReportingDataSourceBase<ProjectReporting, ProjectReportingViewModel>
 {
     class ProjectReportArguments : ArgumentsBase
     {
-        public List<ProjectReporting> Projects { get; set; }
+        public List<ProjectReportingViewModel> Projects { get; set; }
     }
 
     public ProjectDataSource(IMapperService mapperService) : base(mapperService)
@@ -31,6 +32,6 @@ public sealed class ProjectDataSource : ReportingDataSourceBase<ProjectReporting
 
     public override IObjectSchema QuerySchema()
     {
-        return JsonSchemaExtensions.JsonSchema(typeof(ReportingDataStructureBase<ProjectReportArguments>));
+        return JsonSchemaExtensions.JsonSchema(typeof(ReportingDataStructureBase<ProjectReportingViewModel>));
     }
 }

@@ -142,16 +142,15 @@ public class WorksheetWorkflowDataApiControllerBase : ApiControllerBase
 
         var workflowInfoData = _mapper.ViewModelMapper.Map<WorksheetWorkflowDataMap>(groupData);
         workflowInfoData.IdCreator = User.GetUserId();
-        WorksheetWorkflowDataMap workflowInfo = null;
         using var transaction = db.Database.BeginTransaction();
 
         db.Add(workflowInfoData);
         groupData.Fields = groupData.Fields?.ToJsonElements() ?? new Dictionary<string, object>();
-        var workflowData = groupData.Fields.Select(e => new WorksheetWorkflowData()
+        var workflowData = groupData.Fields.Where(e => e.Value is not null).Select(e => new WorksheetWorkflowData()
         {
             Key = e.Key,
-            Value = e.Value?.ToString(),
-            IdWorksheetWorkflowMap = workflowInfo.WorksheetWorkflowDataMapId
+            Value = e.Value?.ToString(),            
+            IdWorksheetWorkflowMapNavigation = workflowInfoData
         });
 
         foreach (var worksheetWorkflowData in workflowData)

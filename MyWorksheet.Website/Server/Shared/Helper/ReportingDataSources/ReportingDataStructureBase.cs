@@ -2,8 +2,8 @@
 
 namespace MyWorksheet.Website.Server.Shared.Helper.ReportingDataSources;
 
-public class ReportingDataStructureBase<T>
+public class ReportingDataStructureBase<TVm>
 {
     [JsonComment("Reporting/DataTemplate.Comment.DataSource")]
-    public T DataSource { get; set; }
+    public TVm DataSource { get; set; }
 }

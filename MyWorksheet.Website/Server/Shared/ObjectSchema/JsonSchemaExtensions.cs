@@ -253,14 +253,16 @@ public static class JsonSchemaExtensions
                 {
                     innerType = propType.GetGenericArguments().First();
                 }
-                if (!rootSchema.References.TryGetValue(innerType.Name, out var jsonSchema) && !buildStack.ContainsKey(innerType))
+                var primitiveTypeName = JsonHelper.TranslateCsToTs(innerType);
+
+                if (primitiveTypeName is null && !rootSchema.References.TryGetValue(innerType.Name, out var jsonSchema) && !buildStack.ContainsKey(innerType))
                 {
                     buildStack.Add(innerType, (new JsonSchema(), (typeValue as IEnumerable)?.OfType<object>().FirstOrDefault()));
                 }
                 map.Properties.Add(prop.Name, new()
                 {
                     Name = prop.DisplayName,
-                    Type = innerType.Name,
+                    Type = primitiveTypeName ?? innerType.Name,
                     IsListType = true,
                     IsOptional = isNullable,
                     Validator = prop.ValueValidator
@@ -292,7 +294,7 @@ public static class JsonSchemaExtensions
                         Name = prop.DisplayName,
                         Type = ttcs,
                         Comment = prop.Comment,
-                        IsOptional = isNullable,
+                        IsOptional = isNullable || propType == typeof(bool),
                         Validator = prop.ValueValidator,
                         Default = val
                     });

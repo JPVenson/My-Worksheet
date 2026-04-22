@@ -42,7 +42,8 @@ function BlazorScrollToId(id) {
         element.scrollIntoView({
             behavior: "smooth",
             block: "start",
-            inline: "nearest"
+            inline: "nearest",
+            container: "nearest"
         });
     }
 }

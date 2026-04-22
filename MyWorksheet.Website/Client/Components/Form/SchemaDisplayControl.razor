@@ -63,7 +63,7 @@
 									}
 									else
 									{
-										@item.SchemaType
+										@prefix @item.SchemaType @suffix
 										if (item.Optional)
 										{
 											<span> | null</span>
@@ -111,7 +111,7 @@
 @foreach (var item in ReferenceSchemas)
 {
 	<div class="schemaDisplay @When(!EmbeddedDisplay, "pre")" style="position: relative">
-		<span id="schema_referece_@item.Key" class="referenceHeader">type</span> <span class="referenceName">@item.Key</span><span>{</span>
+		<span id="schema_referece_@item.Key" class="referenceHeader">type</span> <span class="referenceName">@item.Key</span><span> {</span>
 		@GetSchemaListDisplay(item.Value.Children, 1)
 		<span>}</span>
 	</div>

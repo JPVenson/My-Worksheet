@@ -9,6 +9,8 @@ using MyWorksheet.Website.Server.Services.Reporting.Models;
 using MyWorksheet.Website.Server.Shared.ObjectSchema;
 using MyWorksheet.Website.Shared.ViewModels.ApiResultModels.Reporting.Engine;
 using Microsoft.EntityFrameworkCore;
+using MyWorksheet.Website.Server.Services.Mapping;
+using MyWorksheet.Website.Shared.ViewModels.ApiResultModels.Reporting.Reports;
 
 namespace MyWorksheet.Website.Server.Shared.Helper.ReportingDataSources;
 
@@ -19,7 +21,7 @@ public class WorksheetDataSource : IReportingDataSource
         public List<WorksheetReporting> Worksheets { get; set; }
     }
 
-    public WorksheetDataSource()
+    public WorksheetDataSource(IMapperService mapperService)
     {
         Id = new Guid("00000000-0000-0000-0004-000000000003");
         Key = "worksheetDataSource";
@@ -28,12 +30,14 @@ public class WorksheetDataSource : IReportingDataSource
         {
             ReportPurposes.Worksheet
         };
+        MapperService = mapperService;
     }
 
     public Guid Id { get; set; }
     public string Key { get; set; }
     public string Name { get; set; }
     public ReportPurpose[] Purpose { get; set; }
+    public IMapperService MapperService { get; }
 
     public IObjectSchema QuerySchema()
     {
@@ -42,7 +46,7 @@ public class WorksheetDataSource : IReportingDataSource
             {
                 {"DataSource.Worksheets.WorksheetId", "Id"},
                 {"DataSource.Worksheets.Hidden", "Marked as Hidden"},
-                {"DataSource.Worksheets.StatusCode", "The current Workflow Status"}
+                {"DataSource.Worksheets.StatusCodeKey", "The current Workflow Status"}
             });
     }
 
@@ -65,7 +69,7 @@ public class WorksheetDataSource : IReportingDataSource
                 "DataSource", new Dictionary<string, object>
                 {
                     {
-                        "Worksheets", projectsOfUserQuery.ToArray()
+                        "Worksheets", MapperService.ViewModelMapper.Map<WorksheetReportingViewModel>(projectsOfUserQuery)
                     }
                 }
             }

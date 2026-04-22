@@ -157,3 +157,49 @@ public class ProjectSpecReportModel : ViewModelBase
         }
     }
 }
+
+
+public partial class ProjectReportingViewModel
+{
+    public Guid ProjectId { get; set; }
+
+    public virtual GetProjectModel Project { get; set; }
+
+    public string Name { get; set; }
+
+    public bool Hidden { get; set; }
+
+    public Guid IdCreator { get; set; }
+
+    public virtual AccountApiGet Creator { get; set; }
+
+    public int MoreRatesKnown { get; set; }
+
+    public decimal Honorar { get; set; }
+
+    public decimal TaxRate { get; set; }
+}
+
+
+public partial class WorksheetReportingViewModel
+{
+    public Guid WorksheetId { get; set; }
+
+    public virtual WorksheetModel Worksheet { get; set; }
+
+    public DateTimeOffset StartTime { get; set; }
+
+    public DateTimeOffset? EndTime { get; set; }
+
+    public Guid IdProject { get; set; }
+
+    public virtual GetProjectModel Project { get; set; }
+
+    public bool Hidden { get; set; }
+
+    public string StatusCodeKey { get; set; }
+
+    public Guid IdCreator { get; set; }
+
+    public virtual AccountApiGet Creator { get; set; }
+}

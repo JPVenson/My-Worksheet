@@ -40,7 +40,7 @@ public class WorksheetItemsDataSource : IReportingDataSource
             {"DataSource.WorksheetItems.ToTime", "The time this timespan has ended in minutes"},
             {"DataSource.WorksheetItems.Hidden", "Marked as Hidden"},
             {"DataSource.WorksheetItems.Comment", "A freetext comment to this timespan"},
-            {"DataSource.WorksheetItems.StatusCode", "The current Workflow Status"},
+            {"DataSource.WorksheetItems.StatusCodeKey", "The current Workflow Status"},
             {"DataSource.WorksheetItems.Timespan", "The difference of FromTime and ToTime"},
             {"DataSource.WorksheetItems.WorksheetActionsCsv", "CSV of all Status codes that are applyed"},
         });

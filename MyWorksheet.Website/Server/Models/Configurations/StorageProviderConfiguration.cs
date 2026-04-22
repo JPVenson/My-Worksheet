@@ -24,7 +24,7 @@ public class StorageProviderConfiguration : IEntityTypeConfiguration<StorageProv
         {
             Name = "My-Worksheet Hosted",
             StorageKey = "LocalProvider",
-            IsDefaultProvider = false,
+            IsDefaultProvider = true,
             IdAppUser = null,
             StorageProviderId = new Guid("00000000-0000-0000-0005-000000000001")
         });

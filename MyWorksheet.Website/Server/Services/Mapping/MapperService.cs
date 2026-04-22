@@ -445,6 +445,21 @@ public class MapperService : IMapperService
 
         d.CreateMap<MergeReportViewModel, MergeReport>()
             .ReverseMap();
+
+        d.CreateMap<Project, ProjectSpecReportModel>()
+            .ReverseMap();
+
+        d.CreateMap<ProjectReporting, ProjectReportingViewModel>()
+            .ReverseMap();
+
+        d.CreateMap<WorksheetReporting, WorksheetReportingViewModel>()
+            .ReverseMap();
+
+        d.CreateMap<NEngineTemplateCreate, NengineTemplate>()
+            .ReverseMap();
+
+        d.CreateMap<NEngineTemplateUpdate, NengineTemplate>()
+            .ReverseMap();
     }
 }
 
