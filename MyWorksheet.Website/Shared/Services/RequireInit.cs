@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
+using MyWorksheet.Website.Server.Services;
 
-namespace MyWorksheet.Website.Server.Services;
+namespace MyWorksheet.Website.Shared.Services;
 
 public class RequireInit : IRequireInit
 {

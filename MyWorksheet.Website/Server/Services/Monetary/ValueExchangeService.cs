@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Xml;
 using MyWorksheet.Website.Server.Shared.Services.Logging.Contracts;
+using MyWorksheet.Website.Shared.Services;
 using ServiceLocator.Attributes;
 
 namespace MyWorksheet.Website.Server.Services.Monetary;

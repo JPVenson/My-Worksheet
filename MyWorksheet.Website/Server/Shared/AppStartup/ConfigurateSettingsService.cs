@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using MyWorksheet.Website.Server.Services;
 using MyWorksheet.Website.Server.Services.ServerSettings;
 using MyWorksheet.Website.Server.Shared.Services.Logger;
 using MyWorksheet.Website.Server.Shared.Services.Logging.Contracts;
@@ -10,6 +9,7 @@ using MyWorksheet.Website.Shared.ViewModels.ApiResultModels.UserSettings;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ServiceLocator.Attributes;
+using MyWorksheet.Website.Shared.Services;
 
 namespace MyWorksheet.Website.Server.Shared.AppStartup;
 

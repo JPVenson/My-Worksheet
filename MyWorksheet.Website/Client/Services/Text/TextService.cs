@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 using MyWorksheet.Website.Client.Services.Auth;
 using MyWorksheet.Website.Client.Services.Http.Base;
 using MyWorksheet.Website.Client.Services.LocalStorage;
-using MyWorksheet.Website.Server.Services;
 using MyWorksheet.Website.Shared.Services.Activation;
 using MyWorksheet.Website.Shared.ViewModels.ApiResultModels.Text;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.WebAssembly.Services;
 using ServiceLocator.Attributes;
+using MyWorksheet.Website.Shared.Services;
 
 namespace MyWorksheet.Website.Client.Services.Text;
 

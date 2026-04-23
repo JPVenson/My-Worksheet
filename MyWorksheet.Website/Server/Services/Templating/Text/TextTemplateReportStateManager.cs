@@ -4,6 +4,7 @@ using MyWorksheet.Website.Server.Services.ObjectChanged;
 using MyWorksheet.Website.Server.Services.Reporting;
 using MyWorksheet.Website.Shared.ViewModels;
 using ServiceLocator.Attributes;
+using MyWorksheet.Website.Shared.Services;
 
 namespace MyWorksheet.Website.Server.Services.Templating.Text;
 

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using MyWorksheet.Website.Client.Services.Http.Base;
 using MyWorksheet.Website.Client.Services.LocalStorage;
-using MyWorksheet.Website.Server.Services;
+using MyWorksheet.Website.Shared.Services;
 using MyWorksheet.Website.Shared.Services.Activation;
 using ServiceLocator.Attributes;
 

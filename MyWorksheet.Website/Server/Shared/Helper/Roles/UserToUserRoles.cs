@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using MyWorksheet.Website.Server.Models;
-using MyWorksheet.Website.Server.Services;
+using MyWorksheet.Website.Shared.Services;
 using ServiceLocator.Attributes;
 
 namespace MyWorksheet.Webpage.Helper.Roles;

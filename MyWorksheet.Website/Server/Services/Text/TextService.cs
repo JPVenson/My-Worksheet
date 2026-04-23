@@ -13,6 +13,7 @@ using MyWorksheet.Website.Server.Shared.Locale.ServerResources;
 using MyWorksheet.Website.Server.Shared.Locale.UiResources;
 using MyWorksheet.Website.Server.Shared.Services.Logger;
 using MyWorksheet.Website.Server.Shared.Services.Logging.Contracts;
+using MyWorksheet.Website.Shared.Services;
 using MyWorksheet.Website.Shared.ViewModels;
 using ServiceLocator.Attributes;
 

@@ -57,7 +57,6 @@
     <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" />
     <PackageReference Include="Microsoft.AspNetCore.SignalR.Protocols.NewtonsoftJson" />
     <PackageReference Include="Microsoft.Extensions.Localization" />
-    <PackageReference Include="MimeKit" />
     <PackageReference Include="Morestachio" />
     <PackageReference Include="Morestachio.Newtonsoft.Json" />
     <PackageReference Include="NetServiceLocator" />

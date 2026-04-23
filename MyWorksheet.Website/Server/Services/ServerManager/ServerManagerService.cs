@@ -16,6 +16,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using ServiceLocator.Attributes;
+using MyWorksheet.Website.Shared.Services;
 
 namespace MyWorksheet.Website.Server.Services.ServerManager;
 

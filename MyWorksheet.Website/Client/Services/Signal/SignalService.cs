@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 using MyWorksheet.Website.Client.Services.Auth;
 using MyWorksheet.Website.Client.Services.Navigation;
 using MyWorksheet.Website.Client.Services.UserSettings;
-using MyWorksheet.Website.Server.Services;
 using MyWorksheet.Website.Shared.Services.Activation;
 using Microsoft.AspNetCore.Http.Connections.Client;
 using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Extensions.DependencyInjection;
 using ServiceLocator.Attributes;
 using Task = System.Threading.Tasks.Task;
+using MyWorksheet.Website.Shared.Services;
 
 namespace MyWorksheet.Website.Client.Services.Signal;
 

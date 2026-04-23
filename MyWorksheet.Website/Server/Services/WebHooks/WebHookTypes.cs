@@ -4,11 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using MyWorksheet.Webpage.Services.WebHooks.WebhookTypes;
 using MyWorksheet.Website.Server.Models;
-using MyWorksheet.Website.Server.Services;
 using MyWorksheet.Website.Shared.ViewModels.Notifications;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using ServiceLocator.Attributes;
+using MyWorksheet.Website.Shared.Services;
 
 namespace MyWorksheet.Webpage.Services.WebHooks;
 

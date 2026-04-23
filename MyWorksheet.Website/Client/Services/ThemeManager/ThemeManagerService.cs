@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 using MyWorksheet.Website.Client.Services.Auth;
 using MyWorksheet.Website.Client.Services.ResLoaded;
 using MyWorksheet.Website.Client.Services.UI;
-using MyWorksheet.Website.Server.Services;
 using MyWorksheet.Website.Shared.Services.Activation;
 using Microsoft.JSInterop;
 using ServiceLocator.Attributes;
+using MyWorksheet.Website.Shared.Services;
 
 namespace MyWorksheet.Website.Client.Services.ThemeManager;
 

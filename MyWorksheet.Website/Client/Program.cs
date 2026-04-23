@@ -52,7 +52,6 @@ public class Program
         await ServiceLocatorHelper.InitServices(webAssemblyHost.Services,
             (current, max, name) =>
             {
-                Console.WriteLine("Init service: " + name);
                 return LogMessageToUi(jsRuntime, $"Service {current}/{max}");
             });
         await webAssemblyHost.RunAsync();

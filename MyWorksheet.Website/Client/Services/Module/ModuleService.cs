@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 using MyWorksheet.Website.Client.Pages.Base;
 using MyWorksheet.Website.Client.Services.Navigation;
 using MyWorksheet.Website.Client.Util.View;
-using MyWorksheet.Website.Server.Services;
 using MyWorksheet.Website.Shared.Services.Activation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Routing;
 using ServiceLocator.Attributes;
+using MyWorksheet.Website.Shared.Services;
 
 namespace MyWorksheet.Website.Client.Services.Module;
 

@@ -1,8 +1,8 @@
 using System;
-using MyWorksheet.Website.Server.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ServiceLocator.Attributes;
+using MyWorksheet.Website.Shared.Services;
 
 namespace MyWorksheet.Website.Server.Shared.Services.Logging;
 

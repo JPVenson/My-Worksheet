@@ -9,12 +9,12 @@ using MyWorksheet.Website.Client.Services.Http.Base;
 using MyWorksheet.Website.Client.Services.Module;
 using MyWorksheet.Website.Client.Services.Repository;
 using MyWorksheet.Website.Client.Util.Promise;
-using MyWorksheet.Website.Server.Services;
 using MyWorksheet.Website.Shared.Services.Activation;
 using MyWorksheet.Website.Shared.ViewModels;
 using MyWorksheet.Website.Shared.ViewModels.ApiResultModels;
 using Microsoft.AspNetCore.Components;
 using ServiceLocator.Attributes;
+using MyWorksheet.Website.Shared.Services;
 
 namespace MyWorksheet.Website.Client.Services.Activity;
 

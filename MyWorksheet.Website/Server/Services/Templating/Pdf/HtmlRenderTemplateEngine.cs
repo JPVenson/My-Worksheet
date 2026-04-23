@@ -7,6 +7,7 @@ using MyWorksheet.Website.Server.Services.ServerManager;
 using MyWorksheet.Website.Server.Shared.Services.Logging.Contracts;
 using Microsoft.Playwright;
 using ServiceLocator.Attributes;
+using MyWorksheet.Website.Shared.Services;
 
 namespace MyWorksheet.Website.Server.Services.Templating.Pdf;
 

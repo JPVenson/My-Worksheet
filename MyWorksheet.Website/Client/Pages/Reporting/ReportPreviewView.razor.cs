@@ -15,7 +15,6 @@ using MyWorksheet.Website.Shared.ViewModels.ApiResultModels.Reporting;
 using MyWorksheet.Website.Shared.ViewModels.ApiResultModels.Reporting.Engine;
 using MyWorksheet.Website.Shared.ViewModels.ApiResultModels.Reporting.Reports;
 using Microsoft.AspNetCore.Components;
-using MimeKit;
 
 namespace MyWorksheet.Website.Client.Pages.Reporting;
 

@@ -9,6 +9,7 @@ using MyWorksheet.Website.Server.Services.FileSystem;
 using MyWorksheet.Website.Server.Services.ServerManager;
 using MimeKit;
 using ServiceLocator.Attributes;
+using MyWorksheet.Website.Shared.Services;
 
 namespace MyWorksheet.Website.Server.Services.Blob.Thumbnail;
 
