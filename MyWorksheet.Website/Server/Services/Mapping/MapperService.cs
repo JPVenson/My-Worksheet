@@ -460,6 +460,8 @@ public class MapperService : IMapperService
 
         d.CreateMap<NEngineTemplateUpdate, NengineTemplate>()
             .ReverseMap();
+
+        d.CreateMap<object, DashboardWorksheetModel>();
     }
 }
 
