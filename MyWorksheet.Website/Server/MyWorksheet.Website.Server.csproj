@@ -165,43 +165,43 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="12.0.1" />
-    <PackageReference Include="Azure.Storage.Blobs" Version="12.9.1" />
-    <PackageReference Include="Azure.Storage.Files.Shares" Version="12.7.0" />
-    <PackageReference Include="ChakraCore.NET" Version="1.3.3" />
-    <PackageReference Include="ChakraCore.NET.Core" Version="1.1.3" />
-    <PackageReference Include="Docnet.Core" Version="2.3.1" />
-    <PackageReference Include="ExCSS" Version="4.2.1" />
-    <PackageReference Include="MailKit" Version="4.1.0" />
-    <PackageReference Include="Microsoft.ApplicationInsights" Version="2.9.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.3" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="10.0.3" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="10.0.3" />
-    <PackageReference Include="Microsoft.ChakraCore" Version="1.11.24">
+    <PackageReference Include="AutoMapper" />
+    <PackageReference Include="Azure.Storage.Blobs" />
+    <PackageReference Include="Azure.Storage.Files.Shares" />
+    <PackageReference Include="ChakraCore.NET" />
+    <PackageReference Include="ChakraCore.NET.Core" />
+    <PackageReference Include="Docnet.Core" />
+    <PackageReference Include="ExCSS" />
+    <PackageReference Include="MailKit" />
+    <PackageReference Include="Microsoft.ApplicationInsights" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" />
+    <PackageReference Include="Microsoft.ChakraCore">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="10.0.3" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="10.0.3" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="10.0.3">
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.0.0" />
-    <PackageReference Include="Npgsql" Version="10.0.1" />
-    <PackageReference Include="Microsoft.Maui.Graphics" Version="10.0.41" />
-    <PackageReference Include="Microsoft.Maui.Graphics.Skia" Version="10.0.41" />
-    <PackageReference Include="Microsoft.Playwright" Version="1.39.0" />
-    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.5" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="10.0.2" />
-    <PackageReference Include="MimeKit" Version="4.1.0" />
-    <PackageReference Include="Morestachio" Version="5.0.1.631" />
-    <PackageReference Include="Morestachio.Linq" Version="5.0.1.631" />
-    <PackageReference Include="Morestachio.Newtonsoft.Json" Version="5.0.1.631" />
-    <PackageReference Include="NetServiceLocator" Version="1.2.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-    <PackageReference Include="SkiaSharp.NativeAssets.Linux.NoDependencies" Version="3.116.1" />
-    <PackageReference Include="UAParser" Version="3.1.47" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" />
+    <PackageReference Include="Npgsql" />
+    <PackageReference Include="Microsoft.Maui.Graphics" />
+    <PackageReference Include="Microsoft.Maui.Graphics.Skia" />
+    <PackageReference Include="Microsoft.Playwright" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" />
+    <PackageReference Include="MimeKit" />
+    <PackageReference Include="Morestachio" />
+    <PackageReference Include="Morestachio.Linq" />
+    <PackageReference Include="Morestachio.Newtonsoft.Json" />
+    <PackageReference Include="NetServiceLocator" />
+    <PackageReference Include="Newtonsoft.Json" />
+    <PackageReference Include="SkiaSharp.NativeAssets.Linux.NoDependencies" />
+    <PackageReference Include="UAParser" />
   </ItemGroup>
 
   <ItemGroup>

@@ -21,7 +21,7 @@ public class BlacklistMailDomainService : IBlacklistMailDomainService
     public async Task<bool> IsBlacklisted(string domain)
     {
         await Task.CompletedTask;
-        var hash = new SHA1Managed().ComputeHash(Encoding.ASCII.GetBytes(domain.ToLower())).Select(e => e.ToString("X2")).Aggregate((e, f) => e + f).ToLower();
+        var hash = SHA1.HashData(Encoding.ASCII.GetBytes(domain.ToLower())).Select(e => e.ToString("X2")).Aggregate((e, f) => e + f).ToLower();
         return _dbContextFactory.CreateDbContext().MailBlacklists.Where(f => f.X2hash == hash).FirstOrDefault() != null;
     }
 }

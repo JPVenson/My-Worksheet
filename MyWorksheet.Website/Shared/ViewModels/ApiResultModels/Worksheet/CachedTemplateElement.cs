@@ -53,11 +53,5 @@ public class CachedTemplateElement : ViewModelBase
         get { return _expiresAt; }
         set { SetProperty(ref _expiresAt, value); }
     }
-
-    public object State
-    {
-        get { return _state; }
-        set { SetProperty(ref _state, value); }
-    }
     //public TemplateRunningState RunningState { get; set; }
 }

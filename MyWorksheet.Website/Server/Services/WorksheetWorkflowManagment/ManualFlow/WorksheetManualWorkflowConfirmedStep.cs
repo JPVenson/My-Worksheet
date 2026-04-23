@@ -85,7 +85,7 @@ public class WorksheetManualWorkflowConfirmedStep : IWorksheetWorkflowStep
         var paymentCondition = db.PaymentInfos
             .Where(f => f.PaymentInfoId == proj.IdPaymentCondition).FirstOrDefault();
 
-        var updateDueDate = additonalData.GetOrNull("UpdateDueDate") == "true" || !worksheet.InvoiceDueDate.HasValue;
+        var updateDueDate = additonalData.GetOrNull("UpdateDueDate")?.Equals(true) == true || !worksheet.InvoiceDueDate.HasValue;
 
         var dueDate = updateDueDate ? DateTimeOffset.Now.AddDays(paymentCondition.PaymentTarget.Value) : worksheet.InvoiceDueDate;
 

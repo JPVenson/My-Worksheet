@@ -29,7 +29,7 @@ public class EMailWorkflowTokenManager : IEMailWorkflowTokenManager
             }
             return eMailWorkflowExternalToken;
         }
-        catch (Exception e)
+        catch
         {
             return null;
         }

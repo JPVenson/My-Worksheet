@@ -40,7 +40,6 @@ public partial class WorksheetTrackerPluginComponent
     public WorksheetModel WorksheetModel { get; set; }
 
     private WorksheetTimeTrackerViewModel _tracker;
-    private string _commentValue;
 
     [Parameter]
     public WorksheetTimeTrackerViewModel Tracker

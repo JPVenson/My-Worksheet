@@ -21,7 +21,7 @@ public class OutgingResetPasswordMail : TemplateMail
         var primaryRealm = serverSettings.Realm.PrimaryRealm;
         var primaryRealmPort = serverSettings.Realm.Port;
         var uriBuilder = new UriBuilder("https", primaryRealm, primaryRealmPort, "/Account/Password-Reset");
-        uriBuilder.Query = "code=" + Uri.EscapeUriString(passwordResetToken ?? "");
+        uriBuilder.Query = "code=" + Uri.EscapeDataString(passwordResetToken ?? "");
         Values.Add("action_url", uriBuilder.ToString());
     }
 }

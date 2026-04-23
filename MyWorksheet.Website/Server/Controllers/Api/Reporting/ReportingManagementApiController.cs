@@ -80,7 +80,7 @@ public class ReportingManagementApiController : ApiControllerBase
                 {
                     return e.Purpose.Select(f => f.Key).Contains(purpose);
                 }
-                catch (Exception exception)
+                catch (Exception)
                 {
                     Console.WriteLine(e + " HAS NO PURPOSE!");
                 }
@@ -363,7 +363,7 @@ public class ReportingManagementApiController : ApiControllerBase
             return BadRequest("Reporting/TemplateContentDeleted".AsTranslation());
         }
 
-        Response.Headers.Add("x-mw-storageId", run.IdStoreageEntry.Value.ToString());
+        Response.Headers["x-mw-storageId"] = run.IdStoreageEntry.Value.ToString();
 
         var storageEntry = db.StorageEntries.Find(run.IdStoreageEntry.Value);
         var fileName = Path.ChangeExtension(storageEntry.FileName ?? template.Name, template.FileExtention);
@@ -400,8 +400,8 @@ public class ReportingManagementApiController : ApiControllerBase
             //	contentType = MimeTypes.GetMimeType(".txt");
             //}
             Response.ContentType = contentType;
-            Response.Headers.Add("pragma", "no-cache, public");
-            Response.Headers.Add("cache-control", "private, nocache, must-revalidate, maxage=3600");
+            Response.Headers["pragma"] = "no-cache, public";
+            Response.Headers["cache-control"] = "private, nocache, must-revalidate, maxage=3600";
             var contentDispositionHeader = new System.Net.Http.Headers.ContentDispositionHeaderValue("inline")
             {
                 FileName = fileName,
@@ -411,7 +411,7 @@ public class ReportingManagementApiController : ApiControllerBase
                 Size = stream.Object.Length,
             };
             var dispositionText = contentDispositionHeader.ToString();
-            Response.Headers.Add("content-disposition", dispositionText);
+            Response.Headers["content-disposition"] = dispositionText;
         }
         else
         {
@@ -425,7 +425,7 @@ public class ReportingManagementApiController : ApiControllerBase
             };
             contentType = MimeKit.MimeTypes.GetMimeType("." + template.FileExtention);
             var dispositionText = contentDispositionHeader.ToString();
-            Response.Headers.Add("content-disposition", dispositionText);
+            Response.Headers["content-disposition"] = dispositionText;
         }
 
         return File(stream.Object, contentType);

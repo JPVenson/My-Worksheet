@@ -112,8 +112,6 @@ public class BitshiftedStream : Stream
         }
     }
 
-    private long _position;
-
     /// <inheritdoc />
     public override long Position
     {

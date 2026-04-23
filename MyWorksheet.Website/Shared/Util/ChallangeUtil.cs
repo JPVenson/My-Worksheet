@@ -47,7 +47,7 @@ public static class ChallangeUtil
 
     public static byte[] HashPassword(string clear, string username)
     {
-        using (var sha256 = new SHA256Managed())
+        using (var sha256 = SHA256.Create())
         {
             var pw = clear + username + Pepper;
             return sha256.ComputeHash(Encoding.UTF8.GetBytes(pw));

@@ -37,8 +37,8 @@ public class WorksheetApiControllerBase : RestApiControllerBase<Worksheet, Works
     private readonly INumberRangeService _numberRangeService;
     private readonly ObjectChangedService _objectChangedService;
     private readonly WebHookService _webHookService;
-    private IBudgetService _budgetService;
-    private IBlobManagerService _blobManagerService;
+    private readonly IBudgetService _budgetService;
+    private readonly IBlobManagerService _blobManagerService;
 
     public WorksheetApiControllerBase(IMapperService mapper,
         WebHookService webHookService,
@@ -47,7 +47,9 @@ public class WorksheetApiControllerBase : RestApiControllerBase<Worksheet, Works
         IUserQuotaService userQuotaService,
         IDbContextFactory<MyworksheetContext> dbContextFactory,
         INumberRangeService numberRangeService,
-        ObjectChangedService objectChangedService) : base(dbContextFactory, mapper)
+        ObjectChangedService objectChangedService,
+        IBudgetService budgetService,
+        IBlobManagerService blobManagerService) : base(dbContextFactory, mapper)
     {
         _webHookService = webHookService;
         _logger = logger;
@@ -55,6 +57,8 @@ public class WorksheetApiControllerBase : RestApiControllerBase<Worksheet, Works
         _userQuotaService = userQuotaService;
         _numberRangeService = numberRangeService;
         _objectChangedService = objectChangedService;
+        _budgetService = budgetService;
+        _blobManagerService = blobManagerService;
     }
 
     public Worksheet GetWorksheetByNo(Guid userId, Guid virtualId)

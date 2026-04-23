@@ -9,7 +9,6 @@ public class NEngineTemplateLookup : ViewModelBase
     private string _fileExtention;
     private Guid? _idCreator;
     private string _name;
-    private string _template;
     private string _usedDataSource;
     private string _usedFormattingEngine;
     private string _fileNameTemplate;

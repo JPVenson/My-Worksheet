@@ -26,7 +26,7 @@ public static class AuthConfig
         {
             if (context.Request.Query.TryGetValue("token", out var hasCookieAsQuery))
             {
-                context.Request.Headers.Add("Authorization", new[] { $"{hasCookieAsQuery}" });
+                context.Request.Headers["Authorization"] = new[] { $"{hasCookieAsQuery}" };
             }
             //else if (context.Request.Query.TryGetValue("access_token", out var hasAccessTokenAsQuery))
             //{

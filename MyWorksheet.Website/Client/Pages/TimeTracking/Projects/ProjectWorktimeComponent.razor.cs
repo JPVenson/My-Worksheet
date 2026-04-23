@@ -25,13 +25,14 @@ public partial class ProjectWorktimeComponent : NavigationPageBase
     [Parameter]
     public EditProjectViewModel Project { get; set; }
 
-
-
     [Inject]
     public UserWorkloadService UserWorkloadService { get; set; }
 
     [Inject]
     public HttpService HttpService { get; set; }
+
+    [Inject]
+    public IServiceProvider ServiceProvider { get; set; }
 
     public IWorktimeMode WorktimeMode
     {
@@ -51,7 +52,8 @@ public partial class ProjectWorktimeComponent : NavigationPageBase
             .Changed(UserWorkloadService.UserWorkloadRepository.Cache)
             .ThenRefresh(this);
 
-        WorktimeEditContext ??= new EditContext(this).AddDataAnnotationsValidation();
+        WorktimeEditContext ??= new EditContext(this);
+        WorktimeEditContext.EnableDataAnnotationsValidation(ServiceProvider);
     }
 
     public async Task ResetToGlobal()

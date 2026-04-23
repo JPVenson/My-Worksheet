@@ -100,9 +100,6 @@ public partial class MorestachioReportEditor
     public IObjectSchemaInfo DataSourceSchema { get; set; }
 
     [Inject]
-    public IJSRuntime JsRuntime { get; set; }
-
-    [Inject]
     public ResourceLoaderService ResourceLoaderService { get; set; }
 
     private void SetValue()

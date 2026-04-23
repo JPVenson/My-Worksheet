@@ -38,136 +38,128 @@ public class SerializableObjectDictionary<TKey, TValue>
             return;
         }
 
-        try
+        var types = new Dictionary<int, KeyValuePair<Type, XmlLikeSerilizer>>();
+        //read meta
+        if (!reader.IsEmptyElement)
         {
-
-            var types = new Dictionary<int, KeyValuePair<Type, XmlLikeSerilizer>>();
-            //read meta
-            if (!reader.IsEmptyElement)
+            reader.ReadStartElement("value-types");
+            while (reader.IsStartElement("type"))
             {
-                reader.ReadStartElement("value-types");
-                while (reader.IsStartElement("type"))
+                var index = reader.GetAttribute("index");
+                var type = reader.ReadElementString();
+                var parsedIndex = 0;
+                if (!int.TryParse(index, out parsedIndex))
                 {
-                    var index = reader.GetAttribute("index");
-                    var type = reader.ReadElementString();
-                    var parsedIndex = 0;
-                    if (!int.TryParse(index, out parsedIndex))
-                    {
-                        throw new InvalidOperationException($"Could not parse the Attribute 'index' to 'int'. Value: '{index}'");
-                    }
+                    throw new InvalidOperationException($"Could not parse the Attribute 'index' to 'int'. Value: '{index}'");
+                }
 
-                    var parsedType = Type.GetType(type);
-                    if (parsedType == null)
+                var parsedType = Type.GetType(type);
+                if (parsedType == null)
+                {
+                    if (type == "MyWorksheet.Webpage.Services.Templating.Text.TextTemplateDataQuery")
                     {
-                        if (type == "MyWorksheet.Webpage.Services.Templating.Text.TextTemplateDataQuery")
-                        {
-                            parsedType = typeof(TextTemplateDataQuery);
-                        }
-                        else
-                        {
-                            throw new InvalidOperationException($"Could not parse the Element 'type' to 'Type'. Value: '{type}'");
-                        }
-                    }
-
-                    if (typeof(IDictionary).IsAssignableFrom(parsedType))
-                    {
-                        types.Add(parsedIndex, new KeyValuePair<Type, XmlLikeSerilizer>(parsedType, new XmlLikeSerilizer(typeof(SerializableObjectDictionary<,>).MakeGenericType(parsedType.GenericTypeArguments))));
+                        parsedType = typeof(TextTemplateDataQuery);
                     }
                     else
                     {
-                        types.Add(parsedIndex, new KeyValuePair<Type, XmlLikeSerilizer>(parsedType, new XmlLikeSerilizer(parsedType)));
+                        throw new InvalidOperationException($"Could not parse the Element 'type' to 'Type'. Value: '{type}'");
                     }
                 }
 
-                reader.ReadEndElement();
-            }
-            else
-            {
-                reader.ReadStartElement("value-types");
-            }
-
-            while (reader.IsStartElement("item"))
-            {
-                reader.ReadStartElement("item");
-                TKey key = default(TKey);
-                TValue value = default(TValue);
-
-                if (reader.HasAttributes)
+                if (typeof(IDictionary).IsAssignableFrom(parsedType))
                 {
-                    var typeIdKey = reader.GetAttribute("typeId");
-                    if (!int.TryParse(typeIdKey, out var parsedTypeId))
-                    {
-                        throw new InvalidOperationException($"Could not parse the Attribute 'type-id' to 'int'. Value: '{parsedTypeId}'");
-                    }
-
-                    if (!types.ContainsKey(parsedTypeId))
-                    {
-                        throw new InvalidOperationException($"Invalid type-id on element '{parsedTypeId}'");
-                    }
-
-                    if (reader.IsEmptyElement)
-                    {
-                        reader.ReadStartElement("key");
-                        key = default(TKey);
-                    }
-                    else
-                    {
-                        reader.ReadStartElement("key");
-                        var type = types[parsedTypeId];
-                        key = (TKey)type.Value.ReadObject(reader);
-                    }
+                    types.Add(parsedIndex, new KeyValuePair<Type, XmlLikeSerilizer>(parsedType, new XmlLikeSerilizer(typeof(SerializableObjectDictionary<,>).MakeGenericType(parsedType.GenericTypeArguments))));
                 }
                 else
                 {
-                    reader.ReadStartElement("key");
-                    key = (TKey)reader.ReadContentAs(typeof(TKey), reader as IXmlNamespaceResolver);
+                    types.Add(parsedIndex, new KeyValuePair<Type, XmlLikeSerilizer>(parsedType, new XmlLikeSerilizer(parsedType)));
                 }
-
-                //END key
-                reader.ReadEndElement();
-
-                if (reader.HasAttributes)
-                {
-                    var typeIdKey = reader.GetAttribute("typeId");
-                    if (!int.TryParse(typeIdKey, out var parsedTypeId))
-                    {
-                        throw new InvalidOperationException($"Could not parse the Attribute 'type-id' to 'int'. Value: '{parsedTypeId}'");
-                    }
-
-                    if (!types.ContainsKey(parsedTypeId))
-                    {
-                        throw new InvalidOperationException($"Invalid type-id on element '{parsedTypeId}'");
-                    }
-
-                    if (reader.IsEmptyElement)
-                    {
-                        reader.ReadStartElement("value");
-                        value = default(TValue);
-                    }
-                    else
-                    {
-                        reader.ReadStartElement("value");
-                        var type = types[parsedTypeId];
-                        value = (TValue)type.Value.ReadObject(reader);
-                    }
-                }
-                else
-                {
-                    reader.ReadStartElement("value");
-                    value = (TValue)reader.ReadContentAs(typeof(TValue), reader as IXmlNamespaceResolver);
-                }
-
-                Add(key, value);
-                reader.ReadEndElement();
-                reader.ReadEndElement();
             }
 
             reader.ReadEndElement();
         }
-        catch (Exception e)
+        else
         {
-            throw;
+            reader.ReadStartElement("value-types");
         }
+
+        while (reader.IsStartElement("item"))
+        {
+            reader.ReadStartElement("item");
+            TKey key = default(TKey);
+            TValue value = default(TValue);
+
+            if (reader.HasAttributes)
+            {
+                var typeIdKey = reader.GetAttribute("typeId");
+                if (!int.TryParse(typeIdKey, out var parsedTypeId))
+                {
+                    throw new InvalidOperationException($"Could not parse the Attribute 'type-id' to 'int'. Value: '{parsedTypeId}'");
+                }
+
+                if (!types.ContainsKey(parsedTypeId))
+                {
+                    throw new InvalidOperationException($"Invalid type-id on element '{parsedTypeId}'");
+                }
+
+                if (reader.IsEmptyElement)
+                {
+                    reader.ReadStartElement("key");
+                    key = default(TKey);
+                }
+                else
+                {
+                    reader.ReadStartElement("key");
+                    var type = types[parsedTypeId];
+                    key = (TKey)type.Value.ReadObject(reader);
+                }
+            }
+            else
+            {
+                reader.ReadStartElement("key");
+                key = (TKey)reader.ReadContentAs(typeof(TKey), reader as IXmlNamespaceResolver);
+            }
+
+            //END key
+            reader.ReadEndElement();
+
+            if (reader.HasAttributes)
+            {
+                var typeIdKey = reader.GetAttribute("typeId");
+                if (!int.TryParse(typeIdKey, out var parsedTypeId))
+                {
+                    throw new InvalidOperationException($"Could not parse the Attribute 'type-id' to 'int'. Value: '{parsedTypeId}'");
+                }
+
+                if (!types.ContainsKey(parsedTypeId))
+                {
+                    throw new InvalidOperationException($"Invalid type-id on element '{parsedTypeId}'");
+                }
+
+                if (reader.IsEmptyElement)
+                {
+                    reader.ReadStartElement("value");
+                    value = default(TValue);
+                }
+                else
+                {
+                    reader.ReadStartElement("value");
+                    var type = types[parsedTypeId];
+                    value = (TValue)type.Value.ReadObject(reader);
+                }
+            }
+            else
+            {
+                reader.ReadStartElement("value");
+                value = (TValue)reader.ReadContentAs(typeof(TValue), reader as IXmlNamespaceResolver);
+            }
+
+            Add(key, value);
+            reader.ReadEndElement();
+            reader.ReadEndElement();
+        }
+
+        reader.ReadEndElement();
     }
 
     private Assembly MsCoreLib = typeof(string).Assembly;

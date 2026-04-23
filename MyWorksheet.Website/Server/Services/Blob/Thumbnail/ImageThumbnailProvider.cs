@@ -55,7 +55,7 @@ public class ImageThumbnailProvider : IInMemoryThumbnailProvider
 
                 using (var scaledBitmap = new SKBitmap(width, height, bitmap.ColorType, bitmap.AlphaType))
                 {
-                    bitmap.ScalePixels(scaledBitmap, SKFilterQuality.High);
+                    bitmap.ScalePixels(scaledBitmap, SKSamplingOptions.Default);
                     using (var image = SKImage.FromBitmap(scaledBitmap))
                     using (var data = image.Encode(SKEncodedImageFormat.Jpeg, 80))
                     {

@@ -75,7 +75,7 @@ public class ThemeManagerService : RequireInit
     /// <inheritdoc />
     public override async ValueTask InitAsync()
     {
-        SetPreferedTheme();
+        await SetPreferedTheme();
         await base.InitAsync();
     }
 

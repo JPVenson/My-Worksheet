@@ -58,25 +58,25 @@ public class MapperService : IMapperService
     public static DateTimeOffset? FromUtcWithOffset(DateTimeOffset? utc, short? offsetMinutes)
         => utc.HasValue ? FromUtcWithOffset(utc.Value, offsetMinutes ?? 0) : null;
 
-    public MapperService(IUserQuotaService userQuotaService)
+    public MapperService(IUserQuotaService userQuotaService, ILoggerFactory loggerFactory)
     {
         ViewModelMapper = new Mapper(new MapperConfiguration((c) =>
         {
             DefaultMap(c, userQuotaService);
             QuotaMap(c, userQuotaService);
-        }));
+        }, loggerFactory));
 
         ReportingMapper = new Mapper(new MapperConfiguration((c) =>
         {
             DefaultMap(c, userQuotaService);
             MorstachioMap(c);
-        }));
+        }, loggerFactory));
 
         SchedulerMapper = new Mapper(new MapperConfiguration((c) =>
         {
             DefaultMap(c, userQuotaService);
             PriorityQueueMap(c);
-        }));
+        }, loggerFactory));
     }
 
     public IMapper ViewModelMapper { get; set; }

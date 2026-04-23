@@ -60,7 +60,7 @@ public class ImportBlacklistTask : BaseTask
 
     private string HashIt(string domain)
     {
-        return new SHA1Managed().ComputeHash(Encoding.ASCII.GetBytes(domain.ToLower())).Select(e => e.ToString("X2")).Aggregate((e, f) => e + f).ToLower();
+        return SHA1.HashData(Encoding.ASCII.GetBytes(domain.ToLower())).Select(e => e.ToString("X2")).Aggregate((e, f) => e + f).ToLower();
     }
 
     private static readonly char[] _lb = new[] { '\r', '\n' };

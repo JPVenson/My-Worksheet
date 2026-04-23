@@ -26,7 +26,7 @@ public class UserContext : IDisposable
 
     public void Dispose()
     {
-        foreach (var maybeDisposable in Cache.OfType<IDisposable>())
+        foreach (var maybeDisposable in Cache.Values.OfType<IDisposable>())
         {
             maybeDisposable.Dispose();
         }

@@ -562,10 +562,10 @@ public class AccountControllerBase : RestApiControllerBase<AppUser, AccountApiAd
 
             var targetUrl = _serverSettings.Value.Realm.PrimaryRealm
                             + "/api/AccountApi/ConfirmEmailAddress?code="
-                            + Uri.EscapeUriString(GenerateMailConfirmCode(postData.Email, entity.Email, entity.PasswordHash, entity.AppUserId))
+                            + Uri.EscapeDataString(GenerateMailConfirmCode(postData.Email, entity.Email, entity.PasswordHash, entity.AppUserId))
                             + "&"
                             + "mail="
-                            + Uri.EscapeUriString(postData.Email)
+                            + Uri.EscapeDataString(postData.Email)
                             + "&"
                             + "changeId="
                             + entity.AppUserId;

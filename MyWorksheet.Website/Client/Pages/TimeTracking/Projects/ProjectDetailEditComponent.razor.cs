@@ -58,6 +58,9 @@ public partial class ProjectDetailEditComponent
     [Inject]
     public ICacheRepository<PaymentInfoModel> PaymentInfoRepository { get; set; }
 
+    [Inject]
+    public IServiceProvider ServiceProvider { get; set; }
+
     [Parameter]
     public EditProjectViewModel Project { get; set; }
 
@@ -91,7 +94,8 @@ public partial class ProjectDetailEditComponent
 
         WhenChanged(Project, Project.Project)
             .ThenRefresh(this);
-        EditContext ??= new EditContext(Project).AddDataAnnotationsValidation();
+        EditContext ??= new EditContext(Project);
+        EditContext.EnableDataAnnotationsValidation(ServiceProvider);
         EditContext.OnValidationStateChanged -= EditContext_OnValidationStateChanged;
         EditContext.OnValidationStateChanged += EditContext_OnValidationStateChanged;
     }

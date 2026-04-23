@@ -81,7 +81,7 @@ public static class ComponentsWebAssemblyApplicationBuilderExtensions
 
                                 if (fileInfo.Exists)
                                 {
-                                    context.Response.Headers.Add("x-file-size", fileInfo.Length.ToString());
+                                    context.Response.Headers["x-file-size"] = fileInfo.Length.ToString();
                                     context.Response.StatusCode = StatusCodes.Status204NoContent;
                                 }
                                 else

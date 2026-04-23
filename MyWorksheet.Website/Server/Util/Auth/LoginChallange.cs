@@ -159,7 +159,7 @@ public class LoginChallange : IEquatable<LoginChallange>, IComparable<LoginChall
         var hexPw = _passwordHash.ToDecHex();
         sb.Append(hexPw);
 
-        using (var sha256 = new SHA256Managed())
+        using (var sha256 = SHA256.Create())
         {
             var clear = Encoding.ASCII.GetBytes(sb.ToString());
             var computeHash = sha256.ComputeHash(clear);

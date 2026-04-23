@@ -26,6 +26,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using MyWorksheet.Website.Server.Settings;
 using Newtonsoft.Json;
+using MyWorksheet.Shared.Helper;
 
 namespace MyWorksheet.Website.Server.Controllers.Api;
 
@@ -160,7 +161,7 @@ public class AuthorizeApiController : ApiControllerBase
         var user = db.AppUsers.Find(User.GetUserId());
         if (user != null && user.IsTestUser)
         {
-            Task.Run(() => AccountHelper.DeleteUser(user, db, _blobManagerService));
+            Task.Run(() => AccountHelper.DeleteUser(user, db, _blobManagerService)).AttachNonVerboseAsyncHandler();
         }
 
         return Data();
