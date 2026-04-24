@@ -298,13 +298,36 @@ public class SchemaInfoValue
             }
             else if (!jsonProperty.Type.IsValueType)
             {
-                var usageCount = rootSchema.References
-                    .Select(e => e.Value.Properties.Count(f => f.Value.Type.TypeName.Equals(jsonProperty.Type.TypeName, StringComparison.InvariantCultureIgnoreCase)))
-                    .Sum();
-                System.Console.WriteLine($"Type {jsonProperty.Type} is used {usageCount} times");
-                if (usageCount <= 1)
+                bool IsRecursiveDataStructure(string type)
                 {
-                    schemaValue.DisplayType = SchemaEditDisplayType.Object;                    
+                    var lookupStack = new Stack<string>();
+                    var refScheme = rootSchema.References[type];
+                    foreach (var item in refScheme.Properties.Where(e => !e.Value.Type.IsValueType))
+                    {
+                        lookupStack.Push(item.Value.Type.TypeName);
+                    }
+                    
+                    while (lookupStack.Count > 0)
+                    {
+                        var typeToCheck = lookupStack.Pop();
+                        if (typeToCheck.Equals(type))
+                        {
+                            return true;
+                        }
+
+                        refScheme = rootSchema.References[typeToCheck];
+                        foreach (var item in refScheme.Properties.Where(e => !e.Value.Type.IsValueType))
+                        {
+                            lookupStack.Push(item.Value.Type.TypeName);
+                        }
+                    }
+
+                    return false;
+                }
+
+                if (!IsRecursiveDataStructure(typeName))
+                {
+                    schemaValue.DisplayType = SchemaEditDisplayType.Object;
                     schemaValue.Children.AddRange(FromObjectSchema(rootSchema.References[typeName], rootSchema, valueStore, referenceSchemas));
                 }
                 else
