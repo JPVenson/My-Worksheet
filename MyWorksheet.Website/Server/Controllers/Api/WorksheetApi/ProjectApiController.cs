@@ -382,7 +382,7 @@ public class ProjectControllerBase : RestApiControllerBase<Project, GetProjectMo
 
         var proj = model.Project;
 
-        if (db.Worksheets.Any(f => f.IdCurrentStatus != Guid.Empty && f.IdProject == project.ProjectId))
+        if (db.Worksheets.Any(f => f.IdCurrentStatus != null && f.IdProject == project.ProjectId))
         {
             if (proj != null)
             {

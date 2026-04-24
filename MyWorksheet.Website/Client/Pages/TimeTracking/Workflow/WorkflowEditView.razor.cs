@@ -81,10 +81,7 @@ public partial class WorkflowEditView
 
                 if (apiResult.Success)
                 {
-                    ModuleService.NavigateTo($"/Workflows/{WorkflowId}/{apiResult.Object.WorksheetWorkflowDataMapId}");
-
-                    WorkflowDataViewModel = apiResult.Object;
-                    await PluginService.PluginsChanged.RaiseAsync();
+                    NavigationService.NavigateTo($"/Workflows/{WorkflowId}/{apiResult.Object.WorksheetWorkflowDataMapId}", true);
                     return;
                 }
             }

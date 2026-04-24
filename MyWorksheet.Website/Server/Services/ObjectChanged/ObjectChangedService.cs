@@ -33,7 +33,7 @@ public class ObjectChangedService
             Guid? userId = null)
     {
         var group = "ALL";
-        if (userId.HasValue && userId != Guid.Empty)
+        if (userId.HasValue && userId.HasValue)
         {
             group = "ChangeTracking_" + userId.Value;
         }

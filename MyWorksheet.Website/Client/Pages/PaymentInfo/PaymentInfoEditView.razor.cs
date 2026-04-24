@@ -58,7 +58,7 @@ public partial class PaymentInfoEditView
                 ServerErrorManager.DisplayStatus();
                 if (apiResult.Success)
                 {
-                    ModuleService.NavigateTo("/PaymentInfo/" + apiResult.Object.PaymentInfoId);
+                    NavigationService.NavigateTo("/PaymentInfo/" + apiResult.Object.PaymentInfoId, true);
                     return;
                 }
             }

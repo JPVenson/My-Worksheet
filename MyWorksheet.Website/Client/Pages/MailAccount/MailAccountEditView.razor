@@ -22,7 +22,7 @@
 				        class="btn btn-outline-primary">
 					<Translatable Key="Common/Save" />
 				</button>
-				@if (Id != Guid.Empty)
+				@if (Id.HasValue)
 				{
 					<button class="btn btn-outline-danger"
 					        @onclick="Delete">

@@ -40,14 +40,14 @@
 		<fieldset>
 			<FieldControl Label="Common/Name" @bind-Value="StorageProvider.Entity.Name" />
 			<FieldControl Label="UserStorageDetail/ProviderName"
-			              ReadOnly="Id != Guid.Empty"
+			              ReadOnly="Id.HasValue"
 			              TValue="object">
 				<EditorTemplate Context="_context">
 					<SelectionFieldControl AllowNullValue="false"
 					                       ItemsSource="Provider"
 					                       TKey="string"
 					                       TValue="StorageProviderInfo"
-					                       ReadOnly="Id != Guid.Empty"
+					                       ReadOnly="Id.HasValue"
 					                       ValueMemberExpression="info => info.Key"
 					                       DisplayMemberExpression="info => info.Display"
 					                       @bind-SelectedItem="SelectedProvider"

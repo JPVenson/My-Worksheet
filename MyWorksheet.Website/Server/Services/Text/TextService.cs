@@ -78,7 +78,7 @@ public class TextService : RequireInit, ITextService
 
         var text = translation.Text.ToString();
 
-        for (var index = 0; index < translationInfo.Arguments.Length; index++)
+        for (var index = 0; index < (translationInfo.Arguments ?? []).Length; index++)
         {
             var translationInfoArgument = translationInfo.Arguments[index];
             text = text.Replace("{" + index + "}", Compile(translationInfoArgument).ToString());

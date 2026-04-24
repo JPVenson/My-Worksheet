@@ -12,19 +12,23 @@ using MyWorksheet.Website.Server.Services.ExternalDomainValidator;
 using MyWorksheet.Website.Server.Services.StreamPool;
 using MyWorksheet.Website.Server.Shared.ObjectSchema;
 using Microsoft.EntityFrameworkCore;
+using MyWorksheet.Website.Server.Services.Text;
 
 namespace MyWorksheet.Website.Server.Services.Blob.Provider;
 
 public class HttpBlobStorageProvider : BlobProviderBase
 {
     private readonly ILocalFileStreamPoolService _fileStreamPoolService;
+    private readonly ITextService _textService;
     private readonly IExternalDomainValidator _externalDomainValidator;
     public HttpBlobStorageProvider(Guid storageInstance, StorageProviderData[] data,
         IDbContextFactory<MyworksheetContext> dbContextFactory,
         IExternalDomainValidator externalDomainValidator,
-        ILocalFileStreamPoolService fileStreamPoolService) : base(storageInstance, data, dbContextFactory)
+        ILocalFileStreamPoolService fileStreamPoolService,
+        ITextService textService) : base(storageInstance, data, dbContextFactory)
     {
         _fileStreamPoolService = fileStreamPoolService;
+        _textService = textService;
         _externalDomainValidator = externalDomainValidator;
     }
 
@@ -88,11 +92,12 @@ public class HttpBlobStorageProvider : BlobProviderBase
 
         var uri = new Uri(url.Replace("{{id}}", id.ToString()), UriKind.RelativeOrAbsolute);
 
-        var checkedUrl = _externalDomainValidator.ValidateUrl(uri.Host, "http", "https");
+        var checkedUrl = _externalDomainValidator.ValidateUrl(uri.ToString(), "http", "https");
 
-        if (checkedUrl != null)
+        if (checkedUrl is not null and { IsValid: false })
         {
-            throw new InvalidOperationException($"{checkedUrl}");
+            var errorTranslations = string.Join(',', checkedUrl.Error.Select(e => _textService.Compile(e)));
+            throw new InvalidOperationException(errorTranslations);
         }
 
         return Task.FromResult(uri);

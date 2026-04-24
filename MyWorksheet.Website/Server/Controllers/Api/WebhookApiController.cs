@@ -108,7 +108,6 @@ public class WebhookApiControllerBase : ApiControllerBase
         }
         webhook.Secret = CreateSecret(User.Identity.Name);
 
-        OutgoingWebhook webhookData = null;
         using var db = _dbContextFactory.CreateDbContext();
 
         var transaction = await db.Database.BeginTransactionAsync();
@@ -120,8 +119,8 @@ public class WebhookApiControllerBase : ApiControllerBase
             await db.SaveChangesAsync().ConfigureAwait(false);
             await transaction.CommitAsync().ConfigureAwait(false);
         }
-        ;
-        var outgoingWebhookModelGet = _mapper.ViewModelMapper.Map<OutgoingWebhookModelGet>(webhookData);
+
+        var outgoingWebhookModelGet = _mapper.ViewModelMapper.Map<OutgoingWebhookModelGet>(webhook);
         return Data(outgoingWebhookModelGet);
     }
 

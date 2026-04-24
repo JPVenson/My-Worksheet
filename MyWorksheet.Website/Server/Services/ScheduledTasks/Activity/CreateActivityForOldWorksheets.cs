@@ -21,7 +21,7 @@ public class CreateActivityForOldWorksheets : BaseTask
     public override async Task DoWorkAsync(TaskContext context)
     {
         var db = await DbContectFactory.CreateDbContextAsync().ConfigureAwait(false);
-        var wsNotSubmitted = db.Worksheets.Where(f => f.IdCurrentStatus != Guid.Empty)
+        var wsNotSubmitted = db.Worksheets.Where(f => f.IdCurrentStatus != null)
             .Where(e => e.EndTime < DateTime.UtcNow.AddDays(7))
             .ToArray();
 
