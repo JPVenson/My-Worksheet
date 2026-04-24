@@ -350,7 +350,7 @@ public class StorageApiControllerBase : RestApiControllerBase<StorageProvider, S
                 {
                     field.IdAppUser = User.GetUserId();
                     field.IdStorageProviderNavigation = provider;
-                    if (objectSchema.Properties[field.Key].Type == "string | secure")
+                    if (objectSchema.Properties[field.Key].Type.TypeName == "string | secure")
                     {
                         field.Value = ChallangeUtil.EncryptPassword(field.Value, User.Identity.Name);
                     }

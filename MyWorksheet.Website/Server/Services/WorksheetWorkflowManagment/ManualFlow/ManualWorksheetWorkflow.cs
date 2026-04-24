@@ -92,15 +92,21 @@ public class ManualWorksheetWorkflow : IWorksheetWorkflow
         argumentSchema.Properties.Remove(nameof(WorkflowReportArguments.Worksheet));
         argumentSchema.Properties.Remove(nameof(WorkflowReportArguments.Date));
         schema.References["WorksheetSpecSchema"] = argumentSchema;
-        schema.References[schema.Properties[nameof(ManualWorkflowData.SubmitReport)].Type].Properties[nameof(ManualWorkflowData.ManualWorkflowReport.ReportData)] = new()
+        schema.References[schema.Properties[nameof(ManualWorkflowData.SubmitReport)].Type.TypeName].Properties[nameof(ManualWorkflowData.ManualWorkflowReport.ReportData)] = new()
         {
             Name = "Workflow.Manual/Data.Comments.ReportData",
-            Type = "WorksheetSpecSchema"
+            Type = new()
+            {
+                TypeName = "WorksheetSpecSchema"
+            }
         };
-        schema.References[schema.Properties[nameof(ManualWorkflowData.ConfirmedReport)].Type].Properties[nameof(ManualWorkflowData.ManualWorkflowReport.ReportData)] = new()
+        schema.References[schema.Properties[nameof(ManualWorkflowData.ConfirmedReport)].Type.TypeName].Properties[nameof(ManualWorkflowData.ManualWorkflowReport.ReportData)] = new()
         {
             Name = "Workflow.Manual/Data.Comments.ReportData",
-            Type = "WorksheetSpecSchema"
+            Type = new()
+            {
+                TypeName = "WorksheetSpecSchema"
+            }
         };
 
         return schema;

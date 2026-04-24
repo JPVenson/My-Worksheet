@@ -11,6 +11,7 @@ using MyWorksheet.Website.Shared.ViewModels;
 using MyWorksheet.Website.Shared.ViewModels.ApiResultModels.Worksheet;
 using MyWorksheet.Website.Shared.ViewModels.ApiResultModels.Worksheet.Workflow;
 using Microsoft.AspNetCore.Components;
+using MyWorksheet.Website.Client.Util.View;
 
 namespace MyWorksheet.Website.Client.Pages.TimeTracking.Workflow;
 
@@ -81,6 +82,9 @@ public partial class WorkflowEditView
                 if (apiResult.Success)
                 {
                     ModuleService.NavigateTo($"/Workflows/{WorkflowId}/{apiResult.Object.WorksheetWorkflowDataMapId}");
+
+                    WorkflowDataViewModel = apiResult.Object;
+                    await PluginService.PluginsChanged.RaiseAsync();
                     return;
                 }
             }

@@ -181,7 +181,7 @@ public class SchemaInfoValue
     public string Comment { get; set; }
     public object DefaultValue { get; set; }
     public bool Optional { get; set; }
-    public object SchemaType { get; set; }
+    public JsonSchemaTypeInfo SchemaType { get; set; }
     public bool IsListType { get; set; }
 
     public bool BooleanValue
@@ -273,47 +273,50 @@ public class SchemaInfoValue
             var schemaValue = new SchemaInfoValue();
             schemaValue._valueStore = valueStore;
 
-            schemaValue.Optional = prop.Value.IsOptional;
+            var jsonProperty = prop.Value;
+            schemaValue.Optional = jsonProperty.IsOptional;
             schemaValue.ValueName = prop.Key;
             schemaValue.Name = prop.Key;
-            schemaValue.DisplayName = prop.Value.Name ?? prop.Key;
+            schemaValue.DisplayName = jsonProperty.Name ?? prop.Key;
 
-            schemaValue.SchemaType = prop.Value.Type;
+            schemaValue.SchemaType = jsonProperty.Type;
             if (schemaValue.Value == null)
             {
-                schemaValue.Value = prop.Value.Default;
+                schemaValue.Value = jsonProperty.Default;
                 schemaValue.ValueAsString = schemaValue.Value?.ToString();
             }
-            schemaValue.Comment = prop.Value.Comment;
-            schemaValue.AllowedValues = prop.Value.AllowedValues;
-            schemaValue.IsListType = prop.Value.IsListType;
+            schemaValue.Comment = jsonProperty.Comment;
+            schemaValue.AllowedValues = jsonProperty.AllowedValues;
+            schemaValue.IsListType = jsonProperty.Type.IsListType;
 
-            if (prop.Value.IsAnonymousType)
+            string typeName = jsonProperty.Type.TypeName;
+
+            if (jsonProperty.Type.IsAnonymousType)
             {
                 schemaValue.DisplayType = SchemaEditDisplayType.Object;
-                schemaValue.Children.AddRange(FromObjectSchema(rootSchema.References[prop.Value.Type], rootSchema, valueStore, referenceSchemas));
+                schemaValue.Children.AddRange(FromObjectSchema(rootSchema.References[typeName], rootSchema, valueStore, referenceSchemas));
             }
-            else if (!JsonHelper.TypeCsToTsMapping.Any(e => e.Value.Equals(prop.Value.Type, StringComparison.InvariantCultureIgnoreCase)))
+            else if (!jsonProperty.Type.IsValueType)
             {
                 var usageCount = rootSchema.References
-                    .Select(e => e.Value.Properties.Count(f => f.Value.Type.Equals(prop.Value.Type, StringComparison.InvariantCultureIgnoreCase)))
+                    .Select(e => e.Value.Properties.Count(f => f.Value.Type.TypeName.Equals(jsonProperty.Type.TypeName, StringComparison.InvariantCultureIgnoreCase)))
                     .Sum();
-                System.Console.WriteLine($"Type {prop.Value.Type} is used {usageCount} times");
+                System.Console.WriteLine($"Type {jsonProperty.Type} is used {usageCount} times");
                 if (usageCount <= 1)
                 {
                     schemaValue.DisplayType = SchemaEditDisplayType.Object;                    
-                    schemaValue.Children.AddRange(FromObjectSchema(rootSchema.References[prop.Value.Type], rootSchema, valueStore, referenceSchemas));
+                    schemaValue.Children.AddRange(FromObjectSchema(rootSchema.References[typeName], rootSchema, valueStore, referenceSchemas));
                 }
                 else
                 {
                     schemaValue.DisplayType = SchemaEditDisplayType.ObjectReference;
-                    schemaValue.Value = rootSchema.References[prop.Value.Type];
-                    if (!referenceSchemas.ContainsKey(prop.Value.Type))
+                    schemaValue.Value = rootSchema.References[typeName];
+                    if (!referenceSchemas.ContainsKey(typeName))
                     {
                         var referenceScheme = new SchemaInfoValue();
-                        referenceScheme.Name = prop.Value.Type;
-                        referenceSchemas[prop.Value.Type] = referenceScheme;
-                        referenceScheme.Children.AddRange(FromObjectSchema(rootSchema.References[prop.Value.Type], rootSchema, valueStore, referenceSchemas));
+                        referenceScheme.Name = typeName;
+                        referenceSchemas[typeName] = referenceScheme;
+                        referenceScheme.Children.AddRange(FromObjectSchema(rootSchema.References[typeName], rootSchema, valueStore, referenceSchemas));
                     }
                 }
             }
@@ -322,7 +325,7 @@ public class SchemaInfoValue
             {
                 schemaValue.DisplayType = SchemaEditDisplayType.Value;
 
-                if (prop.Value.Type is "string | Guid" && schemaValue.AllowedValues?.Any() == true) // Guids are special as they are send as strings in the allowed values but needs conversion
+                if (typeName is "string | Guid" && schemaValue.AllowedValues?.Any() == true) // Guids are special as they are send as strings in the allowed values but needs conversion
                 {
                     schemaValue.AllowedValues = schemaValue.AllowedValues.ToDictionary(e => e.Key, e => Guid.Parse(e.Value.ToString()) as object);
                 }
@@ -336,17 +339,12 @@ public class SchemaInfoValue
     public string GetHtmlInputType()
     {
         var schemaType = SchemaType;
-        if (schemaType is JObject || schemaType is JArray)
+        if (schemaType.IsAnonymousType)
         {
             return "object";
         }
 
-        if (schemaType is JValue jValue)
-        {
-            schemaType = jValue.ToString();
-        }
-
-        switch (schemaType.ToString().ToLower())
+        switch (schemaType.TypeName.ToLower())
         {
             case "string":
                 return "text";

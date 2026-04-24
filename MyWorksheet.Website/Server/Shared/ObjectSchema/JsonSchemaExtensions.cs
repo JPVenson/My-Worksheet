@@ -53,7 +53,7 @@ public static class JsonSchemaExtensions
         var convertedData = new Dictionary<string, object>();
         foreach (var flatSchemaItem in values)
         {
-            var infoAt = MyWorksheet.Private.Models.ObjectSchema.JsonSchema.WalkPath(schema, flatSchemaItem.Key, delimiter);
+            var infoAt = Private.Models.ObjectSchema.JsonSchema.WalkPath(schema, flatSchemaItem.Key, delimiter);
             if (!infoAt.Item1)
             {
                 continue;
@@ -66,9 +66,9 @@ public static class JsonSchemaExtensions
             }
             else
             {
-                if (infoAt.Item2.Type.ToString() != "string")
+                if (infoAt.Item2.Type.TypeName != "string")
                 {
-                    var translateTsToCs = JsonHelper.TranslateTsToCs(infoAt.Item2.Type.ToString());
+                    var translateTsToCs = JsonHelper.TranslateTsToCs(infoAt.Item2.Type.TypeName);
                     if (translateTsToCs == typeof(Guid))
                     {
                         changeType = Guid.Parse(flatSchemaItem.Value);
@@ -236,8 +236,11 @@ public static class JsonSchemaExtensions
                 map.Properties.Add(prop.Name, new()
                 {
                     Name = prop.DisplayName,
-                    Type = dynName,
-                    IsAnonymousType = true,
+                    Type = new()
+                    {
+                        IsAnonymousType = true,
+                        TypeName = dynName
+                    },
                     IsOptional = isNullable,
                     Validator = prop.ValueValidator
                 });
@@ -262,8 +265,11 @@ public static class JsonSchemaExtensions
                 map.Properties.Add(prop.Name, new()
                 {
                     Name = prop.DisplayName,
-                    Type = primitiveTypeName ?? innerType.Name,
-                    IsListType = true,
+                    Type = new()
+                    {
+                        TypeName = primitiveTypeName ?? innerType.Name,
+                        IsListType = true
+                    },
                     IsOptional = isNullable,
                     Validator = prop.ValueValidator
                 });
@@ -280,7 +286,10 @@ public static class JsonSchemaExtensions
                     map.Properties.Add(prop.Name, new()
                     {
                         Name = prop.DisplayName,
-                        Type = propType.Name,
+                        Type = new()
+                        {
+                            TypeName = propType.Name,
+                        },
                         Comment = prop.Comment,
                         IsOptional = isNullable,
                         Validator = prop.ValueValidator
@@ -292,7 +301,12 @@ public static class JsonSchemaExtensions
                     map.Properties.Add(prop.Name, new()
                     {
                         Name = prop.DisplayName,
-                        Type = ttcs,
+                        Type = new()
+                        {
+                            TypeName = ttcs,
+                            IsValueType = true,
+                            IsStaticCompositType = propType.IsEnum
+                        },
                         Comment = prop.Comment,
                         IsOptional = isNullable || propType == typeof(bool),
                         Validator = prop.ValueValidator,

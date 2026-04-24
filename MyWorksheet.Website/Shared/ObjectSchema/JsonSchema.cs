@@ -60,7 +60,7 @@ public class JsonSchema : IObjectSchema
                 return new Tuple<bool, JsonSchemaProperty>(false, null);
             }
 
-            if (!rootSource.References.TryGetValue(innerProp.Type, out var innerSchema))
+            if (!rootSource.References.TryGetValue(innerProp.Type.TypeName, out var innerSchema))
             {
                 return new Tuple<bool, JsonSchemaProperty>(false, null);
             }

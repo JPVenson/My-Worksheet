@@ -63,7 +63,7 @@
 									}
 									else
 									{
-										@prefix @item.SchemaType @suffix
+										@prefix @item.SchemaType.TypeName @suffix
 										if (item.Optional)
 										{
 											<span> | null</span>
@@ -81,7 +81,7 @@
 							else if (item.DisplayType == SchemaEditDisplayType.ObjectReference)
 							{
 								@prefix
-								<span class="reference btn-link" @onclick="async () => await ScrollIntoView(item.SchemaType.ToString())">@item.SchemaType</span>
+								<span class="reference btn-link" @onclick="async () => await ScrollIntoView(item.SchemaType.TypeName)">@item.SchemaType.TypeName</span>
 								@suffix
 							}
 							@if (i + 1 < schemaValues.Count)

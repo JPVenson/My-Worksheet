@@ -1,8 +1,7 @@
-﻿
-/*.list-group-item-badge {
+﻿/*.list-group-item-badge {
 	width: 5px;*/
-	/*height: 40px;*/
-	/*margin: -10px -15px;
+/*height: 40px;*/
+/*margin: -10px -15px;
 
 	@each $color, $value in $theme-colors {
 		@include list-group-item-variant($color, theme-color-level($color, -9), theme-color-level($color, 6));
@@ -23,7 +22,9 @@
 	}
 }
 
-input, select, textarea.full-input {
+input,
+select,
+textarea.full-input {
 	max-width: none;
 }
 
@@ -53,4 +54,12 @@ input, select, textarea.full-input {
 	}
 }
 
+.table {
+	width: 100%;
 
+	td:not(:last-child),
+	th:not(:last-child) {
+		white-space: nowrap;
+		width: 1px;
+	}
+}

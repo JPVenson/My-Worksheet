@@ -13,7 +13,7 @@ public interface IObjectSchemaInfo
 
 public class JsonSchemaProperty
 {
-    public string Type { get; set; }
+    public JsonSchemaTypeInfo Type { get; set; }
 
     public string Name { get; set; }
 
@@ -25,9 +25,18 @@ public class JsonSchemaProperty
 
     public ValueValidator Validator { get; set; }
 
+    public bool IsOptional { get; set; }
+}
+
+public class JsonSchemaTypeInfo
+{
+    public string TypeName { get; set; }
+
+    public bool IsStaticCompositType { get; set; }
+
     public bool IsAnonymousType { get; set; }
 
-    public bool IsListType { get; set; }
+    public bool IsValueType { get; set; }
 
-    public bool IsOptional { get; set; }
+    public bool IsListType { get; set; }
 }
